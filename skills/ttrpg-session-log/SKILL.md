@@ -4,7 +4,7 @@ description: "Write the session log: the authoritative record of what actually h
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Session log
@@ -25,6 +25,10 @@ campaign a year later.
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
+> A complete worked log for an **invented** campaign, annotated, is in
+> [references/example-log.md](references/example-log.md) — read it once to calibrate shape and
+> register; it is a shape, never content to reuse. It logs the session that
+> `ttrpg-session-prep`'s example prepared.
 
 ## Phase 0 — Read the campaign profile
 

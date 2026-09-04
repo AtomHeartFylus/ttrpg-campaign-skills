@@ -34,6 +34,9 @@ and it is why this repo has a contract checker where a looser collection would n
 - `NO-SYSTEM-NAMES` has **no per-file exception list on purpose**. A system name belongs in
   `A.ruleset`, which the campaign fills, or in an overlay outside this repo. The worked example in
   the schema is an invented campaign for the same reason: a realistic one gets copied, not read.
+- The checker proves **form**; behaviour is checked by hand with `tests/` (see `docs/AUTHORING.md`
+  §9). A behavioural change to a skill — a phase, a required element, a branch — re-runs that
+  skill's eval or updates its rubric in the same commit; a wording fix needs the checker alone.
 - When a check needs an exception, express it in the schema and make the exception *visible*: the
   `(setup-only)` marker on a slot is the worked example — it is parsed from the profile, never
   hardcoded, and its count is printed in the summary line.
@@ -44,6 +47,9 @@ and it is why this repo has a contract checker where a looser collection would n
 - `templates/` — `campaign-profile.md` (the schema every skill reads) and `overlay-SKILL.md`.
 - `docs/` — `PRINCIPLES.md` (P1…P13, cited by tag) and `AUTHORING.md` (how to write a skill here).
 - `scripts/` — `check_contract.py`, the only script.
+- `tests/` — the behavioral eval harness: `fixture-campaign/` (an invented campaign repo with
+  deliberately seeded defects — never clean it) and `evals/` (one scenario + rubric per covered
+  skill). Protocol in `tests/README.md`; not installed, like `docs/` and `templates/`.
 
 ## Active decisions
 
@@ -99,6 +105,11 @@ Decisions already taken. Reopen them deliberately, do not re-litigate them by ac
   gets what is needed *one way only*. Entrypoints stay in the 200–250 line band (the `E.overrides`
   and `D.shape` branches are Phase 0 material and cannot move to `references/`), and a link inside
   a skill folder must resolve inside that folder — installation copies the folder alone.
+- **Worked examples are shape, not content.** Artifact skills bundle an annotated
+  `references/example-*.md` on one shared invented campaign ("The Weir Circuit"); the fixture in
+  `tests/` is the same campaign. Nothing in an example or the fixture may name a real system or a
+  real table, and an example is updated in the same commit as the skeleton it demonstrates — a
+  stale example outteaches the rules it contradicts.
 - **The package is an extraction from real play.** Nothing enters because it sounds useful: encounter
   balancing, rules lookup, character sheets and VTT integration are deliberate non-goals, and the
   known gaps (item/economy ledger, scheduling, player-facing handouts, endgame and archival) wait

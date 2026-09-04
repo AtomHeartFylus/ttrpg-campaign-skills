@@ -97,8 +97,24 @@ canonical), but it surprises people once.
    overlay skill (see `templates/overlay-SKILL.md`). Overlays should be short; if an overlay
    grows past a page, the base skill is probably missing a slot.
 
-The installer copies `skills/` only: `docs/` and `templates/` stay in the clone, which is where you
-read the principles and start an overlay from.
+The installer copies `skills/` only: `docs/`, `templates/` and `tests/` stay in the clone, which is
+where you read the principles, start an overlay from, and run the evals.
+
+---
+
+## Worked examples and evals
+
+Each artifact-producing skill bundles a complete **worked example** of its output
+(`references/example-*.md`): one invented campaign ("The Weir Circuit", system "Lantern &
+Ledger") runs through prep, log, recap and an entity note, annotated with why each block is the
+way it is. They are shapes to calibrate on, never content to reuse — every name and number in them
+is fictional on purpose.
+
+`tests/` holds the **behavioral eval harness**: `fixture-campaign/` is that same invented campaign
+as a repo with deliberately seeded defects, and `evals/` holds one scenario + pass/fail rubric per
+covered skill. `scripts/check_contract.py` proves the skills are well-formed; the evals are how you
+check they *work* — after a behavioural change, or before trusting a new model with your campaign.
+Protocol in [`tests/README.md`](tests/README.md).
 
 ---
 

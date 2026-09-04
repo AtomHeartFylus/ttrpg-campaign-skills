@@ -4,7 +4,7 @@ description: "Create or update the single note for one campaign entity — an NP
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Entity note
@@ -19,6 +19,10 @@ concept graph can reach. It is read cold, months later, by someone who forgot wh
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
+> A complete worked entity note for an **invented** campaign, annotated, is in
+> [references/example-entity.md](references/example-entity.md) — read it once to calibrate the
+> admission-test spine and the proportion of the intention block; it is a shape, never content
+> to reuse.
 
 ## Phase 0 — Read the campaign profile
 

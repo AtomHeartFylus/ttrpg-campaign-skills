@@ -4,7 +4,7 @@ description: "Write the session prep document a GM actually holds during play: g
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Session prep
@@ -20,12 +20,15 @@ structural choice below exists to make information findable under pressure.
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
-**Supporting references** — read the one you need, not both by default:
+**Supporting references** — read the one you need, not all of them by default:
 - [references/scene-anatomy.md](references/scene-anatomy.md) — how a single scene is built: the
   block vocabulary, the two levels of reminders, staging defects, NPC intention, dramatic compass,
   white space, combat with an objective. Read it while writing or fixing scenes.
 - [references/red-team.md](references/red-team.md) — the derailment prediction pass and the content
   margin. Read it before finishing, or hand it to a sub-agent as a standalone pass.
+- [references/example-prep.md](references/example-prep.md) — a complete worked prep for an
+  **invented** campaign, annotated with why each block is the way it is. Read it once to calibrate
+  shape and register; it is a shape, never content to reuse.
 
 ---
 

@@ -4,7 +4,7 @@ description: "Write the in-fiction recap that is read aloud to open the next ses
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Table recap
@@ -21,6 +21,10 @@ input is the session log; its audience is the players, in character, with the li
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
+> A complete worked recap for an **invented** campaign, annotated, is in
+> [references/example-recap.md](references/example-recap.md) — read it once to calibrate posture
+> and register; it is a shape, never prose to reuse. It opens the session after the one
+> `ttrpg-session-log`'s example records.
 
 ## The posture
 

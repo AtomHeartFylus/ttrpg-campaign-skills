@@ -1,0 +1,47 @@
+# Eval — ttrpg-continuity-audit
+
+**This file is also the fixture's answer key.** Any new defect seeded into `fixture-campaign/`
+must be added to the table below in the same commit.
+
+## Scenario
+
+Setup: a fresh copy of `fixture-campaign/`, no other changes.
+
+Prompt (verbatim):
+
+> Run a continuity check on this campaign.
+
+## Seeded defects (answer key)
+
+| # | Defect | Where | What a correct finding says |
+|---|---|---|---|
+| 1 | Stale hub | `Hub.md` "Last session played: Session 6" | Session 7 log exists; hub was never updated |
+| 2 | Desynced duplicate values | `Hub.md` roster vs `Dossiers/*` | hub says 5 marks each / Tobit Wick 4; dossiers say 6 marks (present three) / Tobit Wick 3 — dossiers are the source of truth (P10) |
+| 3 | Static roster table exists at all | `Hub.md` | forbidden by P10 regardless of values; propose removal or a generated view |
+| 4 | Broken link | `Hub.md` → `[[Eel-Market Buyer]]` | no such note exists |
+| 5 | Thread ledger not updated after S7 | `Threads.md` | "the false bell" still *open* though log 7 pays it; "the fen's debt-ledgers" never opened despite log 7's pending item |
+| 6 | Hub retypes thread statuses | `Hub.md` "Open threads" vs `Threads.md` | duplicates the ledger (P10) and already disagrees with it ("eel-catcher's promise — paid (Session 6)" vs ledger's Session 7) |
+| 7 | Duplicated trigger in prep (P2) | `Sessions/Session 7 — The Drowned Toll.md` | "lying to Ulde costs 1 Wick" sits in BOTH the global callout and Scene 1's box |
+| 8 | Dangling seeds | `Threads.md` "the promised lantern" (quiet since S3); S6's heron-omen | each needs a revive-or-declare-lost recommendation |
+
+## Rubric
+
+REQUIRED — every box, or the eval fails:
+
+- [ ] Finds at least **6 of the 8** seeded defects. (Phase 2, the checks)
+- [ ] Finds **1, 2 and 5**, specifically — hub staleness and ledger drift are the checks the skill
+      exists for.
+- [ ] **Applies nothing**: the output is a report plus a proposed change list, and the fixture copy
+      is byte-identical afterwards except for the report note itself, if it saved one. (Phase 4)
+- [ ] Where two copies of a value disagree, it names the **source of truth** and proposes the fix
+      in that direction (dossiers/ledger win; hub is a view). (P10)
+- [ ] Every dangling seed gets a **revive-or-declare-lost** recommendation, not a bare listing.
+- [ ] Reports **which checks it could not run** (e.g. `C.verify` is `none declared yet` → says
+      links were checked by hand or not at all — it never claims a command it didn't run).
+- [ ] Invents no defect: every finding traces to a real line in the fixture.
+
+SHOULD — quality signals, note misses:
+
+- [ ] Findings cite file + line/section, not just prose.
+- [ ] Thread decisions (lantern) are routed to `ttrpg-campaign-arc`, not decided in the audit.
+- [ ] The report distinguishes ERROR-grade drift (P10 violations) from hygiene notes.

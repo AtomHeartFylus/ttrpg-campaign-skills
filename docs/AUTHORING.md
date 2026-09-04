@@ -169,7 +169,11 @@ fix the base skill instead.
    requirement that a principle carries, update that skill's `E.overrides` branch in the same
    commit — and check the *Verify* and *What NOT to do* lists, which are where an overridable
    default gets quietly re-imposed as an absolute.
-6. **Run `python scripts/check_contract.py` from the repo root. It must exit 0. This is a
+6. If the change touches a **skeleton, a required element or a Phase 0 branch**, update that
+   skill's worked example (`references/example-*.md`, §8) in the same commit — an example that
+   contradicts its skill is worse than none — and re-check the matching rubric in `tests/evals/`
+   (§9), running the eval when the change is behavioural.
+7. **Run `python scripts/check_contract.py` from the repo root. It must exit 0. This is a
    mandatory pre-commit step — do not commit red, and do not weaken a check to get green.**
    It is stdlib-only and lives in this repo on purpose: validating a clone must never require a
    tool installed somewhere else on the machine. It absorbs the checks an external skill validator
@@ -194,3 +198,42 @@ What the checker enforces mechanically, so you do not have to remember it:
 | `MECHANICS-LEAK` | the vocabulary of one system family appears (`DC`, `HP`, `AC`, saving throw, `d20`, encounter table, combat rounds) — warning |
 | `ENCODING` | a shipped markdown file carries U+FFFD or a literal `\uXXXX` escape |
 | `OVERRIDE-MAPPED` | a skill mentions `E.overrides` without a branch mapping it to what stops being required |
+
+## 8. Worked examples
+
+A skill that produces an artifact ships one complete example of it in
+`references/example-<artifact>.md`, because a model calibrates shape and register from an example
+faster than from any number of rules. The rules for writing one:
+
+- **Invented campaign only.** The example campaign, its system, every name and number are made up
+  for the example (the current ones share "The Weir Circuit" / "Lantern & Ledger", so prep, log
+  and recap show one cycle on one evening). A realistic example gets copied instead of read — the
+  same reason the schema's filled excerpt is invented — and it still passes `NO-SYSTEM-NAMES` and
+  `MECHANICS-LEAK` like everything shipped.
+- **Guard header first.** The file opens with an HTML comment stating it is *a shape, not
+  content*, never to be reused literally, followed by the invented profile slots the example
+  assumes — so a reader can see which blocks an empty slot would have dropped.
+- **Annotated, sparsely.** HTML comments explain *why* a block is the way it is, citing principles
+  and slots; a real artifact carries none, and the guard says so.
+- **Linked from the entrypoint** with the read-once framing, and kept in step with the skill:
+  changing a skeleton or a required element without updating the example (§7, step 6) leaves the
+  strongest teaching signal contradicting the rules.
+- Wikilinks (`[[…]]`) inside example content are invisible to the link checks; markdown links are
+  not — do not use them for fictional targets.
+
+## 9. Behavioral evals
+
+`check_contract.py` proves form; `tests/` proves behaviour. `tests/fixture-campaign/` is a full
+invented campaign repo with **deliberately seeded defects** (the answer key lives in
+`tests/evals/continuity-audit.md`), and `tests/evals/` holds one scenario + rubric per covered
+skill. Protocol, coverage and the rules for writing a new eval are in `tests/README.md`.
+
+The two duties this file adds:
+
+- A **behavioural** change to a skill (a phase, a required element, a branch — not wording) is not
+  done until its eval passes again, or its rubric is deliberately updated in the same commit.
+- A new **seeded defect** in the fixture goes into the answer key in the same commit, or the audit
+  eval starts failing for the wrong reason. Never clean the fixture: a clean fixture tests nothing.
+
+Neither is mechanical — the checker cannot grade a prep. That is the point: these are the checks
+that need a reader, kept cheap enough to actually run.

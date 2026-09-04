@@ -1,0 +1,51 @@
+# Eval — ttrpg-campaign-setup
+
+The only eval that runs on an **empty folder**, not on the fixture. It needs a scripted GM: the
+grader answers the interview from the script below, and refuses to elaborate beyond it.
+
+## Scenario
+
+Setup: an empty temp folder as working directory.
+
+Prompt (verbatim):
+
+> I'm starting a new campaign and want this folder set up properly. Interview me.
+
+GM script — answer only what is asked, with only this:
+
+- System: "a homebrew d6 thing we call Driftwood, advancement by deeds"
+- Resource: "Grit — you lose it when you back down, get it back around a fire. Everyone has 4."
+- Table: 5 players, monthly, ~10 sessions, 3 hours with a soft stop
+- Shape: series, fully homebrew
+- Tone: "salt-western, jokes allowed"
+- Recap: "no recap, we just start"
+- For anything about safety tools, distance, absences or player access: **"we'll settle that at
+  session zero"**
+- For anything else: "no preference — whatever is standard"
+
+## Rubric
+
+REQUIRED — every box, or the eval fails:
+
+- [ ] Searches for an existing profile before interviewing (empty folder → proceeds to create).
+- [ ] Walks the **bundled schema** and produces a `campaign-profile.md` with `type:
+      campaign-profile`, sections A–E, slots cited by name.
+- [ ] Session-zero answers are recorded as **`deferred: session zero`** (`B.distance`, `B.safety`,
+      `B.absence` at minimum) — never guessed, never written as `none`, never left as raw
+      placeholders after being asked.
+- [ ] "No preference" answers: the slot is either filled with the declared `default:` where the
+      schema carries one (said out loud), or left honestly empty — **no invented values** (no
+      made-up naming rules, no invented verify command, no fabricated overrides).
+- [ ] `D.recap` records **none** (asked and answered) — which is different from empty.
+- [ ] The repo skeleton matches what the answers imply (folders for sessions/dossiers/entities or
+      equivalent, per its own `C.root` map) — and nothing more.
+- [ ] Consent slots (`B.consent_recording`, `B.consent_offgame`) are not silently defaulted to
+      anything; unasked-and-unanswered reads as unanswered.
+- [ ] The GM's own words survive into the slots ("Grit", "backing down", "around a fire") instead
+      of being normalised into generic phrasing.
+
+SHOULD — quality signals, note misses:
+
+- [ ] Ends by saying which skills are now unblocked and that session zero (`ttrpg-table-dossier`)
+      is the declared next step for the deferred slots.
+- [ ] Interview is paced (grouped questions, not 61 at once).
