@@ -53,6 +53,7 @@ BUNDLED_PROFILE = os.path.join(SKILLS, SETUP_SKILL, "references", "campaign-prof
 
 SECTION = "\u00a7"          # the slot sigil
 DESC_MAX = 1024             # agent-skill description budget
+NAME_MAX = 64               # agent-skill name budget
 
 # Files the installer creates inside every skill folder. A link to one of these is
 # valid even though the file is absent from the checkout (see install.sh).
@@ -294,13 +295,31 @@ for d in skill_dirs:
     fm = m.group(1)
     if re.search(r"^\t", fm, re.M):
         err("FRONTMATTER", rel(p), "frontmatter contains a tab (invalid YAML indentation)")
+    # The published skill format accepts only these top-level keys; anything else is
+    # dropped or rejected by the loader, so a typo here silently loses a field.
+    keys = set(re.findall(r"^([A-Za-z_][A-Za-z0-9_-]*):", fm, re.M))
+    unexpected = sorted(keys - {"name", "description", "license", "allowed-tools",
+                                "compatibility", "metadata"})
+    if unexpected:
+        err("FRONTMATTER", rel(p),
+            "unexpected frontmatter key(s): %s - allowed: name, description, license, "
+            "allowed-tools, compatibility, metadata" % ", ".join(unexpected))
     nm = re.search(r"^name:\s*(.+?)\s*$", fm, re.M)
     if not nm:
         err("FRONTMATTER", rel(p), "frontmatter has no 'name'")
-    elif nm.group(1).strip("\"'") != d:
-        err("FRONTMATTER", rel(p),
-            "frontmatter name '%s' != folder '%s' (the router resolves by folder)"
-            % (nm.group(1), d))
+    else:
+        name = nm.group(1).strip("\"'")
+        if name != d:
+            err("FRONTMATTER", rel(p),
+                "frontmatter name '%s' != folder '%s' (the router resolves by folder)"
+                % (name, d))
+        if not re.match(r"^[a-z0-9]+(-[a-z0-9]+)*$", name):
+            err("FRONTMATTER", rel(p),
+                "name '%s' is not hyphen-case (lowercase, digits, single hyphens, no "
+                "leading/trailing hyphen)" % name)
+        if len(name) > NAME_MAX:
+            err("FRONTMATTER", rel(p),
+                "name is %d chars, over the %d budget" % (len(name), NAME_MAX))
     ds = re.search(r"^description:\s*(.*?)(?=\n[A-Za-z_][A-Za-z0-9_-]*:|\Z)",
                    fm, re.M | re.S)
     if not ds:
@@ -313,10 +332,29 @@ for d in skill_dirs:
     if len(desc) > DESC_MAX:
         err("FRONTMATTER", rel(p),
             "description is %d chars, over the %d budget" % (len(desc), DESC_MAX))
+    if "<" in desc or ">" in desc:
+        err("FRONTMATTER", rel(p),
+            "description contains an angle bracket - the skill format forbids < and >")
     if "Use when" not in desc:
         err("FRONTMATTER", rel(p),
             "description has no explicit 'Use when ...' trigger - the router sees "
             "nothing else")
+    # Unfinished scaffolding: a [TODO: ...] left in the frontmatter or in the body
+    # outside a fenced block. Inside a fence it is example text, not a hole.
+    if "[TODO:" in fm:
+        err("FRONTMATTER", rel(p), "frontmatter contains an unfinished [TODO: ...]")
+    fence = None
+    for i, line in enumerate(txt[m.end():].splitlines(), 1):
+        f = re.match(r"^[ \t]*(?:(?:[-+*]|\d+[.)])[ \t]+)?(`{3,}|~{3,})(.*)$", line)
+        if f:
+            if fence is None:
+                fence = f.group(1)[0]
+            elif f.group(1)[0] == fence and not f.group(2).strip():
+                fence = None
+            continue
+        if fence is None and re.fullmatch(r"[ ]{0,3}\[TODO:[^\n]*\][ \t]*", line):
+            err("FRONTMATTER", rel(p),
+                "body contains an unfinished [TODO: ...] placeholder")
     siblings = {s for s in re.findall(r"\bttrpg-[a-z][a-z-]+\b", desc)
                 if s != d and s != "ttrpg-campaign-skills"}
     unknown = sorted(s for s in siblings if s not in known_skills)

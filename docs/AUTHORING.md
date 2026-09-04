@@ -153,6 +153,10 @@ fix the base skill instead.
 5. Re-run the agnosticism self-test (§1) on the touched sections.
 6. **Run `python3 scripts/check_contract.py` from the repo root. It must exit 0. This is a
    mandatory pre-commit step — do not commit red, and do not weaken a check to get green.**
+   It is stdlib-only and lives in this repo on purpose: validating a clone must never require a
+   tool installed somewhere else on the machine. It absorbs the checks an external skill validator
+   would run (frontmatter keys, hyphen-case name, description budget, unfinished `[TODO:`), so
+   there is one command, not two.
 
 What the checker enforces mechanically, so you do not have to remember it:
 
