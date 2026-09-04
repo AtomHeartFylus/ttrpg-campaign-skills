@@ -59,10 +59,10 @@ The skills form a closed cycle:
 
 ## Install
 
-Skills are plain folders with a `SKILL.md`. Install them with the script, which **copies** each
-folder and materialises the files a skill needs to stand alone (the principles, the profile
-template). Do not symlink `skills/` — a symlinked folder is missing exactly those materialised
-files, and every skill opens with a dead link:
+Skills are plain folders with a `SKILL.md`. Everything a skill needs to stand alone is **checked
+into the repo**, not generated at install time — each skill carries its own copy of the principles,
+and `ttrpg-campaign-setup` carries the profile schema it interviews you from. A clone is already a
+valid package; the installer only **copies** folders:
 
 ```sh
 # Windows (PowerShell, from the repo root)
@@ -94,6 +94,32 @@ canonical), but it surprises people once.
 
 ---
 
+## What this package assumes, and what it leaves alone
+
+**The substrate.** These skills assume your campaign memory is a tree of **markdown notes in a
+versioned folder** that an agent can read and write. They do **not** assume which tool displays
+them: no skill names an editor, and everything tool-shaped is a profile slot instead — link syntax
+and its escaping (`C.links`), which values are properties (`C.frontmatter`), forbidden characters in
+filenames (`C.naming`), the verification command and its invariant (`C.verify`). A skill can do
+nothing with the name of an app; it can do everything with those four answers. If your campaign
+lives in a hosted wiki or a shared document instead of in files, this package has no ground to
+stand on — that is a boundary, not an oversight.
+
+**Deliberate non-goals.** No encounter design or difficulty balancing, no rules lookup or SRD
+retrieval, no character sheets or level-up assistance, no virtual-tabletop or map integration.
+Those are where system-agnosticism genuinely breaks — you cannot balance an encounter without
+knowing the system — and they are already served by real tools. This package works on *text that
+persists and gets forgotten*, not on the mathematics of a ruleset.
+
+**Known gaps, honestly.** The package is an extraction from one long campaign, so its holes are
+that table's comforts: there is no item/economy ledger (a promised magic item that never arrives is
+the same defect `ttrpg-continuity-audit` hunts in narrative threads, and it has nothing to check
+against), no scheduling and attendance logistics (the most common cause of campaign death), nothing
+player-facing except the recap, and nothing that lands a finale or archives a finished campaign.
+These wait for a second campaign to earn them rather than being invented here.
+
+---
+
 ## Design bias, stated up front
 
 These skills assume a table where:
@@ -105,8 +131,9 @@ These skills assume a table where:
   people talking.
 
 If your table is a tactical dungeon crawl and you like it that way, several invariants here
-(non-combat exit conditions, moral compass, white space for roleplay) will fight you. Drop
-them explicitly in the profile rather than silently.
+(non-combat exit conditions, moral compass, white space for roleplay) will fight you. Switch them
+off explicitly in the profile's `E.overrides`, where a skill will read the decision and comply
+without arguing — rather than fighting the skills note by note.
 
 ## License
 
