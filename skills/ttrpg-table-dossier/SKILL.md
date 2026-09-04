@@ -19,8 +19,13 @@ output of every log. The campaign's mechanics live elsewhere; this is where the 
 
 ---
 
-> Principles are cited below by tag (`P1`…`P12`); their full text is in
+> Principles are cited below by tag (`P1`…`P13`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+
+**Supporting reference:** [references/session-zero.md](references/session-zero.md) — the six
+decisions of a session zero and how each one ends as a written profile slot. Read it only when a
+campaign is starting, a player is joining, or an unsettled question has to be reopened; the rest of
+this skill runs far more often than that.
 
 ## Phase 0 — Read the campaign profile
 
@@ -43,37 +48,15 @@ output of every log. The campaign's mechanics live elsewhere; this is where the 
 4. **The profile's tone and safety slots** — a session zero that re-opens settled questions wastes
    the table's patience; one that skips unsettled ones detonates later.
 
-## Phase 2 — Session zero
+## Phase 2 — Session zero (only when the campaign or a player is starting)
 
-Not a rules briefing. Six decisions, each of which ends as a written slot or a dossier section:
+Six decisions — expectations, tone contract, safety tools, repo access, attendance, hook harvest —
+each of which must end as a **written profile slot or dossier section**, never as something the
+table remembers agreeing to. The agenda, the wording of each question and the rules for safety-tool
+refresh are in [references/session-zero.md](references/session-zero.md).
 
-```markdown
-1. Expectations       — what each player wants from this campaign, said out loud, one sentence each
-                        (combat, puzzle, drama, comedy, exploration, "I want to be pushed").
-                        Record the mismatches: they are the real agenda of the campaign.
-2. Tone contract      — the dominant register, the admitted breaks, and what would break it
-                        for real (profile §3). Name the heavy themes the campaign will touch.
-3. Safety tools       — which tool, who may call it, what happens after it is called, and
-                        the refresh cadence. Write into profile §7.
-4. Repo access        — what players may read: player-facing reference, recaps, logs, nothing.
-                        Write into profile §8. This decides where GM-facing notes may live.
-5. Attendance         — the in-fiction convention for absent players, and whether they advance.
-                        Write into profile §7. Decide it now, not the first night someone is out.
-6. Hook harvest       — the direct questions that fill each dossier's hooks section (below).
-                        This is the only part that must be done per player, on the record.
-```
-
-Session zero produces text in **two registers**: what is agreed with the table goes into the
-profile slots; what you observe about each human goes into their dossier, GM-facing.
-
-### Safety tools and their refresh
-Record in §7: the tool, who may invoke it (everyone, without justifying), what the table does when
-it is invoked (rewind, cut, move on — decided in advance, not negotiated in the moment), and
-**when it is refreshed**: at session zero, when a new player joins, and *before* any arc the profile's
-tone flags as heavy. Refresh it out loud even when nobody has ever used it — the lesson of tables
-where the tool existed on paper for a year and no player remembered they were allowed to call it.
-If the profile's tone declares heavy themes, or the characters sit close to the players themselves,
-this conversation is mandatory, not optional.
+If the campaign is already running, skip to Phase 3; reopen only the decisions the profile leaves
+empty.
 
 ## Phase 3 — The dossier
 
@@ -162,18 +145,11 @@ the spending.
   scene where the outcome depends on them.
 
 ### Attendance convention (profile §7)
-One in-fiction explanation, agreed **once**, applied without negotiation, that covers any absent
-player: a place they stayed behind at, a task that keeps them elsewhere, a state they lapse into.
-Requirements: it costs the session nothing to narrate, it is reversible without ceremony when they
-return, and it is never a punishment.
-
-Also decide, once: **do absentees advance?** (level, resource gains, rewards). Write the answer into
-§7 and apply it mechanically in the post-session update. Deciding this per-session, in the moment,
-turns attendance into a negotiation and absence into a grievance.
-
-If the profile leaves this slot empty, put it on the session-zero agenda; if the campaign has
-already started, ask once and write it back. Never improvise a different explanation each time.
-Single-session play: skip this section entirely.
+Apply what §7 declares: one in-fiction explanation for absent players, agreed once and used without
+negotiation, plus the rule on whether absentees advance. Deciding either in the moment turns
+attendance into a negotiation and absence into a grievance. If the slot is empty, ask once and
+write it back — the requirements a good convention must meet are in
+[references/session-zero.md](references/session-zero.md). Single-session play: skip it.
 
 ## Phase 3bis — Updating dossiers after play
 
