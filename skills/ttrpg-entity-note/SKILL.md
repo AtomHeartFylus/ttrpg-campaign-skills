@@ -9,24 +9,25 @@ metadata:
 
 # Entity note
 
-Produces **one note for one entity**, small and linked, that prep can draw from and that the
-repository's concept graph can reach. It is read cold, months later, by someone who has forgotten
-why this entity was invented.
+Produces **one note for one entity**, small and linked, that prep can draw from and the repository's
+concept graph can reach. It is read cold, months later, by someone who forgot why it was invented.
 
-> **P1 does not apply here.** Prep documents inline everything; entity notes are wiki notes and obey
-> the repository's normal *link, don't copy* rule. The one thing never inlined **anywhere** is a
-> stat block outside its own note.
+> **P1 does not apply here.** Prep inlines everything; entity notes are wiki notes and obey the
+> repository's *link, don't copy* rule. The one thing never inlined **anywhere** is a stat block.
 
 ---
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 ## Phase 0 — Read the campaign profile
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
-`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
-there is none. A profile that exists but was not found re-interviews a GM who already answered.
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
+back empty, search by frontmatter** (`rg -l "type: campaign-profile"`): the schema declares that
+type, `ttrpg-campaign-setup` explicitly tolerates a renamed profile, and no other skill may call a
+renamed profile an absent one. A profile that exists but was not found re-interviews a GM who
+already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
@@ -39,12 +40,25 @@ there is none. A profile that exists but was not found re-interviews a GM who al
 | `D.guide` | whether this entity touches the guide's arc (a line for the guide to have about it) | drop that line |
 | `D.backbone`, `D.official_material`, `D.deviation_policy` | published material → attribution link + record the deviation | treat as homebrew |
 | `D.shape` | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
-| `B.language` | the language the note is written in | match the notes already in the repo |
+| `B.language` | the language the note is written in | write in the language of the notes around it, say which you chose, and offer to record it |
 | `C.player_access`, `C.gm_private` | what players may read; where GM-only material lives | keep every secret in a clearly GM-only section |
 | `C.root`, `C.granularity`, `C.naming`, `C.links`, `C.frontmatter`, `C.verify` | folder, file naming, link syntax, tag families, verification command | ask where the note goes; do not invent a folder |
-| `E.deliverable`, `E.never_without_asking`, `E.retroactivity`, `E.overrides` | deliverable; renaming rules; retroactivity; which defaults are off | save in the repo; never rename an existing note |
+| `E.deliverable`, `E.never_without_asking`, `E.retroactivity`, `E.overrides` | deliverable; renaming rules; retroactivity; which strong defaults this table switched off — see the branch below | save in the repo; never rename an existing note; all defaults in force |
 
 If the search finds no profile, run `ttrpg-campaign-setup` first — do not guess conventions.
+
+**`E.overrides` branch — mandatory.** Two of the strong defaults this skill applies are overridable
+— P4 and P13, which between them own the note's spine — so read the slot before Phase 2 and drop
+what the table switched off. Enforcing a switched-off default is as wrong as inventing a slot value.
+
+| Override | What stops being required here |
+|---|---|
+| `P4 — off` | the full playable intention (surface want / the truth beneath it / how to make it respond). The reason this entity is in play, in one line, is enough |
+| `P13 — off` | the admission test: a figure earns a note without answering the three questions, and the three spine headings drop out of the Phase 3 skeleton |
+
+**What no override touches:** `B.frame` is a **slot, not a principle** — the casting rule for real
+and public figures stands with P4 and P13 off, because it is the table's consent and property, not a
+style. P1, P2, P3, P10 and P11 hold whatever the slot says.
 
 **`D.shape` branch — mandatory.** `series` → as written. `one-shot` → the entity has one appearance
 and no arc: keep the admission test (P13) in full, drop *Appearances* and any tracked state that
@@ -61,9 +75,8 @@ only matters across sessions, do not plan a return. `open sandbox` → as writte
    may already exist under another label in a session log.
 3. If a note exists → **update it in place.** Add sections, never fork a second note. Never rename
    or move it without asking (`E.never_without_asking`) — links break silently.
-4. If the entity appears in published material (`D.official_material`), read that entry first; the note records what
-   you changed and **why** (that reason is what future prep must stay consistent with — the arc's
-   deviation ledger, see `ttrpg-campaign-arc`).
+4. If the entity appears in published material (`D.official_material`), read that entry first; the
+   note records what you changed and **why** — the arc's deviation ledger (`ttrpg-campaign-arc`).
 5. Read every session log where the entity already appeared — the log is the authority on what it
    did and said (P11), and the note must not contradict it.
 
@@ -71,21 +84,17 @@ only matters across sessions, do not plan a return. `open sandbox` → as writte
 
 Before the entity gets a note, answer **explicitly**, in writing: *why is it here* — what put it in
 this place, in this condition, under this pressure, in the internal logic of the setting; *what does
-it represent* — the mechanism, not the label ("a corrupt official" is a label; which complicity,
-appetite or fear made it possible is the mechanism); *what question does it pose to the table* that
-the players cannot answer immediately.
+it represent* — the mechanism, not the label ("a corrupt official" is a label; the complicity,
+appetite or fear that made it possible is the mechanism); *what question does it pose* that the
+players cannot answer immediately.
 
-**The verdict is binding:**
+**The verdict is binding.** Three answers → it earns a note, and prep can build a scene on it. An
+obvious third answer ("it was evil", "it's a shopkeeper"), or an entity that works only as a joke or
+a flash of recognition → it is **decorative, not narrative**: admit it as **background colour
+without dialogue** — one line in the location or faction note, no note of its own, no scene built on
+it — and do not promote it later without redoing the test. Recognition is a spice.
 
-- Three answers → it earns a note, and prep can build a scene on it.
-- The third answer is obvious ("it was evil", "it's a shopkeeper") → the entity is **decorative, not
-  narrative**. Admit it as **background colour without dialogue**: one line in the location or
-  faction note, no note of its own, no scene built on it. Do not promote it later without redoing
-  the test.
-- It only works as a joke or a moment of recognition → same treatment. Recognition is a spice.
-
-Write the three answers *into the note*. They are its spine, not scaffolding to delete: in six
-months they are the only thing that explains why this entity exists.
+Write the three answers *into the note*: they are its spine, not scaffolding to delete.
 
 ## Phase 3 — Structure
 
@@ -124,9 +133,9 @@ if the entity were prepared when it was not.
 ### Playable intention, proportional (P4)
 Full block only for an entity whose misread will breaks a scene, or a hook that dies if it only
 recites a line. One line of want for recurring background figures; type-level behaviour for crowds
-and rank-and-file; nothing for obvious motives, hazards and pure atmosphere. A deliberately
-will-less entity says so, as a choice. Places and items carry intention only when the fiction
-treats them as wilful; otherwise they carry **pressure** — what they do to whoever stays.
+and rank-and-file; nothing for obvious motives, hazards and atmosphere. A will-less entity says so,
+as a choice. Places and items carry intention only when the fiction treats them as wilful; otherwise
+they carry **pressure** — what they do to whoever stays.
 
 ### Parallelism, distance and casting
 **Read [references/parallelism.md](references/parallelism.md) before building an entity on a
@@ -135,40 +144,39 @@ player's exposed nerve.** It owns the full rule; the load-bearing summary:
 - **`B.distance` is read first, before the hook.** `fictional` → the hook is a fact about a
   character, build freely. `close` / `self-insert` → it is a fact about a **person**: use only
   material the player put on the record in their own words, refresh `B.safety` before the entity
-  reaches the table, keep the GM-facing record in `C.gm_private`, and never let the entity embody a
-  claim about the player they did not author. **Empty → ask; do not default to `fictional`.**
+  reaches the table, keep the GM-facing record in `C.gm_private`, and let it embody no claim the
+  player did not author. **Empty → ask; never default to `fictional`.**
 - **The default staging is a parallel, not a cameo:** the *same mechanism* of the flaw wearing a
   different face, so **the player makes the connection themselves**. `B.hooks_staging` may declare
-  literal appearances instead; empty → parallels.
+  literal appearances instead; empty → parallels. **Stated exception:** a figure that *is* the moral
+  question in itself is met directly — remove the name and ask whether the scene still stands.
 - **The frame is `B.frame`** — the single home of the cultural-proximity and casting rule: which
   register a figure must belong to to land with this table, and which real or public figures are
-  admissible. A named subject outside it → cast the nearest parallel inside it. **Empty → ask once;
-  cast no real or public figure until it is answered.**
-- **Stated exception:** a figure that *is* the moral question in itself is met directly. Test:
-  remove the name and ask whether the scene still stands.
+  admissible. A named subject outside it → cast the nearest parallel inside it. **Empty → ask once
+  and cast no real or public figure until it is answered.**
 - In the note record **whose nerve**, **which emotion**, **which question** — never a scene script.
 - If the profile declares no dossier hooks, **skip this entirely.** Do not invent a player's nerve.
 
 ### Stat blocks stay in their own note (P1)
 The full stat block lives in the mechanics note for that creature/NPC and is **linked**, never
-copied into an entity note and never inlined into prep. One distinguishing mechanical trait may be
-written here in one line — short, and needed at the table — with the rest linked. If `A.ruleset`
-declares no stat format, describe the threat in fiction and say mechanics are open.
+copied here and never inlined into prep. One distinguishing mechanical trait may be written here in
+one line — short, and needed at the table — with the rest linked. No stat format in `A.ruleset` →
+describe the threat in fiction and say mechanics are open.
 
 ### Link density and reachability
-**An entity note that links to nothing is orphaned from the campaign's concept graph** — it will
-never surface while preparing the session that needed it. Minimum, in the `C.links` syntax: the
-**place** it belongs to, its **affiliation** (faction, patron, owner), at least one **thematic**
-link, and every **entity** it has a relationship with. Reciprocate the important ones. Reachability,
-not just outbound links: it must be reachable from a hub or an index — where indexes are generated
-by query, the frontmatter tag *is* the reachability. No static roster table (P10).
+**A note that links to nothing is orphaned from the concept graph** — it never surfaces while
+preparing the session that needed it. Minimum, in the `C.links` syntax: the **place** it belongs to,
+its **affiliation** (faction, patron, owner), at least one **thematic** link, and every **entity**
+it has a relationship with. Reciprocate the important ones. Reachability, not just outbound links:
+it must be reachable from a hub or an index — where indexes are generated by query, the frontmatter
+tag *is* the reachability. No static roster table (P10).
 
 ### State and secrets
 Any tracked value this entity owns (position, disposition, resources, status) is written **here and
 nowhere else** (P10). Secrets, hidden truths and planned reveals go in a clearly marked GM-only
 section — and if `C.player_access` says players may read this folder, the secret moves to
-`C.gm_private` and this note links to nothing that leaks it. Never improvise that location:
-`C.gm_private` empty while players have access → stop and ask.
+`C.gm_private`, with nothing here that leaks it. Never improvise that location: `C.gm_private` empty
+while players have access → stop and ask.
 
 ### Naming and placement
 File name, separators and forbidden characters per `C.naming`; folder per the `C.root` map. Aliases
@@ -185,9 +193,9 @@ disambiguate the new one, never rename the old (`E.never_without_asking`).
 - Any nerve-touching entity records whose nerve, which emotion, which question — and is a
   parallelism unless the direct encounter passes the remove-the-name test.
 - `B.distance` was read **before** the hook; under `close` / `self-insert` the GM-facing material
-  sits in `C.gm_private`, the safety refresh is scheduled, and nothing asserts something about the
-  player they did not say themselves. Empty slot → the question was asked, not assumed.
-- Any real or public figure sits inside `B.frame`; nothing was cast against an empty frame.
+  sits in `C.gm_private`, the safety refresh is scheduled, and nothing asserts about the player what
+  they did not say. Any real or public figure sits inside `B.frame`; neither slot was assumed.
+- **An `E.overrides` slot silent on P4 or P13 leaves that default in force**; `B.frame` binds whatever it declares.
 - No stat block inlined; the mechanics link resolves.
 - Links: place + affiliation + theme + related entities, in the profile's syntax; the entity is
   reachable from a hub or an index; no static roster table was edited.
@@ -203,10 +211,9 @@ disambiguate the new one, never rename the old (`E.never_without_asking`).
 - Do not inline a stat block, and do not copy published material into the note; link and attribute.
 - Do not stage the literal figure a player named when the same mechanism with another face would
   make the player do the connecting.
-- Do not use a reference outside `B.frame`, and do not invent a player's nerve.
-- Do not build an entity on a player's hook while `B.distance` is empty — ask first — and do not
-  treat a `close` or `self-insert` table's material as if it belonged to a character.
-- Do not reconstruct the cultural frame from the tone slot or the overlay; `B.frame` owns it.
+- Do not use a reference outside `B.frame`, nor rebuild that frame from the tone slot or an overlay.
+- Do not build an entity on a player's hook while `B.distance` is empty — ask first — do not treat a
+  `close` or `self-insert` table's material as a character's, and do not invent a player's nerve.
 - Do not leave the note orphaned: no links in, no links out, no tag.
 - Do not copy tracked state into an index, a hub or a prep document.
 - Do not leave empty headings as evidence of work that was not done.

@@ -25,19 +25,26 @@ reason the section is allowed to exist at all.
 `C.player_access` decides. If players can read the repo, the note goes to the `C.gm_private`
 location, **or** its existence and contents are agreed openly with the table — those are the only
 two options. If `C.gm_private` is empty while players have access, **stop and ask**; do not pick a
-folder. The path itself comes from `C.capture_paths`.
+folder. The path itself comes from `C.capture_paths` — **but only if that path obeys the access
+rule above.** If `C.capture_paths` points at a versioned, player-readable transcript folder while
+`C.gm_private` requires otherwise, the access rule wins: stop and ask. Reach is a consent question,
+not a layout one, and this is the one place in the package where getting it wrong leaks material
+about real people.
 
 ## The shape
 
 One note per session, structured **by theme**, with **timecodes pointing back into the timecoded
-transcript**:
+transcript**. The file name follows `C.naming`, and the skeleton below names *sections*, not
+wording: **write every heading, table column and parenthetical label in `B.language`**, keeping the
+order and meaning and translating the words. If `B.language` is empty, match the notes already in
+the repo and state which language you chose.
 
 ```markdown
 ---
 <frontmatter per C.frontmatter: session tag, off-game tag>
 ---
 
-# Session N — Off-game
+# Session N — Off-game                         <!-- blocks per C.blocks, headings in B.language -->
 
 > [!info] Curation by theme of the out-of-character talk. Timecodes index the transcript;
 > this is not a transcript. Any participant may have any entry removed on request.

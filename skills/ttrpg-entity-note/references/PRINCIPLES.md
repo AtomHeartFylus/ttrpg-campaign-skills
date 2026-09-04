@@ -35,7 +35,8 @@ vault. It applies to prep documents only.
 Triggers that are easy to lose in the flow live on exactly two levels:
 **global threads** in a callout at the top (what must not be lost sight of *all night*), and
 **scene triggers** in a checkbox box opening each scene (what is easy to forget *right here*).
-No trigger appears on both levels. Any value (a DC, a cost) exists in exactly one place.
+No trigger appears on both levels. Any value (a difficulty, a cost, a quantity) exists in exactly
+one place.
 
 *Why:* duplication means that changing a number leaves a stale copy somewhere.
 *Test:* open any scene — its box alone answers "what do I risk forgetting here?"; the top
@@ -60,8 +61,8 @@ walk away, or contradict it). The surface want must also surface *to the players
 speakable line or a described gesture.
 
 **Scale the burden.** A full box only for NPCs whose misread will breaks a scene, or hooks that
-die if they only recite a line. Type-level behaviour, not per-individual, for crowds from an
-encounter table. One shared framing note, not N boxes, for a large cast of interlocutors.
+die if they only recite a line. Type-level behaviour, not per-individual, for crowds drawn from a
+random table. One shared framing note, not N boxes, for a large cast of interlocutors.
 Obvious motives, hazards and pure atmosphere get nothing. A deliberately will-less NPC is
 marked as a choice.
 
@@ -71,7 +72,7 @@ marked as a choice.
 
 Each scene states: the **question** it poses that the players cannot answer instantly; what a
 **rewardable moment** looks like *in this scene* (so the reward goes to choices and portrayal,
-never to tactical cleverness); and the **exit condition that is not "enemy at zero HP"**
+never to tactical cleverness); and the **exit condition that is not "the opposition is depleted"**
 (cross, convince, endure, protect, renounce).
 
 *Why:* the natural gravity of a table is to reward action, because action is easy to adjudicate.
@@ -89,7 +90,9 @@ advancement, which are easier to improvise.
 
 ### P7 — Spotlight is rotated, not shared equally
 
-Each session has **2–3 protagonists**; the rest are chorus, rotating across sessions.
+Each session has the number of protagonists **`B.protagonists`** declares; the rest are chorus,
+rotating across sessions, and the rotation period is **`B.size` / `B.protagonists`**. No skill and
+no line of this file substitutes a constant for either.
 The spotlight is **distributed into the document**, never a summary table: the cross-session
 arc belongs to the global callout, the per-scene focus is a marked line in that scene's box.
 
@@ -106,15 +109,16 @@ and carried a hook, the prep says how the seed can be recovered later — or dec
 
 Before finishing prep, predict the **3–5 most likely derailing choices of *this* table for *this*
 session**, each with a **response pressure** — never a wall, always a consequence (the enemies
-*pursue*, the door *stays the only exit*, the soul *calls them by name as they leave*).
+*pursue*, the door *stays the only exit*, the petitioner they refused *calls after them by name*).
 Past logs are the best predictor, so this gets sharper every session. Note recurring patterns of
 your table (e.g. a group that habitually looks for the lateral, procedural solution) as standing
 red-team questions.
 
 ### P10 — One source of truth for state
 
-Every tracked value (level, resources, position, open threads) is written in **exactly one place**
-— the character/entity note — and read everywhere else through a live view or a query.
+Every tracked value (advancement, resources, position, open threads) is written in **exactly one
+place** — the character/entity note, or the ledger the profile names for it — and read everywhere
+else through a live view or a query.
 Static roster tables in indexes and prep documents are forbidden: they desynchronise on the first
 update. The single exception is the **exit state** section of a session log, which deliberately
 freezes a historical snapshot of that night.

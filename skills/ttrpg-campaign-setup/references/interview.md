@@ -39,7 +39,7 @@ costs one line and prevents a profile that quietly describes a campaign nobody i
 ## Depth: what to press on, section by section
 
 - **§A (game).** Push past the ruleset name to what the rules *decide* and what is deliberately
-  never rolled for — that boundary is what makes prep either sharp or a list of DCs. If a dramatic
+  never rolled for — that boundary is what makes prep either sharp or a list of numbers. If a dramatic
   resource exists, this is where GMs under-specify most; see the asymmetry rule below. If none
   exists, say `none` once and stop offering to invent one.
 - **§B (table).** The three slots the rest of the package branches on live here (`B.distance`,
@@ -71,7 +71,7 @@ this is the prompt.
 Ask the same three questions of the zero state and the recovery triggers: what happens at zero, how
 often it can happen, and whether recovery is a rule or a favour.
 
-## Wording for the three gating slots
+## Wording for the gating slots
 
 **`B.distance`.** Do not ask it as a taxonomy question, ask it as a fact:
 
@@ -92,6 +92,16 @@ Then write exactly what you were told. If the answer is "I've always recorded an
 that is `no` until they are asked. Do not fill the capture-path slots, and say plainly that the
 audio pipeline stays off until the slot says yes. There is no version of this where guessing is
 the cheap option.
+
+**`B.consent_offgame`.** A separate question, asked of the same people, never inferred from the
+first:
+
+> "Separately from recording: may the out-of-character half of the evening become a durable,
+> themed, timecoded note about what people said as themselves? Everyone present has to say yes,
+> and any of them can have any entry deleted later without giving a reason."
+
+A `yes` to recording is not a `yes` to this. Silence, "probably fine" and last session's answer are
+all `no`. Write what you were told, verbatim if it was qualified.
 
 **`D.shape`.** Ask, then state the consequences before moving on — one-shot switches whole skills
 off, sandbox reshapes what the arc note holds. A GM who hears this at interview time chooses

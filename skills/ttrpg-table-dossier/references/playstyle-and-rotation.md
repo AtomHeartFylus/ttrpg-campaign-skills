@@ -7,7 +7,7 @@ three sections that carry the most craft.
 > **The rotation formula, its tolerance and the ledger are defined HERE and nowhere else in the
 > package.** `ttrpg-campaign-arc` commits who is protagonist next and cites this check;
 > `ttrpg-session-log` records who carried a moment and states no number. If you find a second
-> threshold anywhere, it is a bug \u2014 this one wins.
+> threshold anywhere, it is a bug — this one wins.
 
 ---
 
@@ -39,8 +39,10 @@ next and cites this check; `ttrpg-session-log` records who carried a moment and 
 Neither restates the arithmetic, and neither keeps a second tally — two tallies from two sources
 drift, and nobody updates the second one.
 
-- **One derivation: the dossier diaries.** Each dossier's Diary says which sessions that player
-  carried; count from there and nowhere else. **No spotlight table** anywhere, and no parallel
+- **One derivation: the dossier diaries.** Each dossier's Diary carries one entry per session that
+  player was **present** for, marked *carried* or *chorus*; count from there and nowhere else. The
+  mark is what makes a chorus evening countable at all — without it, chorus and absence look the
+  same and the tolerance below has no input. **No spotlight table** anywhere, and no parallel
   count from the logs — the logs feed the diaries, the diaries feed this (P10).
 - **The formula:** the rotation period is **`B.size / B.protagonists` sessions** — the number of
   sessions after which everyone has carried one. Both are profile slots; **no constant may be
@@ -86,6 +88,9 @@ that procedure: take the finished log as input. What this skill adds afterwards:
   obligation the character took on is a new hook, recorded as one.
 - **Playstyle discipline:** revise **only when the table surprised you**, dating the move to its
   session. A section rewritten every week stops recording anything.
-- **Spotlight ledger:** no separate bookkeeping — the diary entry **is** the ledger. Run the
-  rotation check at `E.audit_cadence`, or every few sessions, not every week.
+- **Spotlight ledger:** no separate bookkeeping — the diary entry **is** the ledger. Run the check
+  **once per rotation period** — the same `B.size / B.protagonists` arithmetic that decides what to
+  flag also decides how often to look — and not every week: a tolerance of 1.5 periods cannot be
+  breached faster than that. `E.audit_cadence` is the *continuity audit's* cadence and is not read
+  here.
 

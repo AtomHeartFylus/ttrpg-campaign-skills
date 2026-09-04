@@ -1,10 +1,10 @@
 ---
 name: ttrpg-campaign-setup
-description: "Bootstrap a campaign repository and produce its filled campaign-profile.md — the contract the other ttrpg-* skills read — or adopt and audit a repo that already has material. Use when starting a campaign vault, filling or revising the campaign profile, or checking that an existing campaign's conventions are coherent. Does not run session zero or write player dossiers (see ttrpg-table-dossier), write session prep (see ttrpg-session-prep), or chase narrative drift and dangling threads (see ttrpg-continuity-audit)."
+description: "Bootstrap a campaign repository and produce its filled campaign-profile.md — the contract the other ttrpg-* skills read — or adopt and audit a repo that already has material. Use when starting a campaign vault, filling or revising the campaign profile, or **establishing** the conventions of a repo that grew without them. Does not audit an established repo for drift or convention leakage (see ttrpg-continuity-audit), does not run session zero or write player dossiers (see ttrpg-table-dossier), write session prep (see ttrpg-session-prep), or chase narrative drift and dangling threads (see ttrpg-continuity-audit)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "2.0"
+  version: "1.1"
 ---
 
 # Campaign setup
@@ -18,12 +18,11 @@ Read by an agent that starts cold on a machine it has never seen before.
 
 > **This skill does not contain the slot list, and never will.** The schema lives in one file —
 > [references/campaign-profile.md](references/campaign-profile.md), bundled into this folder — and
-> the interview is a *walk over that file*. A hand-copied list here is how endgame,
-> protagonists-per-session, frame of reference, recording consent and audit cadence reached the
-> schema and were silently never asked, while this skill's own verify step demanded that no slot be
-> left empty. P10 applied to this package: one source of truth, read everywhere else.
+> the interview is a *walk over that file*. A hand-copied list here is how five slots — endgame,
+> protagonists-per-session, frame of reference, recording consent, audit cadence — reached the
+> schema and were silently never asked. P10 applied to this package: one source of truth.
 > Principles are cited by tag (`P1`…`P13`), full text in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled at install time.
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 ---
 
@@ -69,22 +68,27 @@ now: the portability rule (Phase 3.5) is unenforceable without it.
 3. At the end, **diff your filled profile against the schema**: a slot in the schema and absent
    from your output was skipped. Go back and ask it.
 
-Because the schema is a file and not a paraphrase, a slot added to it reaches the interview the day
-it is added. Do not defeat that by summarising the slot list into your reply plan.
-
-**Empty is an answer.** Write `none` (or `not decided yet — ask before assuming`) into the slot.
+**Empty is an answer.** Write `none` into the slot — or `deferred: <when>` when the answer belongs
+to a conversation that has not happened yet.
 The distinction is load-bearing downstream:
 
 | Slot content | Meaning downstream |
 |---|---|
 | leftover placeholder | never asked → **stop and ask** before producing anything that needs it |
+| `deferred: <when>` | the answer belongs to a conversation still to come → reads as empty: ask or drop, never guess |
 | `none` | asked, answered empty → **drop that section**, silently and permanently |
 | a value | use it, in the GM's wording |
+
+**Write `deferred: session zero`, never `none`, for what session zero owns** — `B.distance`,
+`B.safety`, `D.tone`, `C.player_access`, `B.absence`. The interview runs before that table happens,
+and a `B.safety: none` recorded today switches off the safety tools *permanently* on the strength of
+a conversation nobody has had yet. `ttrpg-table-dossier` fills them in from the session-zero table
+and writes the answers back.
 
 Depth per slot, the asymmetry questions GMs forget to state, wording for the gating slots below,
 and how to walk a GM who answers in paragraphs: [references/interview.md](references/interview.md).
 
-### The three slots that gate other skills' behaviour
+### The slots that gate other skills' behaviour
 
 Ask each explicitly, out loud, and never infer it.
 
@@ -93,7 +97,9 @@ characters *are* the players, a hook harvested about a character is aimed at a r
 GM-facing note about a player is a note about someone in the room. At `self-insert` or `close` the
 safety conversation, the hook harvest and the playstyle notes become load-bearing rather than
 optional, and every skill that harvests hooks, writes notes about a player or aims a scene at one
-branches here. If the GM hesitates between two values, record the closer one and say so.
+branches here. If the GM hesitates between two values, record the closer one and say so — but if
+the answer does not exist yet because the table has not met, write `deferred: session zero` and let
+`ttrpg-table-dossier` settle it there. Guessing is the one thing this slot never tolerates.
 
 **`B.consent_recording` — an explicit `yes`, or no capture pipeline exists.** Ask who agreed, in
 words, and whether that covers everyone including guests. Never infer consent from an audio file, a
@@ -106,12 +112,24 @@ state plainly which package skills the answer switches off:
 
 | `D.shape` | Consequence to state at interview time |
 |---|---|
-| `one-shot` | No previous log, no arc note, no cross-session rotation, no opening recap. The cross-session skills (arc, recap, continuity audit) **have nothing to operate on: they must say so and stop**, not invent a history. Prep and entity notes still apply; the hub collapses into the prep note. |
+| `one-shot` | No previous log, no arc note, no cross-session rotation, no opening recap. The cross-session skills (arc, recap, continuity audit) **have nothing to operate on: they say so and stop, unless the GM explicitly asks for a closing chronicle — which is written as an ending, not as an opening**. Never an invented history. Prep and entity notes still apply; the hub collapses into the prep note. |
 | `series` | What the package is shaped for: chapters, rotation across sessions, arc note, recap. |
 | `open sandbox` | Fronts and pressures instead of chapters. The arc note holds fronts; `D.backbone` must say so, or the arc skill hunts a chapter list that does not exist. |
 
 Record the answer verbatim; if the GM keeps a switched-off section anyway, that goes in
 `E.overrides`.
+
+**`E.overrides` branch — mandatory.** Every other skill *obeys* this slot; this one **fills** it, so
+collect instead of obeying: one override per line, each with one line of reason, in the form the
+schema declares — `P7 — off: <reason>`. A bare `P7 — off` is an argument nobody recorded.
+
+| Principle | At interview | If the GM asks to switch it off |
+|---|---|---|
+| P1, P2, P3, P10, P11 | not overridable | **contradict once, with the reason**: switched off they produce documents that fail at the table, or state that desynchronises. Then record the wish as a working agreement, not as an override, and say which skills keep enforcing it |
+| P4, P5, P6, P7, P8, P9, P12, P13 | strong defaults, legitimately switchable | record verbatim with its reason and move on — no second question, no talking the GM out of it |
+
+Repeat every recorded override in the setup's **closing report**, by tag and reason: that is how the
+GM learns which sections of the other skills just went quiet.
 
 ## Phase 3 — What the answers imply
 
@@ -126,11 +144,18 @@ Write the resulting map into `C.root` as a folder → content table, saying **wh
 note goes**. An agent that cannot answer "where does this note belong?" from the profile invents a
 folder, and the second folder for the same thing is how a vault dies.
 
-### 3.2 The state hub (P10)
+### 3.2 The state hub, and the party note if the resource needs one (P10)
+
+**`A.resource_shape` decides whether one more note exists.** A `shared party clock` has exactly one
+home and it is not a dossier: create the party note here and record it in `C.state_locations`, or
+every later skill will look for a note nobody made. `per-faction` → the value lives on each faction
+note. `per-character` → no extra note; it is a dossier property.
+
 Exactly one note is the campaign's current state (`C.hub`): what does **not** live as a property of
-an entity note — where the party is, last session played, open threads, what comes next. Per-entity
-values live only in that entity's note and are *read* here through a view or query, with the
-mapping recorded in `C.state_locations`. **Static roster tables are forbidden** in hub, indexes and
+an entity note and is not owned by a ledger — where the party is, last session played, what comes
+next. Per-entity values live only in that entity's note, and **open threads live only in
+`C.thread_ledger`**; both are *read* here through a view, a query or a link, with the mapping
+recorded in `C.state_locations`. **Static roster tables are forbidden** in hub, indexes and
 prep: they desynchronise on the first update and then lie confidently. No query mechanism → link to
 the entity notes and say the values are *there*. `D.shape` = `one-shot` → the hub collapses into
 the prep note; say so in `C.hub` rather than creating an empty hub.
@@ -173,7 +198,7 @@ The existing repo is **the authority on its own conventions**. Describe it; do n
 3. **Fill by observation, then confirm; ask the rest.** `C.root`, `C.granularity`, `C.links`,
    `C.frontmatter`, `C.naming`, `D.backbone` and `D.official_material` are readable from the
    material, then confirmed. Everything in §A beyond `A.ruleset`, all of `B.*`, `D.tone`,
-   `D.endgame` and all of §E is asked, never inferred from vibes — the three gating slots even when
+   `D.endgame` and all of §E is asked, never inferred from vibes — the gating slots even when
    the repo shouts the answer. Then walk the schema (Phase 2) for the rest: adoption is not an
    excuse to skip the walk.
 4. **Report the gaps, do not close them.** One ranked list: inconsistent tag or naming forms with
@@ -186,8 +211,9 @@ The existing repo is **the authority on its own conventions**. Describe it; do n
 ## Phase 5 — Verify
 
 - **Slot coverage, mechanically:** diff the slot ids in `references/campaign-profile.md` against
-  those in the profile you wrote. Every schema slot holds a value or an explicit `none`; a slot
-  missing from your output is a slot you never asked.
+  those in the profile you wrote. Every schema slot holds a value, an explicit `none`, or a
+  `deferred: <when>`; a slot missing from your output is a slot you never asked. **A slot session
+  zero owns is `deferred: session zero`, never `none`** — see the four states above.
 - Each `none` was *asked*, not assumed. `B.consent_recording` is `yes` only if someone said yes,
   and `C.capture_paths` is filled only then. `E.overrides` is explicit — `none` is a valid and
   common answer, blank is not. `C.gm_private` is filled whenever `C.player_access` lets players
@@ -210,7 +236,6 @@ The existing repo is **the authority on its own conventions**. Describe it; do n
 - Do not build folders for material the profile does not declare, and do not create a static roster
   or state table anywhere, however convenient.
 - Do not name a verification command you have not run.
-- Do not store any campaign fact outside the repo — not in an assistant memory, not in a local
-  setting, not in this conversation.
+- Do not store any campaign fact outside the repo, this conversation included.
 - Do not restructure an existing vault to match this skeleton. Adopt it, report the gaps, ask.
 - Do not turn the profile into a setting bible: it is a data sheet that links out.

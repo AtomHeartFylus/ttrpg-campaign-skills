@@ -4,7 +4,7 @@ description: "Write the session prep document a GM actually holds during play: g
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.2"
+  version: "1.1"
 ---
 
 # Session prep
@@ -18,7 +18,7 @@ structural choice below exists to make information findable under pressure.
 > deliberate exception to the repository's "link, don't copy" rule and applies to prep only.
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 **Supporting references** — read the one you need, not both by default:
 - [references/scene-anatomy.md](references/scene-anatomy.md) — how a single scene is built: the
@@ -32,14 +32,17 @@ structural choice below exists to make information findable under pressure.
 ## Phase 0 — Read the campaign profile
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
-`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
-there is none. A profile that exists but was not found re-interviews a GM who already answered.
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
+back empty, search by frontmatter** (`rg -l "type: campaign-profile"`): the schema declares that
+type, `ttrpg-campaign-setup` explicitly tolerates a renamed profile, and no other skill may call a
+renamed profile an absent one. A profile that exists but was not found re-interviews a GM who
+already answered.
 Slots used here:
 
 | Slot | Used for | If empty |
 |---|---|---|
 | `A.ruleset`, `A.adjudicated`, `A.houserules` | which mechanics to inline in a scene | inline nothing mechanical; keep scenes fiction-first |
-| `A.fiction` | what this table **never rolls for** — those beats are staged as pure fiction, with no check and no DC in the scene | mechanise nothing you were not asked to; when in doubt, leave the beat to the fiction |
+| `A.fiction` | what this table **never rolls for** — those beats are staged as pure fiction, with no check and no difficulty value in the scene | mechanise nothing you were not asked to; when in doubt, leave the beat to the fiction |
 | `A.resource` (+ `A.resource_loss` / `A.resource_gain`, `A.resource_scale`) | the spend/regain triggers section, and the units a cost is written in | drop that section entirely — do not invent a resource |
 | `D.tone` | register of read-aloud text; the recurring thematic pressure | ask once, then proceed |
 | `D.canon_source` | quote blocks and their delivery mode | no quote blocks |
@@ -51,11 +54,32 @@ Slots used here:
 | `B.absence` | the in-fiction convention for absent players | ask once, then record it in the profile |
 | `B.distance` | **whether a scene may be aimed at a player's exposed nerve** — see the branch in Phase 3 | **ask before aiming any scene at a hook**; do not assume the fictional case |
 | `B.safety` | which tools are live tonight, and who may invoke them | ask once before any heavy scene; do not run one without an answer |
+| `B.frame` | the cultural frame any real, public or historical figure must sit inside — it applies to a figure **staged directly here**, not only to one with a note | cast no real or public figure; ask once. `ttrpg-entity-note` owns the rule, this skill obeys it |
 | `C.root`, `C.links`, `C.frontmatter`, `C.verify` | where the note goes, link syntax, frontmatter, verification command | write the file where told, skip link verification |
+| `C.blocks` | how this vault writes the callouts and checkboxes the skeleton shows | keep the roles, render them as plain headings and blockquotes |
 | `C.inline_exception` | which material may be inlined here beyond the P1 default | apply the P1 default: inline everything but stat blocks |
-| `E.overrides` | which strong defaults this table switched off (P5–P9, P12, P13) | all defaults in force |
+| `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
 
 If the profile is missing, run `ttrpg-campaign-setup` first — do not guess conventions.
+
+**`E.overrides` branch — mandatory.** This skill enforces more overridable defaults than any other,
+so read the slot before Phase 3 and drop what the table switched off; name the honoured overrides
+once, in the prep's own header. Enforcing a default the profile has switched off is as wrong as
+inventing a slot value.
+
+| Override | What stops being required here |
+|---|---|
+| `P4 — off` | the playable-intention box on NPCs; a line of motive is enough |
+| `P5 — off` | the dramatic compass and the non-combat exit, per scene. Combat needs no objective beyond depletion |
+| `P6 — off` | the written white-space scene. Do not reintroduce it as "one quiet beat" |
+| `P7 — off` | the per-scene `Spotlight → <PC>:` marks and the cross-scene spotlight arc |
+| `P8 — off` | the content margin: prep the whole path, no optional-scene budget and no named first cut |
+| `P9 — off` | the red team and the `If they derail:` lines |
+| `P12 — off` | fiction-only read-aloud text; mechanics and meta may appear in what is read at the table |
+| `P13 — off` | the admission test on figures and places the prep introduces |
+
+P1, P2, P3, P10 and P11 hold whatever the slot says: a prep that is not self-sufficient, or that
+duplicates a value, fails at the table rather than expressing a preference.
 
 **`D.shape` branch — mandatory.** `series` → the skill as written. `one-shot` → four of the six
 Phase 1 inputs cannot exist; apply the degradation clause there, and drop the spotlight *rotation*
@@ -67,10 +91,11 @@ write the answer into the profile, and do not proceed as if it were a series.
 ## Phase 1 — Read before writing, in this order
 
 1. **The campaign state note** (the hub that holds current state). Extract: where the characters
-   are, who has unresolved hooks, current levels/resources, what comes next.
+   are, who has unresolved hooks, current advancement and resources, what comes next.
    *If the state is stale, say so before proceeding* — everything downstream inherits the error.
 2. **The official module/chapter** for this session, if any (`D.backbone`, `D.official_material`).
-   It is the canvas **and the source to inline from**: its descriptions, read-aloud text, encounter tables and mechanics are *carried
+   It is the canvas **and the source to inline from**: its descriptions, read-aloud text, random
+   tables and mechanics are *carried
    into* the prep, rewritten and fused with your own location notes, not cited by reference. Keep
    an attribution link. Never copy stat blocks.
 3. **The previous session log.** Exit state, loose ends, seeded hooks, missed opportunities.
@@ -98,7 +123,7 @@ prep written blind is legitimate, a prep pretending it had a log is not. For `op
 <frontmatter per C.frontmatter: session tag, module/front tag>
 ---
 
-# Session N — Title
+# Session N — Title                            <!-- blocks per C.blocks, headings in B.language -->
 
 > [!warning] Don't forget at the table — global threads of the evening
 > (ONLY threads that span the WHOLE session; per-scene triggers live in the scene boxes — P2)
@@ -109,7 +134,8 @@ prep written blind is legitimate, a prep pretending it had a log is not. For `op
 > plus the attribution link to the official module and the list of homebrew deviations)
 
 ## At a glance
-(table: Where / Antagonists / Key NPCs / Level / Expected outcome)
+(table: Where / Antagonists / Key NPCs / <the advancement measure `A.ruleset` uses, or omit this
+column> / Expected outcome)
 
 ### Session objectives
 ### Arc of the evening
@@ -131,7 +157,7 @@ and the connective tissue between them stays clipped.
 | Inlined read-aloud | only what the senses perceive; reveals go to GM notes | scene-anatomy |
 | NPC playable intention | for interactive NPCs whose will is not obvious, scaled to role | scene-anatomy |
 | Dramatic compass | question / what earns a reward here / non-combat exit | scene-anatomy |
-| White space | 1–2 conversation scenes per session, written or they get skipped | scene-anatomy |
+| White space | 1–2 conversation scenes per session, written or they get skipped (P6) | scene-anatomy |
 | Combat with an objective | never depletion; explicit exit condition | scene-anatomy |
 | `If they derail:` | the pressure that persists when they do the unplanned | red-team |
 | Content margin | 1–2 optional scenes; main path alone must satisfy | red-team |
@@ -178,25 +204,34 @@ Plus, once per session:
   `close` / `self-insert` the off-ramp is written and the safety refresh is scheduled.
 - The top `[!warning]` box contains only global threads; every scene opens with a trigger box.
 - **Single source of truth:** no trigger duplicated between the global box and a scene box; every
-  value (DC, cost) lives in exactly one place.
+  value (a difficulty, a cost, a quantity) lives in exactly one place.
 - **Self-sufficiency:** no cross-reference for descriptive content; every scene has its inlined
   read-aloud; the only link meant to be opened during play is a stat block.
 - **Distributed spotlight:** no summary spotlight table; cross-scene arc in the global box,
   per-scene focus marked `Spotlight → <PC>:`.
-- Every scene has a dramatic compass and a non-combat exit; at least one white-space scene exists;
-  every scene has an `If they derail:` line.
-- Any figure appearing with dialogue passed the admission test (P13) when its note was written.
+- Every scene has a dramatic compass and a non-combat exit (P5); at least one white-space scene
+  exists (P6); every scene has an `If they derail:` line (P9) — **each of these three only while
+  `E.overrides` leaves the corresponding default in force**, and the header says which were off.
+- **While `E.overrides` leaves P13 in force:** any figure appearing with dialogue passed the
+  admission test — checked against its entity
+  note where one exists, and **applied here** for a figure this prep introduces: a name with
+  dialogue and no note still has to answer the three questions before it reaches the table. If it
+  cannot, it stays a fixture. `ttrpg-entity-note` owns the note; the test is not deferred to it.
+- **`B.frame` honoured:** any real, public or historical figure this prep puts on stage obeys the
+  frame-of-reference rule, whether or not it has a note yet.
 
 ## What NOT to do
 
 - Do not copy stat blocks; do inline everything else needed that night.
 - Do not leave "see the module / see the location note" for descriptive content.
 - Do not write the prep as continuous narrative.
-- Do not plan equal spotlight for every player, and do not create a spotlight table.
+- Do not create a spotlight table, and do not plan equal spotlight for every player while P7 is in
+  force.
 - Do not duplicate a trigger between the global box and a scene box.
-- Do not write NPCs as passive objects — and do not inflate: obvious motives, hazards and
-  atmosphere need no intention box.
-- Do not insert filler combat, or a fight without an objective and an exit condition.
+- Do not write NPCs as passive objects while P4 is in force — and do not inflate either way:
+  obvious motives, hazards and atmosphere need no intention box.
+- Do not insert filler combat, or (while P5 is in force) a fight without an objective and an exit
+  condition.
 - Do not announce in read-aloud what the players are supposed to discover.
 - Do not invent a dramatic resource, guide beat or canon quote that the profile does not declare.
 - Do not assume a series: a one-shot has no hub, no previous log and no rotation, and pretending

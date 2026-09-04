@@ -80,3 +80,10 @@ Decide the endgame while there is still time to seed it. Record:
 
 A finale improvised in the last session is a finale nobody was allowed to affect.
 
+**Everything the arc admits passes the admission test (P13) before it is scheduled**: a front, a
+faction or an entity the endgame requires answers the three questions — *why is it here, what does
+it represent, what question does it pose to the table* — at planning time, not when it walks on stage. A row
+that schedules an entity nobody can answer for is a delivery requirement on an idea.
+`ttrpg-entity-note` owns the note and the test; this skill refuses to plan around something that
+cannot pass it. A table that declared `P13 — off` in `E.overrides` skips this paragraph.
+

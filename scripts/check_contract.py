@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Mechanical contract checker for ttrpg-campaign-skills.
+r"""Mechanical contract checker for ttrpg-campaign-skills.
 
 Run from the repo root:  python3 scripts/check_contract.py [repo-root]
 Exit code 1 if any ERROR. WARNings never fail the build.
 
-Ten checks:
+Fourteen checks:
 
   1  SLOT-RESOLVES     every slot id cited under skills/ (a section letter A-E, a dot,
                        a lowercase slot name) is defined in templates/campaign-profile.md.
@@ -33,6 +33,28 @@ Ten checks:
                        sibling-skill boundary; description within DESC_MAX; no U+FFFD.
  10  SECTION-OWNERSHIP no two skills define the same domain section heading (structural
                        boilerplate whitelisted).
+ 11  NO-SYSTEM-NAMES   no shipped file names one of the game systems or note-taking tools
+                       on the blocklist below. A blocklist can never be complete, so this
+                       is a floor under the manual agnosticism self-test of AUTHORING §1,
+                       not a replacement for it: it catches the names that actually leaked.
+                       There is no per-file exception list on purpose - a system name
+                       belongs in `A.ruleset`, which the campaign fills, or in an overlay.
+ 12  MECHANICS-LEAK    no shipped file uses a proprietary subsystem vocabulary (DC, HP,
+                       AC, saving throw, d20, encounter table, combat rounds). WARN, not
+                       ERROR: a neutral phrasing always exists ("a difficulty value", "the
+                       opposition is depleted") but only prose review can pick it. The list
+                       is deliberately partial - "XP" stays legal, since a skill may name
+                       the measure `A.ruleset` uses when it enumerates alternatives.
+ 13  ENCODING          no markdown in the repo carries encoding damage: U+FFFD, or a
+                       literal \uXXXX escape that renders as six characters. Check 9 caught
+                       this only in frontmatter, and only in SKILL.md.
+ 14  OVERRIDE-MAPPED   every skill carries an `E.overrides` branch in Phase 0 - or, for
+                       ttrpg-campaign-setup alone, in the interview phase, since it fills
+                       the slot instead of obeying it - and not just a
+                       mention of the slot. `E.overrides` is the package's central promise
+                       ("declare P5 - off and no skill argues") and eight of nine skills
+                       once cited the slot while mapping nothing, which is invisible to a
+                       checker that only resolves ids.
 """
 import io
 import os
@@ -55,8 +77,9 @@ SECTION = "\u00a7"          # the slot sigil
 DESC_MAX = 1024             # agent-skill description budget
 NAME_MAX = 64               # agent-skill name budget
 
-# Files the installer creates inside every skill folder. A link to one of these is
-# valid even though the file is absent from the checkout (see install.sh).
+# Historically the installer materialised this file, so a link to it was valid even when the
+# checkout lacked it. It is checked-in content now (see BUNDLE-IDENTICAL below), and this
+# whitelist only keeps LINK-BROKEN from reporting a second time what that check already owns.
 INSTALL_MATERIALISED = {"references/PRINCIPLES.md"}
 
 # Headings every skill legitimately shares: they structure the skill itself, they are
@@ -174,8 +197,12 @@ for slot in sorted(defined_slots - setup_only_slots):
             % (slot, " (only %s cites it, and it collects every slot by "
                      "construction)" % SETUP_SKILL if only_setup else ""))
 
+# Count citations from the skills themselves only: the bundled PRINCIPLES copies define every
+# tag, so counting them would make every principle look cited and this warning unreachable.
 cited_principles = set()
 for f in cite_md:
+    if os.path.basename(f) == "PRINCIPLES.md":
+        continue
     cited_principles.update("P" + m for m in
                             re.findall(r"(?<![A-Za-z0-9])P(\d{1,2})(?![0-9A-Za-z])", read(f)))
 for p in sorted(principles, key=lambda t: int(t[1:])):
@@ -398,12 +425,115 @@ for key, locs in sorted(heads.items()):
             'section "%s" is defined by %d skills (%s) - two skills claim the same '
             "artifact" % (key, len(owners), ", ".join(loc for _, loc in locs)))
 
+# ---------- 11 + 12 + 13: agnosticism and encoding, mechanically --------
+# "Shipped" = what a clone hands to an agent: every skill folder, the schema they read,
+# and the principles bundled into all nine. AGENTS.md, README.md and docs/AUTHORING.md
+# are meta - AUTHORING has to be able to quote a bad example in order to forbid it.
+SHIPPED = list(skill_md)
+for base, _dirs, names in os.walk(os.path.join(ROOT, "templates")):
+    SHIPPED += [os.path.join(base, n) for n in sorted(names) if n.endswith(".md")]
+SHIPPED.append(PRINC)
+# The nine bundled copies are byte-identical to docs/PRINCIPLES.md: scan the content once, so
+# one defect is one message instead of ten, and the reported count means what it says.
+seen, deduped = set(), []
+for p in SHIPPED:
+    key = os.path.basename(p) if os.path.basename(p) == "PRINCIPLES.md" else os.path.normcase(p)
+    if key in seen:
+        continue
+    seen.add(key)
+    deduped.append(p)
+SHIPPED = deduped
+
+# One name here is one game system. A base skill that needs to say which system it is
+# running is a base skill that stopped being one.
+SYSTEM_NAMES = re.compile(
+    r"(?<![A-Za-z0-9])("
+    r"d\s?&\s?d|dungeons?\s*(?:&|and)\s*dragons|"
+    r"pathfinder|dungeon world|call of cthulhu|cthulhu|"
+    r"pbta|powered by the apocalypse|blades in the dark|forged in the dark|"
+    r"gurps|savage worlds|shadowrun|warhammer|numenera|mothership|delta green|"
+    r"vampire: the masquerade|fate core|ars magica|m[o\u00f6]rk borg|apocalypse world|"
+    r"ironsworn|runequest|shadowdark|cypher system|fabula ultima|traveller rpg|"
+    r"5e|3\.5e|4e|2e|5th edition|osr|"
+    # note-taking and play tools: the README promises no skill names an editor, and
+    # everything tool-shaped is a slot (`C.links`, `C.frontmatter`, `C.blocks`, `C.verify`)
+    r"obsidian|logseq|notion|foundry vtt|roll20|owlbear|fantasy grounds"
+    r")(?![A-Za-z0-9])", re.I)
+
+# Vocabulary that presupposes one family of systems. Acronyms are matched case-sensitively
+# (a lowercase "ac" is a word), phrases are not.
+MECH_ACRONYMS = re.compile(r"(?<![A-Za-z0-9])(DCs?|HP|AC|THAC0|d20)(?![A-Za-z0-9])")
+MECH_PHRASES = re.compile(
+    r"(?<![A-Za-z0-9])(hit points?|armou?r class|difficulty class|saving throws?|"
+    r"advantage/disadvantage|encounter tables?|spell slots?|long rest|"
+    r"combat rounds?|rounds? of combat)(?![A-Za-z0-9])", re.I)
+
+BAD_ESCAPE = re.compile(r"\\u[0-9a-fA-F]{4}")
+
+for f in SHIPPED:
+    for i, line in enumerate(read(f).splitlines(), 1):
+        m = SYSTEM_NAMES.search(line)
+        if m:
+            err("NO-SYSTEM-NAMES", "%s:%d" % (rel(f), i),
+                "names a game system (%r) - a base skill never does; the system is "
+                "`A.ruleset`, which the campaign fills, and anything irreducibly "
+                "system-shaped goes in an overlay" % m.group(0))
+        for mm in (MECH_ACRONYMS.search(line), MECH_PHRASES.search(line)):
+            if mm:
+                warn("MECHANICS-LEAK", "%s:%d" % (rel(f), i),
+                     "uses the vocabulary of one system family (%r) - say it neutrally "
+                     "(a difficulty value, a cost, the opposition is depleted) or read "
+                     "the term from `A.ruleset`" % mm.group(0))
+# ENCODING is not limited to shipped files: no markdown in this repo has a reason to carry
+# U+FFFD or a literal escape, AGENTS.md included - it is the first file an agent reads.
+all_md, seen_md = [], set()
+for base, dirs, names in os.walk(ROOT):
+    dirs[:] = [d for d in dirs if d != ".git"]
+    for n in sorted(names):
+        p = os.path.join(base, n)
+        if n.endswith(".md") and os.path.normcase(p) not in seen_md:
+            seen_md.add(os.path.normcase(p))
+            all_md.append(p)
+for f in all_md:
+    for i, line in enumerate(read(f).splitlines(), 1):
+        if "\ufffd" in line:
+            err("ENCODING", "%s:%d" % (rel(f), i),
+                "contains U+FFFD replacement character (encoding damage)")
+        e = BAD_ESCAPE.search(line)
+        if e:
+            err("ENCODING", "%s:%d" % (rel(f), i),
+                "contains the literal escape %r - it renders as six characters, not as "
+                "the intended glyph; write the character itself" % e.group(0))
+
+# ---------- 14: the override mechanism is mapped, not mentioned ---------
+# Citing `E.overrides` in a Phase 0 table row is not implementing it. The branch is what
+# tells a reader WHICH of that skill's requirements each override switches off.
+BRANCH = re.compile(r"\*\*`E\.overrides`\s+branch\s+\u2014\s+mandatory\.\*\*")
+for d in skill_dirs:
+    p = os.path.join(SKILLS, d, "SKILL.md")
+    if not os.path.isfile(p):
+        continue
+    src = read(p)
+    if not BRANCH.search(src):
+        err("OVERRIDE-MAPPED", rel(p),
+            "has no '**`E.overrides` branch \u2014 mandatory.**' block - the slot must be mapped "
+            "to what stops being required in THIS skill, not merely listed in Phase 0")
+    elif d == SETUP_SKILL:
+        # The interviewer FILLS the slot instead of obeying it, so its branch belongs to the
+        # interview phase, not to Phase 0. Stated here rather than silently tolerated.
+        pass
+    elif "E.overrides" not in src.split("## Phase 1")[0]:
+        err("OVERRIDE-MAPPED", rel(p),
+            "maps `E.overrides` outside Phase 0 - it is read before anything is produced")
+
 # ---------- report -------------------------------------------------------
 print("contract check - %s" % ROOT)
 print("  %d slots defined (%d setup-only, exempt from DEAD-SLOT), %d cited | "
-      "%d principles defined, %d cited | %d skills, %d markdown files"
+      "%d principles defined, %d cited | %d skills, %d markdown files | "
+      "%d shipped files scanned for system leaks"
       % (len(defined_slots), len(setup_only_slots), len(cited_slots), len(principles),
-         len(cited_principles & principles), len(skill_dirs), len(skill_md)))
+         len(cited_principles & principles), len(skill_dirs), len(skill_md),
+         len(SHIPPED)))
 print("")
 for line in sorted(errors):
     print(line)

@@ -14,7 +14,7 @@ Every scene opens with a `> [!todo] Don't miss in this scene` box of tickable ch
 |---|---|
 | `> [!quote] Read aloud` | the opening text — P3: only what the senses perceive |
 | `> [!quote]` | canon quotes (`D.canon_source`) with the delivery mode noted |
-| `> [!example]` | the mechanics used here: DCs, costs, local rules, typed-enemy traits |
+| `> [!example]` | the mechanics used here: difficulties, costs, local rules, typed-enemy traits |
 | `> [!info]` | GM-only notes: hidden truths, NPC playable intention (P4), how to seed clues |
 | `> [!abstract] Dramatic compass` | the three answers required by P5 |
 | `If they derail:` | closing line of the scene — the pressure that persists (P9) |
@@ -23,7 +23,7 @@ Between blocks the connective prep text stays clipped and scannable. **Never wri
 continuous narrative prose**: prose belongs inside read-aloud blocks; between them the GM must
 *find* things, not read.
 
-If the callout syntax above does not exist in your note system, keep the same six roles with
+If the callout syntax above does not exist in your note system, read `C.blocks` and keep the six roles with
 whatever visual markers it offers. The roles are the point, not the syntax.
 
 ## The two levels of reminders (P2)
@@ -39,8 +39,8 @@ spans the whole session and belongs to no single scene:
 - the *principle* of what earns a reward: choices and portrayal, never tactics.
 
 **Level 2 — `[!todo]` box opening each scene: that scene's triggers.** Tickable checkboxes: an
-NPC's focus on a specific PC, the key mechanic with its DC, the prepared beat if it falls here,
-where the resource is spent or regained *here*, what earns a reward *here*, and the scene's
+NPC's focus on a specific PC, the key mechanic with its difficulty, the prepared beat if it falls
+here, where the resource is spent or regained *here*, what earns a reward *here*, and the scene's
 spotlight line marked `Spotlight → <PC>:`.
 
 **Before a scene's focus line names a player, `B.distance` has been read** (see `SKILL.md`, Phase
@@ -56,7 +56,7 @@ that answers both is in the wrong level or duplicated — single source of truth
 1. **Cross-references.** Every "read the description from the module / see the location note" is
    replaced by the actual text, inlined in a read-aloud block, fusing the sources into one clean
    passage. Only stat blocks stay linked (P1).
-2. **Schematics you cannot stage.** Bare tables and DC bullets are not enough: for every obstacle
+2. **Schematics you cannot stage.** Bare tables and bare numbers are not enough: for every obstacle
    write *what triggers it, what leads to what, and how you put it on stage*. Entry routes,
    negotiations and reveals are described in words, with the mechanics box beside them.
    **Key NPC lines are written speakable**, not summarised ("the guide explains the geography" →
@@ -82,7 +82,8 @@ the NPC has no direction at the table and the scene does not start. The hidden t
 never announced (P3).
 
 Scale it: a full box only where a misread will breaks a scene or kills a hook; type-level behaviour
-for crowds from an encounter table; one framing note for a large cast of interlocutors; nothing for
+for crowds drawn from a random table; one framing note for a large cast of interlocutors; nothing
+for
 obvious motives, hazards and atmosphere; and mark a deliberately will-less NPC as a choice, so the
 next reader does not take it for an omission.
 
@@ -115,5 +116,6 @@ short and needed at the table.
 ## Combat that earns its place (P5)
 
 No filler combat. Every fight has an **objective that is not depletion** — cross, extinguish, free,
-hold N rounds, protect someone — and an explicit exit condition written into the scene. Boss
+hold out for a stated span, protect someone — and an explicit exit condition written into the
+scene. Boss
 set-pieces deserve the evening; everything else is an obstacle with a way out.

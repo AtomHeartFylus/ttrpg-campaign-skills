@@ -12,10 +12,11 @@ A base skill **must not name a game system, setting, mechanic or character**. It
 
 | Never write | Write |
 |---|---|
-| "Hope triggers" | "the dramatic resource's loss and gain triggers (`A.resource_loss` / `A.resource_gain`)" |
-| "the Galileo beat" | "the recurring guide's prepared beat (`D.guide`), if the profile declares one" |
-| "the Dante tercet" | "the canon quote (`D.canon_source`), with its declared delivery mode" |
-| "Sessioni/Sessione N - Diario.md" | "the session log note, at the path the profile declares (`C.root`)" |
+| "Salt triggers" | "the dramatic resource's loss and gain triggers (`A.resource_loss` / `A.resource_gain`)" |
+| "the Harbourmaster beat" | "the recurring guide's prepared beat (`D.guide`), if the profile declares one" |
+| "the tide-table couplet" | "the canon quote (`D.canon_source`), with its declared delivery mode" |
+| "Voyages/Voyage 4 - Ledger.md" | "the session log note, at the path the profile declares (`C.root`)" |
+| "a difficulty class, a hit point total" | "a difficulty value, a cost, a quantity — in the terms `A.ruleset` uses" |
 
 **Cite slots by named id — schema 2 has no numbers.** Sections are letters `A`…`E`, slots are
 `A.resource`, `B.distance`, `C.verify`, `D.shape`, `E.overrides`. A numeric citation (`§2`, `§9`)
@@ -24,7 +25,20 @@ authors added slots in parallel, which is how five slots were added to the schem
 Adding a slot must never renumber another one.
 
 **Graceful degradation is mandatory.** For every profile-dependent section, state what happens
-when the slot is empty: usually *drop the section*, sometimes *ask the user once*. Never invent.
+when the slot is empty. There are exactly three legitimate answers, and inventing a value is not
+one of them:
+
+1. **Drop the section** — the default answer, and always available.
+2. **Ask once** — when the artifact cannot exist without the value.
+3. **Use the declared default** — only for the few slots that carry an explicit **`default:`** in
+   `templates/campaign-profile.md`, only by citing it, and only while *saying in the output that
+   the fallback was used* and offering to record the table's real value. A number a skill states on
+   its own authority is a hardcoded constant, even when it is a reasonable one.
+
+**Say it in the vocabulary of no system.** `A.ruleset` is the only place a system is named, and a
+skill reads it rather than presupposing it: difficulty values, costs, quantities and depletion have
+neutral names, and `scripts/check_contract.py` warns on the vocabulary of one family (`DC`, `HP`,
+`AC`, saving throws, `d20`, encounter tables, combat rounds) and fails on a system name.
 
 **Self-test before committing a skill:** re-read it substituting a wildly different campaign
 (a modern investigative horror one-shot, a diceless political intrigue game). Every sentence that
@@ -128,7 +142,8 @@ If you find yourself writing a new general rule, add it to PRINCIPLES with an ID
 - Show a **skeleton** for anything the skill produces; skeletons are copied, prose is skimmed.
 - Every rule that came from a real failure keeps a one-clause trace of it ("the lesson of the
   session where they fled the boss and the script had no answer"). It is what makes the rule stick.
-- Length: aim under 250 lines. Over that, split or push detail into a reference file in the skill
+- Length: the 200–250 line band. Under it a Phase 0 branch is usually missing; over it, split or
+  push detail into a reference file in the skill
   folder and link it.
 
 ## 6. Overlays
@@ -150,8 +165,11 @@ fix the base skill instead.
    SKILL.md. Then make some skill actually *read* the new slot; a slot nothing consumes is a
    question asked for nobody.
 4. Bump `metadata.version`; note the lesson in the commit message.
-5. Re-run the agnosticism self-test (§1) on the touched sections.
-6. **Run `python3 scripts/check_contract.py` from the repo root. It must exit 0. This is a
+5. Re-run the agnosticism self-test (§1) on the touched sections. If the change adds or drops a
+   requirement that a principle carries, update that skill's `E.overrides` branch in the same
+   commit — and check the *Verify* and *What NOT to do* lists, which are where an overridable
+   default gets quietly re-imposed as an absolute.
+6. **Run `python scripts/check_contract.py` from the repo root. It must exit 0. This is a
    mandatory pre-commit step — do not commit red, and do not weaken a check to get green.**
    It is stdlib-only and lives in this repo on purpose: validating a clone must never require a
    tool installed somewhere else on the machine. It absorbs the checks an external skill validator
@@ -172,3 +190,7 @@ What the checker enforces mechanically, so you do not have to remember it:
 | `LINK-BROKEN` | an inward link or a backtick-quoted `references/…` path has no file |
 | `FRONTMATTER` | name ≠ folder, no `Use when`, no sibling boundary, over the description budget, encoding damage |
 | `SECTION-OWNERSHIP` | two skills define the same domain section heading |
+| `NO-SYSTEM-NAMES` | anything shipped names a game system — no exception list: the system is `A.ruleset` |
+| `MECHANICS-LEAK` | the vocabulary of one system family appears (`DC`, `HP`, `AC`, saving throw, `d20`, encounter table, combat rounds) — warning |
+| `ENCODING` | a shipped markdown file carries U+FFFD or a literal `\uXXXX` escape |
+| `OVERRIDE-MAPPED` | a skill mentions `E.overrides` without a branch mapping it to what stops being required |

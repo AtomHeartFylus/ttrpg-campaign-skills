@@ -14,12 +14,13 @@ input is the session log; its audience is the players, in character, with the li
 
 > **P12 — fiction-only.** Everything here exists from the point of view of the *journey*, never of
 > the *evening*. No mechanics, no meta, no fourth wall, no "next time on". **A scene that was
-> skipped did not happen.**
+> skipped did not happen.** P12 is a *strong default*, not a law: a table that declares `P12 — off`
+> in `E.overrides` gets the recap it asked for, and this skill says so instead of arguing.
 
 ---
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 ## The posture
 
@@ -28,7 +29,7 @@ that, read end to end at the close of the campaign, must stand on its own as the
 journey. That is the standard: every line is weighed as if it had to last, not as if it had to fill
 a slot before play starts.
 
-Two consequences, both non-negotiable:
+Two consequences, in force unless `E.overrides` says otherwise:
 
 - A recap is not a list of events with atmosphere applied on top. It selects, shapes and judges.
 - Anything that only makes sense to the people in the room does not exist — not "trimmed for
@@ -37,8 +38,11 @@ Two consequences, both non-negotiable:
 ## Phase 0 — Read the campaign profile
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
-`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
-there is none. A profile that exists but was not found re-interviews a GM who already answered.
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
+back empty, search by frontmatter** (`rg -l "type: campaign-profile"`): the schema declares that
+type, `ttrpg-campaign-setup` explicitly tolerates a renamed profile, and no other skill may call a
+renamed profile an absent one. A profile that exists but was not found re-interviews a GM who
+already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
@@ -48,9 +52,23 @@ there is none. A profile that exists but was not found re-interviews a GM who al
 | `D.canon_source` | quotes woven into the recap, and their status in-world | no quotes |
 | `D.guide` | a figure who keeps their own name and voice | treat every NPC by the name the fiction gives them |
 | `D.shape` | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
-| `B.language` | language of player-facing text | write in the language of the session log, and say which you used |
+| `B.language` | language of player-facing text | write in the language of the notes around it — the session log first — say which you chose, and offer to record it |
 | `B.size` | how many were present shapes the telling | take the roster from the log |
 | `C.root`, `C.naming`, `C.frontmatter`, `C.links`, `C.verify` | path, file name, frontmatter, link syntax, verification command | write where told |
+| `C.blocks` | how this vault writes the quote block the recap is delivered in | keep the role, use a plain blockquote |
+| `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
+| `E.deliverable`, `E.review` | saved note or draft in chat; how blunt to be about a weak recap | save the note in the repo and be plainly honest |
+
+**`E.overrides` branch — mandatory.** Read the slot before writing a line, obey it, and say once in
+the output which override you honoured. Two overridable defaults reach this skill:
+
+| Override | What stops being required here |
+|---|---|
+| `P12 — off` | the fiction-only rule. Mechanics, meta and "previously, at our table" are admitted; the *journey* framing above becomes optional, and the piece may address the room. Do not smuggle it back as a style note |
+| `P13 — off` | the admission test on anything the recap introduces; it may name a figure or place that has not earned a note |
+
+P1, P2, P3, P10 and P11 are **not** overridable: the recap still contains only what the fiction can
+carry from the log, and the log stays the authority (P11).
 
 **`D.shape` branch — mandatory.** `series` → as written: this recap opens the next session.
 `one-shot` → **there is no next session to open, so the default output is nothing.** Say so;
@@ -87,7 +105,7 @@ that is true of any form; the overlay owns the metre, the rhyme scheme and the h
 <frontmatter per C.frontmatter: session tag, recap tag>
 ---
 
-> [!quote] To be read aloud at the opening of Session N+1
+> [!quote] To be read aloud at the opening of Session N+1   <!-- quote block per C.blocks -->
 
 <the recap itself, in the form declared by D.recap, in the language of B.language>
 
@@ -111,8 +129,10 @@ legitimate, and the profile is where the table says which. Past the declared cei
 gone and the opening you wanted is spent. Some forms are measured in a form-native unit instead of
 minutes (a fixed number of strophes, one page); if `D.recap` gives one, time against that.
 
-**If `D.recap` states no ceiling**, fall back to roughly three to five minutes, **say you used the
-fallback**, and offer to record the table's real ceiling in the slot.
+**If `D.recap` states no ceiling**, use the **`default:` the slot itself declares** (three to five
+minutes) — the number belongs to the profile, not to this skill — **say in the output that you used
+it**, and offer to record the table's real ceiling in the slot. The form itself is
+never defaulted this way: no form, no recap.
 
 If the log has more material than fits, cut beats; never compress every beat into a summary.
 
@@ -178,7 +198,8 @@ the prosody itself lives in the overlay:
 ## Phase 4 — Verify
 
 - Read the whole text aloud, end to end, timed. Anything that trips the tongue is rewritten.
-- **P12 sweep:** no mechanics, no rewards, no system vocabulary, no session number in the body, no
+- **P12 sweep — while `E.overrides` leaves P12 in force:** no mechanics, no rewards, no system
+  vocabulary, no session number in the body, no
   address to the table, no anticipation of the next session, nothing from a scene that was not
   played, and nobody referred to as a person in the room rather than a figure in the story.
 - Every protagonist present is named per `D.identity`, and by the *same* identity as in earlier
@@ -196,8 +217,9 @@ the prosody itself lives in the overlay:
 ## What NOT to do
 
 - Do not summarise the evening — write the chapter.
-- Do not name players, mechanics or rewards; do not mention that a scene was skipped.
-- Do not address the table or preview the next session, not even in the closing line.
+- Do not name players, mechanics or rewards, and do not mention that a scene was skipped — unless
+  `E.overrides` declares `P12 — off`, in which case say once that you are writing under it.
+- Do not address the table or preview the next session, not even in the closing line (P12).
 - Do not invent an epithet for a character who already has one, or drift the register between
   recaps.
 - Do not explain a character's inner state that the images already carry.

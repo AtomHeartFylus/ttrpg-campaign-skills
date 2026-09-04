@@ -12,8 +12,8 @@ broke at the table without it.
 
 ## The problem this solves
 
-Skills written for one campaign are excellent and unshareable ("remember the Galileo beat",
-"spend Hope tokens"). Skills written generically are shareable and useless ("give NPCs
+Skills written for one campaign are excellent and unshareable ("remember the Harbourmaster's beat",
+"spend a notch of Salt"). Skills written generically are shareable and useless ("give NPCs
 motivations"). This package resolves the tension with **two layers**:
 
 | Layer | Lives in | Contains | Written once per |
@@ -34,7 +34,7 @@ and [`docs/AUTHORING.md`](docs/AUTHORING.md) if you want to write or modify a sk
 
 ## The skills
 
-| Skill | Use it when | Status |
+| Skill | Use it when | Maturity |
 |---|---|---|
 | `ttrpg-campaign-setup` | starting a campaign repo/vault, or filling the campaign profile | v1 |
 | `ttrpg-table-dossier` | session zero, player dossiers, safety tools, spotlight budget, attendance rules | v1 |
@@ -87,10 +87,18 @@ canonical), but it surprises people once.
 1. Run `ttrpg-campaign-setup` — it creates (or audits) the repo skeleton and walks you
    through `campaign-profile.md`.
 2. Fill the profile honestly. Empty slots are legitimate: they switch sections off.
-3. Play a session with `ttrpg-session-prep`, then close the loop with `ttrpg-session-log`.
-4. Only when a rule is *specific to your campaign and cannot be a profile slot*, write an
+3. Run `ttrpg-table-dossier` for session zero: the safety conversation, one dossier per player and
+   the harvested hooks. `ttrpg-session-prep` reads those dossiers as a required input, and
+   `B.distance` is decided at that table, not in the interview — skipping this step is what makes a
+   first prep aim at nerves nobody agreed to expose.
+4. Play a session with `ttrpg-session-prep`, then close the loop with `ttrpg-session-log`
+   (and `ttrpg-table-recap` to open the next one).
+5. Only when a rule is *specific to your campaign and cannot be a profile slot*, write an
    overlay skill (see `templates/overlay-SKILL.md`). Overlays should be short; if an overlay
    grows past a page, the base skill is probably missing a slot.
+
+The installer copies `skills/` only: `docs/` and `templates/` stay in the clone, which is where you
+read the principles and start an overlay from.
 
 ---
 
@@ -105,7 +113,18 @@ nothing with the name of an app; it can do everything with those four answers. I
 lives in a hosted wiki or a shared document instead of in files, this package has no ground to
 stand on — that is a boundary, not an oversight.
 
-**Deliberate non-goals.** No encounter design or difficulty balancing, no rules lookup or SRD
+**One thing tool-shaped is only half a slot.** The skeletons show callouts, checkboxes and quotes in
+one dialect. `C.blocks` says how your note system writes them, and a skill keeps the *roles* while
+rendering them your way — plain headings and blockquotes are a complete answer.
+
+**One GM, and a table in a room.** Every skill addresses a single person who prepares, runs and
+records; there is no slot for who leads, so a GM-less or rotating-GM game gets no support here.
+`ttrpg-session-audio` additionally assumes a shared room with one microphone: played remotely, three
+things change that no slot covers — consent now includes the platform that records, per-user tracks
+make diarization pointless, and invoking a safety tool over a call is a different act. Both are
+boundaries of an extraction from one table, not principles.
+
+**Deliberate non-goals.** No encounter design or difficulty balancing, no rules lookup or reference
 retrieval, no character sheets or level-up assistance, no virtual-tabletop or map integration.
 Those are where system-agnosticism genuinely breaks — you cannot balance an encounter without
 knowing the system — and they are already served by real tools. This package works on *text that
@@ -137,4 +156,5 @@ without arguing — rather than fighting the skills note by note.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE). Written by Filippo Milanoli Turlotte; the skills carry the package as
+their `metadata.author`, because they are meant to be forked and filled by whoever runs the table.

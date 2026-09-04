@@ -15,7 +15,12 @@ strays.
   campaign-profile.md        # the contract itself; C.root declares everything below
   <state hub>.md             # C.hub — single source of truth for current state (P10)
   <sessions>/                # prep + log, one pair per session, progressively numbered
+  <arc>.md                   # C.arc_note / C.thread_ledger — the plan, the deviations and the
+                             # ONLY home of thread status; only if D.shape is not one-shot
   <people>/                  # one note per PLAYER — owned by ttrpg-table-dossier
+  <party>.md                 # ONLY if A.resource_shape is a shared party clock (or per-faction:
+                             # then the faction notes): the single home of that value (P10).
+                             # Nothing else lives here — it is not a second hub
   <entities>/                # one note per NPC / creature / faction
   <places>/                  # one note per location, at the granularity C.granularity implies
   <items>/                   # only if the ruleset makes individual items significant
@@ -41,15 +46,15 @@ Rules that survive contact with a real vault:
 ## The state hub
 
 The hub answers, at a glance: where the party is, what happened last, what is open, what is next.
-It holds nothing that is a property of an entity note.
+It holds nothing that is a property of an entity note, and nothing that a ledger already owns.
 
 ```markdown
 ## Now
 Party is <where>, <when>, immediately after <last event>.
 
 ## Open threads
-- [ ] <thread> — owed to <entity>, opened session <n>
-- [ ] <thread> — deadline: <in-fiction condition>
+<live view of, or a single link to, the thread ledger (`C.thread_ledger`) — never a second list;
+ drop the section when `D.shape` is one-shot>
 
 ## Party state
 <live view / query over the character notes — NOT a typed table>
@@ -60,6 +65,9 @@ Party is <where>, <when>, immediately after <last event>.
 
 - If the tooling has no query mechanism, link the entity notes and say the values live there. A
   link that costs one click beats a table that is confidently wrong.
+- **Open threads belong to `C.thread_ledger`, not to the hub** (P10). The ledger holds the status;
+  the hub *shows* it. A checkbox list of threads typed into the hub is the exact duplicate that
+  check A of `ttrpg-continuity-audit` reports, and it goes stale the first time a thread is paid.
 - The single legitimate frozen snapshot in the whole repo is the **exit state** of a session log
   (P10): it is history, not state.
 - A one-shot has no hub; the prep note is the hub. Record that decision rather than leaving an

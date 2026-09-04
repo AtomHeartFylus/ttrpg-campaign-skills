@@ -24,31 +24,51 @@ campaign a year later.
 ---
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 ## Phase 0 — Read the campaign profile
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
-`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
-there is none. A profile that exists but was not found re-interviews a GM who already answered.
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
+back empty, search by frontmatter** (`rg -l "type: campaign-profile"`): the schema declares that
+type, `ttrpg-campaign-setup` explicitly tolerates a renamed profile, and no other skill may call a
+renamed profile an absent one. A profile that exists but was not found re-interviews a GM who
+already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
-| `A.ruleset` | what "advancement" means here (level / XP / milestone / none) | record no advancement, only fiction |
+| `A.ruleset` | what "advancement" means here, in the measure that system uses (a step of progression, a milestone, or none at all) | record no advancement, only fiction |
 | `A.resource` | whether Exit state carries a resource value at all | drop those rows — do not invent a resource |
 | `A.resource_shape` | **the shape of the Exit-state rows** — see the branch below | `A.resource` set but shape empty → ask once, record the answer in the profile; **never default to per-character** |
 | `A.resource_scale`, `A.resource_zero` | the units the Exit-state value is recorded in, and whether anyone crossed the threshold that ends a character — a zero-crossing is never a footnote, it is the headline of the session | record the bare number the GM reports, and ask what it means before writing any consequence |
-| `B.language` | **the language the log is written in**, headings included | write in the language of the surrounding notes, and say which you chose |
+| `B.language` | **the language the log is written in**, headings included | write in the language of the surrounding notes, say which you chose, and offer to record it |
 | `B.absence` | who advances when absent | ask once: *do absent characters advance?*, then write it back |
+| `B.distance`, `B.retention`, `C.gm_private` | **the gate on Phase 4's write-back to a player's dossier**: a new hook or a playstyle line is a note about a real person. Under `close` / `self-insert` record only what the player said on the record, keep it where `C.gm_private` says, and honour the retention rule | `B.distance` empty or `deferred` → ask before writing anything about the player; `C.gm_private` empty while players can read the repo → stop and ask; `B.retention` empty → say plainly the note is kept indefinitely |
 | `B.size` | how many per-player moments to expect | ask table size |
 | `D.guide` | the "was the prepared beat played, and how did it land?" question | drop that question |
 | `D.shape` | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
 | `D.backbone`, `D.official_material` | which official chapter/module the session covered | record the fiction only |
 | `D.recap` | whether a recap follows, so the log's link/property points at it | leave the recap link empty |
 | `C.root`, `C.naming`, `C.frontmatter`, `C.state_locations`, `C.hub`, `C.links`, `C.verify` | log path and name, frontmatter, dossier property names, state hub, verification command | write where told; skip link verification |
-| `E.deliverable`, `E.retroactivity`, `E.overrides` | saved note vs. draft; whether past logs may be corrected; which defaults are off | save the note, correct nothing retroactively |
+| `C.blocks` | how this vault writes the callouts and checkboxes the skeleton shows | keep the roles, render them as plain headings and blockquotes |
+| `C.thread_ledger` | where a thread's status is updated when this session opens or pays one — the only place it lives (P10) | list the threads in *Pending for next session* and say once there is no ledger; do not start a rival list |
+| `E.deliverable`, `E.retroactivity` | saved note vs. draft; whether past logs may be corrected | save the note, correct nothing retroactively |
+| `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
 
 If the search finds no profile, run `ttrpg-campaign-setup` first — do not guess conventions.
+
+**`E.overrides` branch — mandatory.** Read it before Phase 3 and drop what the table switched off,
+saying once which override you honoured. Four overridable defaults reach this skill:
+
+| Override | What stops being required here |
+|---|---|
+| `P7 — off` | the per-player accounting of who carried the evening and who was chorus, and the Diary entry that feeds the rotation check |
+| `P8 — off` | *Missed opportunities* as a mandatory section: unplayed prep needs no recoverable/lost verdict |
+| `P9 — off` | the derailment material the next red team would read — record what happened and stop |
+| `P12 — off` | the wall between this internal record and player-facing text; naming players and mechanics is no longer a boundary the recap has to undo |
+
+P1, P2, P3, P10 and P11 hold regardless: this note stays the authority for what happened, and no
+tracked value is duplicated out of it — those are not preferences.
 
 **`A.resource_shape` branch — mandatory.** The Exit state does **not** always have one row per
 character. `per-character` → one row per character. `shared party clock` → **exactly one row for
@@ -73,6 +93,8 @@ the **active fronts** (which moved, which advanced while the party was elsewhere
    playstyle notes you may have to update.
 4. **The transcript, if one exists** (see `ttrpg-session-audio`). Memory aid only: names and
    campaign terms come out mangled and speaker turns are unreliable (P11). Never paste it in.
+   Its **speaker-map note** sits beside it and is owned by that skill: read it to attribute a
+   moment, never copy the table into this log.
 
 If the prep note cannot be found, say so and proceed from testimony alone — the missed-opportunity
 section is then guesswork and must be marked as such.
@@ -85,8 +107,8 @@ only about what is actually missing. Skip any question whose profile slot is emp
 1. **Present / absent** — who was at the table? (drives advancement, per `B.absence`)
 2. **Deviations from prep** — what went differently? Walk the global-threads callout: which
    triggers were played? **Triggers never played become *missed opportunities*.**
-3. **Memorable moments, per player** — who carried a scene, notable portrayal, unexpected choices.
-   One line per player present is the target, not one line for the evening.
+3. **Memorable moments, per player** — who carried a scene, notable portrayal, unexpected choices;
+   one line per player present, not one for the evening.
 4. **The recurring guide's beat** (`D.guide`) — played? how did it land?
 5. **Hooks and bonds that emerged** — new names invoked, relationships exposed, backstory that
    surfaced in play.
@@ -100,7 +122,7 @@ written as fact poisons every downstream document (P11).
 ## Phase 3 — Write the log
 
 Path, file name and frontmatter per `C.root` / `C.naming` / `C.frontmatter`. Callout syntax below
-is illustrative — use plain headings if the vault does not support callouts.
+is illustrative — render them as `C.blocks` declares.
 
 > **The skeleton is structural; its labels are not English.** The headings below name *sections*,
 > not wording. **Write every heading, table column and parenthetical label in `B.language`**, so the
@@ -115,7 +137,7 @@ is illustrative — use plain headings if the vault does not support callouts.
  properties linking prep and recap so the hub's query self-populates>
 ---
 
-# Session N — Log (<place, chapter or front>)          <!-- heading text in B.language -->
+# Session N — Log (<place, chapter or front>)   <!-- blocks per C.blocks, headings in B.language -->
 
 > [!info] What this note is
 > The record of what actually happened, not the prep (<link to the prep note>).
@@ -166,20 +188,29 @@ redesign the note.
   - dramatic-resource value (`A.resource`), rewards held, and any other tracked property —
     end-of-session values, overwritten not appended. Where `A.resource_shape` is a shared party
     clock, the value belongs to the party's note, **not** copied into each dossier (P10).
-  - a one-line entry in the dossier's own log section for an individual moment, linking this note.
+  - **one Diary entry per session the player attended**, linking this note and marked *carried* or
+    *chorus*: that mark is the rotation check's only input, so a chorus evening with no entry reads
+    as an absence. The individual moment is the entry's content when there was one.
   - new hooks/bonds; and update the playstyle notes if the evening revealed something new about
     the player — that section is what feeds the next red team (P9).
+- **The thread ledger** (`C.thread_ledger`): threads this session **opened, advanced or paid** get
+  their row updated there — the only place a thread's *status* lives (P10), shaped by
+  `ttrpg-campaign-arc` — citing this log as the seeding or paying session. This note keeps the
+  *history*, never the status. Slot empty → list them in *Pending for next session*, say once that
+  there is no ledger yet, and do not open a rival list.
 - **The campaign state hub** (`C.hub`): if `C.frontmatter` declares queries/views driven by properties, correct
   frontmatter is the whole update — **do not hand-edit generated tables**. Update by hand only
-  what lives in no property: last session played, where the characters are, what comes next,
-  threads still open.
+  what lives in no property and in no ledger: last session played, where the characters are, what
+  comes next. **Not the open threads**: the hub views the ledger, it does not retype it.
 - **Never copy a tracked value into an index, a prep note or a summary table** (P10). The only
   frozen copy is this log's *Exit state*.
 
 ## Phase 5 — Verify and hand off
 
 - The global-threads callout of the prep has been walked item by item; nothing silently dropped.
-- Every player present has either a named moment or an explicit note that they were chorus (P7).
+- Every player present has either a named moment or an explicit note that they were chorus (P7)
+  — **while `E.overrides` leaves P7 in force**; with `P7 — off` the evening is recorded without
+  per-player accounting, and the header says so.
   **State no threshold here:** how long is too long is one number, defined once in
   `ttrpg-table-dossier` from `B.size / B.protagonists`. This log records the fact; that skill's
   rotation check reads the diaries and decides whether it is a finding.
@@ -201,13 +232,15 @@ opportunities* and *Pending* — for a one-shot, only *Exit state* exists and no
 
 - Do not invent, smooth over or reconstruct a fact you were not told.
 - Do not ask more than 2 questions at a time, and do not ask about slots the profile leaves empty.
-- Do not level, reward or advance absent characters against the `B.absence` convention.
+- Do not advance or reward absent characters against the `B.absence` convention.
 - Do not hardcode one Exit-state row per character; read `A.resource_shape` and follow it.
 - Do not write English headings over a log in another language; translate the skeleton.
 - Do not state your own chorus threshold — cite `ttrpg-table-dossier`'s.
 - Do not paste transcript text into the log, and do not treat the transcript as authoritative.
-- Do not write the evening as one undifferentiated summary — per-player moments are the point.
-- Do not let a prep trigger disappear without becoming a missed opportunity or an explicit loss.
-- Do not copy levels, resources or open threads into the hub, an index or the next prep.
+- Do not write the evening as one undifferentiated summary — per-player moments are the point
+  (P7; moot when the profile switches it off).
+- Do not let a prep trigger disappear without becoming a missed opportunity or an explicit loss
+  (P8; moot when the profile switches it off).
+- Do not copy advancement, resources or thread status into the hub, an index or the next prep.
 - Do not put mechanics, meta or player names into anything meant to be read to the table (P12).
 - Do not write the in-fiction recap here — the log is internal, unpoetic and complete.

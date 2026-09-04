@@ -1,6 +1,6 @@
 ---
 name: ttrpg-continuity-audit
-description: "Produce a health-check report on a campaign repo plus a proposed change list, applying nothing until approved. Use when asked to check the campaign for drift, inconsistencies, stale state, duplicated values, dangling threads or broken links, or as the recurring check at the cadence the profile declares. Covers the single-source-of-truth hunt, state hub versus last session log, unpaid seeds with a revive-or-declare-lost recommendation, prep hygiene, the link-integrity command, retroactive admission-test failures, and the retcon protocol for correcting past notes. Requires a campaign with accumulated history: it does not serve a one-shot. Does not decide the fate of a thread (see ttrpg-campaign-arc), rewrite prep (see ttrpg-session-prep), or fix notes silently."
+description: "Produce a health-check report on a campaign repo plus a proposed change list, applying nothing until approved. Use when asked to check the campaign for drift, inconsistencies, stale state, duplicated values, threads that have gone quiet or broken links, or as the recurring check at the cadence the profile declares. Covers the single-source-of-truth hunt, state hub versus last session log, unpaid seeds with a revive-or-declare-lost recommendation, prep hygiene, the link-integrity command, retroactive admission-test failures, and the retcon protocol for correcting past notes. Requires a campaign with accumulated history: it does not serve a one-shot. Does not decide the fate of a thread (see ttrpg-campaign-arc), rewrite prep (see ttrpg-session-prep), or fix notes silently."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
@@ -36,7 +36,7 @@ alive or buried, links resolving.
 ---
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 **Supporting reference:** [references/checks.md](references/checks.md) — the seven checks of Phase 2
 in full. Read it while auditing; Phase 2 below carries only the summary table.
@@ -44,13 +44,16 @@ in full. Read it while auditing; Phase 2 below carries only the summary table.
 ## Phase 0 — Read the campaign profile
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
-`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
-there is none. A profile that exists but was not found re-interviews a GM who already answered.
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
+back empty, search by frontmatter** (`rg -l "type: campaign-profile"`): the schema declares that
+type, `ttrpg-campaign-setup` explicitly tolerates a renamed profile, and no other skill may call a
+renamed profile an absent one. A profile that exists but was not found re-interviews a GM who
+already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
 | `D.shape` | **the gate above** — whether this skill runs at all | **ask once**; never assume `series` |
-| `E.audit_cadence` | **how often this audit runs** — the only slot that answers it | fall back to every 3-5 sessions, **say you used the fallback**, and offer to record the table's real cadence |
+| `E.audit_cadence` | **how often this audit runs** — the only slot that answers it. Not the spotlight rotation check, which follows `B.protagonists` | use the **`default:` the slot itself declares**, **say in the report you used it**, and offer to record the table's real cadence |
 | `B.cadence` | **session** cadence — used only to convert "about a month of play" into a number of sessions in check C. **Not the audit cadence** | ask how often they play; do not substitute `E.audit_cadence` |
 | `A.resource` | which values are tracked and therefore duplicable | skip the resource checks |
 | `D.backbone`, `D.deviation_policy` | the deviation ledger prep must stay consistent with | skip the deviation-drift check — a fully homebrew campaign has no ledger and its absence is not a finding |
@@ -59,10 +62,26 @@ there is none. A profile that exists but was not found re-interviews a GM who al
 | `C.state_locations`, `C.hub`, `C.root`, `C.naming`, `C.links`, `C.arc_note`, `C.thread_ledger` | single-source-of-truth locations, folder map, naming, link syntax, where the ledgers live | audit only what the user names; report the rest as unverifiable |
 | `C.verify` | the link-integrity command and its invariant | report link integrity as **unverified**; never claim an invariant you did not run |
 | `E.retroactivity` | **whether past material may be corrected, and where corrections are recorded** | assume retroactivity is **not** granted; propose only the typo class |
-| `E.review`, `E.never_without_asking`, `E.overrides` | review bluntness, what may not be touched without asking, which defaults are off | be plain; propose, never apply |
+| `E.review`, `E.never_without_asking` | review bluntness, and what may not be touched without asking | be plain; propose, never apply |
+| `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
 
 If the search finds no profile, run `ttrpg-campaign-setup` first — an audit without declared
 invariants is an opinion.
+
+**`E.overrides` branch — mandatory.** Read the slot **before running the checks**, not while writing
+the report. A check that verifies a default the table switched off **does not run**, and its absence
+is declared in one line: which override, therefore which check. Reporting the violation of a default
+the profile declares off is noise, and noise teaches the table to ignore the report.
+
+| Override | What stops being reported |
+|---|---|
+| `P8 — off` | the skipped-hook half of check C: that prep keeps no content margin and names no first cut, so skipped content with no declared recovery is not a finding. Threads and unrecorded seeds are still checked |
+| `P13 — off` | check F entirely — no retroactive admission test on the entities added in the window, and no softer substitute for it |
+| `P12 — off` | nothing here. The leakage half of check G is `C.player_access`, not P12: mechanics or meta in player-facing text stop being drift, a secret in a note players may read does not |
+| `P4`, `P5`, `P6`, `P7`, `P9` — off | nothing: this skill grades no prep against them. Do not invent a check in order to skip it |
+
+P1, P2, P3, P10 and P11 hold whatever the slot says: checks A, B and D rest on them, and a value
+written twice is a defect, not a preference. Checks E and G read slots, not defaults.
 
 ## Phase 1 — Read before auditing
 
@@ -78,7 +97,8 @@ the invariant checks, which are repo-wide.
 
 ## Phase 2 — The checks
 
-Run all of them, as [references/checks.md](references/checks.md) specifies — read it while
+Run all of them **minus what `E.overrides` switched off** (see the branch in Phase 0), as
+[references/checks.md](references/checks.md) specifies — read it while
 auditing. Each finding carries **evidence**: file, line, and the conflicting content quoted.
 
 | Check | Hunts | Never |
@@ -134,6 +154,9 @@ memory laundering:
 <ordered by blast radius, each: severity · where (path:line) · evidence quoted · recommendation>
 - **F1 — blocking** · <path:line> · <the two conflicting values> · <recommendation>
 
+## Checks not run
+- `<override, as the profile states it>` → check `<letter>` not run
+
 ## Threads to decide  → ttrpg-campaign-arc
 | Thread | Last seen | Recommendation | Why |
 |---|---|---|---|
@@ -159,7 +182,8 @@ afterwards**, reporting its output. An audit that ends without re-verification p
 - The link-integrity result quotes the command actually run, or is reported as unverified.
 - Every proposed retcon says what it replaces, why, whether it was read aloud, and **is recorded
   where `E.retroactivity` declares** — or the location was asked for, not invented.
-- The report states which cadence slot it ran on, and says so explicitly when the fallback was used.
+- The report names the cadence slot it ran on, and says when it used the slot's declared `default:`.
+- Every check dropped for an override says which override dropped it; checks A and B ran regardless.
 - The change list is a proposal; the applied subset, if any, is exactly what was approved, and the
   verification command was re-run after applying.
 
@@ -170,10 +194,11 @@ Run at that cadence, and additionally at every chapter boundary, before any arc 
 bulk import or reorganisation of the repo — those three are event triggers, not a cadence, and hold
 whatever the slot says.
 
-**If `E.audit_cadence` is empty**, fall back to every 3-5 sessions, **state in the report that you
-used the fallback**, and offer to record the table's real cadence in the slot. A weekly table and a
-table that plays twice a year do not want the same number, which is why it is a slot and not a
-constant. Do not confuse it with `B.cadence`, which is how often they *play*.
+**If `E.audit_cadence` is empty**, use the **`default:` the slot itself declares** (every 3-5
+sessions) — the number belongs to the profile, not this skill — **state in the report that you used
+it**, and offer to record the table's real cadence. A weekly table and one that plays twice a year
+do not want the same number, which is why it is a slot. It is neither `B.cadence`, how often they
+*play*, nor the spotlight rotation cadence, which follows `B.protagonists` — the slot says so.
 
 ## What NOT to do
 
@@ -187,6 +212,7 @@ constant. Do not confuse it with `B.cadence`, which is how often they *play*.
   to check" — refuse and run the link check alone.
 - Do not record a retcon into a deviation ledger you have not confirmed exists; `E.retroactivity`
   owns the location, and a homebrew campaign may have no ledger at all.
-- Do not read `B.cadence` for `E.audit_cadence`, or the reverse.
+- Do not read `B.cadence` for `E.audit_cadence`, or the reverse, and do not invent a cadence number.
+- Do not report the violation of a default `E.overrides` declares off, or drop a check silently.
 - Do not retcon material already read aloud without flagging it — and never without a record.
 - Do not report cosmetic convention drift above a leaked secret or a contradicted deviation.

@@ -3,14 +3,16 @@
 Read this while running Phase 2 of an audit. `SKILL.md` owns the gate, the profile slots, the
 report format and the retcon protocol; this file owns what each check actually does.
 
-Run **all** of them. Each finding carries **evidence**: file, line, and the conflicting content
-quoted. Nothing here is applied \u2014 every check produces a proposal.
+Run **all** of them, minus what `E.overrides` switched off: a check that verifies a default the
+table declared off does not run, and the report says which override dropped which check. A and B
+are never dropped — P10 and P11 are not overridable. Each finding carries **evidence**: file, line,
+and the conflicting content quoted. Nothing here is applied — every check produces a proposal.
 
 ---
 
 ### A — Single source of truth (P10)
 Hunt static duplicates of tracked state. For each value declared in `C.state_locations` as living in one note
-(levels, resources, position, disposition, open threads, roster), search the repo for it appearing
+(advancement, resources, position, disposition, open threads, roster), search the repo for it appearing
 **as a static copy** elsewhere: hubs, indexes, prep documents, overlays, READMEs.
 
 ```sh
@@ -19,8 +21,12 @@ rg -n "<value name>|<player or entity name>" --glob '!<the note that owns it>'
 
 Report every hit as `owner note says X / copy at path:line says Y`. **Do not reconcile them
 yourself**: the newer file is not necessarily the true one, and picking silently launders a guess
-into the record. The one legitimate exception is the **exit state of a session log**, which freezes
-a historical snapshot on purpose — never flag it, and never "update" it.
+into the record.
+
+Two things are not copies and are never flagged: the **exit state of a session log**, which freezes
+a historical snapshot on purpose, and a **view, query or link** that renders an owner's value
+elsewhere. What counts is a *typed* second copy — the hub's open-thread list is the textbook case,
+since thread status belongs to `C.thread_ledger` alone.
 
 ### B — Hub versus last log
 Every assertion in the state hub is checked against the last log's exit state and the logs in the
@@ -38,7 +44,10 @@ Cross the arc note's thread tracker with the logs in the window. Report:
 - seeds visible in a log but absent from the tracker (planted and never recorded — the most common
   way a promise dies);
 - threads paid at the table but still marked alive;
-- content skipped from prep that carried a hook, where the prep declared no recovery (P8).
+- content skipped from prep that carried a hook, where the prep declared no recovery (P8). **This
+  bullet does not run when `E.overrides` declares `P8 — off`:** that prep keeps no content margin
+  and names no first cut, so skipped content without a recovery is by design, not a finding. The
+  rest of check C still runs.
 
 Each gets a **recommendation: revive** (with the concrete scene that would pay it off) **or declare
 lost** (with what the table would notice). **The decision is not made here** — it belongs to
@@ -68,6 +77,10 @@ If the profile declares no command, say plainly that link integrity is **unverif
 hand, and propose adding a check. Never report an invariant you did not run.
 
 ### F — Retroactive admission test (P13)
+**This whole check does not run when `E.overrides` declares `P13 — off`:** the table switched the
+admission test off, so entities added in the window are not tested and no softer version is
+substituted. Declare the skipped check in the report and move on.
+
 Take the entities added in the window and re-run the admission test: why it is here, what it
 represents, what question it poses. An entity written mid-prep under time
 pressure often has only the first answer. For each failure, recommend one of: **give it the missing
@@ -79,5 +92,7 @@ Naming rules and forbidden characters; notes filed outside the folder map; front
 that have sprouted variants (`x/y` alongside `x-y`); orphan notes reachable from nothing; and
 **secrets sitting in notes `C.player_access` says players may read**, instead of in the
 `C.gm_private` location. Leakage is the highest severity in this group: it cannot be undone after
-the fact.
+the fact. **No override drops this check:** `P12 — off` admits mechanics and meta into player-facing
+text, not secrets into notes players may read, and naming and folder rules come from `C.naming` and
+`C.root`, which are slots, not defaults.
 

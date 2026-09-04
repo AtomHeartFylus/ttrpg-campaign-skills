@@ -22,7 +22,7 @@ in the package.**
 ---
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 **Supporting references** — read the one you need:
 - [references/session-zero.md](references/session-zero.md) — the seven decisions of a session zero,
@@ -34,8 +34,11 @@ in the package.**
 ## Phase 0 — Read the campaign profile
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
-`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
-there is none. A profile that exists but was not found re-interviews a GM who already answered.
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
+back empty, search by frontmatter** (`rg -l "type: campaign-profile"`): the schema declares that
+type, `ttrpg-campaign-setup` explicitly tolerates a renamed profile, and no other skill may call a
+renamed profile an absent one. A profile that exists but was not found re-interviews a GM who
+already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
@@ -45,11 +48,26 @@ there is none. A profile that exists but was not found re-interviews a GM who al
 | `D.tone` | the tone contract and the hard lines / lines & veils to agree on | make it the first session-zero item, then write the answer back |
 | `D.shape` | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
 | `B.cadence`, `B.absence` | the budget window; the absent-player convention and whether absentees advance | decide both here and write them back |
-| `B.safety` | which tools, who may invoke them, what happens, **refresh cadence** | decide it here; under `close` / `self-insert` it is mandatory, not optional |
-| `B.hooks_count`, `B.hooks_staging` | how many nerves per player, and how they are staged | 2–3 per player, staged as parallels |
+| `B.safety` | which tools, who may invoke them, what happens, **refresh cadence** | decide it here and write it back — `deferred: session zero` and empty read the same, and a `none` inherited from the interview is treated as unanswered, not as a decision; under `close` / `self-insert` it is mandatory, not optional |
+| `B.hooks_count`, `B.hooks_staging` | how many nerves per player, and how they are staged | use the `default:` the slot itself declares (2–3), say you did, and offer to record the real number; staging defaults to parallels |
+| `D.identity` | the rule for what a recap calls this protagonist — this note is where the **per-character** value lives, for `ttrpg-table-recap` to read | leave the field out; the recap asks once and writes the answer back here |
 | `B.retention` | how long playstyle notes and harvested hooks about a real person are kept, and who can have an entry removed | say plainly that these notes are kept indefinitely, and offer to set the rule — under `B.distance` = `self-insert` / `close`, ask before writing rather than after |
 | `C.player_access`, `C.gm_private`, `C.root`, `C.frontmatter`, `C.links`, `C.verify` | where playstyle notes and hook records may live; dossier folder, properties, link syntax, verification | assume players read nothing and keep playstyle GM-side; run `ttrpg-campaign-setup` — do not invent a layout |
-| `E.review`, `E.never_without_asking`, `E.overrides`, `E.audit_cadence` | bluntness; what not to do without asking; which defaults are off; how often the rotation check runs | write honestly, save in the repo, ask before renaming |
+| `C.blocks` | how this vault writes the callouts the skeleton shows | keep the roles, render them as plain headings and blockquotes |
+| `E.review`, `E.never_without_asking` | bluntness; what not to do without asking | write honestly, save in the repo, ask before renaming |
+| `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
+
+**`E.overrides` branch — mandatory.** Three overridable defaults reach this skill; drop what the
+profile switched off and say once that you did.
+
+| Override | What stops being required here |
+|---|---|
+| `P7 — off` | the whole rotation check: no period, no tolerance, no finding. The diaries stay, as history |
+| `P9 — off` | the playstyle notes as red-team fuel — keep them only if the table still wants them as craft notes |
+| `P13 — off` | the admission test on figures a harvested hook drags into the campaign |
+
+Not overridable, and not principles either: `B.safety`, `B.retention` and `B.frame` are the table's
+consent, and no line in `E.overrides` switches them off. P1/P2/P3/P10/P11 hold as always.
 
 **`D.shape` branch — mandatory.** `series` → as written. `one-shot` → dossiers collapse to whatever
 the pre-game exchange produced; **the rotation ledger does not apply**, becoming a within-session
@@ -95,7 +113,7 @@ empty.
 <tracked properties per A.ruleset / A.resource: the state values, one place only — P10>
 ---
 
-# <Player>
+# <Player>                                     <!-- blocks per C.blocks, headings in B.language -->
 
 > [!info] What this note is
 > (one line: the player and their character(s); state lives in the properties above)
@@ -108,8 +126,14 @@ empty.
 
 ## Playstyle           <!-- GM-facing craft notes; relocate per C.gm_private, never soften -->
 
+## Identity
+(only if D.identity declares a per-character rule: the name, role or epithet a recap uses for
+ them — written here by ttrpg-table-recap, read from here by every later recap)
+
 ## Diary
-(one entry per session they played, newest work appended by ttrpg-session-log's downstream step)
+(one entry for EVERY session they were present for, marked carried or chorus, newest appended by
+ ttrpg-session-log's downstream step: the mark is what the rotation check counts, so a chorus
+ evening without an entry reads as an absence)
 ```
 
 ### Tracked properties are the single source of truth (P10)

@@ -1,6 +1,6 @@
 ---
 name: ttrpg-campaign-arc
-description: "Produce and maintain the arc note that plans the campaign above the single session: backbone table, canon-vs-homebrew deviation ledger, open-thread tracker, pacing over the campaign horizon and a seeded endgame. Use when asked to plan an arc, season or chapter, to review where the campaign is going, to check which threads are still open, or to decide what the next few sessions must deliver. Covers what each chapter must deliver, why each divergence from the source was made, who owns each unpaid seed, and the forward commitment of who is protagonist in the next few sessions. Requires an ongoing campaign: it does not serve a one-shot. Does not measure spotlight fairness or decide whether anyone has been chorus too long (see ttrpg-table-dossier, which owns the rotation formula and the ledger), does not write a playable session (see ttrpg-session-prep), record a played one (see ttrpg-session-log), or audit the repo for drift (see ttrpg-continuity-audit)."
+description: "Produce and maintain the arc note that plans the campaign above the single session: backbone table, canon-vs-homebrew deviation ledger, open-thread tracker, pacing over the campaign horizon and a seeded endgame. Use when asked to plan an arc, season or chapter, to review where the campaign is going, to decide the fate of an unpaid thread, or to decide what the next few sessions must deliver. Covers what each chapter must deliver, why each divergence from the source was made, who owns each unpaid seed, and the forward commitment of who is protagonist in the next few sessions. Requires an ongoing campaign: it does not serve a one-shot. Does not measure spotlight fairness or decide whether anyone has been chorus too long (see ttrpg-table-dossier, which owns the rotation formula and the ledger), does not write a playable session (see ttrpg-session-prep), record a played one (see ttrpg-session-log), or audit the repo for drift (see ttrpg-continuity-audit)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
@@ -35,7 +35,7 @@ scenes or trigger boxes, you are in `ttrpg-session-prep` and should stop here.
 ---
 
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 **Supporting reference:** [references/arc-elements.md](references/arc-elements.md) — how each
 section of the arc note is built (backbone rows, deviation ledger, thread tracker, pacing,
@@ -44,13 +44,16 @@ endgame). Read it while writing the note; Phase 3 below carries only the summary
 ## Phase 0 — Read the campaign profile
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
-`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
-there is none. A profile that exists but was not found re-interviews a GM who already answered.
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
+back empty, search by frontmatter** (`rg -l "type: campaign-profile"`): the schema declares that
+type, `ttrpg-campaign-setup` explicitly tolerates a renamed profile, and no other skill may call a
+renamed profile an absent one. A profile that exists but was not found re-interviews a GM who
+already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
 | `D.shape` | **the gate above** — whether this skill runs at all | **ask once**; never assume `series` |
-| `A.ruleset` | level/progression checkpoints the backbone must respect | plan in fiction only, no progression row |
+| `A.ruleset` | the advancement checkpoints the backbone must respect, in that system's own measure | plan in fiction only, no progression row |
 | `A.resource` | the arc-level curve: where it must be lowest, where it can be regained | drop the curve column entirely |
 | `D.tone` | where the register must shift, and which breaks are admitted | ask once; do not invent tone shifts |
 | `D.canon_source` | which part of the corpus each chapter leans on | drop the canon column and the deviation ledger |
@@ -60,9 +63,27 @@ there is none. A profile that exists but was not found re-interviews a GM who al
 | `B.cadence`, `B.horizon` | cadence × horizon = the session budget | ask cadence; it is load-bearing here |
 | `B.size`, `B.protagonists` | passed through to `ttrpg-table-dossier`'s rotation check — **not recomputed here** | that skill asks; do not substitute a number |
 | `C.arc_note`, `C.thread_ledger`, `C.hub`, `C.links`, `C.verify` | where the arc note and ledger live, link syntax, verification command | ask where the note goes |
-| `E.review`, `E.never_without_asking`, `E.overrides` | how blunt the review is; what may not be changed without asking; which defaults are off | propose, do not restructure |
+| `E.review`, `E.never_without_asking` | how blunt the review is; what may not be changed without asking | propose, do not restructure |
+| `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
 
 If the search finds no profile, run `ttrpg-campaign-setup` first — do not guess a backbone.
+
+**`E.overrides` branch — mandatory.** Read the slot in Phase 0, before Phase 2 builds the
+skeleton, and drop what the table switched off — a dropped section is not a gap to be filled back
+in later, and an arc note that enforces an overridden default is planning against the campaign
+that commissioned it. Name the honoured overrides once, in the note's opening callout. Four
+overridable defaults reach this skill:
+
+| Override | What stops being required here |
+|---|---|
+| `P6 — off` | the **scheduled quiet session** in Pacing. No low-pressure session has to be placed on the horizon, and the omission is not a pacing finding. Do not smuggle it back as a "breather chapter" in the backbone |
+| `P7 — off` | the whole **Protagonists committed next** section: no forward commitment, no backbone row matched to an owed player's untouched nerve, and nothing is read from `ttrpg-table-dossier`'s rotation check. The prohibition on a tally table survives the override — it is P10, not P7 |
+| `P8 — off` | the **named first cut** in every backbone row, and the arc-scale margin. The budget line stays (`B.cadence` × `B.horizon` is arithmetic, not a default), but the backbone may spend all of it with no declared overflow and no compressible chapter |
+| `P13 — off` | the **admission test** on what the arc admits: a front, a faction or an endgame-required entity may be scheduled into a row without the three answers, and a seed needs no verdict before it is planted |
+
+P1, P2, P3, P10 and P11 hold whatever the slot says: the arc note still links tracked state
+instead of copying it (P10), and every thread still traces to a log (P11) — an override cannot
+turn remembered seeds into a tracker.
 
 ## Phase 1 — Read before planning, in this order
 
@@ -139,7 +160,7 @@ sources drift, and the one you keep in the arc note is the one nobody updates.
 
 What this skill owns is the **forward commitment**: read that skill's rotation check, then decide
 *which* of the coming backbone rows each owed player gets. Assign the chapter or front whose
-*function* matches that player's untouched nerve. Name the next 2–3 protagonists and the hook each
+*function* matches that player's untouched nerve. Name the protagonists of the next 2–3 sessions (how many per session is `B.protagonists`) and the hook each
 is built on, and write it where prep will read it. That is scheduling, not measurement.
 
 ## Phase 4 — When to run a pass
@@ -156,7 +177,8 @@ rewrite: update the tables in place, append to the ledger, and produce a short d
 - Every deviation entry has a reason and a downstream binding; none was edited away.
 - Every open thread has all four fields, and each *alive* thread was either scheduled or declared
   lost in this pass.
-- The next 2–3 protagonists are **named as a commitment**, each tied to a backbone row and a hook.
+- The protagonists of the next 2–3 sessions are **named as a commitment**, each tied to a backbone
+  row and a hook (how many carry one session is `B.protagonists`, never a constant).
   No tally table, no threshold and no rotation arithmetic appears in this note — that check was
   read from `ttrpg-table-dossier`, not recomputed.
 - `D.shape` was read before Phase 1: a one-shot was refused outright, a sandbox has fronts.
@@ -164,6 +186,10 @@ rewrite: update the tables in place, append to the ledger, and produce a short d
 - The endgame's required seeds appear as delivery requirements in specific backbone rows.
 - No tracked state (levels, resources, position, roster) is copied into this note (P10) — it links
   to the state hub instead.
+- The four checks resting on an overridable default — the named first cut (P8), the scheduled
+  quiet session (P6), the forward protagonist commitment (P7), the admission test on what the arc
+  admits (P13) — were applied **only while `E.overrides` leaves each in force**, and the note's
+  opening callout says which were off.
 - Run the `C.verify` command — invariant as declared (typically 0 broken links).
 
 ## What NOT to do

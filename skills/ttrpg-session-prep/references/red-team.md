@@ -13,7 +13,7 @@ else).
    pass sharpens every session the campaign runs.
 2. **Output:** the **3–5 most likely derailing choices** of *this* table for *this* session, each
    with its **response pressure** — never a wall, always a consequence. The enemies *pursue*; the
-   door *stays the only exit*; the soul *calls them by name as they leave*.
+   door *stays the only exit*; the petitioner they refused *calls after them by name*.
 3. Fold each response into the `If they derail:` line of the affected scene. A scene without that
    line is a scene that only works if the players cooperate.
 
