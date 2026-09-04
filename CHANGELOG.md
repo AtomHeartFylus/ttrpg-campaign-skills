@@ -8,6 +8,20 @@ first. A schema change always carries a **Migration** note.
 
 ## Unreleased
 
+### Eval coverage completed for all nine skills
+- Added `evals/table-dossier.md` (rotation check with a diary extension in setup, and onboarding a
+  player), `evals/campaign-arc.md` (plan the season; **the one-shot gate must refuse**) and
+  `evals/session-audio.md` (gate 1 refuses on an existing audio file; a consented run driven from
+  synthetic machine output; Phase 2 end to end declared not runnable).
+- Added `tests/fixture-audio/`: synthetic diarized output with a split speaker label, an
+  unresolvable overlap, mangled names, a hook born off game and a tasteless joke that must never
+  be quoted. *Lesson: the consent gates, the speaker map and the off-game rules are judgement, not
+  transcription — only running the tool itself needs real audio, and a package that refuses to
+  invent a consented recording should not pretend otherwise.*
+- Three rubrics are pass/fail on **refusing**, because silent degradation is invisible to the form
+  checker and expensive at the table.
+  **Migration:** none — `tests/` is not installed.
+
 ### Profile tiers, artifact type keys, front-loaded descriptions, two new checks
 - **`(core)` tier in the schema.** Twelve slots are marked `(core)`; the setup interview offers a
   quick start that walks only those and leaves the rest as untouched placeholders — read, by the

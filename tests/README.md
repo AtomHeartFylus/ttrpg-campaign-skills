@@ -11,6 +11,9 @@ Two pieces:
   use). Its state is *deliberately dirty*: the defects are seeded on purpose and listed, as the
   answer key, in `evals/continuity-audit.md`. **Never "fix" the fixture** — a clean fixture tests
   nothing.
+- **`fixture-audio/`** — synthetic diarized machine output for one evening of the same campaign,
+  so the audio skill's judgement (gates, storage contract, speaker map, off-game curation) is
+  testable without a recording. See its own README for what is seeded into it.
 - **`evals/`** — one file per skill under test: a scenario (setup + the prompt to give the agent)
   and a pass/fail rubric a human grader ticks.
 
@@ -44,10 +47,18 @@ Two pieces:
 | `evals/entity-note.md` | yes | promote the eel-market buyer |
 | `evals/continuity-audit.md` | yes | the answer key of seeded defects lives here |
 | `evals/campaign-setup.md` | no (empty dir) | scripted-GM interview |
+| `evals/table-dossier.md` | yes | A: rotation check (setup extends the diaries) · B: onboarding a player |
+| `evals/campaign-arc.md` | yes | A: plan the season · B: the one-shot gate must refuse |
+| `evals/session-audio.md` | yes (+ `fixture-audio/`) | A: gate 1 refuses · B: consented run from machine output · C: declared not runnable |
 
-**Known gaps:** `ttrpg-table-dossier`, `ttrpg-campaign-arc` and `ttrpg-session-audio` have no eval
-yet — the first two need a session-zero script and an arc-scale fixture, the third needs a consented
-audio sample. Add them before changing those skills behaviourally.
+All nine skills are covered. **The one declared hole** is `ttrpg-session-audio` Phase 2 end to end
+— running a real diarizing tool on a real recording — which needs a consented audio sample this
+package will not invent; see Scenario C of that eval for how to run it if you have one.
+
+**Scenarios that must refuse.** Three rubrics are pass/fail on their first box because the correct
+behaviour is *stopping*: the arc skill on a one-shot, the audio skill without recording consent,
+and — partially — the entity skill when the admission test fails. Silent degradation is invisible
+to a form checker and expensive at the table, so it gets its own scenarios rather than a footnote.
 
 ## Rules for writing an eval
 
