@@ -33,18 +33,26 @@ schema: 2
 > the *only* thing a skill may put in place of an empty slot, and only while saying out loud that it
 > did. Everywhere else the skill asks once or drops the section: a number that lives in a skill
 > instead of here is a hardcoded constant with a friendlier name.
+>
+> **Two tiers, one schema.** Slots marked **`(core)`** are the minimum the cycle cannot start
+> without. The setup interview offers a **quick start** that walks only those — plus the
+> dependents a core answer implies (`A.resource` with a value drags its whole resource family —
+> shape, scale, loss/gain, asymmetry, zero; `D.recap` with a form drags its ceiling) — writes `deferred: session zero` on the five that
+> table owns, and leaves every other slot as an untouched placeholder: by the four-state rule
+> that reads as *never asked*, so the first skill that needs one stops, asks once, and writes the
+> answer back here. Core marks pace the interview; they change nothing about how a slot is read.
 > Keep this note short. It is a data sheet, not a setting bible: link out to the long notes.
 
 ---
 
 ## §A — Game
 
-- **`A.ruleset`** — <the system and edition you play, in the terms you use for it, plus any
+- **`A.ruleset`** *(core)* — <the system and edition you play, in the terms you use for it, plus any
   supplement that changes preparation; `diceless` is an answer too>
 - **`A.adjudicated`** — what the rules decide: <combat, resource attrition, social conflict…>
 - **`A.fiction`** — what is deliberately never rolled for
 - **`A.houserules`** — only the ones that change how a session is *prepared*
-- **`A.resource`** — the mechanic carrying the emotional weight: <name, or `none`>
+- **`A.resource`** *(core)* — the mechanic carrying the emotional weight: <name, or `none`>
 - **`A.resource_shape`** — <per-character | shared party clock | per-faction | other: describe>
   Decides whether a log's exit state has one row per character, one row, or one per entity.
 - **`A.resource_scale`** — starting value and units, in the game's own terms
@@ -58,20 +66,20 @@ schema: 2
 
 ## §B — Table
 
-- **`B.size`** — how many players
-- **`B.protagonists`** — how many players carry a single session. With `B.size` this fixes the
+- **`B.size`** *(core)* — how many players
+- **`B.protagonists`** *(core)* — how many players carry a single session. With `B.size` this fixes the
   rotation period (P7); no skill may hardcode a constant instead, and this note offers none:
   a number here that nobody chose would be the constant, one indirection later.
 - **`B.cadence`** — weekly / monthly / irregular
 - **`B.horizon`** — expected total length of the campaign
 - **`B.length`** — session length and hard stop; drives content margin (P8)
 - **`B.absence`** — the fixed in-fiction convention for absent players, and whether they advance
-- **`B.distance`** — **`self-insert` | `close` | `fictional`**: how far the characters sit from the
+- **`B.distance`** *(core)* — **`self-insert` | `close` | `fictional`**: how far the characters sit from the
   players themselves. `self-insert` (players portray themselves, under their own names) and `close`
   make the safety conversation, the hook harvest and the playstyle notes **load-bearing rather than
   optional**: material aimed at a character is aimed at a person. Any skill that harvests hooks,
   writes GM-facing notes about a player, or plans a scene aimed at one **must branch on this slot**.
-- **`B.safety`** — which tools, who may invoke them, what happens when invoked, refresh cadence.
+- **`B.safety`** *(core)* — which tools, who may invoke them, what happens when invoked, refresh cadence.
   **Consent slots are the exception to `none`:** here and in `B.consent_recording` /
   `B.consent_offgame`, a `none` that nobody at the table pronounced reads as *unanswered*, not as a
   decision. Silence never switches a safety tool off
@@ -100,9 +108,9 @@ schema: 2
 
 ## §C — Repository and artifacts
 
-- **`C.root`** — repo/vault root and folder map
+- **`C.root`** *(core)* — repo/vault root and folder map
 - **`C.granularity`** — note granularity (e.g. one note per entity, small and linked)
-- **`C.links`** — link syntax and its escaping rules
+- **`C.links`** *(core)* — link syntax and its escaping rules
 - **`C.frontmatter`** — tag families; which values are properties
 - **`C.blocks`** — how your note system writes a **callout/admonition, a checkbox and a quote**.
   The skeletons in these skills show one dialect; a skill keeps the *roles* and renders them in
@@ -131,7 +139,7 @@ schema: 2
 
 ## §D — Campaign shape and content
 
-- **`D.shape`** — **`one-shot` | `series` | `open sandbox`**. The single most branch-heavy slot:
+- **`D.shape`** *(core)* — **`one-shot` | `series` | `open sandbox`**. The single most branch-heavy slot:
   a one-shot has no previous log, no arc note, no rotation across sessions and no recap; a sandbox
   has fronts instead of chapters. Every skill declares what it does for each value; a skill that
   cannot serve a value must say so and stop, not degrade silently.
@@ -147,8 +155,8 @@ schema: 2
   recordings live
 - **`D.guide`** — a recurring anchor NPC: who, their arc, their voice in one line, and whether they
   owe a prepared beat every session
-- **`D.tone`** — dominant register, admitted breaks, and the recurring thematic pressure
-- **`D.recap`** — form of the opening recap (in-fiction prose / a verse form / none), who reads it,
+- **`D.tone`** *(core)* — dominant register, admitted breaks, and the recurring thematic pressure
+- **`D.recap`** *(core)* — form of the opening recap (in-fiction prose / a verse form / none), who reads it,
   and the **reading-time ceiling** (minutes, or a form-native unit). **`default:` three to five
   minutes**, for the ceiling only — the form itself is never defaulted
 - **`D.identity`** — the rule for what the recap calls each protagonist (real name, role, epithet).
@@ -156,7 +164,7 @@ schema: 2
 
 ## §E — Declared overrides and working agreements
 
-- **`E.overrides`** — the principles this campaign deliberately **switches off or replaces**, each
+- **`E.overrides`** *(core)* — the principles this campaign deliberately **switches off or replaces**, each
   with one line of reason. P4, P5, P6, P7, P8, P9, P12 and P13 are strong defaults, not laws: a table
   that wants pure tactical play, or has no interest in a moral question per scene, declares it
   **here** and every skill obeys. P1, P2, P3, P10 and P11 are not overridable — violating them

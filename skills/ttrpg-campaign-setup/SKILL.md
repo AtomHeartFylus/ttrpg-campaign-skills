@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Campaign setup
@@ -67,6 +67,16 @@ now: the portability rule (Phase 3.5) is unenforceable without it.
    at a time — but no slot may be dropped from the walk.
 3. At the end, **diff your filled profile against the schema**: a slot in the schema and absent
    from your output was skipped. Go back and ask it.
+
+**Two walks — full or quick start.** The full walk above is the default. When the GM asks for the
+fast version, or visibly has one evening in them: walk only the slots the schema marks **`(core)`**
+— plus the dependents a core answer implies (`A.resource` with a value drags its whole resource
+family: shape, scale, loss/gain, asymmetry, zero; `D.recap` with a form drags its ceiling) — write `deferred: session zero` on the five that
+table owns exactly as below, and **leave every other slot as its untouched placeholder**. Never
+write `none` into a slot you did not ask. Close by listing, in the report, exactly which slot ids
+were never asked, and say that the first skill needing one will stop, ask once, and write the
+answer back. A quick start is a pacing decision, not a smaller schema: the diff test above still
+runs — it just accepts placeholders outside the core set, each one named.
 
 **Empty is an answer.** Write `none` into the slot — or `deferred: <when>` when the answer belongs
 to a conversation that has not happened yet.
@@ -212,7 +222,9 @@ The existing repo is **the authority on its own conventions**. Describe it; do n
 
 - **Slot coverage, mechanically:** diff the slot ids in `references/campaign-profile.md` against
   those in the profile you wrote. Every schema slot holds a value, an explicit `none`, or a
-  `deferred: <when>`; a slot missing from your output is a slot you never asked. **A slot session
+  `deferred: <when>` — or, after a declared quick start only, an untouched placeholder outside the
+  core set, each named in the closing report; a slot missing from your output is a slot you never
+  asked. **A slot session
   zero owns is `deferred: session zero`, never `none`** — see the four states above.
 - Each `none` was *asked*, not assumed. `B.consent_recording` is `yes` only if someone said yes,
   and `C.capture_paths` is filled only then. `E.overrides` is explicit — `none` is a valid and
@@ -231,8 +243,9 @@ The existing repo is **the authority on its own conventions**. Describe it; do n
 - Do not restate the slot list in your plan, your notes or a fork of the schema. Walk the file.
 - Do not invent a slot value, and do not "reasonably assume" one. Ask, or write `none`.
 - Do not infer `B.consent_recording` from anything. It is a sentence someone said, or it is `no`.
-- Do not leave a template placeholder in a delivered profile — downstream skills read it as
-  "never asked" and stall. Do not conclude "no profile exists" without searching the whole vault.
+- Do not leave a template placeholder in a delivered profile outside a declared quick start —
+  downstream skills read it as "never asked" and stall; after a quick start that stall is the
+  designed behaviour, but only for slots named as unasked in the report. Do not conclude "no profile exists" without searching the whole vault.
 - Do not build folders for material the profile does not declare, and do not create a static roster
   or state table anywhere, however convenient.
 - Do not name a verification command you have not run.

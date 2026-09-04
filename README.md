@@ -86,7 +86,9 @@ canonical), but it surprises people once.
 
 1. Run `ttrpg-campaign-setup` — it creates (or audits) the repo skeleton and walks you
    through `campaign-profile.md`.
-2. Fill the profile honestly. Empty slots are legitimate: they switch sections off.
+2. Fill the profile honestly. Empty slots are legitimate: they switch sections off. Short on
+   time, ask for the **quick start**: the interview walks only the slots marked `(core)` and
+   leaves the rest to be asked, once each, by the first skill that needs them.
 3. Run `ttrpg-table-dossier` for session zero: the safety conversation, one dossier per player and
    the harvested hooks. `ttrpg-session-prep` reads those dossiers as a required input, and
    `B.distance` is decided at that table, not in the interview — skipping this step is what makes a
