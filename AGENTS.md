@@ -47,6 +47,8 @@ and it is why this repo has a contract checker where a looser collection would n
 - `templates/` — `campaign-profile.md` (the schema every skill reads) and `overlay-SKILL.md`.
 - `docs/` — `PRINCIPLES.md` (P1…P13, cited by tag) and `AUTHORING.md` (how to write a skill here).
 - `scripts/` — `check_contract.py`, the only script.
+- `CHANGELOG.md` — what moved upstream, for forks: entry per visible change, lesson included,
+  **Migration** note mandatory on schema changes. Updated in the same commit as the change.
 - `tests/` — the behavioral eval harness: `fixture-campaign/` (an invented campaign repo with
   deliberately seeded defects — never clean it) and `evals/` (one scenario + rubric per covered
   skill). Protocol in `tests/README.md`; not installed, like `docs/` and `templates/`.

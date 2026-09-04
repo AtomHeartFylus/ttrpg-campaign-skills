@@ -169,7 +169,9 @@ fix the base skill instead.
    added to the template reaches the interview the same day. Never hand-copy a slot list into a
    SKILL.md. Then make some skill actually *read* the new slot; a slot nothing consumes is a
    question asked for nobody.
-4. Bump `metadata.version`; note the lesson in the commit message.
+4. Bump `metadata.version`; note the lesson in the commit message — and add the entry to
+   `CHANGELOG.md` when the change is visible to a fork: a behavioural change, a schema change
+   (always with its **Migration** note), a new check. Wording fixes stay out of it.
 5. Re-run the agnosticism self-test (§1) on the touched sections. If the change adds or drops a
    requirement that a principle carries, update that skill's `E.overrides` branch in the same
    commit — and check the *Verify* and *What NOT to do* lists, which are where an overridable
