@@ -1,10 +1,10 @@
 ---
 name: ttrpg-continuity-audit
-description: "Produce a health-check report on a campaign repo plus a proposed change list, applying nothing until approved. Use when asked to check the campaign for drift, inconsistencies, stale state, duplicated values, dangling threads or broken links, or as a recurring check every few sessions. Covers the single-source-of-truth hunt, state hub versus last session log, unpaid seeds with a revive-or-declare-lost recommendation, prep hygiene, the link-integrity command, retroactive admission-test failures, and the retcon protocol for correcting past notes. Does not decide the fate of a thread (see ttrpg-campaign-arc), rewrite prep (see ttrpg-session-prep), or fix notes silently."
+description: "Produce a health-check report on a campaign repo plus a proposed change list, applying nothing until approved. Use when asked to check the campaign for drift, inconsistencies, stale state, duplicated values, dangling threads or broken links, or as the recurring check at the cadence the profile declares. Covers the single-source-of-truth hunt, state hub versus last session log, unpaid seeds with a revive-or-declare-lost recommendation, prep hygiene, the link-integrity command, retroactive admission-test failures, and the retcon protocol for correcting past notes. Requires a campaign with accumulated history: it does not serve a one-shot. Does not decide the fate of a thread (see ttrpg-campaign-arc), rewrite prep (see ttrpg-session-prep), or fix notes silently."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Continuity audit
@@ -17,28 +17,56 @@ alive or buried, links resolving.
 > (path, line, the two conflicting values), changes are proposals, and nothing is applied until the
 > user approves a subset. A silent mass edit destroys the only record of which value was true.
 
+> **`D.shape` gate — read it first, and be willing to stop.**
+> An audit compares a repo against **its own accumulated history**. That history is what a one-shot
+> does not have.
+>
+> - **`series`** → the skill as written.
+> - **`one-shot`** → **this skill does not serve a one-shot. Say so and stop.** There is no hub to
+>   go stale, no previous log to contradict, no thread carried across sessions, no convention drift
+>   accumulated over months and no arc note to cross-check. What remains is a link check — run
+>   `C.verify` and report its output, then end. **Do not produce an audit report whose every
+>   section reads "nothing to check": that is a false pass, and it is exactly the silent
+>   degradation this gate exists to prevent.**
+> - **`open sandbox`** → the skill runs in full, with one substitution: check C against the
+>   **fronts** rather than a chapter backbone, and treat a front that advanced off screen as
+>   expected state, not drift.
+> - **empty** → **ask once**, write the answer into the profile, and do not assume `series`.
+
 ---
 
-> Principles are cited below by tag (`P1`…`P12`); their full text is in
+> Principles are cited below by tag (`P1`…`P13`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+
+**Supporting reference:** [references/checks.md](references/checks.md) — the seven checks of Phase 2
+in full. Read it while auditing; Phase 2 below carries only the summary table.
 
 ## Phase 0 — Read the campaign profile
 
+**Find it before declaring it missing.** Search the repo/vault root for a file named
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
+there is none. A profile that exists but was not found re-interviews a GM who already answered.
+
 | Slot | Used for | If empty |
 |---|---|---|
-| §2 Dramatic resource | which values are tracked and therefore duplicable | skip the resource checks |
-| §6 Structure | the deviation ledger prep must stay consistent with | skip the deviation-drift check |
-| §7 Table conventions | absent-player rule → expected state divergence, not a bug | flag attendance divergences as questions, not findings |
-| §8 Player-facing outputs | what players may read, and where GM-only material must live | assume no note is player-readable |
-| §9 Repo conventions | state single-source-of-truth locations, folder map, naming, link syntax, verification command | audit only what the user names; report the rest as unverifiable |
-| §10 Working agreements | retroactivity, review bluntness, what may not be touched without asking | assume retroactivity is **not** granted; propose only |
+| `D.shape` | **the gate above** — whether this skill runs at all | **ask once**; never assume `series` |
+| `E.audit_cadence` | **how often this audit runs** — the only slot that answers it | fall back to every 3-5 sessions, **say you used the fallback**, and offer to record the table's real cadence |
+| `B.cadence` | **session** cadence — used only to convert "about a month of play" into a number of sessions in check C. **Not the audit cadence** | ask how often they play; do not substitute `E.audit_cadence` |
+| `A.resource` | which values are tracked and therefore duplicable | skip the resource checks |
+| `D.backbone`, `D.deviation_policy` | the deviation ledger prep must stay consistent with | skip the deviation-drift check — a fully homebrew campaign has no ledger and its absence is not a finding |
+| `B.absence` | absent-player rule → expected state divergence, not a bug | flag attendance divergences as questions, not findings |
+| `C.player_access`, `C.gm_private` | what players may read, and where GM-only material must live | assume no note is player-readable |
+| `C.state_locations`, `C.hub`, `C.root`, `C.naming`, `C.links`, `C.arc_note`, `C.thread_ledger` | single-source-of-truth locations, folder map, naming, link syntax, where the ledgers live | audit only what the user names; report the rest as unverifiable |
+| `C.verify` | the link-integrity command and its invariant | report link integrity as **unverified**; never claim an invariant you did not run |
+| `E.retroactivity` | **whether past material may be corrected, and where corrections are recorded** | assume retroactivity is **not** granted; propose only the typo class |
+| `E.review`, `E.never_without_asking`, `E.overrides` | review bluntness, what may not be touched without asking, which defaults are off | be plain; propose, never apply |
 
-If the profile is missing, run `ttrpg-campaign-setup` first — an audit without declared invariants
-is an opinion.
+If the search finds no profile, run `ttrpg-campaign-setup` first — an audit without declared
+invariants is an opinion.
 
 ## Phase 1 — Read before auditing
 
-1. **The campaign state hub** (§9) — every value it asserts.
+1. **The campaign state hub** (`C.hub`) — every value it asserts.
 2. **The last session log** — especially its frozen exit state.
 3. **The arc note** (`ttrpg-campaign-arc`) — the thread tracker and the deviation ledger.
 4. **The last two or three prep documents** — for P1/P2 hygiene.
@@ -50,87 +78,36 @@ the invariant checks, which are repo-wide.
 
 ## Phase 2 — The checks
 
-Run all of them. Each finding carries **evidence**: file, line, and the conflicting content quoted.
+Run all of them, as [references/checks.md](references/checks.md) specifies — read it while
+auditing. Each finding carries **evidence**: file, line, and the conflicting content quoted.
 
-### A — Single source of truth (P10)
-Hunt static duplicates of tracked state. For each value declared in §9 as living in one note
-(levels, resources, position, disposition, open threads, roster), search the repo for it appearing
-**as a static copy** elsewhere: hubs, indexes, prep documents, overlays, READMEs.
-
-```sh
-rg -n "<value name>|<player or entity name>" --glob '!<the note that owns it>'
-```
-
-Report every hit as `owner note says X / copy at path:line says Y`. **Do not reconcile them
-yourself**: the newer file is not necessarily the true one, and picking silently launders a guess
-into the record. The one legitimate exception is the **exit state of a session log**, which freezes
-a historical snapshot on purpose — never flag it, and never "update" it.
-
-### B — Hub versus last log
-Every assertion in the state hub is checked against the last log's exit state and the logs in the
-window: where the party is, what is next, what is unresolved, who is present. Divergence means the
-**hub is stale** — the log is the authority (P11). Report the delta as a proposed hub update, one
-line per field.
-
-### C — Threads and unpaid seeds
-Cross the arc note's thread tracker with the logs in the window. Report:
-
-- threads marked *alive* with no appearance in the last N sessions (N = the profile's cadence
-  reduced to about a month of play);
-- seeds visible in a log but absent from the tracker (planted and never recorded — the most common
-  way a promise dies);
-- threads paid at the table but still marked alive;
-- content skipped from prep that carried a hook, where the prep declared no recovery (P8).
-
-Each gets a **recommendation: revive** (with the concrete scene that would pay it off) **or declare
-lost** (with what the table would notice). **The decision is not made here** — it belongs to
-`ttrpg-campaign-arc`; this skill hands it a decision-ready list.
-
-### D — Prep hygiene (P1, P2)
-On the prep documents in the window:
-
-- **P2 duplication:** a trigger present in both the global reminder and a scene box; a value (a
-  difficulty, a cost, a quantity) written in two places. Report both locations — a duplicated
-  number is a stale number waiting to happen.
-- **P1 violations:** a cross-reference standing in for descriptive content ("see the module / see
-  the location note"); any link that is meant to be *opened during play* and is **not** a stat
-  block. Those are the two failure shapes; quote the offending line.
-- **Deviation drift (§6):** prep that contradicts the deviation ledger — running the source's
-  version of something the campaign deliberately changed. High severity: it contradicts what the
-  table has already been told.
-
-### E — Link integrity (§9)
-Run the profile's verification command and report **the command, its output and the invariant**
-(typically 0 broken links). A link check of this kind verifies that link targets resolve, that
-heading and block anchors exist in the target, and that embeds — including media — point at files
-that are actually there.
-
-If the profile declares no command, say plainly that link integrity is **unverified**, sample by
-hand, and propose adding a check. Never report an invariant you did not run.
-
-### F — Retroactive admission test (P13)
-Take the entities added in the window and re-run the admission test: why it is here, what it
-represents, what question it poses. An entity written mid-prep under time
-pressure often has only the first answer. For each failure, recommend one of: **give it the missing
-question**, **demote it to background colour without dialogue**, or **retire it** (only if it never
-reached the table). An entity the players have already met is never retired — it is demoted.
-
-### G — Convention and leakage drift (§8, §9)
-Naming rules and forbidden characters; notes filed outside the folder map; frontmatter tag families
-that have sprouted variants (`x/y` alongside `x-y`); orphan notes reachable from nothing; and
-**secrets sitting in notes the profile says players may read**, instead of in the GM-only location
-§8 declares. Leakage is the highest severity in
-this group: it cannot be undone after the fact.
+| Check | Hunts | Never |
+|---|---|---|
+| **A** — single source of truth (P10) | static copies of a value `C.state_locations` says lives in one note | reconcile them yourself; and never flag a session log's frozen *exit state* |
+| **B** — hub vs last log | every assertion in `C.hub` against the last log's exit state | treat the hub as authority — the log wins (P11) |
+| **C** — threads and unpaid seeds | alive-but-absent threads, seeds in logs but not in the tracker, threads paid but still open, skipped hooks with no recovery (P8) | decide a thread's fate — hand `ttrpg-campaign-arc` a revive-or-declare-lost list |
+| **D** — prep hygiene (P1, P2) | a trigger in both reminder levels, a value written twice, cross-references standing in for description, deviation drift | report deviation drift when the campaign is fully homebrew and has no ledger |
+| **E** — link integrity (`C.verify`) | the command's real output and its invariant | claim an invariant you did not run |
+| **F** — retroactive admission test (P13) | entities added in the window with no third answer | retire an entity the players have already met — demote it |
+| **G** — convention and leakage drift | naming, folder map, tag variants, orphans, and **secrets in notes `C.player_access` says players may read** | rank cosmetic drift above a leak; leakage cannot be undone |
 
 ## Phase 3 — The retcon protocol
 
-When profile §10 grants retroactivity — the consistency of the work outranks fidelity to what was
-already played — past notes **may** be corrected. The protocol is what keeps that from becoming
+When `E.retroactivity` grants retroactivity — the consistency of the work outranks fidelity to what
+was already played — past notes **may** be corrected. The protocol is what keeps that from becoming
 memory laundering:
 
-1. **The correction is recorded.** Every retcon states what it replaced, why, and the date/session.
-   Keep it where the campaign's divergences already live (the arc note's deviation ledger) so
-   future prep inherits it. A correction nobody can find is a new inconsistency.
+1. **The correction is recorded — where `E.retroactivity` says corrections are recorded.** That
+   slot owns the location; this skill does not pick one. Every retcon states what it replaced, why,
+   and the date/session, so a retcon leaves a trace and future prep inherits it. A correction
+   nobody can find is a new inconsistency.
+   - **If `E.retroactivity` names no location:** the usual home is the arc note's deviation ledger,
+     where the campaign's divergences already live. **That ledger does not exist for a fully
+     homebrew campaign** — `ttrpg-campaign-arc` drops it when there is no source material — so
+     there is no target to fall back on. **Ask** where retcons should be recorded, propose a
+     dedicated corrections section in the arc note or the state hub, and **write the answer into
+     `E.retroactivity`.** Do not record a retcon into a ledger you have not confirmed exists, and
+     do not create one silently.
 2. **Anything already read aloud to the table is flagged as such before changing it.** The players'
    memory is a copy of the old version that you cannot edit. Mark such a change explicitly in the
    proposal (`read aloud: yes — session N`) and offer the choice: reconcile it *in fiction*
@@ -138,7 +115,8 @@ memory laundering:
    Silently editing text the table has heard makes their memory wrong, and they will notice.
 3. **Session logs record what happened; they are not rewritten** (P11). Correct a misspelled name
    or a mis-attributed line — never the events. Frozen exit-state snapshots are untouchable (P10).
-4. **If §10 does not grant retroactivity**, propose nothing beyond the typo class and say why.
+4. **If `E.retroactivity` does not grant retroactivity**, propose nothing beyond the typo class and
+   say why.
 
 ## Phase 4 — The report
 
@@ -179,14 +157,23 @@ afterwards**, reporting its output. An audit that ends without re-verification p
 - Session-log exit states were left untouched and were not flagged as duplicates.
 - Every unpaid thread carries a revive-or-declare-lost recommendation, and none was decided here.
 - The link-integrity result quotes the command actually run, or is reported as unverified.
-- Every proposed retcon says what it replaces, why, and whether it was read aloud.
+- Every proposed retcon says what it replaces, why, whether it was read aloud, and **is recorded
+  where `E.retroactivity` declares** — or the location was asked for, not invented.
+- The report states which cadence slot it ran on, and says so explicitly when the fallback was used.
 - The change list is a proposal; the applied subset, if any, is exactly what was approved, and the
   verification command was re-run after applying.
 
 ## When to run
 
-Every 3–5 sessions, at every chapter boundary, before any arc pass, and after any bulk import or
-reorganisation of the repo.
+**`E.audit_cadence` declares it. Read the slot; it is the only thing that answers this question.**
+Run at that cadence, and additionally at every chapter boundary, before any arc pass, and after any
+bulk import or reorganisation of the repo — those three are event triggers, not a cadence, and hold
+whatever the slot says.
+
+**If `E.audit_cadence` is empty**, fall back to every 3-5 sessions, **state in the report that you
+used the fallback**, and offer to record the table's real cadence in the slot. A weekly table and a
+table that plays twice a year do not want the same number, which is why it is a slot and not a
+constant. Do not confuse it with `B.cadence`, which is how often they *play*.
 
 ## What NOT to do
 
@@ -194,7 +181,12 @@ reorganisation of the repo.
 - Do not resolve a duplicate by keeping the value you happened to read last — report both.
 - Do not touch the frozen exit state of a session log, or rewrite the events in one.
 - Do not decide the fate of a thread; hand the decision to the arc pass.
-- Do not rename, move or reorganise notes without asking (§10).
+- Do not rename, move or reorganise notes without asking (`E.never_without_asking`).
 - Do not claim the link invariant without running the command.
+- Do not run this skill for a one-shot, and do not emit a report whose sections all say "nothing
+  to check" — refuse and run the link check alone.
+- Do not record a retcon into a deviation ledger you have not confirmed exists; `E.retroactivity`
+  owns the location, and a homebrew campaign may have no ledger at all.
+- Do not read `B.cadence` for `E.audit_cadence`, or the reverse.
 - Do not retcon material already read aloud without flagging it — and never without a record.
 - Do not report cosmetic convention drift above a leaked secret or a contradicted deviation.

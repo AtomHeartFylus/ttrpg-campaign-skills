@@ -4,200 +4,211 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.0"
+  version: "2.0"
 ---
 
 # Campaign setup
 
-Produces the **filled `campaign-profile.md`** — the contract every other skill in this package
-reads first — plus the folder skeleton, the state hub and the conventions the profile declares.
+Produces the **filled campaign profile** — the contract every other skill in this package reads
+first — plus the folder skeleton, the state hub and the conventions the profile declares.
 Read by an agent that starts cold on a machine it has never seen before.
 
-> **The deliverable is the profile.** Folders, hubs and scripts are what the profile's answers
-> imply. If you finish with a beautiful skeleton and an unfilled profile, you produced nothing.
+> **The deliverable is the profile.** Folders, hubs and scripts are what its answers imply. If you
+> finish with a beautiful skeleton and an unfilled profile, you produced nothing.
+
+> **This skill does not contain the slot list, and never will.** The schema lives in one file —
+> [references/campaign-profile.md](references/campaign-profile.md), bundled into this folder — and
+> the interview is a *walk over that file*. A hand-copied list here is how endgame,
+> protagonists-per-session, frame of reference, recording consent and audit cadence reached the
+> schema and were silently never asked, while this skill's own verify step demanded that no slot be
+> left empty. P10 applied to this package: one source of truth, read everywhere else.
+> Principles are cited by tag (`P1`…`P13`), full text in
+> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled at install time.
 
 ---
 
-> Principles are cited below by tag (`P1`…`P12`); their full text is in
-> [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+## Phase 0 — Find out whether a profile already exists, then pick the mode
 
-## Phase 0 — Pick the mode
+**Search before you conclude.** From the vault root, look for `campaign-profile.md` at any depth
+(`rg --files -g campaign-profile.md`, `find . -name campaign-profile.md`, or the tooling's search)
+and grep for `type: campaign-profile` in case it was renamed. Only if both come back empty is there
+no profile: one a folder deeper than expected is not an absent profile, and re-interviewing a GM
+who already answered forty questions is the fastest way to be fired.
 
 | Situation | Mode | What you do |
 |---|---|---|
-| Empty or near-empty repo | **Bootstrap** | Phases 1–3, in order |
-| Repo already holds real material, no profile | **Adoption** | Phase 3bis first, then write the profile to match what is already there |
-| Profile exists | **Audit** | Phase 4 only: declared conventions vs. actual state; report drift, change nothing without asking |
+| Empty or near-empty repo, no profile found | **Bootstrap** | Phases 1 → 5 in order |
+| Repo already holds real material, no profile found | **Adoption** | Phase 4 first, then interview only the slots material cannot answer |
+| A profile was found | **Audit** | Phase 5 only: declared conventions vs. actual state; report drift, change nothing without asking |
 
-Never mix modes silently. Say which one you are in before the first question or the first write.
+Never mix modes silently. Say which one you are in, and where you searched, before the first
+question or the first write.
 
 ## Phase 1 — Read before writing
 
-1. **Whatever exists already** — file tree, `README`, any conventions note. Two minutes of `ls`
+1. **The bundled schema** — `references/campaign-profile.md`. This *is* the interview script; open
+   it now. If it is missing, stop and report a broken install: do not reconstruct it from memory.
+2. **Whatever exists already** — file tree, `README`, any conventions note. Two minutes of `ls`
    and `rg` prevents an interview that asks what the repo already answers.
-2. **`templates/campaign-profile.md`** — the slot list is the interview script; do not reorder it.
-3. **The GM's own words** for the campaign: an existing pitch, a chat, a hand-written page. Mine
-   answers from it *and then confirm them* — an inferred slot value is a guess until the GM says yes.
+3. **The GM's own words** — a pitch, a chat log, a hand-written page. Mine answers from it *and
+   then confirm them*: an inferred slot value is a guess until the GM says yes.
 
-If the repo is not under version control or has no sync path to the GM's other machines, flag it
-now: the portability rule (Phase 3) is unenforceable without it.
+If the repo is not under version control, or has no sync path to the GM's other machines, flag it
+now: the portability rule (Phase 3.5) is unenforceable without it.
 
-## Phase 2 — The interview, slot by slot
+## Phase 2 — The interview: walk the bundled schema
 
-Walk the profile **in order**, one slot at a time, in short batches. For each slot: ask, record the
-answer in the GM's own vocabulary, move on. Do not fill a slot the GM did not answer.
+**The procedure, literally:**
+
+1. Read `references/campaign-profile.md` top to bottom, then walk its sections in the order it
+   declares them (§A first, §E last) and, inside each, its slots in written order. Do not reorder,
+   do not skip, do not batch a section away because it "looks optional".
+2. For every slot: ask using the slot's own explanatory line, record the answer in the GM's
+   vocabulary, move on. Group 3–5 adjacent slots per message so the GM is not interrogated one line
+   at a time — but no slot may be dropped from the walk.
+3. At the end, **diff your filled profile against the schema**: a slot in the schema and absent
+   from your output was skipped. Go back and ask it.
+
+Because the schema is a file and not a paraphrase, a slot added to it reaches the interview the day
+it is added. Do not defeat that by summarising the slot list into your reply plan.
 
 **Empty is an answer.** Write `none` (or `not decided yet — ask before assuming`) into the slot.
-That is a load-bearing distinction:
+The distinction is load-bearing downstream:
 
-| Slot content | Meaning for every downstream skill |
+| Slot content | Meaning downstream |
 |---|---|
-| `<placeholder text>` | never asked → **stop and ask** before producing anything that needs it |
-| `none` | asked, answered empty → **drop the corresponding section**, silently and permanently |
+| leftover placeholder | never asked → **stop and ask** before producing anything that needs it |
+| `none` | asked, answered empty → **drop that section**, silently and permanently |
 | a value | use it, in the GM's wording |
 
-| Slot | Ask | If empty |
-|---|---|---|
-| §1 System | ruleset; what the rules adjudicate; what is deliberately never rolled for; only the house rules that change how a session is *written* | ask once — nearly every skill needs it |
-| §2 Dramatic resource | is there a mechanic carrying the emotional weight? scale, loss and regain triggers, **who may hold or receive it**, at zero, physical handling | drop resource sections everywhere. Never invent one |
-| §3 Tone | dominant register; admitted breaks and how they must not break atmosphere; the question every scene should raise; hard lines | ask the register at least; leave the rest empty |
-| §4 Canon source | is there a text or corpus the campaign quotes? verbatim or reworked; does it exist in-world; delivery mode; where recordings live | no quote blocks anywhere |
-| §5 Recurring guide | is there an anchor NPC travelling with the party? arc, voice in one line, per-session obligation | no beat section in prep |
-| §6 Structure | published backbone or homebrew; unit of play; where official vs. reworked material lives; how deviations are recorded | treat the campaign as fully homebrew |
-| §7 Table conventions | cadence and horizon; table size; absent-player rule; safety tools and refresh; session length; language of play vs. language of the repo | table size and cadence must be asked — they drive P7 and P8. The rest is `ttrpg-table-dossier`'s session zero |
-| §8 Player-facing outputs | opening recap form and who reads it; player cheat sheet; **what players may read of the repo** | assume players read nothing, and say so — prep may then hold secrets |
-| §9 Repo conventions | folder map; note granularity; link syntax; frontmatter/tag families; which values are properties; verification command | Phase 3 produces these; write back every decision |
-| §10 Working agreements | default deliverable (saved note vs. chat draft); how blunt the review; what never to do without asking; is retroactive correction allowed | default to: save notes in the repo, ask before renaming or reorganising anything |
+Depth per slot, the asymmetry questions GMs forget to state, wording for the gating slots below,
+and how to walk a GM who answers in paragraphs: [references/interview.md](references/interview.md).
 
-**Asymmetries are the thing GMs forget to state.** For §2 especially, ask explicitly *who cannot
-receive or hold the resource* — the lesson of the table that spent a session's emotional climax
-donating a resource to recipients structurally unable to receive it, because the rule lived in a
-second rulebook and nowhere in the repo.
+### The three slots that gate other skills' behaviour
+
+Ask each explicitly, out loud, and never infer it.
+
+**`B.distance` — `self-insert` | `close` | `fictional`.** Say why you are asking: when the
+characters *are* the players, a hook harvested about a character is aimed at a real person and a
+GM-facing note about a player is a note about someone in the room. At `self-insert` or `close` the
+safety conversation, the hook harvest and the playstyle notes become load-bearing rather than
+optional, and every skill that harvests hooks, writes notes about a player or aims a scene at one
+branches here. If the GM hesitates between two values, record the closer one and say so.
+
+**`B.consent_recording` — an explicit `yes`, or no capture pipeline exists.** Ask who agreed, in
+words, and whether that covers everyone including guests. Never infer consent from an audio file, a
+transcript folder, or "I always record". Empty, `no` or "probably fine" → write `no`, leave
+`C.capture_paths` empty, and say the audio skill stays off until this says yes. The one slot where
+an assumption is a harm, not a bug.
+
+**`D.shape` — `one-shot` | `series` | `open sandbox`.** The most branch-heavy slot in the schema;
+state plainly which package skills the answer switches off:
+
+| `D.shape` | Consequence to state at interview time |
+|---|---|
+| `one-shot` | No previous log, no arc note, no cross-session rotation, no opening recap. The cross-session skills (arc, recap, continuity audit) **have nothing to operate on: they must say so and stop**, not invent a history. Prep and entity notes still apply; the hub collapses into the prep note. |
+| `series` | What the package is shaped for: chapters, rotation across sessions, arc note, recap. |
+| `open sandbox` | Fronts and pressures instead of chapters. The arc note holds fronts; `D.backbone` must say so, or the arc skill hunts a chapter list that does not exist. |
+
+Record the answer verbatim; if the GM keeps a switched-off section anyway, that goes in
+`E.overrides`.
 
 ## Phase 3 — What the answers imply
 
 ### 3.1 Folder skeleton
-One note per entity, **small and linked**, never monolithic documents. Folder names in the language
-the profile declares for the repo (§7). Create only what the answers justify:
+One note per entity, **small and linked**, never monolithic documents; folder names in the language
+`B.language` declares for the repo; **create only what the answers justify** — items only if
+`A.ruleset` makes them significant, an official/reworked split only if `D.backbone` declares a
+published source, a `C.gm_private` folder whenever `C.player_access` lets players read anything.
+Annotated skeleton: [references/repo-conventions.md](references/repo-conventions.md).
 
-```
-<repo root>/
-  campaign-profile.md        # the contract; §9 declares everything below
-  <state hub>.md             # single source of truth for current state (P10)
-  <sessions>/                # prep + log, one pair per session, progressively numbered
-  <people>/                  # one note per PLAYER — see ttrpg-table-dossier
-  <entities>/                # one note per NPC / creature / faction
-  <places>/                  # one note per location, at the granularity §6 implies
-  <items>/                   # only if §1 makes items significant
-  <official>/  <reworked>/   # only if §6 declares a published backbone it deviates from
-  <player-facing>/           # only what §8 says players may read
-  <recaps>/                  # only if §8 declares an opening recap form
-  assets/                    # media; declare in .gitignore what is too large to version
-  scripts/                   # the verification command of §9
-```
-
-Write the resulting map into §9 as a folder → content table, and say **where each kind of new note
-goes**. An agent that cannot answer "where does this note belong?" from the profile will invent a
+Write the resulting map into `C.root` as a folder → content table, saying **where each kind of new
+note goes**. An agent that cannot answer "where does this note belong?" from the profile invents a
 folder, and the second folder for the same thing is how a vault dies.
 
 ### 3.2 The state hub (P10)
-Exactly one note is the campaign's current state. It holds **only what does not live as a property
-of an entity note**: where the party is, last session played, open threads, unresolved obligations,
-what comes next.
-
-- Values tracked per entity (advancement, resources, position, status — whatever §1 makes worth
-  tracking) live **only** in that entity's note, as frontmatter properties, and are *read* here
-  through a live view or query.
-- **Static roster tables are forbidden** in the hub, in indexes and in prep. They desynchronise on
-  the first update and then lie confidently.
-- If the tooling has no query/view mechanism, the hub links to the entity notes and states the
-  values are *there*. A link that forces one click beats a table that is wrong.
-- Record in §9 which note is the hub and which note owns which tracked value.
-- Single-session play (§6 unit of play = the whole campaign): the hub collapses into the prep note.
-  Say so in §9 rather than creating an empty hub.
+Exactly one note is the campaign's current state (`C.hub`): what does **not** live as a property of
+an entity note — where the party is, last session played, open threads, what comes next. Per-entity
+values live only in that entity's note and are *read* here through a view or query, with the
+mapping recorded in `C.state_locations`. **Static roster tables are forbidden** in hub, indexes and
+prep: they desynchronise on the first update and then lie confidently. No query mechanism → link to
+the entity notes and say the values are *there*. `D.shape` = `one-shot` → the hub collapses into
+the prep note; say so in `C.hub` rather than creating an empty hub.
 
 ### 3.3 Frontmatter, tags, links, names
-Decide once, write into §9, apply everywhere:
-
-- **Tag families** with the type in the namespace (`<kind>/<subkind>`), declared as a closed list.
-  A tag that exists in one note only is a typo until proven otherwise.
-- **Properties vs. body:** every tracked value is a property (P10). Prose in the body, state in the
-  frontmatter.
-- **Link syntax** written literally in §9, including the awkward cases (path separators, aliases,
-  escaping inside tables, how attachments are embedded). Ambiguity here produces silent breakage.
-- **File naming:** allowed separators and **forbidden characters** — the lesson of the vault where
-  an en-dash instead of a hyphen broke every link to a note without a single error message.
-- **Search before creating.** Update the existing note; do not create a near-duplicate.
-- **Link, don't copy** is the vault-wide rule. The single declared exception is the session prep
-  document (P1) — record the exception in §9 so nobody "fixes" it later.
+Decide once, write into `C.frontmatter` / `C.links` / `C.naming`, apply everywhere: closed-list tag
+families namespaced `<kind>/<subkind>`; every tracked value a property, prose in the body (P10);
+link syntax written *literally*, including aliases, path separators, escaping inside tables and
+embedded attachments; allowed separators and **forbidden characters** in file names — the lesson of
+the vault where an en-dash instead of a hyphen broke every link without a single error message.
+Search before creating: update the existing note, never a near-duplicate. **Link, don't copy** is
+the vault rule; its one exception is the prep document (P1), recorded in `C.inline_exception` so
+nobody "fixes" it later. Worked examples: [references/repo-conventions.md](references/repo-conventions.md).
 
 ### 3.4 Verification command and invariant
-Install a link/reference checker in `scripts/`, and record in §9 the exact command plus its
-invariant — typically **0 broken links**, covering embedded attachments as well as notes.
-
-- Run it once at setup, on the current repo, and report the number. A checker whose baseline is
-  already red is not an invariant, it is decoration.
-- Every skill in this package ends its verify phase with this command; if you cannot install one,
-  write `verification: none — invariant unverifiable` into §9 rather than naming a command that
-  does not exist.
+Install a link/reference checker in `scripts/`; record in `C.verify` the exact command and its
+invariant — typically **0 broken links**, embedded attachments included. Run it once at setup and
+report the number: a baseline already red is not an invariant, it is decoration. Every skill here
+ends its verify phase with this command; if you cannot install one, write `none — invariant
+unverifiable` rather than naming a command that does not exist.
 
 ### 3.5 Portability — all memory lives in files in the repo
-**Every persistent fact about this campaign must exist as a file inside the repo.** The profile,
-the conventions, the state hub, the dossiers, the working agreements of §10, and the canonical copy
-of any campaign-specific skill or overlay (keep it in-repo and *install* from there; fix the
-canonical copy first, never the installed one).
+**Every persistent fact about this campaign must exist as a file inside the repo** (`C.portability`):
+profile, conventions, hub, dossiers, the §E agreements, and the canonical copy of any
+campaign-specific skill or overlay — kept in-repo and *installed* from there, fixing the canonical
+copy, never the installed one. Never store campaign memory in an assistant memory, a harness
+setting, a local config or one chat's context. *Test:* a fresh agent, on another machine, with a
+different model, given only a clone and no conversation history, can prepare the next session.
 
-Never store campaign memory in an account-bound assistant memory, a harness setting, a local config
-or the context of one chat. The same campaign is worked on from **different machines, harnesses and
-models** — anything not in the repo does not exist for the next agent.
+## Phase 4 — Adoption mode (the repo already has material)
 
-*Test:* a fresh agent, on another machine, with a different model, given only a clone of this repo
-and no conversation history, can prepare the next session. Anything that fails this test is a bug
-in the repo, not a limitation of the agent.
-
-## Phase 3bis — Adoption mode (the repo already has material)
-
-The existing repo is **the authority on its own conventions**. Your job is to describe it, not to
-improve it.
+The existing repo is **the authority on its own conventions**. Describe it; do not improve it.
 
 1. **Inventory before opinions.** File tree with counts per folder; frequency of frontmatter keys
-   and of tags; a sample of link forms; file-naming patterns. `rg -o` over the vault (or the
-   equivalent) gives all four in a minute — do not read a large vault note by note.
-2. **The majority pattern is the convention.** Whatever most notes actually do goes into §9, in the
-   repo's own vocabulary, even where you would have chosen otherwise. Minority forms are *gaps*,
-   not errors to fix.
-3. **Write the profile to match reality.** Slots the material answers (folder map, tag families,
-   granularity, link syntax, backbone) get filled by observation and then **confirmed** with the GM.
-   Slots only the GM can answer (tone, dramatic resource, table conventions, working agreements)
-   are asked, never inferred from vibes.
+   and tags; a sample of link forms; naming patterns. `rg -o` gives all four in a minute — never
+   read a large vault note by note.
+2. **The majority pattern is the convention.** Whatever most notes do goes into the §C slots, in
+   the repo's own vocabulary, even where you would have chosen otherwise. Minority forms are
+   *gaps*, not errors to fix.
+3. **Fill by observation, then confirm; ask the rest.** `C.root`, `C.granularity`, `C.links`,
+   `C.frontmatter`, `C.naming`, `D.backbone` and `D.official_material` are readable from the
+   material, then confirmed. Everything in §A beyond `A.ruleset`, all of `B.*`, `D.tone`,
+   `D.endgame` and all of §E is asked, never inferred from vibes — the three gating slots even when
+   the repo shouts the answer. Then walk the schema (Phase 2) for the rest: adoption is not an
+   excuse to skip the walk.
 4. **Report the gaps, do not close them.** One ranked list: inconsistent tag or naming forms with
    counts, duplicate notes for one entity, state duplicated outside its source of truth, broken
-   links, folders with no declared purpose. For each, a one-line proposed fix and the cost. Then
-   stop.
-5. **Never rename, move, merge or reorganise an existing note without asking** — record that rule
-   in §10 so every later skill inherits it. Adoption that silently reshapes a working vault is the
-   single fastest way to lose a GM's trust and their muscle memory.
+   links, folders with no declared purpose. Each with a one-line proposed fix and its cost. Stop.
+5. **Never rename, move, merge or reorganise an existing note without asking** — record that in
+   `E.never_without_asking` so every later skill inherits it. Adoption that silently reshapes a
+   working vault is the fastest way to lose a GM's trust and their muscle memory.
 
-## Phase 4 — Verify
+## Phase 5 — Verify
 
-- The profile has **no leftover placeholders**: every slot holds a value or an explicit `none`.
-- Each `none` was *asked*, not assumed.
-- §9 answers, without further conversation: where does a new note of each kind go, what is the link
-  syntax, which values are properties, which note is the state hub, what is the verification
-  command and its invariant.
-- The state hub contains no static roster table; no tracked value appears in two places (P10).
-- The verification command runs and meets its declared invariant; report the actual number.
-- Portability test passes: nothing needed for the next session lives outside the repo.
+- **Slot coverage, mechanically:** diff the slot ids in `references/campaign-profile.md` against
+  those in the profile you wrote. Every schema slot holds a value or an explicit `none`; a slot
+  missing from your output is a slot you never asked.
+- Each `none` was *asked*, not assumed. `B.consent_recording` is `yes` only if someone said yes,
+  and `C.capture_paths` is filled only then. `E.overrides` is explicit — `none` is a valid and
+  common answer, blank is not. `C.gm_private` is filled whenever `C.player_access` lets players
+  read anything.
+- The §C slots answer without further conversation: where a new note of each kind goes, the link
+  syntax, which values are properties, which note is `C.hub`, what `C.verify` is and its invariant.
+- The hub contains no static roster table; no tracked value appears in two places (P10).
+- `C.verify` runs and meets its declared invariant; report the actual number. Nothing needed for
+  the next session lives outside the repo.
 - Adoption mode only: the profile describes the repo **as it is**; the gap list was reported and
-  nothing was renamed, moved or reorganised.
+  nothing renamed, moved or reorganised.
 
 ## What NOT to do
 
+- Do not restate the slot list in your plan, your notes or a fork of the schema. Walk the file.
 - Do not invent a slot value, and do not "reasonably assume" one. Ask, or write `none`.
+- Do not infer `B.consent_recording` from anything. It is a sentence someone said, or it is `no`.
 - Do not leave a template placeholder in a delivered profile — downstream skills read it as
-  "never asked" and stall.
-- Do not build folders for material the profile does not declare.
-- Do not create a static roster or state table anywhere, however convenient.
+  "never asked" and stall. Do not conclude "no profile exists" without searching the whole vault.
+- Do not build folders for material the profile does not declare, and do not create a static roster
+  or state table anywhere, however convenient.
 - Do not name a verification command you have not run.
 - Do not store any campaign fact outside the repo — not in an assistant memory, not in a local
   setting, not in this conversation.

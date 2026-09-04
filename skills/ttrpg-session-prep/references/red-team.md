@@ -51,5 +51,10 @@ Prepare more than one session can cover:
   can be recovered later — or **declare it lost**. An unrecorded skipped hook is the most common
   way a campaign quietly loses a thread.
 
-Where the session length is declared (profile §7), size the main path against it and mark the
-scene you would cut first before the evening starts, not during it.
+Where the session length is declared (`B.length`), size the main path against it and mark the
+scene you would cut first before the evening starts, not during it. If `B.length` is empty, prep
+the main path only and ask for the hard stop once.
+
+**`D.shape` = `one-shot`:** the margin still applies, but a skipped hook cannot "come back later" —
+there is no later. Declare it lost, or fold it into the ending. Never write a recovery plan for a
+session that will not happen.

@@ -3,12 +3,19 @@
 The invariants every skill in this package is built on. Each was paid for at a real table.
 Skills **reference these by name** instead of restating them, so a lesson is fixed in one place.
 
-> **Requirement or convention?** These principles were distilled from *one* long campaign. Treat
-> **P1, P2, P3, P10, P11** as requirements: violating them produces documents that fail at the
-> table or state that silently desynchronises. Treat **P5, P6, P7, P8, P9, P12** as strong house
-> conventions of a fiction-first table (P13 included) — excellent defaults, legitimately overridable by a
-> campaign that declares the override in its profile rather than drifting away from it in silence.
-> A skill must not present a convention as if it were a law of the game.
+> **Requirement or convention?** These principles were distilled from *one* long campaign.
+>
+> **Requirements — P1, P2, P3, P10, P11.** Not overridable: violating them produces documents that
+> fail at the table or state that silently desynchronises.
+>
+> **Strong defaults — P4, P5, P6, P7, P8, P9, P12, P13.** Excellent for a fiction-first table, and
+> legitimately switched off or replaced by a campaign that says so in **`E.overrides`** of its
+> profile, with one line of reason. The mechanism is real: a skill reads `E.overrides` in Phase 0
+> and drops or adapts the corresponding section, exactly as it does for an empty slot. A table that
+> wants pure tactical play declares `P5 — off` and no skill argues with it.
+>
+> A skill must not present a default as a law of the game, and must not enforce a principle the
+> profile has overridden.
 
 ---
 

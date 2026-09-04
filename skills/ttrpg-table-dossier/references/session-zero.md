@@ -4,7 +4,7 @@ Read this when a campaign is starting, when a new player joins, or when an unset
 the original session zero has to be reopened. Everything else in `SKILL.md` runs far more often
 than this does.
 
-Session zero is not a rules briefing. It is **six decisions**, each of which must end as a written
+Session zero is not a rules briefing. It is **seven decisions**, each of which must end as a written
 profile slot or a dossier section — not as something everyone remembers agreeing to.
 
 ---
@@ -12,20 +12,50 @@ profile slot or a dossier section — not as something everyone remembers agreei
 ## The agenda
 
 ```markdown
+0. Distance           — self-insert | close | fictional: how far the characters sit from the
+                        players. Write into B.distance. FIRST, because it changes 3 and 6.
 1. Expectations       — what each player wants from this campaign, said out loud, one sentence each
                         (combat, puzzle, drama, comedy, exploration, "I want to be pushed").
                         Record the mismatches: they are the real agenda of the campaign.
 2. Tone contract      — the dominant register, the admitted breaks, and what would break it
-                        for real (profile §3). Name the heavy themes the campaign will touch.
+                        for real (D.tone). Name the heavy themes the campaign will touch.
 3. Safety tools       — which tool, who may call it, what happens after it is called, and
-                        the refresh cadence. Write into profile §7.
+                        the refresh cadence. Write into B.safety.
 4. Repo access        — what players may read: player-facing reference, recaps, logs, nothing.
-                        Write into profile §8. This decides where GM-facing notes may live.
+                        Write into C.player_access; it decides where GM-facing notes may live,
+                        which is C.gm_private.
 5. Attendance         — the in-fiction convention for absent players, and whether they advance.
-                        Write into profile §7. Decide it now, not the first night someone is out.
+                        Write into B.absence. Decide it now, not the first night someone is out.
 6. Hook harvest       — the direct questions that fill each dossier's hooks section.
                         This is the only part that must be done per player, on the record.
 ```
+
+## Distance — decided first, because it changes the rest
+
+**`B.distance` is asked before anything else is harvested.** It has three values and they are not
+degrees of the same thing:
+
+- **`fictional`** — the players portray invented people. Hooks are facts about characters.
+- **`close`** — the characters are thin screens over the players: same profession, same city, same
+  history with the serial numbers filed off.
+- **`self-insert`** — the players portray **themselves, under their own names**. Hooks are real
+  people they know and real things that happened to them.
+
+For `close` and `self-insert`, three consequences are **load-bearing, not optional**:
+
+1. **The safety conversation is mandatory and recurring.** Not a formality at session zero: the
+   refresh happens again before any arc the tone slot flags as heavy, and before any session built
+   on a harvested hook. There is no fictional layer to absorb a scene that goes wrong.
+2. **The hook harvest is a consent conversation, not a questionnaire.** Ask what they are willing
+   to have the campaign press on — and record, just as explicitly, what is **off the table**. A
+   player may withdraw a hook at any time, without giving a reason, and it is removed.
+3. **Everything written about them is written knowing they may read it.** Hooks and playstyle notes
+   go to `C.gm_private`. They are not softened — they are relocated. Material aimed at a character
+   is aimed at a person.
+
+**If `B.distance` is empty, ask. Do not assume `fictional`** — that is the cheap default and the
+one that treats a named human's exposed nerve as set dressing. One question at session zero costs
+nothing; the wrong assumption cannot be walked back once a scene has landed.
 
 Session zero produces text in **two registers**: what is agreed *with* the table goes into the
 profile slots; what you observe *about* each human goes into their dossier, GM-facing.
@@ -39,14 +69,14 @@ campaign; unwritten, they surface as friction that looks personal.
 
 ## Tone contract
 
-Fix the dominant register and the breaks it admits (profile §3). Then ask the harder question:
+Fix the dominant register and the breaks it admits (`D.tone`). Then ask the harder question:
 *what would break it for real* — the joke, the register, the kind of scene that would make this
 campaign stop being the thing they signed up for. Name the heavy themes explicitly; a theme named
 in advance is a theme the table consented to.
 
 ## Safety tools and their refresh
 
-Record in profile §7:
+Record in `B.safety`:
 
 - **which tool**, and how it is invoked;
 - **who may invoke it** — everyone, without justifying themselves;
@@ -56,34 +86,37 @@ Record in profile §7:
   profile's tone flags as heavy.
 
 Refresh it out loud even when nobody has ever used it — the lesson of tables where the tool existed
-on paper for a year and no player remembered they were allowed to call it. If the profile declares
-heavy themes, or the characters sit close to the players themselves, this conversation is
-mandatory, not optional.
+on paper for a year and no player remembered they were allowed to call it. **When `D.tone` declares
+heavy themes, or `B.distance` is `close` or `self-insert`, this conversation and its refresh are
+mandatory, not optional** — see *Distance* above.
 
 ## Repo access
 
-Decide what players may read (profile §8): the player-facing reference, the recaps, the logs, or
-nothing. This single answer decides where GM-facing material may live — including the playstyle
-notes, which must never be softened to survive being read. If players read the repo, §8 must also
-declare the GM-only location.
+Decide what players may read (`C.player_access`): the player-facing reference, the recaps, the logs,
+or nothing. This single answer decides where GM-facing material may live — including the playstyle
+notes, which must never be softened to survive being read. If players read the repo,
+`C.gm_private` must also be filled in; a skill may never improvise that location.
 
 ## Attendance
 
 Agree **once** on one in-fiction explanation covering any absent player: a place they stayed behind
 at, a task that keeps them elsewhere, a state they lapse into. It must cost nothing to narrate, be
 reversible without ceremony, and never read as a punishment. Decide in the same breath whether
-absentees advance, and write both into profile §7.
+absentees advance, and write both into `B.absence`.
 
 ## Hook harvest
 
-The only per-player, on-the-record part. Ask directly for 2–3 people, obligations or unfinished
-pieces of their character's life tied to whatever the campaign will press on, in the profile's own
-terms. Record the figure or fact in the player's words, the emotion it is meant to provoke, and the
-question it lets you put to them. The full rules for what a hook is — and is not — are in
-`SKILL.md`, *Hooks are harvested, never hoped for*.
+The only per-player, on-the-record part, and the one gated on *Distance* above. Ask directly for the
+number `B.hooks_count` declares (default 2–3) of people, obligations or unfinished pieces of their
+character's life tied to whatever the campaign will press on, in the profile's own terms. Record the
+figure or fact in the player's words, the emotion it is meant to provoke, and the question it lets
+you put to them. Under `close` / `self-insert`, also record what is **off the table**, and store the
+whole thing where `C.gm_private` says. The full rules for what a hook is — and is not — are in
+`SKILL.md`, *Hooks are harvested, never hoped for*; which real or public figures may be cast from a
+hook is `B.frame`, read by `ttrpg-entity-note`.
 
 ## Closing the session zero
 
-Before the table disperses, every one of the six decisions exists as text in the repo. A decision
+Before the table disperses, every one of the seven decisions exists as text in the repo. A decision
 that stayed in conversation was not made: three sessions later two people remember it differently,
 and the one who is wrong is usually the GM.

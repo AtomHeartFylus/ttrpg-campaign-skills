@@ -1,10 +1,10 @@
 ---
 name: ttrpg-campaign-arc
-description: "Produce and maintain the arc note that plans the campaign above the single session: backbone table, canon-vs-homebrew deviation ledger, open-thread tracker, spotlight budget across sessions, pacing over the campaign horizon and a seeded endgame. Use when asked to plan an arc, season or chapter, to review where the campaign is going, to check which threads are still open, or to decide what the next few sessions must deliver. Covers what each chapter must deliver, why each divergence from the source was made, who owns each unpaid seed, and who is owed the spotlight. Does not write a playable session (see ttrpg-session-prep), record a played one (see ttrpg-session-log), or audit the repo for drift (see ttrpg-continuity-audit)."
+description: "Produce and maintain the arc note that plans the campaign above the single session: backbone table, canon-vs-homebrew deviation ledger, open-thread tracker, pacing over the campaign horizon and a seeded endgame. Use when asked to plan an arc, season or chapter, to review where the campaign is going, to check which threads are still open, or to decide what the next few sessions must deliver. Covers what each chapter must deliver, why each divergence from the source was made, who owns each unpaid seed, and the forward commitment of who is protagonist in the next few sessions. Requires an ongoing campaign: it does not serve a one-shot. Does not measure spotlight fairness or decide whether anyone has been chorus too long (see ttrpg-table-dossier, which owns the rotation formula and the ledger), does not write a playable session (see ttrpg-session-prep), record a played one (see ttrpg-session-log), or audit the repo for drift (see ttrpg-continuity-audit)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.0"
+  version: "1.1"
 ---
 
 # Campaign arc
@@ -16,39 +16,67 @@ do, and rewritten in place after every chapter boundary.
 **This skill plans; it does not write a session.** The moment you are writing read-aloud text,
 scenes or trigger boxes, you are in `ttrpg-session-prep` and should stop here.
 
+> **`D.shape` gate — read it before anything else, and be willing to stop.**
+> This skill plans **across** sessions. That layer does not exist for every campaign.
+>
+> - **`series`** → the skill as written.
+> - **`one-shot`** → **this skill does not serve a one-shot. Say so and stop.** There is no session
+>   budget, no chapter boundary, no rotation across sessions, no deviation accumulating over months
+>   and no endgame to seed early — the endgame is tonight. Do not produce a one-row arc note: an
+>   arc note for a single evening is `ttrpg-session-prep`'s job wearing the wrong name. Report that
+>   the shape excludes this skill and route the user to prep. **Degrading silently into a
+>   near-empty arc note is the failure this gate exists to prevent.**
+> - **`open sandbox`** → the skill runs, with one substitution applied throughout: **every backbone
+>   row is a front**, not a chapter, and "what it must deliver" becomes "what it presses on if the
+>   party never intervenes". Pacing and the endgame remain; the linear ordering does not.
+> - **empty** → **ask once** which of the three this campaign is, write the answer into the profile,
+>   and do not assume `series`.
+
 ---
 
-> Principles are cited below by tag (`P1`…`P12`); their full text is in
+> Principles are cited below by tag (`P1`…`P13`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled into this folder at install time.
+
+**Supporting reference:** [references/arc-elements.md](references/arc-elements.md) — how each
+section of the arc note is built (backbone rows, deviation ledger, thread tracker, pacing,
+endgame). Read it while writing the note; Phase 3 below carries only the summary.
 
 ## Phase 0 — Read the campaign profile
 
+**Find it before declaring it missing.** Search the repo/vault root for a file named
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
+there is none. A profile that exists but was not found re-interviews a GM who already answered.
+
 | Slot | Used for | If empty |
 |---|---|---|
-| §1 System | level/progression checkpoints the backbone must respect | plan in fiction only, no progression row |
-| §2 Dramatic resource | the arc-level curve: where it must be lowest, where it can be regained | drop the curve row entirely |
-| §3 Tone | where the register must shift, and which breaks are admitted | ask once; do not invent tone shifts |
-| §4 Canon source | which part of the corpus each chapter leans on | drop the canon column and the deviation ledger |
-| §5 Recurring guide | the guide's arc across the campaign and where it resolves | drop that row |
-| §6 Structure | the backbone itself: modules/chapters vs homebrew vs sandbox; how deviations are recorded | ask once — without it there is no backbone to map |
-| §7 Table conventions | cadence × horizon = session budget; table size and protagonists per session → rotation period | ask cadence and table size; both are load-bearing here |
-| §9 Repo conventions | where the arc note lives, link syntax, verification command | ask where the note goes |
-| §10 Working agreements | how blunt the review is; what may not be changed without asking | propose, do not restructure |
+| `D.shape` | **the gate above** — whether this skill runs at all | **ask once**; never assume `series` |
+| `A.ruleset` | level/progression checkpoints the backbone must respect | plan in fiction only, no progression row |
+| `A.resource` | the arc-level curve: where it must be lowest, where it can be regained | drop the curve column entirely |
+| `D.tone` | where the register must shift, and which breaks are admitted | ask once; do not invent tone shifts |
+| `D.canon_source` | which part of the corpus each chapter leans on | drop the canon column and the deviation ledger |
+| `D.guide` | the guide's arc across the campaign and where it resolves | drop that row |
+| `D.backbone`, `D.unit`, `D.deviation_policy` | the backbone itself: modules/chapters vs homebrew vs fronts; how deviations are recorded | ask once — without it there is no backbone to map |
+| `D.endgame` | the declared endings and the conditions selecting between them | ask once; seeds cannot wait for the last chapter |
+| `B.cadence`, `B.horizon` | cadence × horizon = the session budget | ask cadence; it is load-bearing here |
+| `B.size`, `B.protagonists` | passed through to `ttrpg-table-dossier`'s rotation check — **not recomputed here** | that skill asks; do not substitute a number |
+| `C.arc_note`, `C.thread_ledger`, `C.hub`, `C.links`, `C.verify` | where the arc note and ledger live, link syntax, verification command | ask where the note goes |
+| `E.review`, `E.never_without_asking`, `E.overrides` | how blunt the review is; what may not be changed without asking; which defaults are off | propose, do not restructure |
 
-If the profile is missing, run `ttrpg-campaign-setup` first — do not guess a backbone.
+If the search finds no profile, run `ttrpg-campaign-setup` first — do not guess a backbone.
 
 ## Phase 1 — Read before planning, in this order
 
-1. **The campaign state hub** (§9): where the party is, what is next, what is unresolved.
+1. **The campaign state hub** (`C.hub`): where the party is, what is next, what is unresolved.
    *If it contradicts the last session log, stop and say so* — the log wins (P11) and everything
    planned on a stale hub is wrong.
 2. **Every session log since the last arc pass.** Extract, per session: seeds planted, hooks left
    unpaid, promises made at the table, who was actually protagonist, where the register drifted,
    and which planned content was skipped.
-3. **The backbone source** (§6): the module/chapter list, or the list of fronts if homebrew.
+3. **The backbone source** (`D.backbone`): the module/chapter list, or the list of fronts.
    What each unit *contains* versus what it must *deliver here*.
-4. **The player dossiers**: hooks and exposed nerves that have never been touched; who is owed a
-   session; who is leaving or joining.
+4. **The player dossiers**: hooks and exposed nerves that have never been touched; **who is owed a
+   session, read from `ttrpg-table-dossier`'s rotation check rather than recounted here**; who is
+   leaving or joining.
 5. **The previous arc note.** What was predicted and did not happen is the most useful input you
    will get: it is where the plan was too tight.
 
@@ -56,7 +84,7 @@ If the profile is missing, run `ttrpg-campaign-setup` first — do not guess a b
 
 ```markdown
 ---
-<frontmatter per profile §9>
+<frontmatter per C.frontmatter>
 ---
 
 # <Campaign> — Arc
@@ -65,10 +93,10 @@ If the profile is missing, run `ttrpg-campaign-setup` first — do not guess a b
 > Nothing here is a source of truth for state (P10).
 
 ## Session budget
-<cadence × horizon (§7) = N sessions; sessions played; sessions left; what that buys>
+<B.cadence × B.horizon = N sessions; sessions played; sessions left; what that buys>
 
-## Backbone
-| Chapter / region | Sessions (range) | What it must deliver | Tone shift | Resource curve | Status |
+## Backbone            <!-- rows are FRONTS when D.shape is open sandbox -->
+| Chapter / region / front | Sessions (range) | What it must deliver | Tone shift | Resource curve | Status |
 |---|---|---|---|---|---|
 
 ## Deviation ledger
@@ -79,9 +107,9 @@ If the profile is missing, run `ttrpg-campaign-setup` first — do not guess a b
 | Thread | Seeded in | Owner | What would pay it off | Status |
 |---|---|---|---|---|
 
-## Spotlight budget
-| Session | Protagonists | Owed next |
-|---|---|---|
+## Protagonists committed next
+<a forward commitment only — who carries the next 2–3 sessions and on which of their hooks.
+ NO tally table: the ledger and the threshold live in ttrpg-table-dossier>
 
 ## Pacing
 <where the register shifts; where the quiet session goes; where the endgame seeding starts>
@@ -92,85 +120,27 @@ If the profile is missing, run `ttrpg-campaign-setup` first — do not guess a b
 
 ## Phase 3 — Required elements
 
-### The backbone table (§6)
-One row per chapter, region or front. Columns carry weight:
+Each section of the skeleton is built as [references/arc-elements.md](references/arc-elements.md)
+specifies — read it while writing. The summary:
 
-- **Sessions (range)**, never an exact number. A chapter that "takes 3 sessions" takes 2 or 5. The
-  range is the contract; the row also names **what falls first** if it runs long (P8 at arc scale).
-- **What it must deliver** — the *function* of the chapter, not its content: the reveal that must
-  land, the relationship that must change, the capability the party must gain, the question that
-  must be forced. Content is prep's problem; if a chapter has no function, it is filler and either
-  gets one or gets cut.
-- **Tone shift** — where the register changes and what it changes *to* (§3). A campaign that stays
-  at one intensity for twenty sessions has no climax, only a plateau.
-- **Resource curve** (§2) — where the dramatic resource must be at its lowest and where it can be
-  regained. Pressure that never eases stops being felt. Drop this column if §2 is empty.
+| Section | The non-negotiable |
+|---|---|
+| Backbone | one row per chapter **or front**; a session **range**, never a number; a *function*, not content; a named first cut (P8) |
+| Deviation ledger | every divergence carries its **reason** and what it **binds downstream**; append-only; drop the section only when there is no source material at all |
+| Open threads | four mandatory fields; **seeded-in must cite a log** or it is an idea, not a thread; *lost* is a legitimate status |
+| Pacing | cadence × horizon is stated out loud, and the overflow is cut **here**, not by exhaustion later |
+| Endgame | the final beats, what must already exist for them to land, and **in which session it is planted** |
 
-**Sandbox degradation:** if §6 declares no backbone, the rows are **fronts** — a pressure, who
-drives it, what happens if the party never intervenes, and the visible sign it has advanced. Same
-columns otherwise. Never invent a linear plot for a table that chose a sandbox.
+### Protagonists committed next (P7) — this skill does **not** own the ledger
+**`ttrpg-table-dossier` owns the rotation formula, the tolerance and the ledger**, derived per
+player from the dossier diaries. It answers *has anyone been chorus too long?* **Do not restate the
+arithmetic, do not state a threshold, and do not build a tally table here** — two tallies from two
+sources drift, and the one you keep in the arc note is the one nobody updates.
 
-### The deviation ledger (§4, §6)
-**Every deliberate divergence from the source is recorded with its reason.** Not for bookkeeping:
-the divergence is what future prep must stay consistent with, and a divergence remembered only in
-the GM's head becomes a contradiction three months later, at the table, in front of everyone.
-
-Each entry states what the source says, what this campaign does instead, **why**, and **what it
-binds downstream** — the consequences now locked in (an NPC who cannot appear, a secret that no
-longer exists, a rule inverted for the whole campaign). Entries are append-only and dated by
-session; reversing a deviation is a new entry, not an edit. Drop this section only if §4 and §6
-both declare no source material.
-
-### The open-thread tracker (P11)
-Fed by the session logs, not by memory. One row per live promise, with four fields that are all
-mandatory:
-
-- **Seeded in** — link to the log where it entered the fiction. If you cannot cite it, the table
-  never actually saw it: it is an idea, not a thread.
-- **Owner** — which PC or NPC carries it. A thread nobody owns is not going to come back.
-- **What would pay it off** — the concrete scene or revelation that closes it. Without this the
-  thread cannot be scheduled, only worried about.
-- **Status** — *alive* / *paid (link the log)* / *lost*. **"Lost" is a legitimate, deliberate
-  status**: declaring a seed dead is planning; letting it rot unlisted is drift.
-
-At every arc pass, decide each *alive* thread: schedule it into a backbone row, or declare it lost.
-`ttrpg-continuity-audit` finds and reports dangling threads; **the decision is made here.**
-
-### Spotlight budget across sessions (P7)
-P7 forbids a spotlight table *inside prep*, because nobody scrolls to it mid-session. The arc note
-is the **one admitted exception**: it is read while planning, never during play. Keep a running
-tally of who was protagonist in each session (from the logs, not from intent) and who is owed one.
-
-Fairness is measured over the horizon, not over the evening. Table size ÷ protagonists per session
-(§7) gives the **rotation period** — the number of sessions after which everyone has carried one;
-nobody may stay chorus longer than that. Read the tally against the
-backbone: assign the chapter whose *function* matches a player's untouched nerve to that player.
-A player who has been chorus for six sessions is the next protagonist — that is a scheduling fact,
-not a preference.
-
-### Pacing over the horizon (§7)
-Cadence × horizon gives the real session budget. Say it out loud in the note, then check the
-backbone against it: a backbone that needs 40 sessions on a 20-session horizon is a plan to end the
-campaign in the middle, and the cut is decided **now**, not by exhaustion later.
-
-Plan explicitly: where the register shifts (§3), where the **quiet session** goes (P6 at arc scale
-— a whole low-pressure session is legitimate and must be scheduled or it will never happen), where
-the resource curve bottoms out (§2), and which chapters are compressible if attendance collapses
-or the horizon shortens.
-
-### The endgame, seeded early
-Decide the endgame while there is still time to seed it. Record:
-
-- **The final beats** — the two or three images the campaign is built to arrive at.
-- **What must already exist** for them to land: which entity, promise or object must be planted,
-  and **in which session** it is planted. Write those seeds into the backbone rows as delivery
-  requirements, not as hopes.
-- **The conditions that select between endings** — the states of the world the players' choices
-  actually control, so the ending is earned rather than chosen by the GM at the last minute.
-- **The recurring guide's resolution** (§5), if the profile declares one.
-- **What is deliberately left open** — mark it as a choice, so a later pass does not "fix" it.
-
-A finale improvised in the last session is a finale nobody was allowed to affect.
+What this skill owns is the **forward commitment**: read that skill's rotation check, then decide
+*which* of the coming backbone rows each owed player gets. Assign the chapter or front whose
+*function* matches that player's untouched nerve. Name the next 2–3 protagonists and the hook each
+is built on, and write it where prep will read it. That is scheduling, not measurement.
 
 ## Phase 4 — When to run a pass
 
@@ -186,12 +156,15 @@ rewrite: update the tables in place, append to the ledger, and produce a short d
 - Every deviation entry has a reason and a downstream binding; none was edited away.
 - Every open thread has all four fields, and each *alive* thread was either scheduled or declared
   lost in this pass.
-- The spotlight tally is built from the logs, and the next 2–3 protagonists are named.
+- The next 2–3 protagonists are **named as a commitment**, each tied to a backbone row and a hook.
+  No tally table, no threshold and no rotation arithmetic appears in this note — that check was
+  read from `ttrpg-table-dossier`, not recomputed.
+- `D.shape` was read before Phase 1: a one-shot was refused outright, a sandbox has fronts.
 - Tone shift, quiet session and resource low point are each scheduled to a specific chapter.
 - The endgame's required seeds appear as delivery requirements in specific backbone rows.
 - No tracked state (levels, resources, position, roster) is copied into this note (P10) — it links
   to the state hub instead.
-- Run the profile's verification command (§9) — invariant as declared (typically 0 broken links).
+- Run the `C.verify` command — invariant as declared (typically 0 broken links).
 
 ## What NOT to do
 
@@ -201,6 +174,9 @@ rewrite: update the tables in place, append to the ledger, and produce a short d
 - Do not record a deviation without its reason, and do not silently reverse one.
 - Do not list a thread you cannot trace to a session log; do not leave a dead thread "alive".
 - Do not copy levels, resources or a roster into this note.
-- Do not distribute the spotlight equally per session; budget it across the arc.
+- Do not distribute the spotlight equally per session; commit named protagonists forward.
+- Do not build a spotlight tally table, restate the rotation formula, or name a threshold for how
+  long is too long as chorus — `ttrpg-table-dossier` owns all three and this note reads its answer.
+- Do not run this skill for a one-shot, and do not soften the refusal into a one-row arc note.
 - Do not leave the ending for the ending.
 - Do not invent a backbone, a tone shift or a resource curve the profile does not support.

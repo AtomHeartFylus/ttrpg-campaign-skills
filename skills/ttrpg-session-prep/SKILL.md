@@ -4,7 +4,7 @@ description: "Write the session prep document a GM actually holds during play: g
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Session prep
@@ -31,43 +31,71 @@ structural choice below exists to make information findable under pressure.
 
 ## Phase 0 — Read the campaign profile
 
-Read `campaign-profile.md` (path per the campaign repo). Slots used here:
+**Find it before declaring it missing.** Search the repo/vault root for a file named
+`campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent) before concluding
+there is none. A profile that exists but was not found re-interviews a GM who already answered.
+Slots used here:
 
 | Slot | Used for | If empty |
 |---|---|---|
-| §1 System | which mechanics to inline in a scene | inline nothing mechanical; keep scenes fiction-first |
-| §2 Dramatic resource | the spend/regain triggers section | drop that section entirely — do not invent a resource |
-| §3 Tone | register of read-aloud text; the recurring thematic pressure | ask once, then proceed |
-| §4 Canon source | quote blocks and their delivery mode | no quote blocks |
-| §5 Recurring guide | the one prepared beat per session | no beat section |
-| §6 Structure | which official module/chapter this session leans on | treat as fully homebrew |
-| §7 Table conventions | table size and protagonists-per-session → spotlight rotation; session length → content margin; absent-player rule | ask table size; it drives P7 |
-| §9 Repo conventions | where the note goes, link syntax, frontmatter, verification command | write the file where told, skip link verification |
+| `A.ruleset`, `A.adjudicated`, `A.houserules` | which mechanics to inline in a scene | inline nothing mechanical; keep scenes fiction-first |
+| `A.fiction` | what this table **never rolls for** — those beats are staged as pure fiction, with no check and no DC in the scene | mechanise nothing you were not asked to; when in doubt, leave the beat to the fiction |
+| `A.resource` (+ `A.resource_loss` / `A.resource_gain`, `A.resource_scale`) | the spend/regain triggers section, and the units a cost is written in | drop that section entirely — do not invent a resource |
+| `D.tone` | register of read-aloud text; the recurring thematic pressure | ask once, then proceed |
+| `D.canon_source` | quote blocks and their delivery mode | no quote blocks |
+| `D.guide` | the one prepared beat per session | no beat section |
+| `D.shape` | **one-shot / series / open sandbox** — see the branch below; it governs Phase 1 | ask once; never assume `series` |
+| `D.backbone`, `D.official_material` | which official module/chapter this session leans on | treat as fully homebrew |
+| `B.size`, `B.protagonists` | spotlight rotation (P7) | ask table size; it drives P7 |
+| `B.length` | content margin (P8) | prep the main path only, no optional scenes |
+| `B.absence` | the in-fiction convention for absent players | ask once, then record it in the profile |
+| `B.distance` | **whether a scene may be aimed at a player's exposed nerve** — see the branch in Phase 3 | **ask before aiming any scene at a hook**; do not assume the fictional case |
+| `B.safety` | which tools are live tonight, and who may invoke them | ask once before any heavy scene; do not run one without an answer |
+| `C.root`, `C.links`, `C.frontmatter`, `C.verify` | where the note goes, link syntax, frontmatter, verification command | write the file where told, skip link verification |
+| `C.inline_exception` | which material may be inlined here beyond the P1 default | apply the P1 default: inline everything but stat blocks |
+| `E.overrides` | which strong defaults this table switched off (P5–P9, P12, P13) | all defaults in force |
 
 If the profile is missing, run `ttrpg-campaign-setup` first — do not guess conventions.
+
+**`D.shape` branch — mandatory.** `series` → the skill as written. `one-shot` → four of the six
+Phase 1 inputs cannot exist; apply the degradation clause there, and drop the spotlight *rotation*
+(it becomes a within-session check: every player gets one scene whose outcome depends on them).
+`open sandbox` → the "official module/chapter" input is the set of **active fronts**; the session
+objective is what those fronts press on tonight, not a chapter's content. **Empty → ask once**,
+write the answer into the profile, and do not proceed as if it were a series.
 
 ## Phase 1 — Read before writing, in this order
 
 1. **The campaign state note** (the hub that holds current state). Extract: where the characters
    are, who has unresolved hooks, current levels/resources, what comes next.
    *If the state is stale, say so before proceeding* — everything downstream inherits the error.
-2. **The official module/chapter** for this session, if any (§6). It is the canvas **and the source
-   to inline from**: its descriptions, read-aloud text, encounter tables and mechanics are *carried
+2. **The official module/chapter** for this session, if any (`D.backbone`, `D.official_material`).
+   It is the canvas **and the source to inline from**: its descriptions, read-aloud text, encounter tables and mechanics are *carried
    into* the prep, rewritten and fused with your own location notes, not cited by reference. Keep
    an attribution link. Never copy stat blocks.
 3. **The previous session log.** Exit state, loose ends, seeded hooks, missed opportunities.
 4. **The dossiers of the expected players.** Playstyle notes (who charges in, who must be handed a
    scene, who is chorus), their hooks (the exposed nerves), tracked properties.
    *Missing-hook check:* if a session protagonist has no recorded hooks, make collecting them the
-   first scene. Do not wait for it to happen naturally — plan it.
+   first scene. Do not wait for it to happen naturally — plan it. **Read `B.distance` before you
+   read the hooks**: it decides what may be done with them (Phase 3).
 5. **The location notes** the characters will cross: environment and local rules.
-6. **The recurring guide note** (§5), to write this session's beat.
+6. **The recurring guide note** (`D.guide`), to write this session's beat.
+
+**Degradation clause — `D.shape` = `one-shot`, or any first session.** Inputs 1, 2, 3 and 6 do not
+exist yet: there is no hub holding accumulated state, no previous chapter, no previous log, and
+usually no recurring guide. Do **not** stall and do not fabricate them. Instead: take the starting
+situation from whatever the pre-game exchange produced and write it into the prep as the opening
+state; keep input 4 only as far as the players actually put material on the record (and gate it on
+`B.distance`); keep input 5. State in the prep, in one line, **which inputs were unavailable** — a
+prep written blind is legitimate, a prep pretending it had a log is not. For `open sandbox`, input
+2 is the front list and input 3 is the last log played, not the previous chapter.
 
 ## Phase 2 — Mandatory structure
 
 ```markdown
 ---
-<frontmatter per §9: session tag, module tag>
+<frontmatter per C.frontmatter: session tag, module/front tag>
 ---
 
 # Session N — Title
@@ -110,25 +138,44 @@ and the connective tissue between them stays clipped.
 
 Plus, once per session:
 
-- **Recurring guide's beat** (§5) — one prepared, written beat that advances their arc or reveals
-  character. The rest of the session they may be purely functional. No guide declared → skip.
-- **Distributed spotlight** (P7) — protagonists per §7, the rest chorus, rotating. **No spotlight
-  section or table**: the cross-scene arc goes in the top `[!warning]` box, the per-scene focus is
-  a `Spotlight → <PC>:` checkbox in that scene's trigger box.
-- **Dramatic-resource triggers** (§2) — state *where* it is spent (explicit costs, visible at the
-  table) and *where* it can be regained. A session that never touches it leaves the emotional core
-  switched off. Keep no transaction log: the end-of-session value in the player notes is the source
-  of truth (P10).
-- **Canon quotes** (§4) — placed where the table can actually listen, since they stop the game,
-  each with its declared delivery mode. If a recording exists inside the repo, embed it in the
-  quote block rather than linking to a network source.
+- **Recurring guide's beat** (`D.guide`) — one prepared, written beat that advances their arc or
+  reveals character. The rest of the session they may be purely functional. No guide → skip.
+- **Distributed spotlight** (P7) — protagonists per `B.protagonists`, the rest chorus, rotating.
+  **No spotlight section or table**: the cross-scene arc goes in the top `[!warning]` box, the
+  per-scene focus is a `Spotlight → <PC>:` checkbox in that scene's trigger box. Prep **spends**
+  the spotlight; who is owed one is `ttrpg-table-dossier`'s ledger — read it, do not recompute it.
+- **Dramatic-resource triggers** (`A.resource`) — state *where* it is spent (explicit costs,
+  visible at the table, per `A.resource_loss`) and *where* it can be regained (`A.resource_gain`).
+  A session that never touches it leaves the emotional core switched off. Keep no transaction log:
+  the end-of-session value in the player notes is the source of truth (P10).
+- **Canon quotes** (`D.canon_source`) — placed where the table can actually listen, since they stop
+  the game, each with its declared delivery mode. If a recording exists inside the repo, embed it in
+  the quote block rather than linking to a network source.
+- **Aiming a scene at a player — branch on `B.distance`.** Before building any scene on a hook from
+  a dossier, or writing a GM note about the person behind a character:
+  - **`fictional`** → proceed as written. The nerve belongs to a character.
+  - **`close`** → the material is aimed at a person through a thin screen. Use only hooks the player
+    put on the record in their own words; re-state the `B.safety` tools before the session rather
+    than relying on session zero; and give the scene a written **off-ramp** — how a player who does
+    not want to walk into it leaves without losing the evening.
+  - **`self-insert`** → the same, plus: **no reveal about the player that the player did not
+    author.** Material aimed at the character is aimed at the human under their own name, and the
+    safety refresh is load-bearing, not a courtesy. If the scene would tell someone something about
+    themselves, it is a conversation before the session, not a surprise during it.
+  - **empty** → **ask once** which of the three this table is, write the answer into `B.distance`,
+    and aim nothing at a hook until it is answered. Do not default to `fictional`.
 - **Red team pass** (P9) — before verification, run or delegate it; fold the results into the
   `If they derail:` lines.
 
 ## Phase 4 — Verify
 
-- Links follow §9 syntax; run the profile's verification command and report its actual result —
+- Links follow `C.links` syntax; run the `C.verify` command and report its actual result —
   never claim an invariant you did not run.
+- **`D.shape` honoured:** for a one-shot, the unavailable Phase 1 inputs are named in the prep and
+  nothing was fabricated to replace them; for a sandbox, the session is hung on fronts, not on a
+  chapter that does not exist.
+- **`B.distance` honoured:** every scene aimed at a player's hook passes the branch above; for
+  `close` / `self-insert` the off-ramp is written and the safety refresh is scheduled.
 - The top `[!warning]` box contains only global threads; every scene opens with a trigger box.
 - **Single source of truth:** no trigger duplicated between the global box and a scene box; every
   value (DC, cost) lives in exactly one place.
@@ -152,3 +199,7 @@ Plus, once per session:
 - Do not insert filler combat, or a fight without an objective and an exit condition.
 - Do not announce in read-aloud what the players are supposed to discover.
 - Do not invent a dramatic resource, guide beat or canon quote that the profile does not declare.
+- Do not assume a series: a one-shot has no hub, no previous log and no rotation, and pretending
+  otherwise produces a prep built on invented state.
+- Do not aim a scene at a player's exposed nerve while `B.distance` is empty — ask first — and do
+  not treat a `close` or `self-insert` table's safety refresh as optional.

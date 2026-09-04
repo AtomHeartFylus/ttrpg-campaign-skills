@@ -13,7 +13,7 @@ Every scene opens with a `> [!todo] Don't miss in this scene` box of tickable ch
 | Block | Contains |
 |---|---|
 | `> [!quote] Read aloud` | the opening text — P3: only what the senses perceive |
-| `> [!quote]` | canon quotes (profile §4) with the delivery mode noted |
+| `> [!quote]` | canon quotes (`D.canon_source`) with the delivery mode noted |
 | `> [!example]` | the mechanics used here: DCs, costs, local rules, typed-enemy traits |
 | `> [!info]` | GM-only notes: hidden truths, NPC playable intention (P4), how to seed clues |
 | `> [!abstract] Dramatic compass` | the three answers required by P5 |
@@ -42,6 +42,10 @@ spans the whole session and belongs to no single scene:
 NPC's focus on a specific PC, the key mechanic with its DC, the prepared beat if it falls here,
 where the resource is spent or regained *here*, what earns a reward *here*, and the scene's
 spotlight line marked `Spotlight → <PC>:`.
+
+**Before a scene's focus line names a player, `B.distance` has been read** (see `SKILL.md`, Phase
+3). Under `close` / `self-insert` that line points at a person: it may use only what the player put
+on the record, and the scene carries the written off-ramp. Slot empty → ask, do not aim.
 
 **Allocation test.** With a scene open, its `[!todo]` box alone answers *"what do I risk forgetting
 right here?"*; the top box alone answers *"what must I not lose sight of all evening?"*. A trigger

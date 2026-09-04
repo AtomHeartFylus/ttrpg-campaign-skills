@@ -45,7 +45,6 @@ and [`docs/AUTHORING.md`](docs/AUTHORING.md) if you want to write or modify a sk
 | `ttrpg-entity-note` | creating an NPC, place, faction, item or creature note | v1 |
 | `ttrpg-campaign-arc` | planning a season/arc, tracking open threads and spotlight rotation | v1 |
 | `ttrpg-continuity-audit` | checking campaign state for drift, dangling threads, broken links | v1 |
-| `ttrpg-rulebook-import` | ingesting a published rulebook/module into small linked notes | planned |
 
 The skills form a closed cycle:
 
@@ -60,19 +59,26 @@ The skills form a closed cycle:
 
 ## Install
 
-Skills are plain folders with a `SKILL.md`. Copy or symlink them where your agent harness
-looks for skills (e.g. `~/.agents/skills/`, `.claude/skills/`):
+Skills are plain folders with a `SKILL.md`. Install them with the script, which **copies** each
+folder and materialises the files a skill needs to stand alone (the principles, the profile
+template). Do not symlink `skills/` — a symlinked folder is missing exactly those materialised
+files, and every skill opens with a dead link:
 
 ```sh
 # Windows (PowerShell, from the repo root)
 ./install.ps1 -Target "$HOME/.agents/skills"
+# if the host policy is Restricted:
+#   powershell -ExecutionPolicy Bypass -File ./install.ps1 -Target "$HOME/.agents/skills"
 
 # macOS / Linux
-./install.sh ~/.agents/skills
+./install.sh ~/.agents/skills          # or: sh install.sh ~/.agents/skills
 ```
 
-Keeping the repo as the **canonical copy** and installing from it means a fix travels to every
-machine and every harness you use.
+Keeping the repo as the **canonical copy** and re-running the installer after a change means a fix
+travels to every machine and every harness you use. **Edit the repo, never the installed copy:**
+installing replaces each target folder wholesale, so local edits to an installed skill — and any
+stray file you left there — are silently lost on the next install. That is intended (the source is
+canonical), but it surprises people once.
 
 ---
 
