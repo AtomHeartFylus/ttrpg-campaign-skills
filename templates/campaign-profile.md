@@ -67,6 +67,9 @@ A text, module or corpus the campaign leans on and quotes.
 - **Where the official material lives:** <folder>
 - **Where your reworked material lives:** <folder>
 - **Relationship between the two:** <how much you deviate, and how deviations are recorded>
+- **Endgame:** <the declared possible endings and the conditions that select between them — what
+  counts as failure, as an ordinary success, as an alternative ending. Seeds are planted early, so
+  this slot cannot wait for the last chapter>
 
 ## 7. Table conventions
 
@@ -77,6 +80,10 @@ A text, module or corpus the campaign leans on and quotes.
 - **Hooks harvested per player:** <how many exposed nerves to collect at session zero, default 2-3>
 - **How hooks are staged:** <parallels that the player connects on their own | literal appearances
   of the named subject | both, and when each>
+- **Frame of reference:** <what THIS table recognises — the cultural, historical or genre register
+  a figure must belong to in order to land; which real or historical figures are admissible and how
+  they must be handled. When a player names something outside the frame, the rule is to cast the
+  nearest parallel inside it>
 - **Absent players:** <the fixed in-fiction convention; do they level?>
 - **Safety tools:** <which, and when they are refreshed>
 - **Session length and hard stop:** <drives content margin, P8>
@@ -106,6 +113,8 @@ A text, module or corpus the campaign leans on and quotes.
 - **Frontmatter conventions:** <tag families; which values are properties and therefore the single
   source of truth (P10)>
 - **State single-source-of-truth locations:** <which note holds which tracked value>
+- **Arc / planning note and open-thread ledger:** <paths — where the arc plan, the deviation ledger
+  and the open threads live>
 - **Verification command:** <e.g. `python scripts/link_check.py .` — invariant: 0 broken links>
 - **Naming rules:** <file naming, forbidden characters>
 - **Portability:** <how this repo reaches the other machines you work from (git remote, sync folder)
@@ -126,7 +135,10 @@ Standing preferences that are not campaign facts but change how the work is done
 - **Default deliverable:** <a saved note in the repo, vs. a draft in chat>
 - **Review posture:** <how blunt; whether unsolicited improvement is wanted>
 - **What to never do without asking:** <e.g. rename or reorganise existing notes>
-- **Retroactivity:** <may past material be corrected for consistency?>
+- **Retroactivity:** <may past material be corrected for consistency? And *where* corrections are
+  recorded, so a retcon leaves a trace instead of a silent rewrite>
+- **Continuity audit cadence:** <how often the repo health check runs — e.g. every 3-5 sessions,
+  at chapter boundaries, after a bulk import>
 
 ---
 

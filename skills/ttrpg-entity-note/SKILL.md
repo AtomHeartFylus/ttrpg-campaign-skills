@@ -55,17 +55,13 @@ If the profile is missing, run `ttrpg-campaign-setup` first — do not guess con
 5. Read every session log where the entity already appeared. The log is the authority on what it
    did and said (P11); the note must not contradict it.
 
-## Phase 2 — The admission test
+## Phase 2 — The admission test (P13)
 
-Before the entity gets a note, three questions must have **explicit** answers:
-
-1. **Why is it here** — what put it in this place, in this condition, under this pressure, in the
-   internal logic of the setting. Not "it lives here": what the world's own rules make of it.
-2. **What does it represent** — which social, cultural or moral mechanism it embodies. Not a
-   label ("a corrupt official") but the machinery: which complicity, which appetite, which fear
-   made it possible.
-3. **What question does it pose to the table** — the moral or practical question it opens that the
-   players *cannot answer immediately*. This is P5 applied to an entity instead of a scene.
+Before the entity gets a note, answer **explicitly**, in writing: *why is it here* — what put it in
+this place, in this condition, under this pressure, in the internal logic of the setting;
+*what does it represent* — the mechanism, not the label ("a corrupt official" is a label; which
+complicity, which appetite, which fear made it possible is the mechanism); *what question does it
+pose to the table* that the players cannot answer immediately.
 
 **The verdict is binding:**
 

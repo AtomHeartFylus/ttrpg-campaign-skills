@@ -108,9 +108,9 @@ that are actually there.
 If the profile declares no command, say plainly that link integrity is **unverified**, sample by
 hand, and propose adding a check. Never report an invariant you did not run.
 
-### F — Retroactive admission test
-Take the entities added in the window and re-run the admission test from `ttrpg-entity-note`: why
-it is here, what it represents, what question it poses. An entity written mid-prep under time
+### F — Retroactive admission test (P13)
+Take the entities added in the window and re-run the admission test: why it is here, what it
+represents, what question it poses. An entity written mid-prep under time
 pressure often has only the first answer. For each failure, recommend one of: **give it the missing
 question**, **demote it to background colour without dialogue**, or **retire it** (only if it never
 reached the table). An entity the players have already met is never retired — it is demoted.

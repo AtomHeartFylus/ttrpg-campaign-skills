@@ -6,7 +6,7 @@ Skills **reference these by name** instead of restating them, so a lesson is fix
 > **Requirement or convention?** These principles were distilled from *one* long campaign. Treat
 > **P1, P2, P3, P10, P11** as requirements: violating them produces documents that fail at the
 > table or state that silently desynchronises. Treat **P5, P6, P7, P8, P9, P12** as strong house
-> conventions of a fiction-first table — excellent defaults, and legitimately overridable by a
+> conventions of a fiction-first table (P13 included) — excellent defaults, legitimately overridable by a
 > campaign that declares the override in its profile rather than drifting away from it in silence.
 > A skill must not present a convention as if it were a law of the game.
 
@@ -125,6 +125,23 @@ Anything read to the table exists from the point of view of the *journey*, never
 no mechanics, no meta, no fourth wall, no "next time on". A skipped scene did not happen.
 
 *Test:* does this sentence exist for the characters, or only for the people in the room?
+
+### P13 — Everything admitted to the campaign answers three questions
+
+Before any figure, place, faction or object enters play it must have **explicit** answers to:
+**why is it here** (what the internal logic of the setting makes of it, not "it lives here");
+**what does it represent** (the mechanism it embodies — which complicity, appetite or fear made it
+possible — never a label); **what question does it pose to the table** that the players cannot
+answer immediately.
+
+*Verdict:* three answers → it earns a note and a scene can be built on it. An obvious third answer,
+or an element that works only as a joke or a flash of recognition → it is **decorative, not
+narrative**: admit it as background colour without dialogue, and do not promote it later without
+redoing the test.
+
+*Why:* it is P5 applied to an element instead of a scene, and it is what keeps a setting from
+filling up with things that are merely present. The answers are written **into** the element's
+note: in six months they are the only thing that explains why it exists.
 
 ---
 
