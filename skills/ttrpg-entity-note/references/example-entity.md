@@ -40,7 +40,9 @@ debt he can still pay — and who is owed, the fen or the dead?
 
 <!-- P13: three explicit answers, written into the note, and the third is not obvious. If the
 third answer had been "he's a shopkeeper", this entity would have stayed one line of colour in
-the weir-gate's location note — no note, no scene built on it. -->
+the weir-gate's location note — no note, no scene built on it.
+VARIANT — `P13 — off` in E.overrides: these three spine headings drop and the entity earns its
+note without the test. -->
 
 ## Playable intention
 - **Wants (surface):** the toll, in the form that costs the payer most — he says so, pleasantly.
@@ -52,7 +54,8 @@ the weir-gate's location note — no note, no scene built on it. -->
 
 <!-- P4, full block, earned: misreading him breaks the route to the chapter's secret. A background
 ferrywoman's deckhand would get one line of want; a will-less hazard would get none, marked as
-a choice. Proportion is the rule. -->
+a choice. Proportion is the rule.
+VARIANT — `P4 — off`: one line stating why he is in play replaces this whole block. -->
 
 ## At the table
 Low voice, no haggling tone — he states prices like weather. One repeatable gesture: the coin.
@@ -84,4 +87,7 @@ brings him proof from the bell-house, and then he tells all of it, at once, unpr
   witness's gratitude.
 
 <!-- Append-only: one line per session log where he acted, added by the log cycle, so the note
-never contradicts the authority (P11). -->
+never contradicts the authority (P11).
+VARIANT — D.shape one-shot: this section and any cross-session tracked state drop — the entity
+has one appearance and no return to plan. Open sandbox: add one line naming which front he
+belongs to, and what he does if the party never comes. -->

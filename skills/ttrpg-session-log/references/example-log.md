@@ -46,7 +46,9 @@ internal document, and what may cross to the table is the recap's problem (P12).
   themselves — unprompted.
 
 <!-- Play order, factual, deviations marked as deviations, interpretation absent. Each present
-player has a named moment or an explicit chorus note (P7): that mark feeds the rotation check. -->
+player has a named moment or an explicit chorus note (P7): that mark feeds the rotation check.
+VARIANT — `P7 — off` in E.overrides: the evening may be recorded without per-player accounting,
+and no carried/chorus marks feed a rotation check. -->
 
 ## Missed opportunities (to recover)
 - The upstream-water seed was staged once of the three planned passes. **Recoverable:** Brenna can
@@ -63,8 +65,11 @@ recoverable (with the how) or declared lost. -->
 
 ## Exit state
 <!-- The frozen snapshot — the single admitted exception to P10. Current values live in the
-dossiers; this table is historical and never read as current state. One row per character
-because A.resource_shape says per-character; a shared clock would make this ONE row. -->
+dossiers; this table is historical and never read as current state.
+VARIANT — A.resource_shape: per-character gives one row per character, as here; a shared party
+clock gives exactly ONE row for the party (per-character rows would invent state the game does
+not track); per-faction gives one row per named entity. A.resource empty: no resource column at
+all. -->
 
 | Character | Marks | Wick | Where |
 |---|---|---|---|
@@ -78,6 +83,9 @@ because A.resource_shape says per-character; a shared clock would make this ONE 
 - Cleo, in character: "If the ledgers drown, so do the debts owed *to* us." Nobody answered her.
 
 ## Pending for next session
+<!-- VARIANT — D.shape one-shot: this section does not exist (there is no next session), and
+Narrative seeds become a short note of what the ending deliberately left open. Open sandbox:
+these items are written against the active fronts — which moved, which advanced off screen. -->
 - [ ] Stage the upstream rise visibly, scene one.
 - [ ] Ulde owes the party a witness's gratitude — decide what it is worth.
 - [ ] Brenna's unpaid toll from Iole: one memory of home.

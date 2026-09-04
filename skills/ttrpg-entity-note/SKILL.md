@@ -4,7 +4,7 @@ description: "Create or update the single note for one campaign entity — an NP
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Entity note

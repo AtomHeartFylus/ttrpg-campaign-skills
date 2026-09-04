@@ -15,7 +15,10 @@ ttrpg-table-recap's example files, so the three show one full cycle. -->
   D.guide: Brenna the Ferrywoman — answers a question with a toll
   D.canon_source: the Weir Ballads — rewritten in-world, read aloud by the GM
   C.blocks: callouts as shown · C.links: [[wikilinks]] · E.overrides: none
-An EMPTY slot in a real profile drops the corresponding block below entirely — it never shrinks it. -->
+An EMPTY slot in a real profile drops the corresponding block below entirely — it never shrinks it.
+
+STRUCTURAL VARIANTS — this example instantiates ONE configuration; where a branch changes the
+shape of the artifact, the delta is noted at the branch point below, marked "VARIANT". -->
 
 ---
 tags: session/7, chapter/drowned-toll, prep
@@ -33,7 +36,11 @@ tags: session/7, chapter/drowned-toll, prep
 <!-- P2 at work in the box above: only threads that span the WHOLE evening, one line each. The
 principle of the resource lives here; every cost VALUE lives in exactly one scene box below.
 P7: the cross-scene spotlight arc lives here; the per-scene focus is a checkbox in each scene's
-box. There is no spotlight table anywhere in the document. -->
+box. There is no spotlight table anywhere in the document.
+VARIANT — D.shape one-shot: no hub, no previous log, no guide beat exist; the prep names its
+unavailable inputs in one line, and rotation becomes within-session (every player gets one scene
+whose outcome depends on them). D.shape open sandbox: the arc above hangs on active fronts, not
+on a chapter. -->
 
 > [!info] How to use this note
 > Complete and self-sufficient (P1): every description, all read-aloud text and the night's
@@ -65,6 +72,9 @@ first cut, and its hook's recovery is declared here, not improvised at the table
 
 > [!todo] Don't miss in this scene
 > - [ ] Ulde addresses Tobit by his guild-name — he has already read the ledger page. `Spotlight → Tobit:` the negotiation is his.
+<!-- VARIANT — B.distance close/self-insert: this focus line would point at a person, not a
+character. It could use only hooks the player put on the record in their own words, the scene
+would carry a written off-ramp, and the safety refresh would be scheduled before the session. -->
 > - [ ] Wick: lying to Ulde inside the gate costs 1 Wick — the fen hears everything here. Say the cost *before* the first lie, not after.
 > - [ ] Reward moment: paying the toll with a true thing — a real regret, spoken — instead of coin.
 > - [ ] If they pay in coin: mark which coin — it surfaces again next session.
@@ -102,6 +112,10 @@ to the secret. Note both layers are playable and the surface want has a speakabl
 > **Non-combat exit:** convince or pay — the gate opens on either. Fighting Ulde closes the gate
 > for the season; say it through Brenna if they reach for weapons.
 
+<!-- VARIANT — `P5 — off` in E.overrides: this compass block and the exit condition drop from
+every scene, and Scene 3's fight may end by depletion. The header of the prep names the honoured
+override once. -->
+
 If they derail: they try to swim or climb the weir → the fen itself is the pressure: the quiet
 water takes one carried item per swimmer, chosen by its owner. The gate stays the only dry crossing.
 
@@ -110,7 +124,8 @@ water takes one carried item per swimmer, chosen by its owner. The gate stays th
 ### Scene 2 — Brenna's ferry (white space)
 
 <!-- P6: the conversation scene is WRITTEN, or at the table it becomes a montage. No checks, no
-clock, no mechanical pressure — context plus trigger questions is the whole prep. -->
+clock, no mechanical pressure — context plus trigger questions is the whole prep.
+VARIANT — `P6 — off`: this scene is not required, and is not smuggled back as "one quiet beat". -->
 
 > [!todo] Don't miss in this scene
 > - [ ] Brenna's prepared beat (`D.guide`): she returns Sorrel's question from two sessions ago —

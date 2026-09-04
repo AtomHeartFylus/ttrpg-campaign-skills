@@ -4,7 +4,7 @@ description: "Write the session prep document a GM actually holds during play: g
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Session prep

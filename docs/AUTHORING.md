@@ -215,6 +215,14 @@ faster than from any number of rules. The rules for writing one:
   assumes — so a reader can see which blocks an empty slot would have dropped.
 - **Annotated, sparsely.** HTML comments explain *why* a block is the way it is, citing principles
   and slots; a real artifact carries none, and the guard says so.
+- **One configuration per example; structural branches get deltas.** A worked example
+  instantiates exactly one profile configuration — an example is a de facto default, so a second
+  full example covering "the common case" would reintroduce a hardcoded default through the
+  strongest teaching channel, and would double the drift surface §7 step 6 has to police. A branch
+  that changes the artifact's *structure* (`D.shape`, `A.resource_shape`, `B.distance`, an
+  override that removes a section) is covered instead by a 2–5 line `VARIANT —` annotation at the
+  branch point: what this block becomes under the other value. Flavour variants need nothing —
+  the profile injects the flavour at runtime.
 - **Linked from the entrypoint** with the read-once framing, and kept in step with the skill:
   changing a skeleton or a required element without updating the example (§7, step 6) leaves the
   strongest teaching signal contradicting the rules.

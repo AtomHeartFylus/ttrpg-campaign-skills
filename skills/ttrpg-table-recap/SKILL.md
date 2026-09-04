@@ -4,7 +4,7 @@ description: "Write the in-fiction recap that is read aloud to open the next ses
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Table recap

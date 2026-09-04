@@ -4,7 +4,7 @@ description: "Write the session log: the authoritative record of what actually h
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Session log

@@ -18,6 +18,12 @@ log: "[[Session 7 — Log]]"
 
 > [!quote] To be read aloud at the opening of Session 8
 
+<!-- VARIANT — D.recap `none`: no recap exists at all — the skill stops and says so. A verse form:
+every rule this example shows still holds, and the metre/rhyme/house lexicon come from the
+campaign overlay, never from the base skill. D.shape one-shot: there is no session to open — the
+default output is nothing, and only on request a sealed ENDING, never this. `P12 — off`: the piece
+may address the room and name the evening — the journey framing becomes optional. -->
+
 They came to the weir-gate where the water stood a hand too high and said nothing about it, and
 a keeper turned a coin he never looked at. Everything crosses, he told them; everything pays.
 The debt-scribe paid. Not in coin — in the one thing no purse holds twice: he laid down his
