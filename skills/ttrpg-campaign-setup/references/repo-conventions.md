@@ -82,7 +82,7 @@ grows; an open-ended tag vocabulary is a search that stops working.
 ---
 type: entity/npc
 status: alive
-location: "[[<place note>]]"
+location: "<link to the place note, in the exact syntax recorded in C.links>"
 <tracked resource>: 12
 ---
 ```
