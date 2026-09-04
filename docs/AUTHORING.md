@@ -112,9 +112,14 @@ one-shot looks like it worked.
 
 ## 3. Descriptions and routing
 
-The `description` is the only thing the router sees. It must contain:
+The `description` is the only thing the router sees. It must contain, **in this order**:
 1. the **artifact** produced, 2. an explicit **"Use when …"** trigger phrased the way a user
 would ask, 3. the **negative boundary** naming the sibling skill that owns the adjacent job.
+
+Front-load: routers weight the opening tokens and some harnesses truncate, so the artifact and
+the trigger come first and stay tight. Do **not** enumerate the skill's contents ("Covers …") in
+the description — that is documentation, and it belongs in the body's opening lines, where it
+costs routing nothing.
 
 Sibling skills in this package have deliberately adjacent jobs (prep vs. log vs. recap). Without
 the negative boundary they collide.
@@ -198,6 +203,8 @@ What the checker enforces mechanically, so you do not have to remember it:
 | `MECHANICS-LEAK` | the vocabulary of one system family appears (`DC`, `HP`, `AC`, saving throw, `d20`, encounter table, combat rounds) — warning |
 | `ENCODING` | a shipped markdown file carries U+FFFD or a literal `\uXXXX` escape |
 | `OVERRIDE-MAPPED` | a skill mentions `E.overrides` without a branch mapping it to what stops being required |
+| `ARTIFACT-CONTRACT` | a skeleton shows a frontmatter placeholder without the fixed `type:` key, or two skills claim the same type value |
+| `PHASE0-PROTOCOL` | a consumer skill's Phase 0 lacks the find-the-profile protocol or a `D.shape` branch/gate before Phase 1 |
 
 ## 8. Worked examples
 

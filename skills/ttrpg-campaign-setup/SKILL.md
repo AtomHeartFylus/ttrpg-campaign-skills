@@ -1,10 +1,10 @@
 ---
 name: ttrpg-campaign-setup
-description: "Bootstrap a campaign repository and produce its filled campaign-profile.md — the contract the other ttrpg-* skills read — or adopt and audit a repo that already has material. Use when starting a campaign vault, filling or revising the campaign profile, or **establishing** the conventions of a repo that grew without them. Does not audit an established repo for drift or convention leakage (see ttrpg-continuity-audit), does not run session zero or write player dossiers (see ttrpg-table-dossier), write session prep (see ttrpg-session-prep), or chase narrative drift and dangling threads (see ttrpg-continuity-audit)."
+description: "Bootstrap a campaign repository and produce its filled campaign-profile.md — the contract every other ttrpg-* skill reads — or adopt and audit a repo that already has material. Use when starting a campaign vault, filling or revising the campaign profile, or establishing the conventions of a repo that grew without them. Does not run session zero or write player dossiers (see ttrpg-table-dossier), write session prep (see ttrpg-session-prep), or chase drift and dangling threads (see ttrpg-continuity-audit)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Campaign setup
@@ -69,14 +69,13 @@ now: the portability rule (Phase 3.5) is unenforceable without it.
    from your output was skipped. Go back and ask it.
 
 **Two walks — full or quick start.** The full walk above is the default. When the GM asks for the
-fast version, or visibly has one evening in them: walk only the slots the schema marks **`(core)`**
+fast version or visibly has one evening in them: walk only the slots the schema marks **`(core)`**
 — plus the dependents a core answer implies (`A.resource` with a value drags its whole resource
-family: shape, scale, loss/gain, asymmetry, zero; `D.recap` with a form drags its ceiling) — write `deferred: session zero` on the five that
-table owns exactly as below, and **leave every other slot as its untouched placeholder**. Never
-write `none` into a slot you did not ask. Close by listing, in the report, exactly which slot ids
-were never asked, and say that the first skill needing one will stop, ask once, and write the
-answer back. A quick start is a pacing decision, not a smaller schema: the diff test above still
-runs — it just accepts placeholders outside the core set, each one named.
+family; `D.recap` with a form drags its ceiling) — write `deferred: session zero` on the five that
+table owns exactly as below, and **leave every other slot as its untouched placeholder**; never
+write `none` into a slot you did not ask. Close by naming, in the report, the slot ids never asked:
+the first skill needing one stops, asks once, writes back. A quick start is pacing, not a smaller
+schema — the diff test above still runs, accepting only *named* placeholders outside the core set.
 
 **Empty is an answer.** Write `none` into the slot — or `deferred: <when>` when the answer belongs
 to a conversation that has not happened yet.

@@ -1,4 +1,5 @@
 ---
+type: dossier
 tags: dossier, player/ada
 marks: 6
 wick: 4

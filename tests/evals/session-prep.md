@@ -35,6 +35,7 @@ REQUIRED — every box, or the eval fails:
       declared. (P8)
 - [ ] Invents no state: every fact in the prep traces to the profile, the logs, the dossiers or
       the entity notes.
+- [ ] The prep's frontmatter carries the fixed package key `type: session-prep`. (Phase 2)
 
 SHOULD — quality signals, note misses:
 

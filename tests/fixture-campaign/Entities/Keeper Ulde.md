@@ -1,4 +1,5 @@
 ---
+type: entity
 tags: npc, faction/weir-keepers, chapter/drowned-toll
 disposition: indebted-to-party
 ---

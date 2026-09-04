@@ -1,10 +1,10 @@
 ---
 name: ttrpg-session-prep
-description: "Write the session prep document a GM actually holds during play: global-threads callout, at-a-glance table, scenes in play order with per-scene trigger boxes, inlined read-aloud, dramatic compass and non-combat exits. Use when asked to prepare, write or update a session (prep note, session script, running sheet) for a tabletop campaign. Does not record what happened (see ttrpg-session-log), write the opening recap (see ttrpg-table-recap), create standalone entity notes (see ttrpg-entity-note), or plan the arc above the session (see ttrpg-campaign-arc)."
+description: "Write the session prep document a GM actually holds during play — the complete, self-sufficient running sheet for one evening. Use when asked to prepare, write or update a session (prep note, session script, running sheet) for a tabletop campaign. Does not record what happened (see ttrpg-session-log), write the opening recap (see ttrpg-table-recap), create standalone entity notes (see ttrpg-entity-note), or plan the arc above the session (see ttrpg-campaign-arc)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Session prep
@@ -101,7 +101,8 @@ write the answer into the profile, and do not proceed as if it were a series.
    tables and mechanics are *carried
    into* the prep, rewritten and fused with your own location notes, not cited by reference. Keep
    an attribution link. Never copy stat blocks.
-3. **The previous session log.** Exit state, loose ends, seeded hooks, missed opportunities.
+3. **The previous session log** (locate it by its `type: session-log` frontmatter when names
+   vary). Exit state, loose ends, seeded hooks, missed opportunities.
 4. **The dossiers of the expected players.** Playstyle notes (who charges in, who must be handed a
    scene, who is chorus), their hooks (the exposed nerves), tracked properties.
    *Missing-hook check:* if a session protagonist has no recorded hooks, make collecting them the
@@ -123,7 +124,9 @@ prep written blind is legitimate, a prep pretending it had a log is not. For `op
 
 ```markdown
 ---
-<frontmatter per C.frontmatter: session tag, module/front tag>
+type: session-prep     <!-- fixed package key, identical in every campaign: how the log and the
+                            audit FIND this artifact, whatever the file is named -->
+<rest of the frontmatter per C.frontmatter: session tag, module/front tag>
 ---
 
 # Session N — Title                            <!-- blocks per C.blocks, headings in B.language -->

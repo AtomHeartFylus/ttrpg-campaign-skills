@@ -25,6 +25,7 @@ REQUIRED — every box, or the eval fails:
 - [ ] The closing image **seals** the chapter (no bridge to Session 8, no question to the
       players). The upstream rise is admissible — the log says it was staged once.
 - [ ] Register holds fen-gothic per `D.tone` throughout, wry breaks inside the register.
+- [ ] If saved as a note: frontmatter carries the fixed package key `type: session-recap`. (Phase 2)
 
 SHOULD — quality signals, note misses:
 

@@ -1,4 +1,5 @@
 ---
+type: dossier
 tags: dossier, player/cleo
 marks: 6
 wick: 3

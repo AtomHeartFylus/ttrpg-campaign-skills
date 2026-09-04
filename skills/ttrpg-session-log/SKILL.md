@@ -1,10 +1,10 @@
 ---
 name: ttrpg-session-log
-description: "Write the session log: the authoritative record of what actually happened at the table, as opposed to what was prepped. Use when the user reports how the session went, or asks to write, update or complete the log (diary, after-action note, session record) for a session already played. Covers fact collection by targeted questions without inventing, deviations from prep checked against the prep's global-threads callout, per-player memorable moments, the frozen exit state, narrative seeds, the pending checklist for the next session, and the state updates in player dossiers and the campaign hub. Does not write the prep (see ttrpg-session-prep), the in-fiction opening recap (see ttrpg-table-recap), or process the recording and its transcript (see ttrpg-session-audio)."
+description: "Write the session log: the authoritative record of what actually happened at the table, as opposed to what was prepped. Use when the user reports how the session went, or asks to write, update or complete the log (diary, after-action note, session record) for a session already played. Does not write the prep (see ttrpg-session-prep), the in-fiction opening recap (see ttrpg-table-recap), or process the recording and its transcript (see ttrpg-session-audio)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Session log
@@ -26,9 +26,8 @@ campaign a year later.
 > Principles are cited below by tag (`P1`…`P13`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 > A complete worked log for an **invented** campaign, annotated, is in
-> [references/example-log.md](references/example-log.md) — read it once to calibrate shape and
-> register; it is a shape, never content to reuse. It logs the session that
-> `ttrpg-session-prep`'s example prepared.
+> [references/example-log.md](references/example-log.md) — a shape to calibrate on, never content
+> to reuse; it logs the session `ttrpg-session-prep`'s example prepared.
 
 ## Phase 0 — Read the campaign profile
 
@@ -88,7 +87,8 @@ the **active fronts** (which moved, which advanced while the party was elsewhere
 
 ## Phase 1 — Read before asking
 
-1. **The prep of the session just played.** Its top global-threads callout (P2) is your checklist:
+1. **The prep of the session just played** (locate it by its `type: session-prep` frontmatter
+   when names vary). Its top global-threads callout (P2) is your checklist:
    each thread either happened or became a **missed opportunity**; its per-scene trigger boxes are
    the second pass. Note which scenes were optional (P8).
 2. **The previous session log.** Its *Pending for next session* checklist — resolved, still open,
@@ -137,6 +137,7 @@ is illustrative — render them as `C.blocks` declares.
 
 ```markdown
 ---
+type: session-log   <!-- fixed package key: how recap, next prep and audit FIND this artifact -->
 <frontmatter per C.frontmatter: session tag, chapter/front tag, log tag;
  properties linking prep and recap so the hub's query self-populates>
 ---

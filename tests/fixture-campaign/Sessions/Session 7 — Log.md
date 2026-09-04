@@ -1,4 +1,5 @@
 ---
+type: session-log
 tags: session/7, chapter/drowned-toll, log
 prep: "[[Session 7 — The Drowned Toll]]"
 ---

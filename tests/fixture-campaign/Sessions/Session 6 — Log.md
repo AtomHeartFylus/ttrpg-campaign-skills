@@ -1,4 +1,5 @@
 ---
+type: session-log
 tags: session/6, chapter/drowned-toll, log
 prep: "[[Session 6 — The Long Reach]]"
 ---

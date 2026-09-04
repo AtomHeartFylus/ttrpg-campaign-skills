@@ -11,9 +11,12 @@ Annotations like this one explain the choices; a real note carries none. -->
   C.links: [[wikilinks]] · C.frontmatter: tag families as shown. -->
 
 ---
+type: entity
 tags: npc, faction/weir-keepers, chapter/drowned-toll
 disposition: indebted-to-party
 ---
+<!-- type: is the fixed package key (the cross-skill contract); tags and tracked properties are
+this campaign's own convention per C.frontmatter. -->
 
 # Keeper Ulde
 

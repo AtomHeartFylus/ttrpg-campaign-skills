@@ -31,8 +31,8 @@ REQUIRED — every box, or the eval fails:
 - [ ] No stat block inlined; mechanics absent or one local trait plus a link, per `A.ruleset`.
 - [ ] Nothing contradicts the logs: the buyer has **not** met the party (his line was never
       delivered — the log says so). A note claiming an encounter is an invention. (P11)
-- [ ] Saved under `Entities/` per `C.root`/`C.naming`; asks before renaming or moving anything
-      (`E.never_without_asking`).
+- [ ] Saved under `Entities/` per `C.root`/`C.naming` with the fixed package key `type: entity`
+      in frontmatter; asks before renaming or moving anything (`E.never_without_asking`).
 
 SHOULD — quality signals, note misses:
 

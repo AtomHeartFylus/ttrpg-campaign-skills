@@ -1,10 +1,10 @@
 ---
 name: ttrpg-session-audio
-description: "Turn a recorded session into usable material: a versioned transcript pair, a per-session speaker map, and — only when separately consented to — a curated off-game note. Use when asked to transcribe, diarize or process a session recording, to settle where audio and transcripts of this campaign are stored, or to salvage the out-of-character half of an evening. Covers the two independent consent gates that must pass before anything runs, the storage contract (large audio out of version control, text transcripts in), any diarizing speech-to-text tool, the readable + timecoded file pair, rebuilding anonymous speaker labels session by session, and curating off-game talk by theme with timecodes. Does not write the record of what happened (see ttrpg-session-log) or the in-fiction opening recap (see ttrpg-table-recap)."
+description: "Turn a recorded session into usable material: a versioned transcript pair, a per-session speaker map, and — only when separately consented to — a curated off-game note. Use when asked to transcribe, diarize or process a session recording, to settle where audio and transcripts of this campaign are stored, or to salvage the out-of-character half of an evening. Two independent consent gates pass before anything runs. Does not write the record of what happened (see ttrpg-session-log) or the in-fiction opening recap (see ttrpg-table-recap)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Session audio

@@ -4,7 +4,7 @@ r"""Mechanical contract checker for ttrpg-campaign-skills.
 Run from the repo root:  python3 scripts/check_contract.py [repo-root]
 Exit code 1 if any ERROR. WARNings never fail the build.
 
-Fourteen checks:
+Sixteen checks:
 
   1  SLOT-RESOLVES     every slot id cited under skills/ (a section letter A-E, a dot,
                        a lowercase slot name) is defined in templates/campaign-profile.md.
@@ -55,6 +55,16 @@ Fourteen checks:
                        ("declare P5 - off and no skill argues") and eight of nine skills
                        once cited the slot while mapping nothing, which is invisible to a
                        checker that only resolves ids.
+ 15  ARTIFACT-CONTRACT a skeleton that shows a frontmatter placeholder also declares the
+                       package's fixed `type:` key (the cross-skill contract that lets one
+                       skill find another's artifact whatever the file is named, exactly as
+                       `type: campaign-profile` finds a renamed profile), and no two skills
+                       claim the same type value.
+ 16  PHASE0-PROTOCOL   every consumer skill's Phase 0 carries, before Phase 1, the
+                       find-the-profile search protocol and a `D.shape` branch or gate;
+                       ttrpg-campaign-setup instead carries its own 'Search before you
+                       conclude' protocol. Nine hand-written Phase 0s drift apart unless
+                       their shared spine is mechanical.
 """
 import io
 import os
@@ -525,6 +535,72 @@ for d in skill_dirs:
     elif "E.overrides" not in src.split("## Phase 1")[0]:
         err("OVERRIDE-MAPPED", rel(p),
             "maps `E.overrides` outside Phase 0 - it is read before anything is produced")
+
+# ---------- 15: the artifact type contract -------------------------------
+# A Phase 2 skeleton showing a frontmatter placeholder must also declare the fixed `type:` key,
+# and one type value has one owner - two skills claiming the same type is the SECTION-OWNERSHIP
+# bug at the artifact level.
+artifact_types = defaultdict(list)
+for d in skill_dirs:
+    p = os.path.join(SKILLS, d, "SKILL.md")
+    if not os.path.isfile(p):
+        continue
+    fence = None
+    needs, found = [], []
+    for i, line in enumerate(read(p).splitlines(), 1):
+        f = re.match(r"^[ \t]*(`{3,}|~{3,})", line)
+        if f:
+            fence = None if fence else f.group(1)[0]
+            continue
+        if fence is None:
+            continue
+        if "frontmatter per C.frontmatter" in line:
+            needs.append(i)
+        m = re.match(r"^type:\s*([a-z][a-z-]*)", line)
+        if m:
+            found.append((i, m.group(1)))
+    if needs and not found:
+        err("ARTIFACT-CONTRACT", "%s:%d" % (rel(p), needs[0]),
+            "skeleton shows a frontmatter placeholder but declares no fixed `type:` key - "
+            "without it no other skill can find this artifact once the campaign names it")
+    for i, val in found:
+        artifact_types[val].append((d, "%s:%d" % (rel(p), i)))
+for val, locs in sorted(artifact_types.items()):
+    owners = sorted({d for d, _ in locs})
+    if len(owners) > 1:
+        err("ARTIFACT-CONTRACT", "skills/",
+            "`type: %s` is claimed by %d skills (%s) - one artifact type, one owner"
+            % (val, len(owners), ", ".join(loc for _, loc in locs)))
+    if val == "campaign-profile":
+        err("ARTIFACT-CONTRACT", locs[0][1],
+            "`type: campaign-profile` belongs to the schema, not to a skill's skeleton")
+
+# ---------- 16: the Phase 0 protocol is present and ordered ---------------
+# The shared spine of every consumer Phase 0: find the profile before declaring it missing,
+# and branch on D.shape - both before anything is produced. OVERRIDE-MAPPED owns the third step.
+FINDIT = "Find it before declaring it missing"
+DSHAPE_BRANCH = re.compile(r"\*\*`D\.shape`\s+(branch|gate)")
+for d in skill_dirs:
+    p = os.path.join(SKILLS, d, "SKILL.md")
+    if not os.path.isfile(p):
+        continue
+    src = read(p)
+    if d == SETUP_SKILL:
+        if "Search before you conclude" not in src:
+            err("PHASE0-PROTOCOL", rel(p),
+                "the finder skill must keep its 'Search before you conclude' protocol - it is "
+                "what every other skill's find-it rule delegates to")
+        continue
+    cut = src.find("\n## Phase 1")
+    head = src[:cut] if cut != -1 else src
+    if FINDIT not in head:
+        err("PHASE0-PROTOCOL", rel(p),
+            "Phase 0 lacks the find-the-profile protocol ('%s') before Phase 1 - a profile "
+            "that exists but is not found re-interviews a GM who already answered" % FINDIT)
+    if not DSHAPE_BRANCH.search(head):
+        err("PHASE0-PROTOCOL", rel(p),
+            "no `D.shape` branch or gate before Phase 1 - a skill that cannot serve a shape "
+            "must say so before it produces anything")
 
 # ---------- report -------------------------------------------------------
 print("contract check - %s" % ROOT)

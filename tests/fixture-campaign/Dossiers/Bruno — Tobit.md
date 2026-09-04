@@ -1,4 +1,5 @@
 ---
+type: dossier
 tags: dossier, player/bruno
 marks: 6
 wick: 3

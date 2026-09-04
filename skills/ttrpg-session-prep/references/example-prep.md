@@ -21,8 +21,11 @@ STRUCTURAL VARIANTS — this example instantiates ONE configuration; where a bra
 shape of the artifact, the delta is noted at the branch point below, marked "VARIANT". -->
 
 ---
+type: session-prep
 tags: session/7, chapter/drowned-toll, prep
 ---
+<!-- type: is the fixed package key (the cross-skill contract); the tags are this campaign's own
+convention per C.frontmatter. -->
 
 # Session 7 — The Drowned Toll
 

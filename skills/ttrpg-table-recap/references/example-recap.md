@@ -12,9 +12,12 @@ Annotations like this one explain the choices; a real recap carries none. -->
   D.tone: fen-gothic, wry breaks admitted · D.canon_source: the Weir Ballads, rewritten in-world. -->
 
 ---
+type: session-recap
 tags: session/7, recap
 log: "[[Session 7 — Log]]"
 ---
+<!-- type: is the fixed package key (the cross-skill contract); the rest is this campaign's own
+convention per C.frontmatter. -->
 
 > [!quote] To be read aloud at the opening of Session 8
 

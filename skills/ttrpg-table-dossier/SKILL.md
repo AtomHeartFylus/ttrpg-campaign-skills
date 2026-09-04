@@ -1,10 +1,10 @@
 ---
 name: ttrpg-table-dossier
-description: "Run session zero and produce one dossier note per PLAYER — the people layer of the campaign: playstyle craft notes, harvested hooks, safety tools, attendance convention and the spotlight rotation ledger. Use when starting a table, onboarding a player, collecting hooks or safety tools, or checking whether someone has been chorus too long — this skill owns the rotation formula, its tolerance and the ledger, and is the only place that answers that question. Covers how far the characters sit from the players themselves and what that permits, since hook harvest and GM-facing notes about a person are gated on it. Does not write the prep that spends the spotlight (see ttrpg-session-prep), commit which player is protagonist in upcoming sessions (see ttrpg-campaign-arc), record what happened at the table (see ttrpg-session-log), or set the repo conventions it obeys (see ttrpg-campaign-setup)."
+description: "Run session zero and produce one dossier note per PLAYER — playstyle notes, harvested hooks, safety tools, attendance convention and the spotlight rotation ledger, which this skill alone owns. Use when starting a table, onboarding a player, collecting hooks or safety tools, or checking whether someone has been chorus too long — only this skill answers that question. Does not write the prep that spends the spotlight (see ttrpg-session-prep), commit future protagonists (see ttrpg-campaign-arc), record what happened at the table (see ttrpg-session-log), or set the repo conventions it obeys (see ttrpg-campaign-setup)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Table dossier
@@ -109,6 +109,8 @@ empty.
 
 ```markdown
 ---
+type: dossier          <!-- fixed package key, identical in every campaign: how prep, log and
+                            recap FIND the player dossiers -->
 <frontmatter per C.frontmatter: player tag, aliases>
 <tracked properties per A.ruleset / A.resource: the state values, one place only — P10>
 ---

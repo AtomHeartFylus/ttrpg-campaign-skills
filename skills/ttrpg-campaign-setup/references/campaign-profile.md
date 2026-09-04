@@ -111,7 +111,11 @@ schema: 2
 - **`C.root`** *(core)* — repo/vault root and folder map
 - **`C.granularity`** — note granularity (e.g. one note per entity, small and linked)
 - **`C.links`** *(core)* — link syntax and its escaping rules
-- **`C.frontmatter`** — tag families; which values are properties
+- **`C.frontmatter`** — tag families; which values are properties. One key is **not** yours to
+  declare: `type:` on package artifacts (`campaign-profile`, `session-prep`, `session-log`,
+  `session-recap`, `entity`, `dossier`, `campaign-arc`) is the package's own cross-skill
+  contract — fixed by the skills, identical in every campaign, and how one skill finds another's
+  artifact whatever the file is named
 - **`C.blocks`** — how your note system writes a **callout/admonition, a checkbox and a quote**.
   The skeletons in these skills show one dialect; a skill keeps the *roles* and renders them in
   yours. `plain headings and blockquotes` is a complete answer

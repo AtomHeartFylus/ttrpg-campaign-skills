@@ -11,10 +11,13 @@ Annotations like this one explain the choices; a real log carries none. -->
   B.language: English → headings as shown; another language translates the skeleton, not just the prose. -->
 
 ---
+type: session-log
 tags: session/7, chapter/drowned-toll, log
 prep: "[[Session 7 — The Drowned Toll]]"
 recap: "[[Recap — opening of Session 8]]"
 ---
+<!-- type: is the fixed package key (the cross-skill contract); the rest is this campaign's own
+convention per C.frontmatter. -->
 
 # Session 7 — Log (The Drowned Toll)
 

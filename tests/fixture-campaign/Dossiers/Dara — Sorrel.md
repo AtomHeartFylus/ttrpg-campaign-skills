@@ -1,4 +1,5 @@
 ---
+type: dossier
 tags: dossier, player/dara
 marks: 5
 wick: 4

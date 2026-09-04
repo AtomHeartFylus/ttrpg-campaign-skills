@@ -1,10 +1,10 @@
 ---
 name: ttrpg-campaign-arc
-description: "Produce and maintain the arc note that plans the campaign above the single session: backbone table, canon-vs-homebrew deviation ledger, open-thread tracker, pacing over the campaign horizon and a seeded endgame. Use when asked to plan an arc, season or chapter, to review where the campaign is going, to decide the fate of an unpaid thread, or to decide what the next few sessions must deliver. Covers what each chapter must deliver, why each divergence from the source was made, who owns each unpaid seed, and the forward commitment of who is protagonist in the next few sessions. Requires an ongoing campaign: it does not serve a one-shot. Does not measure spotlight fairness or decide whether anyone has been chorus too long (see ttrpg-table-dossier, which owns the rotation formula and the ledger), does not write a playable session (see ttrpg-session-prep), record a played one (see ttrpg-session-log), or audit the repo for drift (see ttrpg-continuity-audit)."
+description: "Produce and maintain the arc note that plans the campaign above the single session: backbone, deviation ledger, open-thread tracker, pacing, seeded endgame. Use when asked to plan an arc, season or chapter, to review where the campaign is going, to decide the fate of an unpaid thread, or to decide what the next few sessions must deliver. Requires an ongoing campaign: it does not serve a one-shot. Does not measure spotlight fairness or decide who has been chorus too long (see ttrpg-table-dossier, which owns the rotation formula and ledger), write a playable session (see ttrpg-session-prep), record a played one (see ttrpg-session-log), or audit the repo for drift (see ttrpg-continuity-audit)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Campaign arc
@@ -105,7 +105,9 @@ turn remembered seeds into a tracker.
 
 ```markdown
 ---
-<frontmatter per C.frontmatter>
+type: campaign-arc     <!-- fixed package key, identical in every campaign: how the audit and
+                            the prep FIND this note -->
+<rest of the frontmatter per C.frontmatter>
 ---
 
 # <Campaign> — Arc

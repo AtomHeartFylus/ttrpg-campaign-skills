@@ -1,10 +1,10 @@
 ---
 name: ttrpg-table-recap
-description: "Write the in-fiction recap that is read aloud to open the next session — the previous evening retold from inside the story, in the form the campaign profile declares (prose, verse, or none). Use when asked to write, update or polish the opening recap, 'previously on', or session poem/chronicle for a session already logged. Covers the authorial posture, the fiction-only rules, naming characters by their in-fiction identity, continuity of epithets and register with earlier recaps, integrating canon quotes, form constraints, and the reading-aloud length ceiling. Does not record what happened (see ttrpg-session-log) or prepare the coming session (see ttrpg-session-prep)."
+description: "Write the in-fiction recap that is read aloud to open the next session — the previous evening retold from inside the story, in the form the campaign profile declares (prose, verse, or none). Use when asked to write, update or polish the opening recap, 'previously on', or session poem/chronicle for a session already logged. Does not record what happened (see ttrpg-session-log) or prepare the coming session (see ttrpg-session-prep)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Table recap
@@ -87,7 +87,8 @@ that is true of any form; the overlay owns the metre, the rhyme scheme and the h
 
 ## Phase 1 — Read before writing
 
-1. **The session log** for the session being recapped. Take the narrative beats from *What actually
+1. **The session log** for the session being recapped (locate it by its `type: session-log`
+   frontmatter when names vary). Take the narrative beats from *What actually
    happened*, **filtering out everything that belongs to the table and not to the fiction**: rewards
    handed out, dice, scenes not played, prep retrospectives, missed opportunities.
 2. **The previous recaps**, most recent first. This is a continuity read, not a courtesy: the same
@@ -106,6 +107,8 @@ that is true of any form; the overlay owns the metre, the rhyme scheme and the h
 
 ```markdown
 ---
+type: session-recap    <!-- fixed package key, identical in every campaign: how the next prep
+                            and the audit FIND this artifact -->
 <frontmatter per C.frontmatter: session tag, recap tag>
 ---
 

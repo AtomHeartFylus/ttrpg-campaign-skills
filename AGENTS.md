@@ -11,7 +11,7 @@ and it is why this repo has a contract checker where a looser collection would n
 ## Commands
 
 - Check everything: `python scripts/check_contract.py` (from the repo root; stdlib only, no
-  dependencies). Fourteen checks, exit 0 or 1.
+  dependencies). Sixteen checks, exit 0 or 1.
 - Install into an agent skills directory: `./install.sh ~/.agents/skills` (or
   `sh install.sh <target>`); PowerShell: `./install.ps1 -Target "$HOME/.agents/skills"`, with
   `powershell -ExecutionPolicy Bypass -File ./install.ps1 ...` if the host policy is `Restricted`.
@@ -93,6 +93,12 @@ Decisions already taken. Reopen them deliberately, do not re-litigate them by ac
   value, and the *Verify* and *What NOT to do* lists are where it creeps back as an absolute.
   Consent slots (`B.consent_*`, `B.safety`, `B.retention`, `B.frame`) are not defaults and no
   override reaches them.
+- **Package artifacts carry a fixed `type:` frontmatter key** (`session-prep`, `session-log`,
+  `session-recap`, `entity`, `dossier`, `campaign-arc` — plus the schema's `campaign-profile`):
+  the cross-skill contract that lets one skill find another's artifact whatever the campaign
+  names the file, exactly as a renamed profile is found by `type: campaign-profile`. The key is
+  the package's, not a `C.frontmatter` convention; `ARTIFACT-CONTRACT` enforces presence and
+  one-owner-per-type.
 - **One owner per artifact, written down.** Thread *status* lives only in `C.thread_ledger` and the
   hub views it; the per-session speaker map lives in its own note beside the transcript pair, never
   inside the session log; the shared-party-clock value lives on the party note that

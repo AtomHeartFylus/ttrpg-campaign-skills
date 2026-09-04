@@ -1,4 +1,5 @@
 ---
+type: session-prep
 tags: session/7, chapter/drowned-toll, prep
 ---
 

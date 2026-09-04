@@ -1,10 +1,10 @@
 ---
 name: ttrpg-continuity-audit
-description: "Produce a health-check report on a campaign repo plus a proposed change list, applying nothing until approved. Use when asked to check the campaign for drift, inconsistencies, stale state, duplicated values, threads that have gone quiet or broken links, or as the recurring check at the cadence the profile declares. Covers the single-source-of-truth hunt, state hub versus last session log, unpaid seeds with a revive-or-declare-lost recommendation, prep hygiene, the link-integrity command, retroactive admission-test failures, and the retcon protocol for correcting past notes. Requires a campaign with accumulated history: it does not serve a one-shot. Does not decide the fate of a thread (see ttrpg-campaign-arc), rewrite prep (see ttrpg-session-prep), or fix notes silently."
+description: "Produce a health-check report on a campaign repo plus a proposed change list, applying nothing until approved. Use when asked to check the campaign for drift, inconsistencies, stale state, duplicated values, threads that have gone quiet or broken links, or as the recurring check at the cadence the profile declares. Requires a campaign with accumulated history: it does not serve a one-shot. Does not decide the fate of a thread (see ttrpg-campaign-arc), rewrite prep (see ttrpg-session-prep), or fix notes silently."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.1"
+  version: "1.2"
 ---
 
 # Continuity audit
@@ -84,6 +84,10 @@ P1, P2, P3, P10 and P11 hold whatever the slot says: checks A, B and D rest on t
 written twice is a defect, not a preference. Checks E and G read slots, not defaults.
 
 ## Phase 1 — Read before auditing
+
+Package artifacts are located by their fixed `type:` frontmatter keys (`session-prep`,
+`session-log`, `session-recap`, `entity`, `dossier`, `campaign-arc`), never by filename — the
+same rule that finds a renamed profile.
 
 1. **The campaign state hub** (`C.hub`) — every value it asserts.
 2. **The last session log** — especially its frozen exit state.

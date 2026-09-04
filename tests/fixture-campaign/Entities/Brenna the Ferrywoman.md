@@ -1,4 +1,5 @@
 ---
+type: entity
 tags: npc, guide
 ---
 

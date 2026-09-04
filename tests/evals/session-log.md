@@ -38,7 +38,8 @@ REQUIRED — every box, or the eval fails:
 - [ ] The hub's "last session played" is updated by hand; **no tracked values are copied into the
       hub** (the fixture's roster table is pre-existing drift — updating it would be a P10
       failure; flagging it is a bonus).
-- [ ] Headings in English per `B.language`; the note saved under `Sessions/` per `C.naming`.
+- [ ] Headings in English per `B.language`; the note saved under `Sessions/` per `C.naming`;
+      frontmatter carries the fixed package key `type: session-log`. (Phase 3)
 
 SHOULD — quality signals, note misses:
 

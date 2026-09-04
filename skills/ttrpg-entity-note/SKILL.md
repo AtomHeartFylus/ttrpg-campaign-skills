@@ -1,10 +1,10 @@
 ---
 name: ttrpg-entity-note
-description: "Create or update the single note for one campaign entity — an NPC, place, faction, item or creature. Use when asked to add, write, flesh out or fix the note for a character, location, group, artefact or creature in a campaign repo. Covers searching before creating (update what exists), the admission test that decides whether the entity earns a note at all, playable intention proportional to its role, connecting it to a player's exposed nerve as a parallelism rather than a cameo, the stat-block link policy, link density and reachability, frontmatter and folder placement. Does not write the session it appears in (see ttrpg-session-prep), record what it did at the table (see ttrpg-session-log), or plan the arc it belongs to (see ttrpg-campaign-arc)."
+description: "Create or update the single note for one campaign entity — an NPC, place, faction, item or creature. Use when asked to add, write, flesh out or fix the note for a character, location, group, artefact or creature in a campaign repo. Does not write the session it appears in (see ttrpg-session-prep), record what it did at the table (see ttrpg-session-log), or plan the arc it belongs to (see ttrpg-campaign-arc)."
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Entity note
@@ -104,6 +104,8 @@ Write the three answers *into the note*: they are its spine, not scaffolding to 
 
 ```markdown
 ---
+type: entity           <!-- fixed package key, identical in every campaign: how prep and the
+                            audit FIND entity notes -->
 <frontmatter per C.frontmatter: the tag family for this entity type>
 <tracked state as properties — only if this entity is the single source of truth for it (P10)>
 ---
