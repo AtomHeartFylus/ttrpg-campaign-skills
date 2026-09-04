@@ -71,7 +71,14 @@ the negative boundary they collide.
 
 ## 4. Principles, not restatements
 
-Cite `docs/PRINCIPLES.md` by tag (`P7 (spotlight rotation)`), do not re-argue it. If you find
+Cite the principles by tag (`P7 (spotlight rotation)`), do not re-argue them. The full text ships
+inside each installed skill as `references/PRINCIPLES.md`; never link to a path outside the skill
+folder, because installation copies the folder alone.
+
+**Distinguish requirement from convention.** A rule that prevents a document failing at the table
+or state desynchronising is a requirement and may use absolute language. A rule that encodes this
+author's taste in play is a *default* — state it as such, and say which profile slot overrides it.
+Do not promote a single remembered failure into a universal law.} If you find
 yourself writing a new general rule, add it to PRINCIPLES with an ID and reference it — one
 lesson, one home.
 

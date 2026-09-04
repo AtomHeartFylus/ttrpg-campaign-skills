@@ -3,6 +3,13 @@
 The invariants every skill in this package is built on. Each was paid for at a real table.
 Skills **reference these by name** instead of restating them, so a lesson is fixed in one place.
 
+> **Requirement or convention?** These principles were distilled from *one* long campaign. Treat
+> **P1, P2, P3, P10, P11** as requirements: violating them produces documents that fail at the
+> table or state that silently desynchronises. Treat **P5, P6, P7, P8, P9, P12** as strong house
+> conventions of a fiction-first table — excellent defaults, and legitimately overridable by a
+> campaign that declares the override in its profile rather than drifting away from it in silence.
+> A skill must not present a convention as if it were a law of the game.
+
 ---
 
 ### P1 — Self-sufficiency of the play document
