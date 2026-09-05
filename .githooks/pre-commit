@@ -1,0 +1,55 @@
+#!/usr/bin/env sh
+# Pre-commit gate for ttrpg-campaign-skills.
+#
+# Install it once:  sh scripts/install-hooks.sh   (sets core.hooksPath to .githooks)
+# Skip it once:     git commit --no-verify        (for a WIP commit on a branch, not on main)
+#
+# AGENTS.md says the contract check must exit 0 before every commit. This is that sentence
+# as a program: a rule enforced by memory is enforced on the days you remember.
+set -eu
+
+root="$(git rev-parse --show-toplevel)"
+cd "$root"
+
+PY="${PYTHON:-}"
+if [ -z "$PY" ]; then
+  for candidate in python3 python py; do
+    if command -v "$candidate" >/dev/null 2>&1; then PY="$candidate"; break; fi
+  done
+fi
+if [ -z "$PY" ]; then
+  echo "pre-commit: no python found (set PYTHON=... to point at one)" >&2
+  exit 1
+fi
+
+staged="$(git diff --cached --name-only --diff-filter=ACMR)"
+
+# 1. The bundled copies are content, not build output - but they are still copies.
+$PY scripts/sync_bundles.py --check || {
+  echo "pre-commit: run 'python scripts/sync_bundles.py' and stage the result" >&2
+  exit 1
+}
+
+# 2. The contract itself. Warnings do not block a local commit; CI runs --strict.
+$PY scripts/check_contract.py
+
+# 3. The checker's own tests, only when the checker or its fixtures moved: ~10s is worth
+#    paying for a change to the only mechanical gate this package has, not for a typo fix.
+case "$staged" in
+  *scripts/check_contract.py*|*tests/checker/*)
+    echo "pre-commit: checker touched - running tests/checker"
+    $PY tests/checker/test_checker.py >/dev/null 2>&1 || {
+      echo "pre-commit: tests/checker failed - run 'python tests/checker/test_checker.py'" >&2
+      exit 1
+    }
+    ;;
+esac
+
+# 4. Campaign-side schema validation: the fixture profile must pass the validator a real
+#    campaign runs, or the package ships a schema its own example violates.
+if [ -f scripts/validate_profile.py ] && [ -f tests/fixture-campaign/campaign-profile.md ]; then
+  $PY scripts/validate_profile.py tests/fixture-campaign/campaign-profile.md >/dev/null || {
+    echo "pre-commit: tests/fixture-campaign/campaign-profile.md fails validate_profile.py" >&2
+    exit 1
+  }
+fi
