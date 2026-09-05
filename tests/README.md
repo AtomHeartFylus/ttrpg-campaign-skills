@@ -14,8 +14,41 @@ Two pieces:
 - **`fixture-audio/`** — synthetic diarized machine output for one evening of the same campaign,
   so the audio skill's judgement (gates, storage contract, speaker map, off-game curation) is
   testable without a recording. See its own README for what is seeded into it.
+- **`fixture-overlay/`** — one invented overlay for the same campaign: the positive fixture of
+  `scripts/validate_overlay.py`, and the package's only worked example of an overlay.
 - **`evals/`** — one file per skill under test: a scenario (setup + the prompt to give the agent)
-  and a pass/fail rubric a human grader ticks.
+  and a pass/fail rubric a human grader ticks. Six of them end with a machine-readable
+  `eval-spec` block (setup steps, the artifact's `type:`, and the boxes a machine can tick).
+- **`checker/`** — negative fixtures for `check_contract.py`, `validate_profile.py` and
+  `validate_overlay.py`: 85 tests, one per check, plus a coverage test that fails when a new check
+  lands without one. `python -m unittest discover -s tests/checker`.
+- **`check_fixture.py`** — asserts the eight seeded defects are **still seeded** and that the
+  answer key lists exactly them. Run it after anything that touches `fixture-campaign/`.
+- **`smoke_install.py`** — installs into a throwaway directory and asserts what a user receives:
+  nine folders each with its own `references/PRINCIPLES.md`, the schema inside the setup skill,
+  no `docs/` or `tests/` travelling, `--dry-run` writing nothing, `--uninstall` removing exactly
+  what was installed, and a re-install replacing a folder wholesale.
+- **`results/`** — recorded eval runs (`--record`), so "before trusting a new model" produces
+  comparable data instead of a memory.
+
+## The runner
+
+```sh
+python3 tests/run_eval.py --list                     # evals, scenarios, mechanical coverage
+python3 tests/run_eval.py --setup session-prep       # work copy + setup steps + verbatim prompt
+# ... run a fresh agent session in the printed work copy ...
+python3 tests/run_eval.py --grade session-prep --work <dir> --record --model <what ran>
+```
+
+The runner ticks only the boxes that are **observable facts about a file** (a fixed `type:` key,
+per-scene spotlight marks, a forbidden word in a recap, "changed nothing" for the audit). Every
+other box still needs a reader, and the runner prints how many are waiting. That split is the
+whole point: a grader who only judges the judgement calls actually runs the evals.
+
+`--scenario` selects between the scenarios of a multi-scenario eval. `campaign-arc --scenario B`
+doubles as the package's **structural-branch fixture**: its setup rewrites `D.shape` to `one-shot`
+in the profile copy, so the refusal branch is exercised without a second fixture campaign to keep
+in step.
 
 ## Protocol
 
@@ -69,5 +102,11 @@ to a form checker and expensive at the table, so it gets its own scenarios rathe
 - Every REQUIRED box traces to a phase, a required element or a principle of the skill under test
   — cite it in the box.
 - The fixture is shared: an eval may add temp files in its *copy*, but a new **seeded defect** in
-  `fixture-campaign/` must be added to the answer key in `evals/continuity-audit.md` in the same
-  commit, or the audit eval starts failing for the wrong reason.
+  `fixture-campaign/` must be added to the answer key in `evals/continuity-audit.md` **and to
+  `check_fixture.py`** in the same commit, or the audit eval starts failing for the wrong reason.
+- Setup steps that a machine can perform (`delete`, `replace`) belong in the `eval-spec` block as
+  well as in the prose, so the work copy is prepared identically every time. Prose alone drifts
+  from what the last grader actually did.
+- A rubric box goes in the spec when it is a fact about a file, and stays in the rubric when it is
+  a judgement. Do not mechanise a judgement into a keyword count: a box that passes on the wrong
+  artifact is worse than a box a human forgets.

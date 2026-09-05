@@ -83,3 +83,89 @@ SHOULD:
 
 - [ ] Notices the contradiction between `D.shape: one-shot` and the seven sessions of material in
       the repo, and asks whether the slot is wrong — **without** proceeding on its own answer.
+
+---
+
+## Machine-checked boxes
+
+`tests/run_eval.py` ticks the boxes below from the artifact itself (`--scenario A` / `--scenario
+B`); everything in the rubrics above still needs a reader. Scenario B is also this package's
+**structural-branch fixture**: its setup rewrites `D.shape` in the profile copy, so the one-shot
+branch is exercised without a second fixture campaign to keep in step.
+
+<!-- eval-spec
+{
+  "skill": "ttrpg-campaign-arc",
+  "fixture": "fixture-campaign",
+  "scenarios": {
+    "A": {
+      "prompt_index": 0,
+      "setup": [],
+      "artifact": {
+        "type": "campaign-arc"
+      },
+      "mechanical": [
+        {
+          "id": "type-key",
+          "kind": "frontmatter",
+          "key": "type",
+          "equals": "campaign-arc",
+          "cite": "Phase 0"
+        },
+        {
+          "id": "session-budget",
+          "kind": "regex",
+          "pattern": "14|seven left|7 left",
+          "min": 1,
+          "cite": "Phase 3",
+          "why": "B.cadence x B.horizon stated out loud"
+        },
+        {
+          "id": "both-declared-endings",
+          "kind": "regex",
+          "pattern": "(?is)(flood.*debt-ledger|debt-ledger.*flood)",
+          "min": 1,
+          "cite": "D.endgame"
+        },
+        {
+          "id": "no-scenes",
+          "kind": "regex",
+          "pattern": "(?i)read-aloud|trigger box",
+          "min": 0,
+          "max": 0,
+          "cite": "skill preamble",
+          "why": "an arc note that writes scenes has become the prep skill"
+        }
+      ]
+    },
+    "B": {
+      "prompt_index": 1,
+      "setup": [
+        {
+          "replace": {
+            "file": "campaign-profile.md",
+            "old": "- **`D.shape`** — series.",
+            "new": "- **`D.shape`** — one-shot."
+          }
+        }
+      ],
+      "mechanical": [
+        {
+          "id": "writes-nothing",
+          "kind": "untouched",
+          "allow_new": [],
+          "cite": "D.shape gate",
+          "why": "the correct behaviour is to report the shape and stop - a near-empty arc note is the failure"
+        },
+        {
+          "id": "no-arc-note",
+          "kind": "file-exists",
+          "glob": "**/*[Aa]rc*.md",
+          "expect": false,
+          "cite": "D.shape gate"
+        }
+      ]
+    }
+  }
+}
+-->

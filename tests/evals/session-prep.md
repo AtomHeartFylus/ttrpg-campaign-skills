@@ -43,3 +43,73 @@ SHOULD — quality signals, note misses:
       question is sitting in her dossier).
 - [ ] The eel-market buyer's line moves into Ulde's mouth, as Session 7's recovery plan declared.
 - [ ] Reports that `C.verify` is `none declared yet` instead of claiming a link check.
+
+---
+
+## Machine-checked boxes
+
+`tests/run_eval.py` ticks the boxes below from the artifact itself; everything in the rubric
+above still needs a reader. The split is deliberate: a grader who only judges the judgement
+calls actually runs the eval.
+
+<!-- eval-spec
+{
+  "skill": "ttrpg-session-prep",
+  "fixture": "fixture-campaign",
+  "setup": [],
+  "artifact": {
+    "type": "session-prep"
+  },
+  "mechanical": [
+    {
+      "id": "type-key",
+      "kind": "frontmatter",
+      "key": "type",
+      "equals": "session-prep",
+      "cite": "Phase 2",
+      "why": "how the log and the audit find this artifact later"
+    },
+    {
+      "id": "spotlight-marks",
+      "kind": "regex",
+      "pattern": "Spotlight\\s*(?:→|->)\\s*\\S",
+      "min": 2,
+      "cite": "P7",
+      "why": "per-scene focus is marked in the scene's trigger box"
+    },
+    {
+      "id": "no-spotlight-table",
+      "kind": "regex",
+      "pattern": "(?m)^#{2,4}.*spotlight",
+      "min": 0,
+      "max": 0,
+      "i": true,
+      "cite": "P7",
+      "why": "a summary spotlight section is forbidden"
+    },
+    {
+      "id": "derail-lines",
+      "kind": "regex",
+      "pattern": "If they derail:",
+      "min": 3,
+      "cite": "P9",
+      "why": "every scene carries the pressure that persists off-script"
+    },
+    {
+      "id": "content-margin",
+      "kind": "regex",
+      "pattern": "(?i)optional|content margin",
+      "min": 1,
+      "cite": "P8"
+    },
+    {
+      "id": "protagonists-are-maren-and-sorrel",
+      "kind": "regex",
+      "pattern": "(?s)Maren.*Sorrel|Sorrel.*Maren",
+      "min": 1,
+      "cite": "P7",
+      "why": "Tobit and Iole carried S7; the diaries are the only input to the rotation"
+    }
+  ]
+}
+-->

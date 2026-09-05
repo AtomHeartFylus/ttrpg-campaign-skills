@@ -45,3 +45,45 @@ SHOULD — quality signals, note misses:
 - [ ] Findings cite file + line/section, not just prose.
 - [ ] Thread decisions (lantern) are routed to `ttrpg-campaign-arc`, not decided in the audit.
 - [ ] The report distinguishes ERROR-grade drift (P10 violations) from hygiene notes.
+
+---
+
+## Machine-checked boxes
+
+`tests/run_eval.py` ticks the boxes below from the artifact itself; everything in the rubric
+above still needs a reader. The split is deliberate: a grader who only judges the judgement
+calls actually runs the eval.
+
+<!-- eval-spec
+{
+  "skill": "ttrpg-continuity-audit",
+  "fixture": "fixture-campaign",
+  "setup": [],
+  "mechanical": [
+    {
+      "id": "applies-nothing",
+      "kind": "untouched",
+      "allow_new": [
+        ".*[Aa]udit.*",
+        ".*[Rr]eport.*"
+      ],
+      "cite": "Phase 4",
+      "why": "an audit proposes; it does not edit the campaign"
+    },
+    {
+      "id": "names-the-stale-hub",
+      "kind": "regex",
+      "pattern": "(?i)hub",
+      "min": 1,
+      "cite": "defect 1"
+    },
+    {
+      "id": "names-the-ledger-drift",
+      "kind": "regex",
+      "pattern": "(?i)(false bell|thread ledger|Threads\\.md)",
+      "min": 1,
+      "cite": "defect 5"
+    }
+  ]
+}
+-->

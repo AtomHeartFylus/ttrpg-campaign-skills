@@ -49,3 +49,99 @@ SHOULD — quality signals, note misses:
 - [ ] New hooks (the guild expulsion) written back to Bruno's dossier as on-the-record material
       (`B.distance` is `fictional`, so no extra gate applies — but the phrasing stays the
       player's own).
+
+---
+
+## Machine-checked boxes
+
+`tests/run_eval.py` ticks the boxes below from the artifact itself; everything in the rubric
+above still needs a reader. The split is deliberate: a grader who only judges the judgement
+calls actually runs the eval.
+
+<!-- eval-spec
+{
+  "skill": "ttrpg-session-log",
+  "fixture": "fixture-campaign",
+  "setup": [
+    {
+      "delete": "Sessions/Session 7 — Log.md"
+    },
+    {
+      "replace": {
+        "file": "Dossiers/Ada — Maren.md",
+        "old": "marks: 6\nwick: 4",
+        "new": "marks: 5\nwick: 3"
+      }
+    },
+    {
+      "replace": {
+        "file": "Dossiers/Ada — Maren.md",
+        "old": "- [[Session 7 — Log]] — *chorus*; kept the eel-catcher's promise on the water.\n",
+        "new": ""
+      }
+    },
+    {
+      "replace": {
+        "file": "Dossiers/Bruno — Tobit.md",
+        "old": "marks: 6\nwick: 3",
+        "new": "marks: 5\nwick: 4"
+      }
+    },
+    {
+      "replace": {
+        "file": "Dossiers/Bruno — Tobit.md",
+        "old": "- [[Session 7 — Log]] — *carried* (paid the toll in a true regret; called Ulde's tell).\n",
+        "new": ""
+      }
+    },
+    {
+      "replace": {
+        "file": "Dossiers/Cleo — Iole.md",
+        "old": "marks: 6\nwick: 3",
+        "new": "marks: 5\nwick: 3"
+      }
+    },
+    {
+      "replace": {
+        "file": "Dossiers/Cleo — Iole.md",
+        "old": "- [[Session 7 — Log]] — *carried* (the dive; the drowned-sister answer).\n",
+        "new": ""
+      }
+    }
+  ],
+  "artifact": {
+    "type": "session-log"
+  },
+  "mechanical": [
+    {
+      "id": "type-key",
+      "kind": "frontmatter",
+      "key": "type",
+      "equals": "session-log",
+      "cite": "Phase 3"
+    },
+    {
+      "id": "saved-under-sessions",
+      "kind": "file-exists",
+      "glob": "Sessions/*7*.md",
+      "cite": "C.root"
+    },
+    {
+      "id": "dossiers-updated",
+      "kind": "regex",
+      "pattern": "(?m)^marks:\\s*6",
+      "min": 1,
+      "cite": "Phase 4",
+      "why": "the three present dossiers carry the new values"
+    },
+    {
+      "id": "sorrel-not-advanced",
+      "kind": "regex",
+      "pattern": "(?i)sorrel",
+      "min": 1,
+      "cite": "B.absence",
+      "why": "the absent player is accounted for, not silently dropped"
+    }
+  ]
+}
+-->

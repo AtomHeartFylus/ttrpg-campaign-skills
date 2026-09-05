@@ -41,3 +41,59 @@ SHOULD — quality signals, note misses:
 - [ ] GM-only material clearly marked (players read nothing here, but the section discipline
       holds).
 - [ ] Appearances section started empty or pointing only at real logs — not fabricated.
+
+---
+
+## Machine-checked boxes
+
+`tests/run_eval.py` ticks the boxes below from the artifact itself; everything in the rubric
+above still needs a reader. The split is deliberate: a grader who only judges the judgement
+calls actually runs the eval.
+
+<!-- eval-spec
+{
+  "skill": "ttrpg-entity-note",
+  "fixture": "fixture-campaign",
+  "setup": [],
+  "artifact": {
+    "type": "entity"
+  },
+  "mechanical": [
+    {
+      "id": "type-key",
+      "kind": "frontmatter",
+      "key": "type",
+      "equals": "entity",
+      "cite": "Phase 2"
+    },
+    {
+      "id": "saved-under-entities",
+      "kind": "file-exists",
+      "glob": "Entities/*.md",
+      "cite": "C.root"
+    },
+    {
+      "id": "resolves-the-dead-link",
+      "kind": "file-exists",
+      "glob": "Entities/Eel-Market Buyer.md",
+      "cite": "Phase 1",
+      "why": "the hub already links [[Eel-Market Buyer]]; a second spelling leaves it dead"
+    },
+    {
+      "id": "wikilinks-present",
+      "kind": "regex",
+      "pattern": "\\[\\[[^\\]]+\\]\\]",
+      "min": 3,
+      "cite": "C.links"
+    },
+    {
+      "id": "no-claimed-encounter",
+      "kind": "regex",
+      "pattern": "(?i)(met the party|has met them|spoke with the party)",
+      "min": 0,
+      "max": 0,
+      "cite": "P11"
+    }
+  ]
+}
+-->
