@@ -1,0 +1,87 @@
+name: contract
+
+# Everything AGENTS.md calls a mandatory step, run by a machine that does not forget.
+# The checker is stdlib-only on purpose, so no job installs a dependency.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    name: contract check (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, python: "3.9" }
+          - { os: ubuntu-latest, python: "3.11" }
+          - { os: ubuntu-latest, python: "3.13" }
+          - { os: macos-latest, python: "3.13" }
+          - { os: windows-latest, python: "3.13" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      # --strict: a MECHANICS-LEAK warning is a wording defect someone chose to postpone.
+      # It may sit in a working tree; it does not reach the default branch.
+      - name: Contract check (warnings are failures)
+        run: python scripts/check_contract.py --strict
+      - name: Bundled copies are in sync
+        run: python scripts/sync_bundles.py --check
+      # Negative fixtures for all three validators: each check owns one, and the coverage
+      # test fails when a new check lands without one.
+      - name: Validator test suites
+        run: python -m unittest discover -s tests/checker -v
+      - name: The fixture campaign satisfies the schema it demonstrates
+        run: python scripts/validate_profile.py tests/fixture-campaign/campaign-profile.md
+      - name: The example overlay satisfies the overlay rules
+        run: python scripts/validate_overlay.py tests/fixture-overlay --strict
+      - name: The seeded defects are still seeded
+        run: python tests/check_fixture.py
+
+  install-posix:
+    name: install smoke (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python tests/smoke_install.py --installer sh
+
+  install-windows:
+    name: install smoke (windows, PowerShell)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python tests/smoke_install.py --installer ps1
+
+  release-hygiene:
+    name: release hygiene (versions, changelog, migration)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      # A changed skill must bump its own metadata.version, and a schema change must carry
+      # its Migration note: AUTHORING §7 steps 4 and 7, enforced instead of remembered.
+      - name: Version bumps and CHANGELOG discipline
+        run: python scripts/check_release.py --base origin/${{ github.base_ref }}

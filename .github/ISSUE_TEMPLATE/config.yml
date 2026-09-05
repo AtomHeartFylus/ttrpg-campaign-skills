@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security or privacy finding
+    url: https://github.com/security/advisories
+    about: Use a private security advisory instead of a public issue — see SECURITY.md

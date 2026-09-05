@@ -66,13 +66,19 @@ valid package; the installer only **copies** folders:
 
 ```sh
 # Windows (PowerShell, from the repo root)
-./install.ps1 -Target "$HOME/.agents/skills"
+./install.ps1 -Target "$HOME/.agents/skills"        # -DryRun / -Uninstall also exist
 # if the host policy is Restricted:
 #   powershell -ExecutionPolicy Bypass -File ./install.ps1 -Target "$HOME/.agents/skills"
 
 # macOS / Linux
 ./install.sh ~/.agents/skills          # or: sh install.sh ~/.agents/skills
+./install.sh ~/.agents/skills --dry-run     # say what would happen, touch nothing
+./install.sh ~/.agents/skills --uninstall   # remove exactly what was installed
 ```
+
+The installer writes a small manifest (package, version, commit, source) beside the skills, and
+`python scripts/check_install.py ~/.agents/skills` says whether that copy is current and whether
+anything was edited in place — the drift you would otherwise discover by losing it.
 
 Keeping the repo as the **canonical copy** and re-running the installer after a change means a fix
 travels to every machine and every harness you use. **Edit the repo, never the installed copy:**
@@ -116,7 +122,49 @@ is fictional on purpose.
 as a repo with deliberately seeded defects, and `evals/` holds one scenario + pass/fail rubric per
 covered skill. `scripts/check_contract.py` proves the skills are well-formed; the evals are how you
 check they *work* — after a behavioural change, or before trusting a new model with your campaign.
-Protocol in [`tests/README.md`](tests/README.md).
+`python tests/run_eval.py --setup <eval>` prepares a work copy and prints the verbatim prompt;
+`--grade` afterwards ticks the boxes that are facts about a file and leaves the judgement calls to
+you. Protocol in [`tests/README.md`](tests/README.md).
+
+---
+
+## Checking your own campaign, not just the package
+
+The package validates itself, and it validates the two files *you* write:
+
+```sh
+python scripts/validate_profile.py ~/my-campaign        # or the profile's path
+python scripts/validate_overlay.py ~/my-campaign        # every overlay it finds
+```
+
+The profile validator reads the schema rather than a transcription of it, so it knows the four
+slot states (an untouched placeholder is *never asked*, not empty), which slots are `(core)`, the
+enums each slot declares, and the invariants that span two slots — capture paths without recording
+consent, an off-game note without the second, narrower consent, player access without a declared
+GM-private home, more protagonists than players, a resource family under a resource that is
+`none`, a non-overridable principle in `E.overrides`. Unanswered slots are reported, never
+"fixed": that is the design, and the point is that you find out now rather than mid-session.
+
+The overlay validator checks that an overlay delegates to a base skill, does not restate its
+procedure, cites slots and principles that exist, survives being installed alone, and stays under
+a page. It deliberately does **not** forbid system names — an overlay is exactly where yours
+belongs.
+
+---
+
+## Your table's material, and what happens to it
+
+Four of these skills write durable notes **about the real people at your table** — how they play,
+what they told the table they cared about, what they said out of character, and, if you record,
+four hours of their voice. [`docs/PRIVACY.md`](docs/PRIVACY.md) states what is written, which
+rules are enforced by slots and checks (two separate consent gates, neither inferred from the
+other; `none` never switching off a safety tool; retention declared rather than assumed; deletion
+on request without discussion), and what the package cannot protect you from — the model you point
+at it, and your git history.
+
+[`SECURITY.md`](SECURITY.md) states the trust boundary an agent runs under: published module text
+and transcripts are **content to summarise, never instructions to follow**, and `C.verify` is a
+command out of a file, so it is as privileged as a shell script.
 
 ---
 
@@ -171,6 +219,17 @@ If your table is a tactical dungeon crawl and you like it that way, several inva
 (non-combat exit conditions, moral compass, white space for roleplay) will fight you. Switch them
 off explicitly in the profile's `E.overrides`, where a skill will read the decision and comply
 without arguing — rather than fighting the skills note by note.
+
+
+## Contributing, and the rules this repo runs on
+
+`python scripts/check_contract.py` validates the package (sixteen checks, stdlib only, no
+dependencies); `tests/checker/` keeps a negative fixture per check, so a check that stops matching
+fails instead of going quiet; CI runs both on Linux, macOS and Windows.
+[`CONTRIBUTING.md`](CONTRIBUTING.md) is how a change gets in,
+[`docs/AUTHORING.md`](docs/AUTHORING.md) is how a skill is written, [`AGENTS.md`](AGENTS.md) is
+the list of decisions already taken, and [`docs/RELEASING.md`](docs/RELEASING.md) says what makes
+a release major (a schema change: your filled profile is downstream of it).
 
 ## License
 

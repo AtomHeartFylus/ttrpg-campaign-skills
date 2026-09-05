@@ -4,7 +4,7 @@ description: "Produce a health-check report on a campaign repo plus a proposed c
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.2"
+  version: "1.3"
 ---
 
 # Continuity audit
@@ -45,7 +45,7 @@ in full. Read it while auditing; Phase 2 below carries only the summary table.
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
 `campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
-back empty, search by frontmatter** (`rg -l "type: campaign-profile"`): the schema declares that
+back empty, search by frontmatter** (`rg -l "type: campaign-profile"`, or `grep -rl "type: campaign-profile" .` where ripgrep is absent): the schema declares that
 type, `ttrpg-campaign-setup` explicitly tolerates a renamed profile, and no other skill may call a
 renamed profile an absent one. A profile that exists but was not found re-interviews a GM who
 already answered.

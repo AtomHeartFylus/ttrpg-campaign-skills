@@ -185,7 +185,13 @@ fix the base skill instead.
    It is stdlib-only and lives in this repo on purpose: validating a clone must never require a
    tool installed somewhere else on the machine. It absorbs the checks an external skill validator
    would run (frontmatter keys, hyphen-case name, description budget, unfinished `[TODO:`), so
-   there is one command, not two.
+   there is one command, not two. `sh scripts/install-hooks.sh` makes the step automatic;
+   `--strict` (warnings are failures) is what CI runs.
+8. **If you touched a canonical file that is bundled** (`docs/PRINCIPLES.md`,
+   `templates/campaign-profile.md`), run `python scripts/sync_bundles.py` and commit the copies.
+   They remain checked-in content — the script is only the writer, the checker stays the auditor.
+9. **If you touched a check, add its negative fixture** in `tests/checker/` (§10). A check with no
+   fixture is a check nobody has ever seen fire.
 
 What the checker enforces mechanically, so you do not have to remember it:
 
@@ -207,6 +213,29 @@ What the checker enforces mechanically, so you do not have to remember it:
 | `OVERRIDE-MAPPED` | a skill mentions `E.overrides` without a branch mapping it to what stops being required |
 | `ARTIFACT-CONTRACT` | a skeleton shows a frontmatter placeholder without the fixed `type:` key, or two skills claim the same type value |
 | `PHASE0-PROTOCOL` | a consumer skill's Phase 0 lacks the find-the-profile protocol or a `D.shape` branch/gate before Phase 1 |
+
+`python scripts/check_contract.py --list` prints that table from the checker's own registry — use
+it rather than trusting this copy, which is documentation and can lag by a commit.
+
+## 7bis. The other two contracts
+
+The checker validates the *package*. Two sibling scripts validate what a campaign writes, and a
+change to the schema or to the principles is not finished until they still pass:
+
+- `python scripts/validate_profile.py <profile>` — the four slot states, `deferred:` with a *when*,
+  the core tier, enums **parsed from the schema line that declares them**, the consent rules, and
+  the cross-slot invariants (capture paths vs. recording consent, off-game path vs. the second
+  consent, player access vs. a GM-private home, protagonists vs. table size, a resource family
+  under `A.resource: none`, a non-overridable principle in `E.overrides`). Declare a new enum by
+  writing it as `` **`a` | `b` | `c`** `` at the head of the slot line; nothing else is needed.
+- `python scripts/validate_overlay.py <overlay>` — delegation to a base skill, no restated
+  procedure, resolvable slots and principles, links that survive being installed alone, the
+  one-page rule. It deliberately does **not** run `NO-SYSTEM-NAMES`: an overlay is where a system
+  name belongs.
+
+Both carry their own negative fixtures under `tests/checker/`, and `tests/fixture-campaign/`
+plus `tests/fixture-overlay/` are their positive ones. Adding a slot means adding it to the schema,
+letting a skill read it, and checking that the fixture profile still validates — in one commit.
 
 ## 8. Worked examples
 
@@ -249,8 +278,28 @@ The two duties this file adds:
 
 - A **behavioural** change to a skill (a phase, a required element, a branch — not wording) is not
   done until its eval passes again, or its rubric is deliberately updated in the same commit.
-- A new **seeded defect** in the fixture goes into the answer key in the same commit, or the audit
-  eval starts failing for the wrong reason. Never clean the fixture: a clean fixture tests nothing.
+- A new **seeded defect** in the fixture goes into the answer key in the same commit **and into
+  `tests/check_fixture.py`**, which asserts the defects are still there and that the two lists
+  agree. Never clean the fixture: a clean fixture tests nothing.
 
-Neither is mechanical — the checker cannot grade a prep. That is the point: these are the checks
-that need a reader, kept cheap enough to actually run.
+The checker cannot grade a prep — but it can tick the boxes that are facts about a file.
+`tests/run_eval.py` does exactly that half (`--setup`, then `--grade`), from the `eval-spec` block
+at the foot of an eval, and prints the rest for a reader. When you add a required element that is
+observable (a fixed key, a per-scene mark, a forbidden word), add its box to that block; when it
+is a judgement, leave it in the rubric and do not pretend otherwise.
+
+## 10. Testing a check
+
+A check is code, and code that has never been seen failing is a hypothesis. Every check in
+`check_contract.py` and every rule in the two validators owns a **negative fixture** in
+`tests/checker/`: a mutation of a throwaway copy of the repo (or of the fixture campaign) that
+must make exactly that check fire.
+
+- Write the fixture with the smallest mutation that produces the defect, and assert the fired set
+  **exactly** — a fixture that trips three checks documents none of them.
+- When a defect legitimately trips two checks (encoding damage inside a `SKILL.md` fires
+  `ENCODING` and `FRONTMATTER`), assert the pair and say why in a comment.
+- `test_every_check_has_a_fixture` reads the registry and fails when a new code lands untested.
+- The suites are the safety net for changing the checker itself: `python -m unittest discover -s
+  tests/checker` before and after, and the pre-commit hook runs them when `scripts/
+check_contract.py` is staged.

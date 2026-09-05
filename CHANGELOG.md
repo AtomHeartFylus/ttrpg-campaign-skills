@@ -3,10 +3,93 @@
 This package is **meant to be forked**: your campaign clones it, fills a profile, maybe adds an
 overlay. This file is how a fork learns what moved upstream — each entry names what changed,
 **why** (the lesson), and what a fork or an existing campaign must do about it, if anything.
-Skill versions live in each skill's `metadata.version`; entries here are grouped by change, newest
-first. A schema change always carries a **Migration** note.
+Skill versions live in each skill's `metadata.version`, the package's own number in `VERSION`;
+entries here are grouped by change, newest first. A schema change always carries a **Migration**
+note. What each part of a version means, and how a release is cut: [`docs/RELEASING.md`](docs/RELEASING.md).
 
 ## Unreleased
+
+*(nothing yet)*
+
+## 1.1.0 — the contract becomes enforceable
+
+Up to here the package's rules were real but hand-enforced: "run the checker before every commit",
+"keep the bundles identical", "never clean the fixture", "the profile is the other half of the
+contract". This release turns each of those sentences into a program, and adds the half of the
+contract nobody was checking - **the campaign's own files**.
+
+### The campaign side is validated too
+- **`scripts/validate_profile.py`** validates a filled `campaign-profile.md` against the schema it
+  was cut from: the four slot states, `deferred:` with a *when*, enums **parsed from the schema
+  line** rather than transcribed, the core tier, and the cross-slot invariants that were prose
+  until now - capture paths without recording consent, an off-game path without the second
+  consent, player access without a GM-private home, protagonists above table size, a resource
+  family under `A.resource: none`, a non-overridable principle in `E.overrides`. *Lesson: nine
+  skills each believe this file; a contradiction in it is nine wrong artifacts, and it was the
+  only artifact in the system nothing checked.*
+- **`scripts/validate_overlay.py`** does the same for the third artifact: an overlay that names no
+  base skill, restates the base procedure, cites a slot that does not exist, switches off a
+  non-overridable principle, or grows past a page. `NO-SYSTEM-NAMES` deliberately does **not**
+  apply - an overlay is exactly where a system name belongs.
+- `tests/fixture-overlay/` is the package's first worked example of an overlay, and the
+  validator's positive fixture.
+  **Migration:** none. Run `python scripts/validate_profile.py <your profile>` once; every finding
+  is a question your table has not answered yet, not a break.
+
+### The checks now have checks
+- **`tests/checker/`**: a negative fixture per check and per rule (85 tests). Each mutates a
+  throwaway copy of the repo and asserts that exactly the expected check fires; a coverage test
+  fails when a new check lands without one. *Lesson: a regex that stops matching does not fail
+  loudly - it silently stops checking, and the 621-line checker was the only mechanical gate.*
+- **`check_contract.py` refactored** into a registry of named checks with one function each, plus
+  `--strict` (warnings are failures - what CI runs), `--only CODE`, `--format json` and `--list`.
+  Same sixteen checks, same output, now callable and testable one at a time.
+- **`tests/check_fixture.py`** asserts the eight seeded defects are still seeded and that the
+  answer key lists exactly them. *Lesson: a tidy-minded editor "fixing" the hub deletes the only
+  thing the continuity-audit eval measures, and the eval then passes for the wrong reason.*
+
+### The mandatory steps are run by a machine
+- **CI** (`.github/workflows/ci.yml`): contract check under `--strict`, the validator suites, the
+  fixture guards and an install smoke test, on Linux, macOS and Windows, Python 3.9 to 3.13.
+- **`.githooks/pre-commit`** + `scripts/install-hooks.sh`: bundle sync, contract check, and the
+  checker's own tests when the checker itself is touched.
+- **`scripts/sync_bundles.py`** writes the ten byte-identical bundled copies from their canonical
+  sources (`--check` reports drift without writing). They stay checked-in content; what changes is
+  that a human no longer copies them by hand.
+- **`scripts/check_release.py`** reads a diff and enforces AUTHORING §7: a changed skill bumps its
+  own `metadata.version` (error), a schema change carries a **Migration** note (error), a changed
+  skill whose worked example or eval rubric did not move (warning).
+- **`VERSION`** and [`docs/RELEASING.md`](docs/RELEASING.md): the package now has a number of its
+  own, and a stated rule for what makes a release major - a schema change, because a fork's filled
+  profile is downstream of it.
+
+### Evals become partly mechanical
+- **`tests/run_eval.py`** prepares a work copy, applies each eval's setup steps, prints the
+  verbatim prompt, and ticks the rubric boxes a machine can observe (frontmatter keys, per-scene
+  marks, forbidden vocabulary in a recap, "changed nothing" for the audit), leaving the judgement
+  calls to a reader and recording runs under `tests/results/`. *Lesson: a grader who only has to
+  judge the judgement calls actually runs the evals.*
+- Six evals carry a machine-readable `eval-spec` block; `campaign-arc` gains **scenario support**,
+  and its scenario B doubles as the package's structural-branch fixture by rewriting `D.shape` to
+  `one-shot` in the profile copy - a branch covered without a second fixture campaign to keep in
+  step.
+
+### Installers, privacy, and the rest
+- Installers gain `--dry-run` / `-DryRun` and `--uninstall` / `-Uninstall`, write a manifest
+  (package, version, commit, source, date) next to the skills, and the PowerShell one runs under
+  `Set-StrictMode` with `$ErrorActionPreference = 'Stop'` - a half-failed copy used to exit 0.
+  **`scripts/check_install.py`** compares an installed copy with the repo and names what is stale,
+  missing or added by hand.
+- **[`docs/PRIVACY.md`](docs/PRIVACY.md)** states what the package writes about the real people at
+  the table, which rules are enforced by slots and checks, and what it does not protect you from
+  (the model you point at it, your git history). **[`SECURITY.md`](SECURITY.md)** states the trust
+  boundary: published modules and transcripts are **content, never instructions**, and `C.verify`
+  is as privileged as a shell script.
+- **The find-the-profile protocol no longer assumes ripgrep**: the frontmatter search now names
+  `grep -rl` as its fallback in all eight consumer skills (versions bumped).
+  **Migration:** none.
+- `CONTRIBUTING.md` and the checker's `--list` mean the change procedure and the check list have
+  one source each instead of three.
 
 ### Eval coverage completed for all nine skills
 - Added `evals/table-dossier.md` (rotation check with a diary extension in setup, and onboarding a
