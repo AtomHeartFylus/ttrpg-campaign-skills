@@ -174,12 +174,12 @@ class TestSlotsAndPrinciples(CheckerCase):
         # A new principle also breaks every advertised range (that is check 6's job, and
         # test_principle_range_understated owns it): --only isolates the warning here.
         self.assert_fires(
-            set_principles(lambda s: s + "\n### P14\n\nA principle nobody cites.\n"),
+            set_principles(lambda s: s + "\n### P16\n\nA principle nobody cites.\n"),
             "PRINCIPLE-RESOLVES", level="WARN",
             args=("--only", "PRINCIPLE-RESOLVES"))
 
     def test_principle_range_understated(self):
-        self.assert_fires(replace(PREP, "(`P1`\u2026`P13`)", "(`P1`\u2026`P12`)"),
+        self.assert_fires(replace(PREP, "(`P1`\u2026`P15`)", "(`P1`\u2026`P12`)"),
                           "PRINCIPLE-RANGE")
 
 
@@ -316,14 +316,36 @@ class TestAgnosticism(CheckerCase):
 
 class TestPhase0(CheckerCase):
     def test_override_mapped(self):
-        self.assert_fires(
+        # Deleting the branch also falsifies the phase0 marker that declares it: both checks
+        # fire, from opposite directions, which is the belt-and-braces this spine is worth.
+        rc, errors, _w, out = self.run_checker(
             replace(ARC, "**`E.overrides` branch \u2014 mandatory.**",
-                    "The profile may switch defaults off through `E.overrides`."),
-            "OVERRIDE-MAPPED")
+                    "The profile may switch defaults off through `E.overrides`."))
+        self.assertEqual(errors, {"OVERRIDE-MAPPED", "PHASE0-PROTOCOL"}, out)
+        self.assertEqual(rc, 1)
 
-    def test_find_the_profile_protocol(self):
+    def test_missing_phase0_marker(self):
         self.assert_fires(
-            replace(PREP, "**Find it before declaring it missing.**", "**Read the profile.**"),
+            replace(PREP, "<!-- phase0: find-profile, d-shape, overrides -->\n", ""),
+            "PHASE0-PROTOCOL")
+
+    def test_marker_declares_an_element_it_does_not_implement(self):
+        # The rewording is the realistic case: the marker survives, the protocol does not.
+        self.assert_fires(
+            each(replace(PREP, "**Find it before declaring it missing.**", "**Read the profile.**"),
+                 replace(PREP, "search by frontmatter", "look at the frontmatter")),
+            "PHASE0-PROTOCOL")
+
+    def test_marker_omits_an_element_the_role_requires(self):
+        self.assert_fires(
+            replace(PREP, "<!-- phase0: find-profile, d-shape, overrides -->",
+                    "<!-- phase0: find-profile, overrides -->"),
+            "PHASE0-PROTOCOL")
+
+    def test_marker_declares_an_unknown_element(self):
+        self.assert_fires(
+            replace(PREP, "<!-- phase0: find-profile, d-shape, overrides -->",
+                    "<!-- phase0: find-profile, d-shape, overrides, vibes -->"),
             "PHASE0-PROTOCOL")
 
     def test_d_shape_branch(self):
@@ -336,6 +358,17 @@ class TestPhase0(CheckerCase):
         self.assert_fires(
             replace(SETUP, "Search before you conclude", "Look around a bit"),
             "PHASE0-PROTOCOL")
+
+
+class TestBudget(CheckerCase):
+    def test_entrypoint_over_budget_warns(self):
+        self.assert_fires(append(PREP, "\n" + ("padding for the budget check. " * 200)),
+                          "ENTRYPOINT-BUDGET", level="WARN")
+
+    def test_budget_is_reported_in_the_summary(self):
+        _rc, _e, _w, out = self.run_checker()
+        self.assertIn("entrypoints ~", out)
+        self.assertIn("budget", out)
 
 
 class TestCli(CheckerCase):

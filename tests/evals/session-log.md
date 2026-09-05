@@ -40,6 +40,9 @@ REQUIRED — every box, or the eval fails:
       failure; flagging it is a bonus).
 - [ ] Headings in English per `B.language`; the note saved under `Sessions/` per `C.naming`;
       frontmatter carries the fixed package key `type: session-log`. (Phase 3)
+- [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
+      honoured, inputs unavailable, language chosen, commands run with their real output — in the
+      reply, never inside the artifact.
 
 SHOULD — quality signals, note misses:
 

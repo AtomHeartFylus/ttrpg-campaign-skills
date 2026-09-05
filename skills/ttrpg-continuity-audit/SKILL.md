@@ -4,7 +4,7 @@ description: "Produce a health-check report on a campaign repo plus a proposed c
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Continuity audit
@@ -35,13 +35,14 @@ alive or buried, links resolving.
 
 ---
 
-> Principles are cited below by tag (`P1`…`P13`); their full text is in
+> Principles are cited below by tag (`P1`…`P15`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 **Supporting reference:** [references/checks.md](references/checks.md) — the seven checks of Phase 2
 in full. Read it while auditing; Phase 2 below carries only the summary table.
 
 ## Phase 0 — Read the campaign profile
+<!-- phase0: find-profile, d-shape, overrides -->
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
 `campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
@@ -80,7 +81,7 @@ the profile declares off is noise, and noise teaches the table to ignore the rep
 | `P12 — off` | nothing here. The leakage half of check G is `C.player_access`, not P12: mechanics or meta in player-facing text stop being drift, a secret in a note players may read does not |
 | `P4`, `P5`, `P6`, `P7`, `P9` — off | nothing: this skill grades no prep against them. Do not invent a check in order to skip it |
 
-P1, P2, P3, P10 and P11 hold whatever the slot says: checks A, B and D rest on them, and a value
+P1, P2, P3, P10, P11, P14 and P15 hold whatever the slot says: checks A, B and D rest on them, and a value
 written twice is a defect, not a preference. Checks E and G read slots, not defaults.
 
 ## Phase 1 — Read before auditing
@@ -203,6 +204,13 @@ sessions) — the number belongs to the profile, not this skill — **state in t
 it**, and offer to record the table's real cadence. A weekly table and one that plays twice a year
 do not want the same number, which is why it is a slot. It is neither `B.cadence`, how often they
 *play*, nor the spotlight rotation cadence, which follows `B.protagonists` — the slot says so.
+
+## Close with the run report (P14)
+
+End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). The report's own "Checks not run" section is not a substitute: one is about the campaign, the other
+about this run. `E.audit_cadence` is a declared default — if you used it, say so. Every check you
+could not run is named with the reason, and every command is shown before it runs and reported
+with its real output. **Never write an invariant you did not measure.**
 
 ## What NOT to do
 

@@ -4,7 +4,7 @@ description: "Produce and maintain the arc note that plans the campaign above th
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Campaign arc
@@ -34,7 +34,7 @@ scenes or trigger boxes, you are in `ttrpg-session-prep` and should stop here.
 
 ---
 
-> Principles are cited below by tag (`P1`…`P13`); their full text is in
+> Principles are cited below by tag (`P1`…`P15`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 **Supporting reference:** [references/arc-elements.md](references/arc-elements.md) — how each
@@ -42,6 +42,7 @@ section of the arc note is built (backbone rows, deviation ledger, thread tracke
 endgame). Read it while writing the note; Phase 3 below carries only the summary.
 
 ## Phase 0 — Read the campaign profile
+<!-- phase0: find-profile, d-shape, overrides -->
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
 `campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
@@ -81,7 +82,7 @@ overridable defaults reach this skill:
 | `P8 — off` | the **named first cut** in every backbone row, and the arc-scale margin. The budget line stays (`B.cadence` × `B.horizon` is arithmetic, not a default), but the backbone may spend all of it with no declared overflow and no compressible chapter |
 | `P13 — off` | the **admission test** on what the arc admits: a front, a faction or an endgame-required entity may be scheduled into a row without the three answers, and a seed needs no verdict before it is planted |
 
-P1, P2, P3, P10 and P11 hold whatever the slot says: the arc note still links tracked state
+P1, P2, P3, P10, P11, P14 and P15 hold whatever the slot says: the arc note still links tracked state
 instead of copying it (P10), and every thread still traces to a log (P11) — an override cannot
 turn remembered seeds into a tracker.
 
@@ -193,6 +194,12 @@ rewrite: update the tables in place, append to the ledger, and produce a short d
   admits (P13) — were applied **only while `E.overrides` leaves each in force**, and the note's
   opening callout says which were off.
 - Run the `C.verify` command — invariant as declared (typically 0 broken links).
+
+## Close with the run report (P14)
+
+End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). Not inside the arc note. State the session budget's inputs, every input that was missing (a hub, a ledger,
+an arc note that does not exist yet), the overrides honoured, and any command run with its real
+output. `E.audit_cadence`'s declared default belongs to `ttrpg-continuity-audit`, not here.
 
 ## What NOT to do
 

@@ -26,6 +26,9 @@ REQUIRED — every box, or the eval fails:
       players). The upstream rise is admissible — the log says it was staged once.
 - [ ] Register holds fen-gothic per `D.tone` throughout, wry breaks inside the register.
 - [ ] If saved as a note: frontmatter carries the fixed package key `type: session-recap`. (Phase 2)
+- [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
+      honoured, inputs unavailable, language chosen, commands run with their real output — in the
+      reply, never inside the artifact.
 
 SHOULD — quality signals, note misses:
 

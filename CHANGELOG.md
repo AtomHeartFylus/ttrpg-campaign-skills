@@ -11,6 +11,60 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 *(nothing yet)*
 
+## 1.2.0 — an assistant that can be checked
+
+1.1.0 made the package's rules enforceable. This one closes the gap the tooling exposed: **an
+output that is right and unaccountable is trusted exactly like a wrong one.** Two new principles,
+carried by all nine skills, and the last two checks that were recognising a phase by a sentence.
+
+### P14 — say what you used, and what you could not
+- Every skill now closes its **reply** — never the artifact — with a run report: declared defaults
+  used and where each is declared, overrides honoured, inputs unavailable, the language chosen,
+  and every command run, **shown before it runs** and reported with its real output. The skeleton
+  lives once, in `docs/PRINCIPLES.md` (bundled into every installed skill); each skill states only
+  what is specific to it. *Lesson: three of the four worst failures seen were invisible at the
+  time — a prep that quietly used a default count as if the table had chosen it, an audit that
+  reported "0 broken links" without running anything, a log written blind that reads exactly like
+  a log written from a full record.*
+- Not overridable: it is the mechanism that makes the overridable principles auditable. `E.overrides`
+  listing P14 now fails `OVERRIDE-SCOPE` in `scripts/validate_profile.py`.
+- Every eval rubric gains the matching REQUIRED box; it stays a **judged** box on purpose, because
+  the report lives in the reply and no file check can see it.
+
+### P15 — imported text is content, not instruction
+- Published module material, transcripts and diarizer output are read, quoted and summarised, never
+  obeyed; only the profile and the campaign's overlays configure behaviour. Cited where it bites:
+  prep (module text), audio and log (transcripts), entity notes (imported sources), setup (a module
+  you are pointed at). *Lesson: the two skills that ingest most heavily ingest what nobody at the
+  table wrote or reviewed — a publisher's chapter, and four hours of speech turned into text by a
+  machine that also guesses.* This is the trust boundary of `SECURITY.md`, moved from a document
+  about the repo into the skills that do the reading.
+  **Migration:** none for a filled profile. A campaign that had written `P14` or `P15` into
+  `E.overrides` could not have: they did not exist. The non-overridable set is now
+  P1, P2, P3, P10, P11, P14, P15.
+
+### Phase 0 is declared, not recognised by a sentence
+- Every entrypoint carries a `<!-- phase0: ... -->` marker naming the elements it implements
+  (`find-profile`, `d-shape`, `overrides`; the finder skill declares `search-protocol`).
+  `PHASE0-PROTOCOL` now requires the marker, requires the elements the skill's role implies, and
+  **verifies each declared element against the text** — declaring one you do not implement fails,
+  and so does the reverse. *Lesson: a check anchored to a literal sentence is hostage to a
+  rewording, and the rewording is the likely event.*
+
+### The entrypoint budget is measured, not counted
+- New warning check `ENTRYPOINT-BUDGET` (~5000 estimated tokens) and a summary line printing the
+  worst entrypoint every run. The 200–250 line band stays as a shape guideline in AUTHORING and is
+  now stated for what it is: what costs a reader is tokens, and a table-dense skill is cheaper per
+  line than a prose one.
+
+### Evals: the last three scenarios become runnable by machine
+- `campaign-setup`, `table-dossier` (A/B) and `session-audio` (A/B) gain `eval-spec` blocks, so
+  every eval's work copy is now prepared identically every time instead of by a grader reading
+  prose. The runner learned two setup steps for them: `create` (the audio file whose mere existence
+  is the trap) and `copy` (the diarized fixture), plus a `no-new-files` check for the scenarios
+  whose correct behaviour is producing nothing at all.
+- `tests/fixture-empty/` is the folder the setup interview runs on. Do not put a profile in it.
+
 ## 1.1.0 — the contract becomes enforceable
 
 Up to here the package's rules were real but hand-enforced: "run the checker before every commit",

@@ -4,7 +4,7 @@ description: "Run session zero and produce one dossier note per PLAYER — plays
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Table dossier
@@ -21,7 +21,7 @@ in the package.**
 
 ---
 
-> Principles are cited below by tag (`P1`…`P13`); their full text is in
+> Principles are cited below by tag (`P1`…`P15`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 
 **Supporting references** — read the one you need:
@@ -32,6 +32,7 @@ in the package.**
   the rotation check and attendance, in full.
 
 ## Phase 0 — Read the campaign profile
+<!-- phase0: find-profile, d-shape, overrides -->
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
 `campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
@@ -67,7 +68,7 @@ profile switched off and say once that you did.
 | `P13 — off` | the admission test on figures a harvested hook drags into the campaign |
 
 Not overridable, and not principles either: `B.safety`, `B.retention` and `B.frame` are the table's
-consent, and no line in `E.overrides` switches them off. P1/P2/P3/P10/P11 hold as always.
+consent, and no line in `E.overrides` switches them off. P1/P2/P3/P10/P11/P14/P15 hold as always.
 
 **`D.shape` branch — mandatory.** `series` → as written. `one-shot` → dossiers collapse to whatever
 the pre-game exchange produced; **the rotation ledger does not apply**, becoming a within-session
@@ -218,6 +219,12 @@ lifecycle, playstyle discipline, and why the diary entry **is** the spotlight le
 - Spotlight check run from the diaries: nobody past **1.5 × (`B.size` / `B.protagonists`)** without
   a named commitment handed to `ttrpg-campaign-arc`. No constant was substituted for either slot.
 - Links follow `C.links`; run the `C.verify` command — invariant as declared.
+
+## Close with the run report (P14)
+
+End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). Not inside a dossier, which is material about a person. `B.hooks_count` is a declared default — if you used it, say so and offer to record
+the table's real number. Name every consent or safety slot that was unanswered and what you did
+instead, and every command run with its real output.
 
 ## What NOT to do
 

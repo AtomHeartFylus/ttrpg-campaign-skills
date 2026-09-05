@@ -171,8 +171,9 @@ schema: 2
 - **`E.overrides`** *(core)* — the principles this campaign deliberately **switches off or replaces**, each
   with one line of reason. P4, P5, P6, P7, P8, P9, P12 and P13 are strong defaults, not laws: a table
   that wants pure tactical play, or has no interest in a moral question per scene, declares it
-  **here** and every skill obeys. P1, P2, P3, P10 and P11 are not overridable — violating them
-  produces documents that fail at the table or state that silently desynchronises.
+  **here** and every skill obeys. P1, P2, P3, P10, P11, P14 and P15 are not overridable — violating
+  them produces documents that fail at the table, state that silently desynchronises, or an
+  assistant whose claims about its own run cannot be checked.
   Format: `P7 — off: all six players are protagonists every session by design.`
 - **`E.deliverable`** — default output: a saved note in the repo, or a draft in chat
 - **`E.review`** — how blunt the assistant should be; whether unsolicited improvement is wanted

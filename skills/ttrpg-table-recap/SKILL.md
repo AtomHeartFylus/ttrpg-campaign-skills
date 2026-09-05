@@ -4,7 +4,7 @@ description: "Write the in-fiction recap that is read aloud to open the next ses
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.5"
+  version: "1.6"
 ---
 
 # Table recap
@@ -19,7 +19,7 @@ input is the session log; its audience is the players, in character, with the li
 
 ---
 
-> Principles are cited below by tag (`P1`…`P13`); their full text is in
+> Principles are cited below by tag (`P1`…`P15`); their full text is in
 > [references/PRINCIPLES.md](references/PRINCIPLES.md), bundled in this folder.
 > A complete worked recap for an **invented** campaign, annotated, is in
 > [references/example-recap.md](references/example-recap.md) — read it once to calibrate posture
@@ -40,6 +40,7 @@ Two consequences, in force unless `E.overrides` says otherwise:
   length", but outside the world.
 
 ## Phase 0 — Read the campaign profile
+<!-- phase0: find-profile, d-shape, overrides -->
 
 **Find it before declaring it missing.** Search the repo/vault root for a file named
 `campaign-profile.md` (`rg --files -g campaign-profile.md`, or the equivalent), and **if that comes
@@ -71,7 +72,7 @@ the output which override you honoured. Two overridable defaults reach this skil
 | `P12 — off` | the fiction-only rule. Mechanics, meta and "previously, at our table" are admitted; the *journey* framing above becomes optional, and the piece may address the room. Do not smuggle it back as a style note |
 | `P13 — off` | the admission test on anything the recap introduces; it may name a figure or place that has not earned a note |
 
-P1, P2, P3, P10 and P11 are **not** overridable: the recap still contains only what the fiction can
+P1, P2, P3, P10, P11, P14 and P15 are **not** overridable: the recap still contains only what the fiction can
 carry from the log, and the log stays the authority (P11).
 
 **`D.shape` branch — mandatory.** `series` → as written: this recap opens the next session.
@@ -220,6 +221,12 @@ the prosody itself lives in the overlay:
 - If `D.recap` declares a form: the form holds throughout, with no invented words and no filler lines.
 - Links follow `C.links` syntax; run the `C.verify` command — invariant as declared
   (typically **0 broken links**).
+
+## Close with the run report (P14)
+
+End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). Never inside the recap, which is read aloud and is only fiction (P12). `D.recap`'s ceiling is a declared default — if you used it, say so and offer to
+record the table's real value; report the timing you actually measured, the language chosen, and
+any command run with its real output.
 
 ## What NOT to do
 

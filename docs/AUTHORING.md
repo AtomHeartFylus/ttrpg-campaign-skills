@@ -62,6 +62,7 @@ metadata:
 <Two or three lines: what artifact this produces and who reads it under what conditions.>
 
 ## Phase 0 — Read the campaign profile
+<!-- phase0: find-profile, d-shape, overrides -->
 <Which slots this skill needs; what to do for each missing slot;
  what `E.overrides` switches off; what this skill does for each value of `D.shape`.>
 
@@ -77,15 +78,25 @@ metadata:
 ## Phase 4 — Verify
 <A checklist the agent can actually run, ending in the profile's verification command.>
 
+## Close with the run report (P14)
+<Where the report goes (the reply, never the artifact) and what is specific to this skill:
+ which declared default it may use, which text it must not obey (P15).>
+
 ## What NOT to do
 <Failure modes observed in practice, imperative and short.>
 ```
 
+The `<!-- phase0: ... -->` marker is **machine-read**: `PHASE0-PROTOCOL` requires it, requires the
+elements your role implies (`find-profile, d-shape, overrides`; the finder skill declares
+`search-protocol` instead), and verifies each declared element against the text. Declaring one you
+do not implement fails; so does implementing one and not declaring it. The marker exists because
+recognising a phase by a literal sentence made the check hostage to a rewording.
+
 ## 2bis. Two things every Phase 0 must do
 
 **Read `E.overrides` and obey it.** The overrides slot lists the principles this campaign has
-deliberately switched off or replaced (see `docs/PRINCIPLES.md`: P1, P2, P3, P10 and P11 are not
-overridable; the rest are strong defaults). A skill treats an overridden principle exactly as it
+deliberately switched off or replaced (see `docs/PRINCIPLES.md`: P1, P2, P3, P10, P11, P14 and P15
+are not overridable; the rest are strong defaults). A skill treats an overridden principle exactly as it
 treats an empty slot: **drop the section, or adapt it to the replacement the profile names**, in
 silence and without arguing. A skill that enforces a principle the profile has switched off is
 broken in the same way as one that invents a slot value.
@@ -130,8 +141,9 @@ Cite the principles by tag (`P7 (spotlight rotation)`), do not re-argue them. Th
 inside each installed skill as `references/PRINCIPLES.md`; never link to a path outside the skill
 folder, because installation copies the folder alone.
 
-**Distinguish requirement from convention.** A rule that prevents a document failing at the table
-or state desynchronising is a requirement (P1, P2, P3, P10, P11) and may use absolute language. A
+**Distinguish requirement from convention.** A rule that prevents a document failing at the table,
+state desynchronising, or a run nobody can check is a requirement (P1, P2, P3, P10, P11, P14, P15)
+and may use absolute language. A
 rule that encodes this author's taste in play is a *default* — state it as such, and name
 `E.overrides` as the place a campaign switches it off. Do not promote a single remembered failure
 into a universal law, and never write "always" about a principle a profile is allowed to disable.
@@ -147,9 +159,13 @@ If you find yourself writing a new general rule, add it to PRINCIPLES with an ID
 - Show a **skeleton** for anything the skill produces; skeletons are copied, prose is skimmed.
 - Every rule that came from a real failure keeps a one-clause trace of it ("the lesson of the
   session where they fled the boss and the script had no answer"). It is what makes the rule stick.
-- Length: the 200–250 line band. Under it a Phase 0 branch is usually missing; over it, split or
-  push detail into a reference file in the skill
-  folder and link it.
+- Length: the 200–250 line band is the *shape* guideline — under it a Phase 0 branch is usually
+  missing; over it, push one-way-only detail into a reference file in the skill folder and link it.
+  The **mechanical** budget is in tokens, not lines: `ENTRYPOINT-BUDGET` warns above ~5000
+  estimated tokens per entrypoint and the checker prints the worst one every run, because what
+  costs a reader is tokens and a table-dense skill is cheaper per line than a prose one. Three
+  entrypoints sit slightly above 250 lines and well inside the token budget; that is the honest
+  reading of the rule, not an exemption from it.
 
 ## 6. Overlays
 
@@ -212,7 +228,8 @@ What the checker enforces mechanically, so you do not have to remember it:
 | `ENCODING` | a shipped markdown file carries U+FFFD or a literal `\uXXXX` escape |
 | `OVERRIDE-MAPPED` | a skill mentions `E.overrides` without a branch mapping it to what stops being required |
 | `ARTIFACT-CONTRACT` | a skeleton shows a frontmatter placeholder without the fixed `type:` key, or two skills claim the same type value |
-| `PHASE0-PROTOCOL` | a consumer skill's Phase 0 lacks the find-the-profile protocol or a `D.shape` branch/gate before Phase 1 |
+| `PHASE0-PROTOCOL` | Phase 0 has no `<!-- phase0: ... -->` marker, declares an element it does not implement, or omits one the skill's role requires |
+| `ENTRYPOINT-BUDGET` | an entrypoint is over the context budget in estimated tokens — warning |
 
 `python scripts/check_contract.py --list` prints that table from the checker's own registry — use
 it rather than trusting this copy, which is documentation and can lag by a commit.

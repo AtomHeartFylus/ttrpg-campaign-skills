@@ -55,7 +55,7 @@ RULES = [
          "family under a resource that is `none`)"),
     Rule("OVERRIDE-SCOPE", "error",
          "`E.overrides` switches off a principle that is not overridable (P1, P2, P3, P10, "
-         "P11), or names a principle without saying off/replaced"),
+         "P11, P14, P15), or names a principle without saying off/replaced"),
     Rule("UNKNOWN-SLOT", "warn",
          "the profile defines a slot id the schema does not - no skill will ever read it"),
     Rule("PROFILE-ENCODING", "error",
@@ -69,7 +69,7 @@ RULE_CODES = [r.code for r in RULES]
 # Consent is not a default and no override reaches it: `none` here is unanswered, never a
 # decision. The list is the schema's own, kept here because it is a *rule*, not a value.
 CONSENT_SLOTS = ("B.safety", "B.consent_recording", "B.consent_offgame", "B.retention", "B.frame")
-NOT_OVERRIDABLE = ("P1", "P2", "P3", "P10", "P11")
+NOT_OVERRIDABLE = ("P1", "P2", "P3", "P10", "P11", "P14", "P15")
 KNOWN_SCHEMAS = ("2",)
 
 SLOT_TOKEN = re.compile(r"`([A-E]\.[a-z_]+)`")
@@ -336,8 +336,9 @@ def _overrides(rep, slots, states, at):
         if tag in NOT_OVERRIDABLE:
             rep.err("OVERRIDE-SCOPE", at("E.overrides"),
                     "%s appears in `E.overrides`, and it is not overridable: it prevents a "
-                    "document failing at the table or state silently desynchronising. Only P4, "
-                    "P5, P6, P7, P8, P9, P12 and P13 are strong defaults" % tag)
+                    "document failing at the table, state silently desynchronising, or an "
+                    "assistant nobody can check. Only P4, P5, P6, P7, P8, P9, P12 and P13 are "
+                    "strong defaults" % tag)
     tags = re.findall(r"(?<![A-Za-z0-9])P\d{1,2}(?![0-9A-Za-z])", value)
     if tags and not re.search(r"\b(off|replaced|disabled)\b", value, re.I):
         rep.err("OVERRIDE-SCOPE", at("E.overrides"),

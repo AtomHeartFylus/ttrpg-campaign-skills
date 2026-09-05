@@ -14,6 +14,8 @@ Two pieces:
 - **`fixture-audio/`** — synthetic diarized machine output for one evening of the same campaign,
   so the audio skill's judgement (gates, storage contract, speaker map, off-game curation) is
   testable without a recording. See its own README for what is seeded into it.
+- **`fixture-empty/`** — an almost empty folder: `campaign-setup` is the one eval whose branch is
+  "there is no profile here". Do not add a profile to it.
 - **`fixture-overlay/`** — one invented overlay for the same campaign: the positive fixture of
   `scripts/validate_overlay.py`, and the package's only worked example of an overlay.
 - **`evals/`** — one file per skill under test: a scenario (setup + the prompt to give the agent)
@@ -104,7 +106,7 @@ to a form checker and expensive at the table, so it gets its own scenarios rathe
 - The fixture is shared: an eval may add temp files in its *copy*, but a new **seeded defect** in
   `fixture-campaign/` must be added to the answer key in `evals/continuity-audit.md` **and to
   `check_fixture.py`** in the same commit, or the audit eval starts failing for the wrong reason.
-- Setup steps that a machine can perform (`delete`, `replace`) belong in the `eval-spec` block as
+- Setup steps that a machine can perform (`delete`, `replace`, `create`, `copy`) belong in the `eval-spec` block as
   well as in the prose, so the work copy is prepared identically every time. Prose alone drifts
   from what the last grader actually did.
 - A rubric box goes in the spec when it is a fact about a file, and stays in the rubric when it is

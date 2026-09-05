@@ -36,6 +36,9 @@ REQUIRED — every box, or the eval fails:
 - [ ] Invents no state: every fact in the prep traces to the profile, the logs, the dossiers or
       the entity notes.
 - [ ] The prep's frontmatter carries the fixed package key `type: session-prep`. (Phase 2)
+- [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
+      honoured, inputs unavailable, language chosen, commands run with their real output — in the
+      reply, never inside the artifact.
 
 SHOULD — quality signals, note misses:
 

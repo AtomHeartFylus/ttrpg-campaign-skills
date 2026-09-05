@@ -40,6 +40,9 @@ REQUIRED:
 - [ ] The fix is a **named forward commitment routed to `ttrpg-campaign-arc`** (which upcoming
       chapter Dara carries), not a scene invented here and not a prep written here.
 - [ ] Invents no diary entry and no session that the fixture does not contain.
+- [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
+      honoured, inputs unavailable, language chosen, commands run with their real output — in the
+      reply, never inside the artifact.
 
 SHOULD:
 
@@ -87,3 +90,99 @@ SHOULD:
       inventing attendance.
 - [ ] Points out that Enzo's arrival is `ttrpg-campaign-arc`'s problem for the forward commitment.
 - [ ] Asks where he sits relative to the existing spotlight debt (Dara), instead of deciding it.
+
+---
+
+## Machine-checked boxes
+
+`tests/run_eval.py` prepares the work copy and ticks the boxes below; the rubric above still needs
+a reader.
+
+<!-- eval-spec
+{
+  "skill": "ttrpg-table-dossier",
+  "fixture": "fixture-campaign",
+  "scenarios": {
+    "A": {
+      "prompt_index": 0,
+      "setup": [
+        {
+          "replace": {
+            "file": "Dossiers/Ada — Maren.md",
+            "old": "- [[Session 7 — Log]] — *chorus*; kept the eel-catcher's promise on the water.",
+            "new": "- [[Session 7 — Log]] — *chorus*; kept the eel-catcher's promise on the water.\n- Session 8 — carried.\n- Session 9 — chorus.\n- Session 10 — carried.\n- Session 11 — chorus."
+          }
+        },
+        {
+          "replace": {
+            "file": "Dossiers/Bruno — Tobit.md",
+            "old": "- [[Session 7 — Log]] — *carried* (paid the toll in a true regret; called Ulde's tell).",
+            "new": "- [[Session 7 — Log]] — *carried* (paid the toll in a true regret; called Ulde's tell).\n- Session 8 — chorus.\n- Session 9 — carried.\n- Session 10 — chorus.\n- Session 11 — carried."
+          }
+        },
+        {
+          "replace": {
+            "file": "Dossiers/Cleo — Iole.md",
+            "old": "- [[Session 7 — Log]] — *carried* (the dive; the drowned-sister answer).",
+            "new": "- [[Session 7 — Log]] — *carried* (the dive; the drowned-sister answer).\n- Session 8 — chorus.\n- Session 9 — carried.\n- Session 10 — chorus.\n- Session 11 — carried."
+          }
+        },
+        {
+          "replace": {
+            "file": "Dossiers/Dara — Sorrel.md",
+            "old": "- Session 7 — absent (waits at the old camp; does not advance).",
+            "new": "- Session 7 — absent (waits at the old camp; does not advance).\n- Session 8 — chorus.\n- Session 9 — chorus.\n- Session 10 — chorus.\n- Session 11 — chorus."
+          }
+        }
+      ],
+      "mechanical": [
+        {
+          "id": "no-parallel-tally",
+          "kind": "untouched",
+          "allow_new": [],
+          "cite": "P10",
+          "why": "the answer is a reading of the diaries, not a second ledger"
+        },
+        {
+          "id": "no-spotlight-table-file",
+          "kind": "file-exists",
+          "glob": "**/*[Ss]potlight*.md",
+          "expect": false,
+          "cite": "P7"
+        }
+      ]
+    },
+    "B": {
+      "prompt_index": 1,
+      "setup": [],
+      "artifact": {
+        "type": "dossier"
+      },
+      "mechanical": [
+        {
+          "id": "dossier-created",
+          "kind": "file-exists",
+          "glob": "Dossiers/*Enzo*.md",
+          "cite": "Phase 2"
+        },
+        {
+          "id": "type-key",
+          "kind": "frontmatter",
+          "key": "type",
+          "equals": "dossier",
+          "cite": "Phase 2"
+        },
+        {
+          "id": "no-invented-hooks-for-others",
+          "kind": "untouched",
+          "allow_new": [
+            "Dossiers/.*Enzo.*"
+          ],
+          "cite": "P11",
+          "why": "onboarding one player rewrites nobody else's dossier"
+        }
+      ]
+    }
+  }
+}
+-->

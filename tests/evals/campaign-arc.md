@@ -46,6 +46,9 @@ REQUIRED:
       `ttrpg-session-prep`. (Skill preamble)
 - [ ] Nothing planned on the stale hub without flagging it: the hub says Session 6, the logs say 7,
       and the log wins (P11).
+- [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
+      honoured, inputs unavailable, language chosen, commands run with their real output — in the
+      reply, never inside the artifact.
 
 SHOULD:
 

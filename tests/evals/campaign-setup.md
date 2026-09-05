@@ -43,9 +43,71 @@ REQUIRED — every box, or the eval fails:
       anything; unasked-and-unanswered reads as unanswered.
 - [ ] The GM's own words survive into the slots ("Grit", "backing down", "around a fire") instead
       of being normalised into generic phrasing.
+- [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
+      honoured, inputs unavailable, language chosen, commands run with their real output — in the
+      reply, never inside the artifact.
 
 SHOULD — quality signals, note misses:
 
 - [ ] Ends by saying which skills are now unblocked and that session zero (`ttrpg-table-dossier`)
       is the declared next step for the deferred slots.
 - [ ] Interview is paced (grouped questions, not 61 at once).
+
+---
+
+## Machine-checked boxes
+
+`tests/run_eval.py` prepares the work copy and ticks the boxes below; the rubric above still needs
+a reader.
+
+<!-- eval-spec
+{
+  "skill": "ttrpg-campaign-setup",
+  "fixture": "fixture-empty",
+  "setup": [],
+  "artifact": {
+    "type": "campaign-profile"
+  },
+  "mechanical": [
+    {
+      "id": "profile-created",
+      "kind": "file-exists",
+      "glob": "**/campaign-profile.md",
+      "cite": "Phase 2"
+    },
+    {
+      "id": "type-key",
+      "kind": "frontmatter",
+      "key": "type",
+      "equals": "campaign-profile",
+      "cite": "Phase 2",
+      "why": "how every other skill finds this file, whatever it is named"
+    },
+    {
+      "id": "session-zero-deferrals",
+      "kind": "regex",
+      "pattern": "(?i)deferred:\\s*session zero",
+      "min": 3,
+      "cite": "four-state rule",
+      "why": "B.distance, B.safety, B.absence at minimum - never none, never a guess"
+    },
+    {
+      "id": "recap-answered-none",
+      "kind": "regex",
+      "pattern": "`D\\.recap`\\*\\*[^\\n]*\\bnone\\b",
+      "min": 1,
+      "i": true,
+      "cite": "D.recap",
+      "why": "asked and answered empty is not the same as never asked"
+    },
+    {
+      "id": "no-todo-placeholders",
+      "kind": "regex",
+      "pattern": "\\[TODO:",
+      "min": 0,
+      "max": 0,
+      "cite": "Phase 2"
+    }
+  ]
+}
+-->

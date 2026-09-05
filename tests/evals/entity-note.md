@@ -33,6 +33,9 @@ REQUIRED — every box, or the eval fails:
       delivered — the log says so). A note claiming an encounter is an invention. (P11)
 - [ ] Saved under `Entities/` per `C.root`/`C.naming` with the fixed package key `type: entity`
       in frontmatter; asks before renaming or moving anything (`E.never_without_asking`).
+- [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
+      honoured, inputs unavailable, language chosen, commands run with their real output — in the
+      reply, never inside the artifact.
 
 SHOULD — quality signals, note misses:
 

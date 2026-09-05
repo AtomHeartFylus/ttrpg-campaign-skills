@@ -52,6 +52,11 @@ and `C.gm_private` says where GM-only material lives; `C.capture_paths` only sup
 obey them. When they disagree, the access rule wins and the skill stops and asks — and a profile
 that opens the repo to players without declaring a GM-private home fails validation (`CROSS-SLOT`).
 
+**Every run says what it did (P14).** A skill closes its reply with which consent gates it
+checked, which inputs were missing, which commands it ran and what they actually returned. It is
+how "the off-game note was not written because `B.consent_offgame` says no" becomes visible
+instead of being a silence you have to notice.
+
 **Nothing leaves the repo.** No skill uploads, publishes, syncs or posts. Everything is a file in
 a folder you control; `C.portability` records how that folder reaches your other machines. Raw
 audio lives in a version-control-ignored folder by construction.

@@ -39,6 +39,9 @@ REQUIRED — every box, or the eval fails:
 - [ ] Reports **which checks it could not run** (e.g. `C.verify` is `none declared yet` → says
       links were checked by hand or not at all — it never claims a command it didn't run).
 - [ ] Invents no defect: every finding traces to a real line in the fixture.
+- [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
+      honoured, inputs unavailable, language chosen, commands run with their real output — in the
+      reply, never inside the artifact.
 
 SHOULD — quality signals, note misses:
 

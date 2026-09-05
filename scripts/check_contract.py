@@ -56,6 +56,9 @@ BOILERPLATE = {
     "the report",
     "what this skill produces",
     "what the answers imply",
+    # P14's report is about the run, not about a campaign artifact: every skill closes with it,
+    # and that is the point - a section only one skill owned would make the report optional.
+    "close with the run report",
 }
 
 Check = namedtuple("Check", "code level fails_when")
@@ -99,8 +102,12 @@ CHECKS = [
           "a skeleton shows a frontmatter placeholder without the fixed `type:` key, or "
           "two skills claim the same type value"),
     Check("PHASE0-PROTOCOL", "error",
-          "a consumer skill's Phase 0 lacks the find-the-profile protocol or a `D.shape` "
-          "branch/gate before Phase 1"),
+          "a skill's Phase 0 carries no `<!-- phase0: ... -->` marker, declares an element it "
+          "does not implement, or omits one its role requires (find-profile, d-shape, "
+          "overrides; the finder skill declares search-protocol instead)"),
+    Check("ENTRYPOINT-BUDGET", "warn",
+          "an entrypoint is over the context budget (%d estimated tokens) - what costs a reader "
+          "is tokens, not lines; push one-way-only detail into references/" % 5000),
 ]
 CHECK_CODES = [c.code for c in CHECKS]
 
@@ -667,32 +674,80 @@ def check_artifact_contract(repo, rep):
 
 # ---------- 16: the Phase 0 protocol is present and ordered ---------------
 
-FINDIT = "Find it before declaring it missing"
-DSHAPE_BRANCH = re.compile(r"\*\*`D\.shape`\s+(branch|gate)")
+# The Phase 0 marker: a skill DECLARES which elements of the shared spine it carries, and each
+# declaration is then verified against the text. Recognising a phase by a literal sentence made
+# the checks hostage to a rewording - the marker is the anchor, the anchors below are the proof.
+MARKER = re.compile(r"<!--\s*phase0:\s*([a-z0-9 ,._-]+?)\s*-->", re.I)
+ELEMENT_ANCHORS = {
+    # element          what counts as implementing it (any one of these)
+    "find-profile": [re.compile(r"Find it before declaring it missing"),
+                     re.compile(r"search by frontmatter", re.I)],
+    "d-shape": [re.compile(r"\*\*`D\.shape`\s+(branch|gate)")],
+    "overrides": [BRANCH],
+    "search-protocol": [re.compile(r"Search before you conclude")],
+}
+REQUIRED_ELEMENTS = {
+    "consumer": {"find-profile", "d-shape", "overrides"},
+    # The finder skill fills the profile instead of reading one: its Phase 0 owns the search
+    # protocol every other skill's find-it rule delegates to, and its `E.overrides` branch sits
+    # in the interview phase, where OVERRIDE-MAPPED checks it - a marker about Phase 0 would be
+    # claiming it twice, in the wrong place.
+    SETUP_SKILL: {"search-protocol"},
+}
 
 
 def check_phase0_protocol(repo, rep):
-    # The shared spine of every consumer Phase 0: find the profile before declaring it missing,
-    # and branch on D.shape - both before anything is produced. OVERRIDE-MAPPED owns the third.
     for d, p in repo.skill_entrypoints():
         src = repo.read(p)
-        if d == SETUP_SKILL:
-            if "Search before you conclude" not in src:
-                rep.err("PHASE0-PROTOCOL", repo.rel(p),
-                        "the finder skill must keep its 'Search before you conclude' protocol - "
-                        "it is what every other skill's find-it rule delegates to")
-            continue
         cut = src.find("\n## Phase 1")
         head = src[:cut] if cut != -1 else src
-        if FINDIT not in head:
+        required = REQUIRED_ELEMENTS.get(d, REQUIRED_ELEMENTS["consumer"])
+        m = MARKER.search(head)
+        if not m:
             rep.err("PHASE0-PROTOCOL", repo.rel(p),
-                    "Phase 0 lacks the find-the-profile protocol ('%s') before Phase 1 - a "
+                    "Phase 0 carries no `<!-- phase0: %s -->` marker before Phase 1 - the marker "
+                    "is what makes the shared spine mechanical instead of a sentence a rewrite "
+                    "can lose" % ", ".join(sorted(required)))
+            continue
+        declared = {t.strip().lower() for t in m.group(1).split(",") if t.strip()}
+        unknown = sorted(declared - set(ELEMENT_ANCHORS))
+        if unknown:
+            rep.err("PHASE0-PROTOCOL", repo.at(p, head[:m.start()].count("\n") + 1),
+                    "phase0 marker declares unknown element(s): %s - known: %s"
+                    % (", ".join(unknown), ", ".join(sorted(ELEMENT_ANCHORS))))
+        for missing in sorted(required - declared):
+            rep.err("PHASE0-PROTOCOL", repo.rel(p),
+                    "phase0 marker does not declare `%s`, which this skill's role requires - a "
                     "profile that exists but is not found re-interviews a GM who already "
-                    "answered" % FINDIT)
-        if not DSHAPE_BRANCH.search(head):
-            rep.err("PHASE0-PROTOCOL", repo.rel(p),
-                    "no `D.shape` branch or gate before Phase 1 - a skill that cannot serve a "
-                    "shape must say so before it produces anything")
+                    "answered, and a shape a skill cannot serve must be refused before anything "
+                    "is produced" % missing)
+        for element in sorted(declared & set(ELEMENT_ANCHORS)):
+            if not any(a.search(head) for a in ELEMENT_ANCHORS[element]):
+                rep.err("PHASE0-PROTOCOL", repo.rel(p),
+                        "phase0 marker declares `%s` but Phase 0 does not implement it - a "
+                        "declaration is not an implementation" % element)
+
+
+# ---------- 17: the context budget of an entrypoint -------------------------
+
+# A skill's cost to a reader is tokens, not lines: a table-dense skill is cheaper per line than
+# a prose one, and the 200-250 line band in AUTHORING is a shape guideline, not a measurement.
+# The estimate is chars/4 - crude, stable, and enough to catch an entrypoint that doubled.
+TOKEN_BUDGET = 5000
+
+
+def estimate_tokens(text):
+    return int(len(text) / 4.0)
+
+
+def check_entrypoint_budget(repo, rep):
+    for _d, p in repo.skill_entrypoints():
+        tokens = estimate_tokens(repo.read(p))
+        if tokens > TOKEN_BUDGET:
+            rep.warn("ENTRYPOINT-BUDGET", repo.rel(p),
+                     "~%d estimated tokens, over the %d budget - the entrypoint keeps what is "
+                     "needed EVERY time; what is needed one way only belongs in references/"
+                     % (tokens, TOKEN_BUDGET))
 
 
 # The order below is the order findings are produced in; the report sorts anyway.
@@ -709,6 +764,7 @@ PASSES = [
     check_override_mapped,
     check_artifact_contract,
     check_phase0_protocol,
+    check_entrypoint_budget,
 ]
 
 
@@ -717,13 +773,17 @@ def run(root, only=None):
     rep = Report(only)
     for a_pass in PASSES:
         a_pass(repo, rep)
+    entry_tokens = {d: estimate_tokens(repo.read(p)) for d, p in repo.skill_entrypoints()}
+    worst = max(entry_tokens.items(), key=lambda kv: kv[1]) if entry_tokens else ("-", 0)
     rep.summary = (
         "%d slots defined (%d setup-only, exempt from DEAD-SLOT), %d cited | "
         "%d principles defined, %d cited | %d skills, %d markdown files | "
-        "%d shipped files scanned for system leaks"
+        "%d shipped files scanned for system leaks\n"
+        "  entrypoints ~%d tokens total, worst %s ~%d of %d budget"
         % (len(repo.defined_slots), len(repo.setup_only_slots), len(repo.cited_slots),
            len(repo.principles), len(repo.cited_principles & repo.principles),
-           len(repo.skill_dirs), len(repo.skill_md), len(repo.shipped())))
+           len(repo.skill_dirs), len(repo.skill_md), len(repo.shipped()),
+           sum(entry_tokens.values()), worst[0], worst[1], TOKEN_BUDGET))
     return repo, rep
 
 
