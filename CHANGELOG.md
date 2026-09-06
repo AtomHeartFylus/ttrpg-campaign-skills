@@ -134,6 +134,24 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **`E.overrides` reopening, restricted to what the audit actually measures, and de-fabricated:**
+  independent review caught two real problems in W10's "reopening a switched-on default": (1) it
+  named P4–P9, P12 and P13 as eligible, but this skill's own `E.overrides` table explicitly grades
+  no prep against P4/P5/P6/P7/P9 ("do not invent a check in order to skip it") and P7 is
+  `ttrpg-table-dossier`'s to own — restricted to the three principles its own checks actually
+  measure: P8 (check C's skipped-hook half), P13 (check F), P12/`C.player_access` (check G's
+  leakage half). (2) "the same non-finding recurred across the last two archived audit reports"
+  is a claim about the campaign's *history* a reader cannot falsify — this package creates no
+  artifact for a past audit report, no `type:`, no slot naming where one lives — the same class of
+  problem as W5b's invented reading pace, not the same class as W8's round cap (a stopping
+  condition on this skill's own behaviour, reversible in the moment, asserting nothing about the
+  world). The number of runs is gone entirely: a proposal now rests on what **this run's** checks
+  found, phrased as a single observation, never a multi-run count. `tests/evals/continuity-audit.md`
+  box updated to match. *Lesson: two corrections in the same message, and only one of them was
+  actually about a hardcoded number — the other was about an unfalsifiable claim wearing the same
+  costume; conflating them would have produced the wrong fix (a schema slot for report archives)
+  instead of the right one (stop claiming the count at all).*
+  `metadata.version`: `ttrpg-continuity-audit` 1.6 -> 1.7. No schema change.
 - **The bundle count stopped being hardcoded, again:** `AGENTS.md:20` still said "the ten bundled
   copies" after two more pairs had been added since W6 fixed the same pattern for "sixteen
   checks" — caught by the same review. Both `AGENTS.md` and `sync_bundles.py`'s own docstring now

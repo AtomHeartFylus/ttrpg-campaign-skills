@@ -4,7 +4,7 @@ description: "Produce a health-check report on a campaign repo plus a proposed c
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.6"
+  version: "1.7"
 ---
 
 # Continuity audit
@@ -118,12 +118,18 @@ auditing. Each finding carries **evidence**: file, line, and the conflicting con
 
 **Reopening a switched-on default.** `E.overrides` is filled once, at setup, by a GM who had never
 seen the package applied (`ttrpg-campaign-setup` reads the eight strong defaults out loud, but a
-first answer is still a guess). If this run's findings show the same non-compliance with one of
-P4–P9, P12 or P13 that your **last two archived audit reports** also showed — readable only if
-past reports were saved somewhere in the repo; if none are findable, say the check is **not
-verifiable** rather than skip it silently — add one line to the change list **proposing** that
-principle be registered in `E.overrides`. Propose only: this skill fills nothing into the profile
-without the GM's agreement, the same rule as every other change here.
+first answer is still a guess). Restricted to the three principles this skill's own checks actually
+measure — **P8** (the skipped-hook half of check C), **P13** (check F), **P12**/`C.player_access`
+(the leakage half of check G); never P4–P7 or P9, which this skill grades no prep against by
+design (the table above), and P7 belongs to `ttrpg-table-dossier`. If **this run's** check finds a
+violation of one of those three, add one line to the change list **proposing** it as a single
+observation: "this run found X; if the table recognises it as a deliberate choice rather than
+drift, here is how it is registered in `E.overrides`." Never count prior runs and never depend on
+archived reports to justify the proposal — this package creates no artifact for a past audit
+report (no `type:`, no `C.` slot names where one would live), so a claim resting on "the last two
+reports also showed this" is exactly as unfalsifiable to a reader as an invented number: propose
+from what is in front of you, once, per run. If the GM independently recalls this recurring across
+sessions, that is their observation to offer, not a count this skill performs.
 
 ## Phase 3 — The retcon protocol
 

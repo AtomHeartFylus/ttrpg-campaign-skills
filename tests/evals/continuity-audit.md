@@ -45,9 +45,11 @@ REQUIRED — every box, or the eval fails:
 - [ ] Run report ends with a **next suggested step** line naming `ttrpg-campaign-arc` — this
       fixture's dangling threads (defect 8) give it a non-empty "Threads to decide" table, so the
       line is exercised, not just declared possible.
-- [ ] Does not propose registering an override in `E.overrides` from this single run: no archived
-      prior audit reports exist in this fixture, so "reopening a switched-on default" correctly
-      says **not verifiable** rather than fabricate a three-run pattern from one data point.
+- [ ] If it proposes registering an override in `E.overrides`, it is restricted to **P8, P12 or
+      P13 only** (the three principles checks C/G/F actually measure — never P4–P7 or P9, which
+      this skill grades no prep against, and never P7, which `ttrpg-table-dossier` owns), phrased
+      as a single-run observation ("this run found X") — never citing a repeated pattern across
+      runs or an archived prior report, which this package has no artifact or slot for.
 
 SHOULD — quality signals, note misses:
 
