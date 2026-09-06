@@ -4,7 +4,7 @@ description: "Write the in-fiction recap that is read aloud to open the next ses
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "2.1"
+  version: "2.4"
 ---
 
 # Table recap
@@ -126,29 +126,11 @@ Suggested shape of the telling — adapt, do not pad to fill it:
 | A death, a transformation, an arrival | its own passage |
 | Closing: the passage onward, sealed by a final image | short |
 
-**Length ceiling: `D.recap` declares it.** Measurable proxy, since an agent cannot literally read
-aloud and time itself: count the recap's words — or, if `D.recap` gives a form-native unit instead
-of minutes (a fixed number of strophes, one page), count that instead — and compare to the
-ceiling. **Do not invent a reading pace to turn a word count into minutes.** A number this skill
-states on its own authority to fill that gap is a hardcoded constant with a friendlier name, exactly
-what "empty slot ≠ default" forbids — but the schema does not need a new slot for this: `D.recap`
-already declares "form, who reads it, **and the reading-time ceiling**", and a pace is free text on
-that same answer ("ceiling three minutes, read at a brisk clip" is still `D.recap`'s value, not a
-new fact). If `D.recap`'s text carries no pace, report the raw word count next to the ceiling and
-let the GM judge fit by ear; ask, once, what the table's actual reading pace is, and propose adding
-it to `D.recap`'s own text — the slot this skill already reads, not a new one, and not an overlay
-(an overlay is irreducible procedure or aesthetic that cannot be a slot value; a pace plainly can).
-Once a pace is on record, divide the word count by it and report both numbers. The ceiling itself is
-a slot, not a constant: a thirty-second cold open and a sung chronicle are both legitimate, and the
-profile is where the table says which. Past the declared ceiling attention is gone and the opening
-you wanted is spent.
-**Actually reading the recap aloud, end to end, is the GM's action, not this skill's** — declare in
-the report whether it happened; never claim it as something this phase did.
-
-**If `D.recap` states no ceiling**, use the **`default:` the slot itself declares** (three to five
-minutes) — the number belongs to the profile, not to this skill — **say in the output that you used
-it**, and offer to record the table's real ceiling in the slot. The form itself is
-never defaulted this way: no form, no recap.
+**Length ceiling: `D.recap` declares it.** Count words or form-native units and compare them to
+that ceiling; never invent a reading pace. If the slot has no ceiling, use only its declared
+`default:` and say so. Report whether the GM performed the actual read-aloud pass. The full
+one-way procedure, including recorded pace handling and why no pace may be invented, lives in
+[references/length-ceiling.md](references/length-ceiling.md).
 
 If the log has more material than fits, cut beats; never compress every beat into a summary.
 
@@ -248,7 +230,11 @@ This phase runs **only when the GM explicitly asks** for a catch-up note for an 
 
 If both slots carry a concrete value (any value, including a restrictive one), the gate clears.
 Read [references/absent-player-recap.md](references/absent-player-recap.md) for the full structure
-and delivery rules (what to cover, where to save, how P12 applies).
+and delivery rules — what to cover, the **content-class gate** (which GM-private dossier material
+stays out by default and what would explicitly authorise including it), where to save, and how
+P12 applies. The two slots above are a **location and go/no-go gate**, not a content clearance:
+clearing them opens Phase 5, it does not by itself authorise pulling dossier Playstyle, Hooks, an
+off-game entry or a raw transcript fact into the note.
 
 ## Close with the run report (P14)
 
@@ -259,7 +245,16 @@ and proposed adding it to `D.recap`'s text, whether the GM's own read-aloud pass
 language chosen, and any command run with its real output. **If Phase 5 was requested:** report
 whether it ran or was blocked, and if blocked, which slot (`B.absence` or `C.player_access`) was
 empty or deferred; if it ran, report where the note was saved (or that it was chat-only and
-why).
+why), and confirm that no GM-private dossier material (Playstyle, Hooks, an off-game entry, a raw
+transcript fact) was included unless `C.player_access` explicitly named that class.
+
+If the catch-up is saved as a note, its fixed artifact key is distinct from the opening recap:
+
+```markdown
+---
+type: session-catchup
+---
+```
 
 ## What NOT to do
 
@@ -281,3 +276,10 @@ why).
   `B.absence` and `C.player_access` are verified as non-empty and non-deferred.
 - Do not save a Phase 5 note to the repo when `C.player_access` says players read nothing;
   deliver in chat and report it.
+- Do not carry a dossier's Playstyle notes, Hooks, an off-game entry or a raw transcript fact
+  into a Phase 5 note unless `C.player_access` explicitly names that content class — an ordinary
+  "players may read recaps and logs" value does not reach any of them
+  (references/absent-player-recap.md).
+- Do not infer `B.consent_offgame` from `B.consent_recording`, or treat a `C.player_access` that
+  is silent on a GM-private class as permission; silence stays exclusion, and no `E.overrides`
+  entry reaches a consent or privacy slot.

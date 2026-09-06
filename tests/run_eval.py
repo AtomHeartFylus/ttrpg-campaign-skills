@@ -170,21 +170,25 @@ def frontmatter(text):
 
 
 def find_artifacts(dest, state, spec):
-    """New or changed files after the run - the agent's actual output, whatever it named it."""
+    """(changed, matched, deleted) - `changed` is new-or-modified files after the run (the
+    agent's actual output, whatever it named it), `deleted` is every PRISTINE file the run
+    removed (pristine minus the current snapshot) - a fact `changed` alone cannot see, since a
+    deleted file has nothing left to hash."""
     now = snapshot(dest)
     pristine = state["pristine"]
     changed = [rel for rel, h in sorted(now.items())
                if rel not in pristine or pristine[rel] != h]
+    deleted = [rel for rel in sorted(pristine) if rel not in now]
     wanted = (spec.get("artifact") or {}).get("type")
     if not wanted:
-        return changed, changed
+        return changed, changed, deleted
     matched = []
     for rel in changed:
         if not rel.endswith(".md"):
             continue
         if frontmatter(read(os.path.join(dest, rel))).get("type") == wanted:
             matched.append(rel)
-    return changed, matched
+    return changed, matched, deleted
 
 
 def grade(spec, work):
@@ -194,10 +198,11 @@ def grade(spec, work):
     with open(state_path, encoding="utf-8") as fh:
         state = json.load(fh)
     dest = state["fixture_dir"]
-    changed, artifacts = find_artifacts(dest, state, spec)
+    changed, artifacts, deleted = find_artifacts(dest, state, spec)
 
-    print("eval %s - work %s" % (spec["name"], work))
+    print("eval %s - work %s" % (spec["name"], os.path.basename(work.rstrip(os.sep))))
     print("  changed files: %s" % (", ".join(changed) if changed else "(none)"))
+    print("  deleted files: %s" % (", ".join(deleted) if deleted else "(none)"))
     wanted = (spec.get("artifact") or {}).get("type")
     if wanted:
         print("  artifacts with `type: %s`: %s"
@@ -208,7 +213,7 @@ def grade(spec, work):
                        if rel.endswith(".md"))
     results = []
     for chk in spec["mechanical"]:
-        ok, detail = run_check(chk, text, dest, state, changed, artifacts)
+        ok, detail = run_check(chk, text, dest, state, changed, artifacts, deleted)
         results.append({"id": chk["id"], "cite": chk.get("cite", ""), "ok": ok,
                         "detail": detail, "why": chk.get("why", "")})
         print("  [%s] %-28s %s%s"
@@ -222,10 +227,10 @@ def grade(spec, work):
              sum(1 for r in results if not r["ok"])))
     print("  %d rubric box(es) in %s still need a reader - grade them by hand"
           % (len(judged), os.path.relpath(spec["path"], ROOT).replace("\\", "/")))
-    return results, changed, artifacts
+    return results, changed, artifacts, deleted, dest
 
 
-def run_check(chk, text, dest, state, changed, artifacts):
+def run_check(chk, text, dest, state, changed, artifacts, deleted=()):
     kind = chk["kind"]
     if kind == "frontmatter":
         values = [frontmatter(read(os.path.join(dest, rel))).get(chk["key"])
@@ -257,34 +262,98 @@ def run_check(chk, text, dest, state, changed, artifacts):
             ok = len(hits) >= lo if chk.get("expect", True) else not hits
         return ok, "%d file(s) matching %s" % (len(hits), chk["glob"])
     if kind == "no-new-files":
-        # For a scenario whose correct behaviour is producing nothing at all.
+        # For a scenario whose correct behaviour is producing nothing at all. A pristine file
+        # the run DELETED is just as much "producing something" as one it created - a deletion
+        # is not invisible to this check just because there is no new file to point at.
+        # `allow` excuses a genuinely NEW file by name - it never excuses the deletion of a
+        # pristine one. A pre-existing file the run removed is an offender unconditionally,
+        # even if its name happens to match an allow pattern meant for new output.
+        allow = chk.get("allow", [])
         new = [rel for rel in changed if rel not in state["pristine"]
-               and not any(re.match(pat, rel) for pat in chk.get("allow", []))]
-        return not new, ("nothing created" if not new else "created: %s" % ", ".join(new))
+               and not any(re.match(pat, rel) for pat in allow)]
+        removed = list(deleted)
+        offenders = new + removed
+        detail = "nothing created" if not offenders else \
+            "created/deleted: %s" % ", ".join(offenders)
+        return not offenders, detail
     if kind == "untouched":
-        # For evals whose correct behaviour is to CHANGE NOTHING but its own report.
+        # For evals whose correct behaviour is to CHANGE NOTHING but its own report. A pristine
+        # file the run deleted is unquestionably "touched" - more so than one merely edited.
+        # `allow_new` excuses a genuinely NEW file by name (the name says so) - it never excuses
+        # the deletion of a pristine one. A pre-existing file the run removed is an offender
+        # unconditionally, even if its name happens to match an allow_new pattern.
         allowed = set(chk.get("allow_new", []))
         offenders = [rel for rel in changed
                      if rel in state["pristine"] and not any(
                          re.match(pat, rel) for pat in allowed)]
+        removed = list(deleted)
+        offenders = offenders + removed
         return not offenders, ("nothing pre-existing modified" if not offenders
-                               else "modified: %s" % ", ".join(offenders))
+                               else "modified/deleted: %s" % ", ".join(offenders))
     return False, "unknown check kind %r" % kind
 
 
-def record(spec, results, changed, artifacts, work, model):
+def _save_content(content_dir, dest, rel):
+    """Copy one changed/artifact file's CONTENT beside the result JSON, so the record stays
+    judgeable after the work directory (a Temp dir) is cleaned up. Text is saved as text
+    (readable, diffable); anything that fails UTF-8 decoding is saved as raw bytes with a
+    `.bin` suffix instead of corrupting it through a text encoding it does not have."""
+    src = os.path.join(dest, rel)
+    if not os.path.isfile(src):
+        return None
+    out_path = os.path.join(content_dir, rel)
+    parent = os.path.dirname(out_path)
+    if parent and not os.path.isdir(parent):
+        os.makedirs(parent)
+    with open(src, "rb") as fh:
+        data = fh.read()
+    try:
+        text = data.decode("utf-8")
+    except UnicodeDecodeError:
+        out_path += ".bin"
+        with open(out_path, "wb") as fh:
+            fh.write(data)
+    else:
+        with open(out_path, "w", encoding="utf-8", newline="") as fh:
+            fh.write(text)
+    return os.path.relpath(out_path, RESULTS).replace("\\", "/")
+
+
+def record(spec, results, changed, artifacts, deleted, work, dest, model):
     if not os.path.isdir(RESULTS):
         os.makedirs(RESULTS)
     stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     slug = re.sub(r"[^a-z0-9.-]+", "-", (model or "unknown").lower())
-    path = os.path.join(RESULTS, "%s-%s-%s.json" % (stamp, spec["name"], slug))
+    base = "%s-%s-%s" % (stamp, spec["name"], slug)
+    path = os.path.join(RESULTS, base + ".json")
+
+    # The absolute work path is a Temp-directory path that can carry a real username on some
+    # OSes (C:\Users\<name>\...); it is also useless once that Temp dir is cleaned up. Record
+    # only a non-sensitive, record-relative identifier - the work directory's own basename,
+    # which is already namespaced by the eval name and a random suffix from tempfile.mkdtemp.
+    work_id = os.path.basename(os.path.normpath(work))
+
+    saved = []
+    if changed or deleted:
+        content_dir = os.path.join(RESULTS, base + "-files")
+        for rel in changed:
+            saved_as = _save_content(content_dir, dest, rel)
+            if saved_as:
+                saved.append({"rel": rel, "status": "changed", "saved_as": saved_as})
+        for rel in deleted:
+            saved.append({"rel": rel, "status": "deleted", "saved_as": None})
+
     with open(path, "w", encoding="utf-8") as fh:
         json.dump({"eval": spec["name"], "model": model or "unknown", "when": stamp,
-                   "work": work, "changed": changed, "artifacts": artifacts,
+                   "work": work_id, "changed": changed, "artifacts": artifacts,
+                   "deleted": deleted, "content": saved,
                    "mechanical": results,
                    "mechanical_passed": all(r["ok"] for r in results),
                    "judged": None}, fh, indent=2)
     print("\n  recorded %s" % os.path.relpath(path, ROOT).replace("\\", "/"))
+    if saved:
+        print("  saved file content: %s" % os.path.relpath(
+            os.path.join(RESULTS, base + "-files"), ROOT).replace("\\", "/"))
     return path
 
 
@@ -311,8 +380,12 @@ def main(argv=None):
             for key in keys:
                 spec, _t = load_eval(name, key)
                 mech = len(spec["mechanical"])
-                print("%-20s %s  fixture=%s"
-                      % (spec["name"], ("%d mechanical box(es)" % mech) if mech
+                # Print the form the CLI actually accepts. `spec["name"]` is the record label
+                # (e.g. campaign-setup-B), not a valid --setup/--grade argument: scenarios are
+                # selected with the separate --scenario option.
+                invocation = name if key is None else "%s --scenario %s" % (name, key)
+                print("%-32s %s  fixture=%s"
+                      % (invocation, ("%d mechanical box(es)" % mech) if mech
                          else "judged only", spec["fixture"]))
         return 0
 
@@ -340,16 +413,16 @@ def main(argv=None):
         print("running agent: %s" % cmd)
         proc = subprocess.run(cmd, shell=True, cwd=dest)
         print("agent exited %d" % proc.returncode)
-        results, changed, artifacts = grade(spec, work)
+        results, changed, artifacts, deleted, dest = grade(spec, work)
         if args.record:
-            record(spec, results, changed, artifacts, work, args.model)
+            record(spec, results, changed, artifacts, deleted, work, dest, args.model)
         return 0 if all(r["ok"] for r in results) else 1
 
     if not args.work:
         ap.error("--grade needs --work (the directory --setup created)")
-    results, changed, artifacts = grade(spec, args.work)
+    results, changed, artifacts, deleted, dest = grade(spec, args.work)
     if args.record:
-        record(spec, results, changed, artifacts, args.work, args.model)
+        record(spec, results, changed, artifacts, deleted, args.work, dest, args.model)
     return 0 if all(r["ok"] for r in results) else 1
 
 

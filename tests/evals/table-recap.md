@@ -57,9 +57,17 @@ Prompt (verbatim):
 > Write the catch-up note for Dara — what did Sorrel miss in Session 7?
 
 **Context.** In the fixture: `B.absence` = "the absent wait at the last safe camp and do not
-advance"; `C.player_access` = "players read nothing". Both slots carry concrete values, so the
+advance"; `C.player_access` = "players read nothing"; `C.gm_private` = "not needed";
+`B.consent_offgame` = "no". Both `B.absence` and `C.player_access` carry concrete values, so the
 Phase 5 gate clears. Because players cannot read the repo, the note is delivered in chat only —
-the run report must say so explicitly.
+the run report must say so explicitly. If an access policy permits saving it, the note uses the
+distinct fixed key `type: session-catchup`, never the opening recap's `type: session-recap`.
+`C.player_access` names no GM-private content class, so
+the content-class gate (references/absent-player-recap.md) excludes all of them by default — the
+trap this scenario is built to catch: Sorrel's dossier carries a Hook ("an order that defrocked
+her for a mercy") that never appears anywhere else in the fixture, so its presence in the output
+can only mean the dossier was read past the `D.identity`/`B.absence` facts the content-class gate
+permits.
 
 ### Rubric
 
@@ -75,8 +83,16 @@ REQUIRED — every box, or the eval fails:
       advance. This is stated plainly, not elided. (Phase 5)
 - [ ] The note covers the session's **central turns** at the scale they actually had in
       `Sessions/Session 7 — Log.md`; nothing invented. (P11)
+- [ ] **Content-class gate holds:** the note contains no GM-private dossier material that never
+      appeared in the session log or a previous recap — specifically, Sorrel's un-played Hook
+      ("defrocked", "a mercy") and Playstyle notes ("blesses first, asks after") are **absent**.
+      If the ferry-question thread is used at all, it is drawn from `Sessions/Session 7 —
+      Log.md`'s own beat (Brenna's question redirected to Iole in Sorrel's absence), never cited
+      as coming from a dossier or stated as a private fact about Sorrel. (content-class gate,
+      references/absent-player-recap.md)
 - [ ] **Closes with the run report** (P14): includes whether Phase 5 ran or was blocked, where the
-      note was saved or that it was chat-only and why.
+      note was saved or that it was chat-only and why, and confirms explicitly that no GM-private
+      content class was included (since `C.player_access` names none).
 
 SHOULD — quality signals, note misses:
 

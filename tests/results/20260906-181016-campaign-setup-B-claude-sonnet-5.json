@@ -1,0 +1,21 @@
+{
+  "eval": "campaign-setup-B",
+  "model": "claude-sonnet-5",
+  "when": "20260906-181016",
+  "work": "eval-campaign-setup-B-s0l4c6vk",
+  "changed": [],
+  "artifacts": [],
+  "deleted": [],
+  "content": [],
+  "mechanical": [
+    {
+      "id": "no-file-written",
+      "cite": "W21b",
+      "ok": true,
+      "detail": "0 file(s) matching **/campaign-profile.md",
+      "why": "draft in chat sub-mode must not write files to the repo"
+    }
+  ],
+  "mechanical_passed": true,
+  "judged": "see tests/results/verdicts-C6.md - PASS 6/6 (second-model ruling by claude-opus-5 plus a mechanical re-verification, NOT a human verdict); deliverable preserved in tests/results/20260906-180948-campaign-setup-B-claude-sonnet-5-reply.md"
+}

@@ -82,8 +82,9 @@ written twice is a defect, not a preference. Checks E and G read slots, not defa
 ## Phase 1 — Read before auditing
 
 Package artifacts are located by their fixed `type:` frontmatter keys (`session-prep`,
-`session-log`, `session-recap`, `entity`, `dossier`, `campaign-arc`), never by filename — the
-same rule that finds a renamed profile.
+`session-log`, `session-recap`, `session-catchup`, `entity`, `dossier`, `campaign-arc`), never by
+filename — the same rule that finds a renamed profile. `session-catchup` is the privacy-gated
+player-facing recovery note; it is not a substitute for the opening `session-recap`.
 
 1. **The campaign state hub** (`C.hub`) — every value it asserts.
 2. **The last session log** — especially its frozen exit state.

@@ -296,8 +296,10 @@ class TestOwnership(CheckerCase):
             "SECTION-OWNERSHIP")
 
     def test_artifact_type_has_one_owner(self):
+        # `session-catchup` is a distinct package type owned by table-recap; a second skeleton
+        # claiming it must fail just like any other duplicate type.
         self.assert_fires(
-            append(PREP, "\n```markdown\ntype: session-log\n```\n"), "ARTIFACT-CONTRACT")
+            append(PREP, "\n```markdown\ntype: session-catchup\n```\n"), "ARTIFACT-CONTRACT")
 
     def test_skeleton_without_a_type_key(self):
         self.assert_fires(

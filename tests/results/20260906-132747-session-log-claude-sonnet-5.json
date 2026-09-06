@@ -2,7 +2,7 @@
   "eval": "session-log",
   "model": "claude-sonnet-5",
   "when": "20260906-132747",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-session-log-t_p70oos",
+  "work": "eval-session-log-t_p70oos",
   "changed": [
     "Dossiers/Ada \u2014 Maren.md",
     "Dossiers/Bruno \u2014 Tobit.md",
@@ -13,6 +13,39 @@
   ],
   "artifacts": [
     "Sessions/Session 7 \u2014 Log.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Dossiers/Ada \u2014 Maren.md",
+      "status": "changed",
+      "saved_as": "20260906-132747-session-log-claude-sonnet-5-files/Dossiers/Ada \u2014 Maren.md"
+    },
+    {
+      "rel": "Dossiers/Bruno \u2014 Tobit.md",
+      "status": "changed",
+      "saved_as": "20260906-132747-session-log-claude-sonnet-5-files/Dossiers/Bruno \u2014 Tobit.md"
+    },
+    {
+      "rel": "Dossiers/Cleo \u2014 Iole.md",
+      "status": "changed",
+      "saved_as": "20260906-132747-session-log-claude-sonnet-5-files/Dossiers/Cleo \u2014 Iole.md"
+    },
+    {
+      "rel": "Hub.md",
+      "status": "changed",
+      "saved_as": "20260906-132747-session-log-claude-sonnet-5-files/Hub.md"
+    },
+    {
+      "rel": "Sessions/Session 7 \u2014 Log.md",
+      "status": "changed",
+      "saved_as": "20260906-132747-session-log-claude-sonnet-5-files/Sessions/Session 7 \u2014 Log.md"
+    },
+    {
+      "rel": "Threads.md",
+      "status": "changed",
+      "saved_as": "20260906-132747-session-log-claude-sonnet-5-files/Threads.md"
+    }
   ],
   "mechanical": [
     {

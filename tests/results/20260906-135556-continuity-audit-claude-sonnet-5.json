@@ -2,12 +2,20 @@
   "eval": "continuity-audit",
   "model": "claude-sonnet-5",
   "when": "20260906-135556",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-continuity-audit-pnorb0co",
+  "work": "eval-continuity-audit-pnorb0co",
   "changed": [
     "Continuity Audit \u2014 Session 7.md"
   ],
   "artifacts": [
     "Continuity Audit \u2014 Session 7.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Continuity Audit \u2014 Session 7.md",
+      "status": "changed",
+      "saved_as": "20260906-135556-continuity-audit-claude-sonnet-5-files/Continuity Audit \u2014 Session 7.md"
+    }
   ],
   "mechanical": [
     {

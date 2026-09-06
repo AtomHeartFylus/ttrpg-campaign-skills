@@ -7,7 +7,101 @@ Skill versions live in each skill's `metadata.version`, the package's own number
 entries here are grouped by change, newest first. A schema change always carries a **Migration**
 note. What each part of a version means, and how a release is cut: [`docs/RELEASING.md`](docs/RELEASING.md).
 
-## Unreleased
+## 2.0.0 — behaviour measured, not just form
+
+- **The absent-player catch-up now has its own artifact type, and the recap entrypoint keeps only
+  the length rule.** `ttrpg-table-recap`'s privacy-gated Phase 5 used to label a catch-up note
+  `type: session-recap`, which let a consumer locating artifacts by fixed type mistake a player
+  recovery note for the opening recap. Catch-ups now carry `type: session-catchup`, added to the
+  package artifact contract. The detailed one-way length-ceiling procedure moved to
+  `references/length-ceiling.md`, leaving the Phase 2 entrypoint with the measurable rule and a
+  local pointer; the entrypoint remains under `ENTRYPOINT-BUDGET`. *Lesson: a fixed type is a
+  dispatch key, not a loose label — two artifacts with different privacy and audience contracts
+  cannot share it merely because one is a variant of the other.* `metadata.version`:
+  `ttrpg-table-recap` 2.3 -> 2.4.
+  **Migration:** the package artifact contract now includes `session-catchup`; campaigns that
+  save an absent-player note should use that key instead of `session-recap`. No profile slot was
+  added or renamed, but this is a package contract change and belongs to the next major release.
+
+- **The three `EXAMPLE-DRIFT` warnings and the `EVAL-RECHECK` for `ttrpg-entity-note` are
+  consciously accepted, not forgotten.** Against `v1.2.0`, `ttrpg-entity-note` and
+  `ttrpg-session-prep` only moved their Phase 0 slot-degradation material verbatim and marked the
+  remaining gates; their artifact skeletons and required-element lists did not change. For the
+  same reason, `tests/evals/entity-note.md` was not changed: `EVAL-RECHECK` fires on any
+  `SKILL.md` diff, while this diff touches no phase, branch or required element. `ttrpg-table-recap`
+  added a verification-procedure refinement and a separate `session-catchup` artifact, neither of
+  which belongs in the main recap example. Updating `references/example-recap.md` merely to silence
+  the heuristic would make it less faithful to the skeleton it demonstrates. The warnings remain a
+  review prompt, not release blockers; the future question is whether `session-catchup` earns its
+  own worked example.
+  *Lesson: `EXAMPLE-DRIFT` and `EVAL-RECHECK` compare changed files, not skeleton content, so a
+  recurring warning needs a recorded content-level decision or it becomes noise that reviewers
+  learn to skip.*
+
+- **The bundled link checker no longer trusts a path outside the campaign root.**
+  `scripts/check_links.py` (bundled byte-identically at
+  `skills/ttrpg-campaign-setup/references/check_links.py`, the `C.verify` tool this skill
+  proposes) resolved a slash wikilink or a relative markdown link that climbed above the root with
+  `../` — or started with `/`, which `os.path.join` silently treats as filesystem-absolute — by
+  checking whatever real file that path happened to reach, anywhere on the machine that ran the
+  check. Both forms are now rejected as `broken` whenever the resolved target normalizes to
+  outside the campaign root, even when a file genuinely exists there; a leading `/` is now treated
+  as rooted at the *campaign* root, matching how a slash wikilink already worked. Markdown links
+  also gained the optional-title forms CommonMark allows — `[text](path.md "Title")`,
+  `[text](path.md 'Title')`, `[text](<path.md> "Title")` — which previously failed to match the
+  link regex at all and were silently never checked. *Lesson: a link checker that walks directories
+  by hand (for the case-mismatch check) has to say explicitly where it refuses to walk, or `../../`
+  is a working escape hatch out of the one boundary the tool exists to enforce — and a regex that
+  cannot parse a valid link form is a link this checker was silently not checking, which is worse
+  than reporting it broken.* `metadata.version`: `ttrpg-campaign-setup` 1.16 -> 1.17 (the bundled
+  copy changed; its own `SKILL.md` text did not). No migration: no slot changed, `C.verify`'s
+  contract ("0 broken links") is unchanged.
+
+- **W23 follow-up — the catch-up phase read `C.player_access` as a save location and never as
+  a content-class filter.** `ttrpg-table-recap`'s Phase 5 correctly gated *whether* the note ran on
+  `B.absence`/`C.player_access`, but once it cleared, the reference procedure pointed the writer at
+  "the dossiers" undifferentiated — Playstyle, Hooks and (had consent allowed one) the off-game
+  note were exactly as reachable as the `D.identity` mapping and the `B.absence` fact the note
+  actually needs. `references/absent-player-recap.md` now reads `C.player_access` and
+  `C.gm_private` as a **content-class policy**: dossier Playstyle, dossier Hooks, off-game entries
+  and raw transcript facts are excluded from a Phase 5 note **by default**, and only an explicit,
+  named permission in `C.player_access` admits one of them — an ordinary "players may read recaps
+  and logs" value reaches none of the four. No consent is inferred and no new gate was added:
+  `B.absence`/`C.player_access` still gate whether Phase 5 runs at all, unchanged. *Lesson: a
+  two-slot go/no-go gate at the top of a phase can be exactly right and still leave the phase's
+  body reading a source (a player dossier) that carries several content classes at once with no
+  per-class rule — gating access to the phase is not the same question as gating what the phase,
+  once running, is allowed to pull out of what it reads.* `metadata.version`:
+  `ttrpg-table-recap` 2.1 -> 2.2. No migration: no slot added, `C.player_access`/`C.gm_private`
+  already existed and are read the same way everywhere else that reads them.
+
+- **W23 — the absent-player catch-up is a gated phase, not a freebie (retroactive entry).**
+  `ttrpg-table-recap` gained Phase 5 (`references/absent-player-recap.md`), run only on explicit
+  request ("write the catch-up for Dara"), never automatically. It is gated on two slots read as
+  content-class policy, not merely "where to save": `B.absence` (the in-fiction convention for
+  absent characters) and `C.player_access` (what players may read). Either empty or `deferred:
+  <when>` blocks the phase and is reported in the run report; the phase never guesses a value for
+  either. `E.overrides`'s `P12 — off` now explicitly applies to both the main recap and the
+  absent-player note. *Lesson: a "just tell the absent player what they missed" feature looks
+  harmless until it is asked to summarise session content for someone who was not at the table —
+  at that point it is a privacy decision (what crosses from the room to a person who wasn't in it),
+  not a formatting one, and it needs the same two-slot gate as everything else in this package that
+  touches who gets to read what.* `metadata.version`: `ttrpg-table-recap` 1.9 -> 2.0. No migration:
+  no slot added, both slots already existed in the schema.
+
+- **W22 — the substrate is a capability contract, not a tool contract (retroactive entry).**
+  Reworded `AGENTS.md`, `README.md`, `SECURITY.md` and `docs/PRIVACY.md` to state precisely what
+  this package requires of its storage: a local folder an agent can list, read and write, with
+  stable file paths — not version control. Version control stays a **strong recommendation** (the
+  only reliable recovery path from a bad write, and the only basis for enforcing `C.portability`),
+  but a GM working from a plain, unversioned folder can use every skill; they accept that a bad
+  write becomes permanent. `ttrpg-campaign-setup`'s Phase 0 wording changed from treating missing
+  version control as blocking the portability rule to flagging and recommending it. *Lesson: the
+  package had quietly hardened "recommended" into "required" in several places (`git`, "your git
+  history", "version-control-ignored folder") without that ever being a decision anyone took —
+  `SECURITY.md`'s threat model and `docs/PRIVACY.md`'s retention guidance both need to describe
+  what actually happens to an unversioned folder, not assume a safety net that a real table may not
+  have.* `metadata.version`: `ttrpg-campaign-setup` 1.14 -> 1.15. No migration: no slot changed.
 
 - **W21b — first-run bootstrap without a full profile.** Added conversational
   "draft in chat" sub-mode when `E.deliverable` is set to `draft in chat` (or no repo path is

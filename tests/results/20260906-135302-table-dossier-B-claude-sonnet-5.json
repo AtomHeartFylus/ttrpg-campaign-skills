@@ -2,13 +2,26 @@
   "eval": "table-dossier-B",
   "model": "claude-sonnet-5",
   "when": "20260906-135302",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-table-dossier-B-1x8qm87z",
+  "work": "eval-table-dossier-B-1x8qm87z",
   "changed": [
     "Dossiers/Enzo.md",
     "campaign-profile.md"
   ],
   "artifacts": [
     "Dossiers/Enzo.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Dossiers/Enzo.md",
+      "status": "changed",
+      "saved_as": "20260906-135302-table-dossier-B-claude-sonnet-5-files/Dossiers/Enzo.md"
+    },
+    {
+      "rel": "campaign-profile.md",
+      "status": "changed",
+      "saved_as": "20260906-135302-table-dossier-B-claude-sonnet-5-files/campaign-profile.md"
+    }
   ],
   "mechanical": [
     {

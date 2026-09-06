@@ -2,7 +2,7 @@
   "eval": "campaign-setup",
   "model": "claude-sonnet-5",
   "when": "20260906-133541",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-campaign-setup-fv8s63s4",
+  "work": "eval-campaign-setup-fv8s63s4",
   "changed": [
     "Hub.md",
     "Threads.md",
@@ -10,6 +10,24 @@
   ],
   "artifacts": [
     "campaign-profile.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Hub.md",
+      "status": "changed",
+      "saved_as": "20260906-133541-campaign-setup-claude-sonnet-5-files/Hub.md"
+    },
+    {
+      "rel": "Threads.md",
+      "status": "changed",
+      "saved_as": "20260906-133541-campaign-setup-claude-sonnet-5-files/Threads.md"
+    },
+    {
+      "rel": "campaign-profile.md",
+      "status": "changed",
+      "saved_as": "20260906-133541-campaign-setup-claude-sonnet-5-files/campaign-profile.md"
+    }
   ],
   "mechanical": [
     {

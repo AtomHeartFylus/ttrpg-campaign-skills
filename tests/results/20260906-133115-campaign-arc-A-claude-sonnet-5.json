@@ -2,12 +2,20 @@
   "eval": "campaign-arc-A",
   "model": "claude-sonnet-5",
   "when": "20260906-133115",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-campaign-arc-A-zd1z57d4",
+  "work": "eval-campaign-arc-A-zd1z57d4",
   "changed": [
     "Arc.md"
   ],
   "artifacts": [
     "Arc.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Arc.md",
+      "status": "changed",
+      "saved_as": "20260906-133115-campaign-arc-A-claude-sonnet-5-files/Arc.md"
+    }
   ],
   "mechanical": [
     {

@@ -47,8 +47,10 @@ RULES = [
     Rule("OVERLAY-SLOT", "error",
          "it cites a slot id the schema does not define, or a numeric section (schema 1)"),
     Rule("OVERLAY-PRINCIPLE", "error",
-         "it cites a Pn that does not exist, or switches off a non-overridable one (P1, P2, "
-         "P3, P10, P11) - `E.overrides` in the profile is the only place that decision lives"),
+         "it cites a Pn that does not exist, or switches off one of the package's "
+         "non-overridable principles (the 'Requirements' set named at the top of "
+         "docs/PRINCIPLES.md) - `E.overrides` in the profile is the only place that decision "
+         "lives"),
     Rule("OVERLAY-LINK", "error",
          "a link leaves the overlay folder or points at nothing - an overlay is installed "
          "alone, exactly like a base skill"),
@@ -63,7 +65,10 @@ RULE_CODES = [r.code for r in RULES]
 
 SIZE_LIMIT = 120                       # "a page", generously
 ALLOWED_KEYS = {"name", "description", "license", "allowed-tools", "compatibility", "metadata"}
-NOT_OVERRIDABLE = ("P1", "P2", "P3", "P10", "P11")
+# The non-overridable set (P1, P2, P3, P10, P11, P14, P15 as of this writing) is NOT hardcoded
+# here - see load_not_overridable() below, which parses it from docs/PRINCIPLES.md's own
+# "Requirements" line so the two can never drift apart silently.
+REQUIREMENTS_LINE = re.compile(r"\*\*Requirements\b.*?\*\*", re.S)
 SLOT_ID = re.compile(r"(?<![A-Za-z0-9.])([A-E]\.[a-z_]{2,})")
 LEGACY = re.compile("\u00a7\\s*\\d")
 PN = re.compile(r"(?<![A-Za-z0-9])P(\d{1,2})(?![0-9A-Za-z])")
@@ -93,6 +98,25 @@ def load_contracts(schema_path, principles_path):
     return slots, principles
 
 
+def load_not_overridable(principles_path):
+    """Parse the non-overridable principle set from docs/PRINCIPLES.md's own "Requirements —
+    P1, P2, ..." line, instead of hardcoding it here where it can silently drift from the real
+    document (this is exactly the bug that once let this file miss P14 and P15). Never falls
+    back to a hardcoded default: a document this cannot parse is a validator that no longer
+    knows what it is enforcing, and must fail loudly instead of guessing."""
+    text = _read(principles_path)
+    m = REQUIREMENTS_LINE.search(text)
+    if not m:
+        sys.exit("fatal: could not find a 'Requirements' line in %s - the non-overridable "
+                  "principle set cannot be determined, refusing to validate with a guessed or "
+                  "stale list" % principles_path)
+    ids = tuple(re.findall(r"P\d{1,2}", m.group(0)))
+    if not ids:
+        sys.exit("fatal: the 'Requirements' line in %s names no Pn principles - refusing to "
+                  "validate with an empty non-overridable set" % principles_path)
+    return ids
+
+
 def find_overlays(path):
     if os.path.isfile(path):
         return [path]
@@ -107,7 +131,7 @@ def find_overlays(path):
     return found
 
 
-def validate_one(path, slots, principles, rep, base_skills=()):
+def validate_one(path, slots, principles, rep, base_skills=(), not_overridable=()):
     src = _read(path)
     folder = os.path.basename(os.path.dirname(os.path.abspath(path)))
     where = os.path.relpath(path).replace("\\", "/")
@@ -198,7 +222,7 @@ def validate_one(path, slots, principles, rep, base_skills=()):
         low = line.lower()
         if re.search(r"\b(off|ignore|disable|drop)\b", low):
             for pn in PN.findall(line):
-                if "P" + pn in NOT_OVERRIDABLE:
+                if "P" + pn in not_overridable:
                     rep.err("OVERLAY-PRINCIPLE", "%s:%d" % (where, i),
                             "P%s is not overridable, and an overlay is not where an override "
                             "lives anyway - `E.overrides` in the profile is" % pn)
@@ -258,6 +282,7 @@ def main(argv=None):
             ap.error("unknown rule(s): %s (see --list)" % ", ".join(unknown))
 
     slots, principles = load_contracts(args.schema, args.principles)
+    not_overridable = load_not_overridable(args.principles)
     skills_dir = os.path.join(ROOT, "skills")
     base_skills = tuple(sorted(d for d in os.listdir(skills_dir)
                                if os.path.isdir(os.path.join(skills_dir, d)))) \
@@ -266,7 +291,7 @@ def main(argv=None):
     rep = Report(only)
     overlays = find_overlays(args.target)
     for path in overlays:
-        validate_one(path, slots, principles, rep, base_skills)
+        validate_one(path, slots, principles, rep, base_skills, not_overridable)
     failed = bool(rep.errors) or (args.strict and bool(rep.warnings))
 
     if args.format == "json":

@@ -2,12 +2,20 @@
   "eval": "session-prep-B",
   "model": "claude-sonnet-5",
   "when": "20260906-134136",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-session-prep-B-c7tvtggi",
+  "work": "eval-session-prep-B-c7tvtggi",
   "changed": [
     "Sessions/Session 8 \u2014 What Rises With the Water.md"
   ],
   "artifacts": [
     "Sessions/Session 8 \u2014 What Rises With the Water.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Sessions/Session 8 \u2014 What Rises With the Water.md",
+      "status": "changed",
+      "saved_as": "20260906-134136-session-prep-B-claude-sonnet-5-files/Sessions/Session 8 \u2014 What Rises With the Water.md"
+    }
   ],
   "mechanical": [
     {

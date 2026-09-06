@@ -141,7 +141,8 @@ Decisions already taken. Reopen them deliberately, do not re-litigate them by ac
   Consent slots (`B.consent_*`, `B.safety`, `B.retention`, `B.frame`) are not defaults and no
   override reaches them.
 - **Package artifacts carry a fixed `type:` frontmatter key** (`session-prep`, `session-log`,
-  `session-recap`, `entity`, `dossier`, `campaign-arc` — plus the schema's `campaign-profile`):
+  `session-recap`, `session-catchup`, `entity`, `dossier`, `campaign-arc` — plus the schema's
+  `campaign-profile`):
   the cross-skill contract that lets one skill find another's artifact whatever the campaign
   names the file, exactly as a renamed profile is found by `type: campaign-profile`. The key is
   the package's, not a `C.frontmatter` convention; `ARTIFACT-CONTRACT` enforces presence and

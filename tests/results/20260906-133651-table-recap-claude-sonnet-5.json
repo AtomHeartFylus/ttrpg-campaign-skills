@@ -2,12 +2,20 @@
   "eval": "table-recap",
   "model": "claude-sonnet-5",
   "when": "20260906-133651",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-table-recap-thhgeq5a",
+  "work": "eval-table-recap-thhgeq5a",
   "changed": [
     "Sessions/Session 8 \u2014 Recap.md"
   ],
   "artifacts": [
     "Sessions/Session 8 \u2014 Recap.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Sessions/Session 8 \u2014 Recap.md",
+      "status": "changed",
+      "saved_as": "20260906-133651-table-recap-claude-sonnet-5-files/Sessions/Session 8 \u2014 Recap.md"
+    }
   ],
   "mechanical": [
     {

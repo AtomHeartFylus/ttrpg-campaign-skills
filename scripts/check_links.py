@@ -14,9 +14,18 @@ schema existed, and until now the package did not ship one. It checks:
   target that already carries an extension (`[[map.png]]`, `![[Session 1.m4a]]`, an *embed*, `!`
   or not) matches any file of that exact name anywhere under the root. A same-file heading
   reference (`[[#Heading]]`, empty target) has nothing across files to resolve and is not checked.
-- Markdown links `[text](relative/path.md)` and `[text](<relative/path with spaces.md>)`,
-  relative to the folder of the file that contains them (`![...]` image embeds are not links and
-  are skipped - wikilink embeds are handled above instead).
+- Markdown links `[text](relative/path.md)`, `[text](<relative/path with spaces.md>)`, and
+  either form followed by an optional title - `[text](path.md "Title")`, `[text](path.md 'Title')`,
+  `[text](<path.md> "Title")` - relative to the folder of the file that contains them (`![...]`
+  image embeds are not links and are skipped - wikilink embeds are handled above instead).
+
+Both link forms are checked against the **campaign root**: a slash wikilink (`[[Folder/Note]]`)
+or a relative markdown link whose target normalizes to somewhere outside the root - via `../`
+climbing above it, or a leading `/` treated as the filesystem root rather than the vault root -
+is reported as `broken`, even if a file happens to exist there on disk. A link is a claim about
+something *in this vault*; a path that resolves outside it is not a link this checker can vouch
+for, and silently treating it as filesystem-absolute is how a vault ends up depending on the
+layout of the machine that checked it.
 
 Matching is **case-insensitive** (a vault moves between Windows/macOS and a case-sensitive Linux
 CI without warning): a target that resolves only by a different case is reported as its own
@@ -44,10 +53,13 @@ import urllib.parse
 
 WIKILINK = re.compile(r"\[\[([^\]|#]*)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]")
 # Not an image embed (no leading "!"); target must end .md, optionally with a #heading, bare or
-# wrapped in <...> (the CommonMark escape for a path containing spaces or parentheses).
+# wrapped in <...> (the CommonMark escape for a path containing spaces or parentheses), and may
+# be followed by an optional title in "double" or 'single' quotes - title text is captured but
+# discarded, never treated as part of the target.
+TITLE = r"(?:\s+(?:\"[^\"]*\"|'[^']*'))?"
 MDLINK = re.compile(
-    r"(?<!!)\[[^\]]*\]\(\s*<([^<>]+?\.md(?:#[^<>]*)?)>\s*\)"
-    r"|(?<!!)\[[^\]]*\]\(\s*([^<>()\s]+\.md(?:#[^()\s]*)?|[^<>()]+?\.md(?:#[^()]*)?)\s*\)"
+    r"(?<!!)\[[^\]]*\]\(\s*<([^<>]+?\.md(?:#[^<>]*)?)>" + TITLE + r"\s*\)"
+    r"|(?<!!)\[[^\]]*\]\(\s*([^<>()\s][^<>()]*?\.md(?:#[^()]*)?)" + TITLE + r"\s*\)"
 )
 FENCE = re.compile(r"^\s*(```+|~~~+)")
 INLINE_CODE = re.compile(r"`[^`\n]+`")
@@ -113,16 +125,31 @@ def _lookup(index, key):
     return True, exact
 
 
+def _within_root(path, root):
+    """True if `path` normalizes to somewhere inside `root` (root itself included)."""
+    root_norm = os.path.normpath(os.path.abspath(root))
+    path_norm = os.path.normpath(os.path.abspath(path))
+    try:
+        return os.path.commonpath([root_norm, path_norm]) == root_norm
+    except ValueError:
+        # Different drives on Windows - definitely not inside root.
+        return False
+
+
 def resolve_wikilink(target, root, by_stem, by_name):
     """-> None (fine), 'case-mismatch', or 'broken'."""
     target = nfc(target.strip())
     if not target:
         return None  # same-file heading reference, nothing across files to check
     if "/" in target or "\\" in target:
-        rel = target.replace("\\", "/")
+        # A leading slash is treated as rooted at the CAMPAIGN root, never the filesystem root -
+        # os.path.join would otherwise silently discard `root` and resolve against "/".
+        rel = target.replace("\\", "/").lstrip("/")
         if not EXT_RE.search(rel):
             rel += ".md"
-        candidate = os.path.join(root, rel)
+        candidate = os.path.normpath(os.path.join(root, rel))
+        if not _within_root(candidate, root):
+            return "broken"
         return None if os.path.isfile(candidate) else "broken"
     if EXT_RE.search(target):
         exists, exact = _lookup(by_name, target)
@@ -133,15 +160,22 @@ def resolve_wikilink(target, root, by_stem, by_name):
     return None if exact else "case-mismatch"
 
 
-def resolve_mdlink(target, file_path):
+def resolve_mdlink(target, file_path, root):
     """-> None (fine), 'case-mismatch', or 'broken'. Walks the target component by component -
     a case mismatch in a DIRECTORY name is exactly as fragile on a case-sensitive filesystem as
-    one in the final file name, and checking only the basename missed it."""
+    one in the final file name, and checking only the basename missed it. Every step, and the
+    final target, must stay inside `root`: a target that climbs above it with `../../` or that
+    starts with `/` (treated as rooted at the CAMPAIGN root, never the filesystem root) is
+    'broken', even when a file happens to exist at the escaped path on disk."""
     target = urllib.parse.unquote(target.split("#", 1)[0])
     if SCHEME.match(target):
         return None  # a URL that happens to end in .md is not a vault link
     target = nfc(target)
-    directory = os.path.normpath(os.path.dirname(file_path))
+    if target.startswith("/") or target.startswith("\\"):
+        directory = os.path.normpath(root)
+        target = target.lstrip("/\\")
+    else:
+        directory = os.path.normpath(os.path.dirname(file_path))
     rel = os.path.normpath(os.path.join(directory, target))
     try:
         rel_from_dir = os.path.relpath(rel, directory)
@@ -153,6 +187,8 @@ def resolve_mdlink(target, file_path):
     for part in parts:
         if part == "..":
             cursor = os.path.dirname(cursor)
+            if not _within_root(cursor, root):
+                return "broken"
             continue
         try:
             entries = os.listdir(cursor)
@@ -168,6 +204,8 @@ def resolve_mdlink(target, file_path):
             return "broken"
         saw_mismatch = True
         cursor = os.path.join(cursor, casefold_matches[0])
+    if not _within_root(cursor, root):
+        return "broken"
     return "case-mismatch" if saw_mismatch else None
 
 
@@ -192,7 +230,7 @@ def scan(root):
             for m in MDLINK.finditer(line):
                 total_links += 1
                 target = m.group(1) or m.group(2)
-                verdict = resolve_mdlink(target, path)
+                verdict = resolve_mdlink(target, path, root)
                 if verdict:
                     entry = {"file": rel, "line": lineno, "target": target, "kind": "mdlink"}
                     (broken if verdict == "broken" else mismatches).append(entry)

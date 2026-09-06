@@ -80,19 +80,26 @@ valid package; the installer only **copies** folders:
 
 ```sh
 # Windows (PowerShell, from the repo root)
-./install.ps1 -Target "$HOME/.agents/skills"        # -DryRun / -Uninstall also exist
+./install.ps1 -Target "$HOME/.agents/skills"        # -DryRun / -Uninstall / -Force also exist
 # if the host policy is Restricted:
 #   powershell -ExecutionPolicy Bypass -File ./install.ps1 -Target "$HOME/.agents/skills"
 
 # macOS / Linux
 ./install.sh ~/.agents/skills          # or: sh install.sh ~/.agents/skills
 ./install.sh ~/.agents/skills --dry-run     # say what would happen, touch nothing
-./install.sh ~/.agents/skills --uninstall   # remove exactly what was installed
+./install.sh ~/.agents/skills --uninstall   # remove exactly what this package installed
+./install.sh ~/.agents/skills --force       # also replace folders this install doesn't own
 ```
 
-The installer writes a small manifest (package, version, commit, source) beside the skills, and
-`python scripts/check_install.py ~/.agents/skills` says whether that copy is current and whether
-anything was edited in place — the drift you would otherwise discover by losing it.
+The installer writes a small manifest (package, version, commit, source, and a `skill: <name>`
+line per installed folder) beside the skills, and `python scripts/check_install.py
+~/.agents/skills` says whether that copy is current and whether anything was edited in place —
+the drift you would otherwise discover by losing it. The manifest is also how the installer tells
+an **unmanaged name collision** — a folder it did not create, e.g. hand-placed or from another
+package — from one it owns: an unmanaged collision is left untouched and the run exits non-zero
+unless you pass `--force`/`-Force`. `--uninstall`/`-Uninstall` only ever removes folders the
+manifest lists by name, and refuses to run at all against a missing manifest or a legacy one
+without `skill:` entries, rather than guess which folders in the target are ours.
 
 Keeping the repo as the **canonical copy** and re-running the installer after a change means a fix
 travels to every machine and every harness you use. **Edit the repo, never the installed copy:**

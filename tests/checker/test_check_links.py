@@ -224,6 +224,87 @@ class LinkCheckerCase(unittest.TestCase):
         code, out, _err = run(root)
         self.assertEqual(code, 0, out)
 
+    # ---------- C5: markdown link titles ----------
+
+    def test_markdown_link_with_double_quoted_title_resolves(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", '[t](Note.md "A Title")\n')
+        write(root, "Note.md", "# Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    def test_markdown_link_with_single_quoted_title_resolves(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[t](Note.md 'A Title')\n")
+        write(root, "Note.md", "# Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    def test_angle_bracket_markdown_link_with_title_resolves(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", '[t](<My Note.md> "A Title")\n')
+        write(root, "My Note.md", "# Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    def test_markdown_link_with_title_and_missing_file_is_broken(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", '[t](Missing.md "A Title")\n')
+        code, out, _err = run(root)
+        self.assertEqual(code, 1, out)
+        self.assertIn("Missing.md", out)
+
+    # ---------- outside the campaign root ----------
+
+    def test_slash_wikilink_climbing_above_root_is_broken(self):
+        root = self.mini_repo()
+        # A real file exists one level above `root` on disk - proves this is rejected as
+        # outside-root, not merely "file not found".
+        with open(os.path.join(os.path.dirname(root), "Outside.md"), "w",
+                  encoding="utf-8") as fh:
+            fh.write("# Outside\n")
+        self.addCleanup(os.remove, os.path.join(os.path.dirname(root), "Outside.md"))
+        write(root, "Hub.md", "[[../Outside]]\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 1, out)
+        self.assertIn("../Outside", out)
+
+    def test_slash_wikilink_with_leading_slash_stays_rooted_at_campaign_root(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[[/Entities/Entity One]]\n")
+        write(root, "Entities/Entity One.md", "# Entity One\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    def test_relative_markdown_link_climbing_above_root_is_broken(self):
+        root = self.mini_repo()
+        with open(os.path.join(os.path.dirname(root), "Outside.md"), "w",
+                  encoding="utf-8") as fh:
+            fh.write("# Outside\n")
+        self.addCleanup(os.remove, os.path.join(os.path.dirname(root), "Outside.md"))
+        write(root, "Hub.md", "[t](../Outside.md)\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 1, out)
+        self.assertIn("../Outside.md", out)
+
+    def test_relative_markdown_link_leading_slash_stays_rooted_at_campaign_root(self):
+        root = self.mini_repo()
+        write(root, "Sub/Hub.md", "[t](/Entities/Entity One.md)\n")
+        write(root, "Entities/Entity One.md", "# Entity One\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    def test_relative_markdown_link_deep_climb_above_root_is_broken(self):
+        root = self.mini_repo()
+        with open(os.path.join(os.path.dirname(root), "Outside.md"), "w",
+                  encoding="utf-8") as fh:
+            fh.write("# Outside\n")
+        self.addCleanup(os.remove, os.path.join(os.path.dirname(root), "Outside.md"))
+        write(root, "A/B/Hub.md", "[t](../../../Outside.md)\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 1, out)
+        self.assertIn("Outside.md", out)
+
 
 class FixtureCampaignCase(unittest.TestCase):
     """Runs the shipped checker against the real fixture. Never mutated: the fixture is dirty
