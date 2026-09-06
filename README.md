@@ -50,14 +50,28 @@ The skills form a closed cycle:
 
 ```
    setup ──► table-dossier ──► session-prep ──► [PLAY] ──► session-audio ──► session-log
-                                    ▲                                            │
-                                    └──────── table-recap ◄──────────────────────┘
+                                    ▲              │                              │
+                                    │              ▼                              │
+                                    │        entity-note (whenever prep, play or   │
+                                    │        a log names something that needs      │
+                                    │        its own note)                        │
+                                    └──────── table-recap ◄──────────────────────────┘
               campaign-arc and continuity-audit run across the whole loop
 ```
+
+`ttrpg-entity-note` is not a numbered step: it runs whenever any other step in the loop names an
+NPC, place, faction, item or creature that needs its own note, and is the skill `ttrpg-session-log`
+hands its list of un-noted names to (P13) and `ttrpg-campaign-arc`/`ttrpg-continuity-audit` check
+admission against.
 
 ---
 
 ## Install
+
+**Prerequisites:** `git` (to clone this repo and, ideally, to version your own campaign repo too),
+a shell — `sh`/`bash` on macOS and Linux, PowerShell on Windows — to run the installer and the
+scripts, and Python 3.9+ with **nothing beyond its standard library** to run every script in
+`scripts/` and `tests/`. Nothing else to install, on any platform.
 
 Skills are plain folders with a `SKILL.md`. Everything a skill needs to stand alone is **checked
 into the repo**, not generated at install time — each skill carries its own copy of the principles,
@@ -89,6 +103,10 @@ canonical), but it surprises people once.
 ---
 
 ## Adopting them for your campaign
+
+**One campaign is one repo with one `campaign-profile.md`.** A second table, even the same system
+and the same GM, is a second repo with its own profile — slots do not merge across campaigns, and
+an overlay belongs to exactly one of them.
 
 1. Run `ttrpg-campaign-setup` — it creates (or audits) the repo skeleton and walks you
    through `campaign-profile.md`.

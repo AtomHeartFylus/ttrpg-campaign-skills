@@ -9,6 +9,15 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **README: prerequisites, repo scope, and the missing skill in the cycle diagram.** §Install
+  now opens with what you need before anything else — `git`, a shell, Python 3.9+ stdlib-only
+  — and what each is for. §"Adopting them for your campaign" states plainly that one campaign is
+  one repo with one profile, and a second table is a second repo, never a merge. The cycle diagram
+  gains `ttrpg-entity-note`, which never had a place in it despite being one of the nine skills.
+  *Lesson: three separate readers hit three separate gaps in the same file — what to install
+  before trying anything, whether two tables share one profile, and where the tenth-looking skill
+  actually sits — none of which needed a behavioural change, only a sentence each.* No skill
+  version bump: README only, no schema change.
 - **Three player-lifecycle events the dossier skill never named:** `references/session-zero.md`
   gains "Beyond session zero" — a new player joining mid-campaign (a partial session zero: what
   they read is capped at what `C.player_access` already permits everyone, their hook becomes a
