@@ -4,11 +4,12 @@
     python3 scripts/sync_bundles.py            # write the copies, report what changed
     python3 scripts/sync_bundles.py --check    # exit 1 if anything is out of date, write nothing
 
-Eleven files in this package are byte-identical copies of three canonical ones:
+Twelve files in this package are byte-identical copies of four canonical ones:
 
     docs/PRINCIPLES.md            -> skills/*/references/PRINCIPLES.md      (one per skill)
     templates/campaign-profile.md -> skills/ttrpg-campaign-setup/references/campaign-profile.md
     scripts/check_links.py        -> skills/ttrpg-campaign-setup/references/check_links.py
+    templates/overlay-SKILL.md    -> skills/ttrpg-campaign-setup/references/overlay-SKILL.md
 
 They are **checked-in content, not installer output** (installation copies a skill folder
 alone, so a clone with a dangling link is not a package) - but a copy maintained by hand is a
@@ -40,6 +41,9 @@ def targets(root):
     check_links = os.path.join(root, "scripts", "check_links.py")
     pairs.append((check_links, os.path.join(skills, SETUP_SKILL, "references",
                                             "check_links.py")))
+    overlay_tmpl = os.path.join(root, "templates", "overlay-SKILL.md")
+    pairs.append((overlay_tmpl, os.path.join(skills, SETUP_SKILL, "references",
+                                             "overlay-SKILL.md")))
     return pairs
 
 

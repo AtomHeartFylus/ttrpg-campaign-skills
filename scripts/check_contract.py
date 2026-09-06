@@ -40,7 +40,8 @@ SETUP_SKILL = "ttrpg-campaign-setup"
 # Historically the installer materialised this file, so a link to it was valid even when the
 # checkout lacked it. It is checked-in content now (see BUNDLE-IDENTICAL), and this whitelist
 # only keeps LINK-BROKEN from reporting a second time what that check already owns.
-INSTALL_MATERIALISED = {"references/PRINCIPLES.md", "references/check_links.py"}
+INSTALL_MATERIALISED = {"references/PRINCIPLES.md", "references/check_links.py",
+                        "references/overlay-SKILL.md"}
 
 # Headings every skill legitimately shares: they structure the skill itself, they are
 # not claims on a campaign artifact. Only collisions OUTSIDE this set are ownership bugs.
@@ -165,6 +166,9 @@ class Repo(object):
         self.check_links = os.path.join(self.root, "scripts", "check_links.py")
         self.bundled_check_links = os.path.join(
             self.skills, SETUP_SKILL, "references", "check_links.py")
+        self.overlay_template = os.path.join(self.root, "templates", "overlay-SKILL.md")
+        self.bundled_overlay_template = os.path.join(
+            self.skills, SETUP_SKILL, "references", "overlay-SKILL.md")
 
         for required in (self.profile, self.princ):
             if not os.path.isfile(required):
@@ -364,6 +368,22 @@ def check_bundles(repo, rep):
         rep.err("BUNDLE-IDENTICAL", repo.rel(repo.bundled_check_links),
                 "has drifted from scripts/check_links.py - it is a bundled copy, not a fork; "
                 "run scripts/sync_bundles.py")
+
+    # Same rule for templates/overlay-SKILL.md: templates/ is not installed (README, "what is
+    # not released"), so an installed campaign never sees the template unless setup bundles it.
+    if not os.path.isfile(repo.overlay_template):
+        rep.err("BUNDLE-IDENTICAL", repo.rel(repo.overlay_template),
+                "missing - it is the canonical source bundled into %s/references/"
+                % SETUP_SKILL)
+    elif not os.path.isfile(repo.bundled_overlay_template):
+        rep.err("BUNDLE-IDENTICAL", repo.rel(repo.bundled_overlay_template),
+                "missing - installation copies the folder alone, and templates/ never travels; "
+                "run scripts/sync_bundles.py")
+    elif (open(repo.overlay_template, "rb").read()
+          != open(repo.bundled_overlay_template, "rb").read()):
+        rep.err("BUNDLE-IDENTICAL", repo.rel(repo.bundled_overlay_template),
+                "has drifted from templates/overlay-SKILL.md - it is a bundled copy, not a "
+                "fork; run scripts/sync_bundles.py")
 
 
 # ---------- 6: advertised principle range vs cited ------------------------

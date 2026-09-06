@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.5"
+  version: "1.6"
 ---
 
 # Campaign setup
@@ -200,6 +200,13 @@ campaign-specific skill or overlay — kept in-repo and *installed* from there, 
 copy, never the installed one. Never store campaign memory in an assistant memory, a harness
 setting, a local config or one chat's context. *Test:* a fresh agent, on another machine, with a
 different model, given only a clone and no conversation history, can prepare the next session.
+
+### 3.6 Overlay skills, when the profile cannot hold something
+Something irreducibly specific to this campaign and not a profile slot — house aesthetics, this
+table's recurring patterns, a casting rule for figures in this setting — belongs in a **campaign
+overlay skill**, never in a base skill here. This folder bundles the template:
+[references/overlay-SKILL.md](references/overlay-SKILL.md); point the GM at it when the need comes
+up. Writing the overlay is the GM's job (or a later session's), not this skill's.
 
 ## Phase 4 — Adoption mode (the repo already has material)
 

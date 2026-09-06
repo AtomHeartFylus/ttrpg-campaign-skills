@@ -102,8 +102,10 @@ canonical), but it surprises people once.
 4. Play a session with `ttrpg-session-prep`, then close the loop with `ttrpg-session-log`
    (and `ttrpg-table-recap` to open the next one).
 5. Only when a rule is *specific to your campaign and cannot be a profile slot*, write an
-   overlay skill (see `templates/overlay-SKILL.md`). Overlays should be short; if an overlay
-   grows past a page, the base skill is probably missing a slot.
+   overlay skill from the template (`templates/overlay-SKILL.md` in a clone; the same file also
+   ships as `ttrpg-campaign-setup/references/overlay-SKILL.md`, so an install-only copy has it
+   too). Overlays should be short; if an overlay grows past a page, the base skill is probably
+   missing a slot.
 
 The installer copies `skills/` only: `docs/`, `templates/` and `tests/` stay in the clone, which is
 where you read the principles, start an overlay from, and run the evals.

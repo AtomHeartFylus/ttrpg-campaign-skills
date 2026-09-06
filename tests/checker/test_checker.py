@@ -220,6 +220,20 @@ class TestBundles(CheckerCase):
         self.assertEqual(errors, {"BUNDLE-IDENTICAL"}, out)
         self.assertEqual(rc, 1)
 
+    def test_bundled_overlay_template_drift(self):
+        self.assert_fires(
+            append("skills/ttrpg-campaign-setup/references/overlay-SKILL.md",
+                   "\n<!-- forked -->\n"),
+            "BUNDLE-IDENTICAL")
+
+    def test_bundled_overlay_template_missing(self):
+        def mutate(root):
+            os.remove(os.path.join(
+                root, "skills/ttrpg-campaign-setup/references/overlay-SKILL.md"))
+        rc, errors, _w, out = self.run_checker(mutate)
+        self.assertEqual(errors, {"BUNDLE-IDENTICAL"}, out)
+        self.assertEqual(rc, 1)
+
 
 class TestLinks(CheckerCase):
     def test_link_escapes(self):

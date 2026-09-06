@@ -9,6 +9,15 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **The overlay template reaches an install:** `templates/overlay-SKILL.md` never travelled to an
+  installed copy (installation copies `skills/` alone); it is now also bundled at
+  `skills/ttrpg-campaign-setup/references/overlay-SKILL.md` (`sync_bundles.py` /
+  `BUNDLE-IDENTICAL` cover the pair, same mechanism as the profile schema and
+  `check_links.py`). `ttrpg-campaign-setup` Phase 3 gains a short §3.6 pointing at it; README's
+  "write an overlay skill" step now names both locations. *Lesson: `table-recap` sends a GM to an
+  overlay, and `README.md` names the template that only a clone had — a promise made by one file
+  and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
+  1.6. No migration: no slot changed.
 - **`C.verify` finally has a command:** new `scripts/check_links.py` (stdlib, 3.9+) checks that
   every `[[wikilink]]` (`|alias` and `#heading` tolerated) and every relative markdown `.md` link
   in a campaign vault resolves; fenced and inline code spans are ignored so a doc showing the
