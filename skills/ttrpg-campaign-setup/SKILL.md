@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.11"
+  version: "1.12"
 ---
 
 # Campaign setup
@@ -178,14 +178,10 @@ the entity notes and say the values are *there*. `D.shape` = `one-shot` → the 
 the prep note; say so in `C.hub` rather than creating an empty hub.
 
 ### 3.3 Frontmatter, tags, links, names
-Decide once, write into `C.frontmatter` / `C.links` / `C.naming`, apply everywhere: closed-list tag
-families namespaced `<kind>/<subkind>`; every tracked value a property, prose in the body (P10);
-link syntax written *literally*, including aliases, path separators, escaping inside tables and
-embedded attachments; allowed separators and **forbidden characters** in file names — the lesson of
-the vault where an en-dash instead of a hyphen broke every link without a single error message.
-Search before creating: update the existing note, never a near-duplicate. **Link, don't copy** is
-the vault rule; its one exception is the prep document (P1), recorded in `C.inline_exception` so
-nobody "fixes" it later. Worked examples: [references/repo-conventions.md](references/repo-conventions.md).
+Decide once — `C.frontmatter` / `C.links` / `C.naming` — apply everywhere; the one exception,
+the prep document inlining rather than linking (P1), is recorded in `C.inline_exception` so nobody
+"fixes" it later. Full worked detail, needed once at setup, not every run:
+[references/repo-conventions.md](references/repo-conventions.md).
 
 ### 3.4 Verification command and invariant
 This skill bundles a link/reference checker —
@@ -193,8 +189,9 @@ This skill bundles a link/reference checker —
 longer a project the GM has to build first. **Propose it, do not install it as a side effect**:
 offer to copy the bundled script to `<repo>/scripts/check_links.py` and to record
 `python scripts/check_links.py <repo root>` as the exact `C.verify` command, invariant **0 broken
-wikilinks and relative markdown links** (it does not resolve embedded attachments or ambiguous
-wikilink targets yet — say so). Only once the GM agrees, copy the file, run it once, and report
+wikilinks, embeds and relative markdown links** (case-only mismatches are reported separately, not
+counted against the invariant; it does not resolve ambiguous wikilink targets — two files sharing a
+name — say so). Only once the GM agrees, copy the file, run it once, and report
 the actual number: a baseline already red is not an invariant, it is decoration. If the GM
 declines, or the vault is not a place scripts can live, write `none — invariant unverifiable` — the
 honest fallback, and no longer the first thing tried. Every skill here ends its Verify phase with

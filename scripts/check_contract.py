@@ -229,11 +229,31 @@ class Repo(object):
                     setup_only.update(found)
         return defined, setup_only
 
+    # Non-.md files bundled into a skill's references/ are shipped exactly as much as its
+    # SKILL.md - installation copies the folder wholesale - but NO-SYSTEM-NAMES, MECHANICS-LEAK
+    # and ENCODING only ever scanned markdown until check_links.py became the first bundled
+    # script: a blocklisted name in a .py file was invisible to all three. Restricted to known
+    # text extensions so this never tries to decode a genuinely binary bundle as UTF-8.
+    SHIPPED_TEXT_EXT = (".py", ".sh", ".txt", ".json", ".yml", ".yaml")
+
+    def shipped_nonmd(self):
+        out = []
+        for d in self.skill_dirs:
+            refs = os.path.join(self.skills, d, "references")
+            if not os.path.isdir(refs):
+                continue
+            for base, _dirs, names in os.walk(refs):
+                for n in sorted(names):
+                    if n.endswith(self.SHIPPED_TEXT_EXT):
+                        out.append(os.path.join(base, n))
+        return sorted(out)
+
     def shipped(self):
-        """What a clone hands to an agent: every skill folder, the schema they read, and the
-        principles bundled into all nine. AGENTS.md, README.md and docs/AUTHORING.md are meta -
-        AUTHORING has to be able to quote a bad example in order to forbid it."""
-        files = list(self.skill_md)
+        """What a clone hands to an agent: every skill folder (markdown and bundled non-markdown
+        alike), the schema they read, and the principles bundled into all nine. AGENTS.md,
+        README.md and docs/AUTHORING.md are meta - AUTHORING has to be able to quote a bad example
+        in order to forbid it."""
+        files = list(self.skill_md) + self.shipped_nonmd()
         for base, _dirs, names in os.walk(os.path.join(self.root, "templates")):
             files += [os.path.join(base, n) for n in sorted(names) if n.endswith(".md")]
         files.append(self.princ)
@@ -637,8 +657,10 @@ BAD_ESCAPE = re.compile(r"\\u[0-9a-fA-F]{4}")
 
 def check_encoding(repo, rep):
     # Not limited to shipped files: no markdown in this repo has a reason to carry U+FFFD or a
-    # literal escape, AGENTS.md included - it is the first file an agent reads.
-    for f in repo.all_markdown():
+    # literal escape, AGENTS.md included - it is the first file an agent reads. Bundled
+    # non-markdown files (a shipped script) get the same scan: encoding damage does not care
+    # what extension the damaged file has.
+    for f in repo.all_markdown() + repo.shipped_nonmd():
         for i, line in enumerate(repo.read(f).splitlines(), 1):
             if "\ufffd" in line:
                 rep.err("ENCODING", repo.at(f, i),

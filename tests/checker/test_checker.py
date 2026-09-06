@@ -317,6 +317,28 @@ class TestAgnosticism(CheckerCase):
     def test_note_tool_name(self):
         self.assert_fires(append(PREP, "\nOpen the note in Obsidian.\n"), "NO-SYSTEM-NAMES")
 
+    def _mutate_both_check_links_copies(self, suffix):
+        # Mutating only the bundled copy would also trip BUNDLE-IDENTICAL; both copies exist in
+        # the temp repo (run_checker copies scripts/check_links.py alongside skills/), so append
+        # to both, exactly like set_profile() does for the schema.
+        def mutate(root):
+            for rel in ("scripts/check_links.py",
+                       "skills/ttrpg-campaign-setup/references/check_links.py"):
+                write(root, rel, read(root, rel) + suffix)
+        return mutate
+
+    def test_system_name_in_a_bundled_non_markdown_file(self):
+        # check_links.py is the first non-.md file bundled into a skill's references/;
+        # NO-SYSTEM-NAMES must see it exactly as it sees a SKILL.md, not stop at the extension.
+        self.assert_fires(
+            self._mutate_both_check_links_copies("\n# Works best in Pathfinder games.\n"),
+            "NO-SYSTEM-NAMES")
+
+    def test_encoding_damage_in_a_bundled_non_markdown_file(self):
+        self.assert_fires(
+            self._mutate_both_check_links_copies("\n# A literal \\u00e8 escape.\n"),
+            "ENCODING")
+
     def test_system_name_in_the_schema_is_not_exempt(self):
         self.assert_fires(set_profile(lambda s: s + "\n> e.g. Blades in the Dark\n"),
                           "NO-SYSTEM-NAMES")

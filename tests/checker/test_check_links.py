@@ -122,6 +122,108 @@ class LinkCheckerCase(unittest.TestCase):
         code, _out, _err = run(root)
         self.assertEqual(code, 0)
 
+    # ---------- B2: embeds (any file type) resolve, not just .md notes ----------
+
+    def test_wikilink_embed_of_an_image_resolves(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "![[map.png]]\n")
+        write(root, "Assets/map.png", "")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    def test_wikilink_embed_of_a_missing_attachment_is_broken(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "![[missing-audio.m4a]]\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 1)
+        self.assertIn("missing-audio.m4a [wikilink]", out)
+
+    def test_bare_wikilink_to_a_note_still_needs_no_extension(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[[Some Note]]\n")
+        write(root, "Entities/Some Note.md", "# Some Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    # ---------- B3: case-insensitive resolution, reported as its own class ----------
+
+    def test_wrong_case_wikilink_is_case_mismatch_not_broken(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[[SOME NOTE]]\n")
+        write(root, "Entities/Some Note.md", "# Some Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)  # a case mismatch alone does not fail the exit code
+        self.assertIn("case-sensitive filesystem", out)
+
+    def test_wrong_case_mdlink_is_case_mismatch_not_broken(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[t](entities/Some Note.md)\n")
+        write(root, "Entities/Some Note.md", "# Some Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+        self.assertIn("case-sensitive filesystem", out)
+
+    def test_case_mismatch_reported_in_json_separately_from_broken(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[[SOME NOTE]]\n")
+        write(root, "Entities/Some Note.md", "# Some Note\n")
+        code, out, _err = run(root, fmt="json")
+        self.assertEqual(code, 0, out)
+        data = json.loads(out)
+        self.assertEqual(data["broken_count"], 0)
+        self.assertEqual(data["case_mismatch_count"], 1)
+
+    # ---------- C1: spaces and angle-bracket paths in markdown links ----------
+
+    def test_markdown_link_target_with_space_resolves(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[t](My Note.md)\n")
+        write(root, "My Note.md", "# My Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    def test_markdown_link_target_with_space_and_missing_file_is_broken(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[t](Missing Note.md)\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 1, out)
+        self.assertIn("Missing Note.md", out)
+
+    def test_angle_bracket_markdown_link_resolves(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[t](<My Note.md>)\n")
+        write(root, "My Note.md", "# My Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    # ---------- C2: percent-encoded markdown link targets ----------
+
+    def test_percent_encoded_markdown_link_resolves(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "[t](My%20Note.md)\n")
+        write(root, "My Note.md", "# My Note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    # ---------- C3: 4-space-indented code blocks are not scanned ----------
+
+    def test_wikilink_inside_indented_code_block_ignored(self):
+        root = self.mini_repo()
+        write(root, "Hub.md", "Text.\n\n    [[Nonexistent Note]]\n\nMore text.\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
+    # ---------- C4: NFC/NFD normalization ----------
+
+    def test_nfd_filename_matches_nfc_link_text(self):
+        root = self.mini_repo()
+        # "Caf\u00e9" written as NFD: combining acute accent as a separate code point.
+        nfd_name = "Cafe\u0301 Note.md"
+        write(root, "Hub.md", "[[Caf\u00e9 Note]]\n")
+        write(root, nfd_name, "# Cafe note\n")
+        code, out, _err = run(root)
+        self.assertEqual(code, 0, out)
+
 
 class FixtureCampaignCase(unittest.TestCase):
     """Runs the shipped checker against the real fixture. Never mutated: the fixture is dirty

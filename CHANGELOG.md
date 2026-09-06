@@ -134,6 +134,28 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **`check_links.py` fixed after independent review** (a real defect list, reproduced before
+  acting on it, not opinion): the shipped script itself named "Obsidian" in its docstring and
+  `SKIP_DIRS`, invisible to `NO-SYSTEM-NAMES`/`MECHANICS-LEAK`/`ENCODING` only because `shipped()`
+  and the encoding scan were `.md`-only and check_links.py was the package's first bundled
+  non-markdown file — `Repo.shipped_nonmd()` now covers every non-`.md` file under a skill's
+  `references/`, wired into both checks, with negative fixtures. The checker itself: wikilink
+  targets that already carry an extension (`![[map.png]]`, `[[clip.m4a]]`) now resolve against an
+  index of every file, not just `.md` notes, so an embed is verified instead of permanently
+  reported broken; matching is case-insensitive with a **separate `case-mismatch` finding class**
+  (resolves today, breaks on a case-sensitive filesystem — checked component-by-component, a
+  mismatched *directory* name is exactly as fragile as a mismatched file name); markdown links
+  accept a space or an angle-bracket-wrapped path and are `%xx`-unquoted; 4-space/tab-indented
+  code blocks are stripped alongside fenced ones; both sides of every comparison are Unicode
+  NFC-normalised. `ttrpg-campaign-setup` Phase 3.4's invariant updated (embeds now covered,
+  case-only mismatches don't count against it) and §3.3 migrated to the existing
+  `references/repo-conventions.md` (already had the detail; the entrypoint kept a near-duplicate)
+  to stay under `ENTRYPOINT-BUDGET`. `tests/checker/test_check_links.py` grows from 11 to 23
+  cases; `tests/checker/test_checker.py` gains the two non-markdown-bundle fixtures.
+  *Lesson: a check that only ever looked at `.md` files had a blind spot nobody needed until the
+  first non-`.md` bundle existed — the coverage gap was real from the moment `shipped()` was
+  written, just unreachable until then.* `metadata.version`: `ttrpg-campaign-setup` 1.11 -> 1.12.
+  No schema change.
 - **`C.verify` finally has a command:** new `scripts/check_links.py` (stdlib, 3.9+) checks that
   every `[[wikilink]]` (`|alias` and `#heading` tolerated) and every relative markdown `.md` link
   in a campaign vault resolves; fenced and inline code spans are ignored so a doc showing the
