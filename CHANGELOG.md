@@ -134,6 +134,20 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **The `unconfirmed` marker gets a form, a language and a way to close:** independent review
+  caught that W8's round-cap marker was a new artifact element with none of the three: (a) it was
+  the literal English word, contradicting this same skill's own "do not write English headings
+  over a log in another language" rule — declared as a role now, like the headings, rendered in
+  `B.language`; (b) `references/example-log.md` had zero occurrences — not a judgment call this
+  time, since the marker lives inside the artifact itself, not in Verify-phase process — it now
+  shows one instance, annotated, with the matching *Pending for next session* line; (c) nothing
+  said how it closes — it now gets one line under *Pending for next session* per gap (or the run
+  report alone, on a one-shot, which has no such section), so it is not invisible to every later
+  check forever. Also: the cap is announced *before* it bites, not just applied silently.
+  `tests/evals/session-log.md` box rewritten to match.
+  *Lesson: a new marker inside the artifact is a skeleton change, not a process change — the same
+  distinction that made several other EXAMPLE-DRIFT warnings this workorder legitimate judgment
+  calls makes this one not.* `metadata.version`: `ttrpg-session-log` 1.7 -> 1.8. No schema change.
 - **Reduced prep cuts breadth, never completeness — a real bug fixed:** `references/reduced-prep.md`
   put the opening read-aloud in the irreducible core for "the first scene" only, which (a)
   violates P1 (a non-overridable requirement: a scene with no read-aloud is unusable at the table,

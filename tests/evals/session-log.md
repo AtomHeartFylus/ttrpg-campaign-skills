@@ -27,8 +27,11 @@ REQUIRED — every box, or the eval fails:
       end-of-night Wick values, whether marks were earned) — and asks nothing whose slot or answer
       is already on the record. (Phase 2) This scenario's testimony resolves within the two-round
       cap, so the cap itself is not exercised here — if it ever is hit on a messier session, the
-      correct behaviour is to stop, write the log with the remaining gaps marked `unconfirmed`,
-      and name them in the run report, never to keep asking or to invent a value.
+      correct behaviour is to stop, mark the remaining gaps inline with a same-language
+      unresolved-fact marker (never the literal English word in a non-English log), add a matching
+      *Pending for next session* line for each (or name it in the run report on a one-shot, which
+      has no such section), and name them all in the run report — never keep asking or invent a
+      value.
 - [ ] **Invents no fact.** Anything not in the testimony and not answered is omitted or asked, not
       reconstructed. (P11)
 - [ ] Exit state: **one row per character** (`A.resource_shape`: per-character), Sorrel not

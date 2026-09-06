@@ -47,6 +47,13 @@ internal document, and what may cross to the table is the recap's problem (P12).
 - **Deviation:** they cut the bell loose *before* identifying the body. Tobit found the
   guild-mark afterwards, on the Wight's still hands, and the players named the brother
   themselves — unprompted.
+- Whether the guild-mark matches one Tobit has seen before **(unconfirmed — the round cap was
+  reached before this was settled)** — raised at the table but never answered.
+
+<!-- The unresolved-fact marker is a ROLE, like the headings: rendered in B.language, not the
+literal English word — it happens to read as English here because this campaign's B.language IS
+English. The matching Pending line below is what keeps it from being invisible to every later
+read; on a one-shot, with no Pending section, it would be named in the run report instead. -->
 
 <!-- Play order, factual, deviations marked as deviations, interpretation absent. Each present
 player has a named moment or an explicit chorus note (P7): that mark feeds the rotation check.
@@ -93,6 +100,7 @@ these items are written against the active fronts — which moved, which advance
 - [ ] Ulde owes the party a witness's gratitude — decide what it is worth.
 - [ ] Brenna's unpaid toll from Iole: one memory of home.
 - [ ] Thread ledger rows to update: *the false bell* → paid (this log); *the fen's debt-ledgers* → opened.
+- [ ] To confirm: does the guild-mark match one Tobit has seen before?
 
 <!-- After writing this note, Phase 4 still runs: dossiers of the three present players get their
 marks, Wick values and one Diary entry each (carried/chorus); the thread ledger rows above are
