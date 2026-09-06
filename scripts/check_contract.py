@@ -40,7 +40,7 @@ SETUP_SKILL = "ttrpg-campaign-setup"
 # Historically the installer materialised this file, so a link to it was valid even when the
 # checkout lacked it. It is checked-in content now (see BUNDLE-IDENTICAL), and this whitelist
 # only keeps LINK-BROKEN from reporting a second time what that check already owns.
-INSTALL_MATERIALISED = {"references/PRINCIPLES.md"}
+INSTALL_MATERIALISED = {"references/PRINCIPLES.md", "references/check_links.py"}
 
 # Headings every skill legitimately shares: they structure the skill itself, they are
 # not claims on a campaign artifact. Only collisions OUTSIDE this set are ownership bugs.
@@ -162,6 +162,9 @@ class Repo(object):
         self.skills = os.path.join(self.root, "skills")
         self.bundled_profile = os.path.join(
             self.skills, SETUP_SKILL, "references", "campaign-profile.md")
+        self.check_links = os.path.join(self.root, "scripts", "check_links.py")
+        self.bundled_check_links = os.path.join(
+            self.skills, SETUP_SKILL, "references", "check_links.py")
 
         for required in (self.profile, self.princ):
             if not os.path.isfile(required):
@@ -346,6 +349,21 @@ def check_bundles(repo, rep):
             rep.err("BUNDLE-IDENTICAL", where,
                     "has drifted from docs/PRINCIPLES.md - it is a bundled copy, not a fork; "
                     "run scripts/sync_bundles.py")
+
+    # Same rule for scripts/check_links.py, bundled into setup so an installed copy (which
+    # never receives scripts/) can still offer it as C.verify.
+    if not os.path.isfile(repo.check_links):
+        rep.err("BUNDLE-IDENTICAL", repo.rel(repo.check_links),
+                "missing - it is the canonical source bundled into %s/references/"
+                % SETUP_SKILL)
+    elif not os.path.isfile(repo.bundled_check_links):
+        rep.err("BUNDLE-IDENTICAL", repo.rel(repo.bundled_check_links),
+                "missing - %s proposes it as C.verify and installation copies the folder "
+                "alone; run scripts/sync_bundles.py" % SETUP_SKILL)
+    elif open(repo.check_links, "rb").read() != open(repo.bundled_check_links, "rb").read():
+        rep.err("BUNDLE-IDENTICAL", repo.rel(repo.bundled_check_links),
+                "has drifted from scripts/check_links.py - it is a bundled copy, not a fork; "
+                "run scripts/sync_bundles.py")
 
 
 # ---------- 6: advertised principle range vs cited ------------------------

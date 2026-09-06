@@ -9,6 +9,18 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **`C.verify` finally has a command:** new `scripts/check_links.py` (stdlib, 3.9+) checks that
+  every `[[wikilink]]` (`|alias` and `#heading` tolerated) and every relative markdown `.md` link
+  in a campaign vault resolves; fenced and inline code spans are ignored so a doc showing the
+  syntax itself is never mistaken for a link. Bundled into
+  `skills/ttrpg-campaign-setup/references/check_links.py` (`sync_bundles.py` / `BUNDLE-IDENTICAL`
+  cover the pair, same as the profile schema). `ttrpg-campaign-setup` Phase 3.4 now *proposes*
+  copying it into `<repo>/scripts/` and registering it as `C.verify`, rather than naming an
+  "install a checker" project the GM had to build themselves; `none — invariant unverifiable`
+  is the declined fallback, no longer the first thing tried. *Lesson: nine Verify phases had
+  promised this command since the schema existed — a promise the package itself cannot keep is
+  worse than an honest gap, because it reads as done.* `metadata.version` of
+  `ttrpg-campaign-setup` bumped to 1.5. No migration: no slot changed.
 - **Stale check count fixed:** `AGENTS.md`, `README.md` and `CONTRIBUTING.md` said "sixteen
   checks"; the registry has grown since (`check_contract.py --list` is the source of truth) and
   the three docs now point to `--list` instead of a hardcoded number. *Lesson: a count copied into

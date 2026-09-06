@@ -107,6 +107,11 @@ class CheckerCase(unittest.TestCase):
         self.addCleanup(shutil.rmtree, tmp, True)
         for d in COPIED:
             shutil.copytree(os.path.join(ROOT, d), os.path.join(tmp, d))
+        # BUNDLE-IDENTICAL also compares this canonical source against its bundled copy under
+        # skills/, already copied above; scripts/ itself is otherwise out of scope here.
+        os.makedirs(os.path.join(tmp, "scripts"), exist_ok=True)
+        shutil.copyfile(os.path.join(ROOT, "scripts", "check_links.py"),
+                        os.path.join(tmp, "scripts", "check_links.py"))
         if mutation:
             mutation(tmp)
         proc = subprocess.run(
@@ -197,6 +202,20 @@ class TestBundles(CheckerCase):
             os.remove(os.path.join(root, "skills/ttrpg-table-recap/references/PRINCIPLES.md"))
         # The entrypoint's link to the deleted file breaks in the same move: both are the
         # point - a missing bundle is a dangling link on the installed copy.
+        rc, errors, _w, out = self.run_checker(mutate)
+        self.assertEqual(errors, {"BUNDLE-IDENTICAL"}, out)
+        self.assertEqual(rc, 1)
+
+    def test_bundled_check_links_drift(self):
+        self.assert_fires(
+            append("skills/ttrpg-campaign-setup/references/check_links.py",
+                   "\n# forked\n"),
+            "BUNDLE-IDENTICAL")
+
+    def test_bundled_check_links_missing(self):
+        def mutate(root):
+            os.remove(os.path.join(
+                root, "skills/ttrpg-campaign-setup/references/check_links.py"))
         rc, errors, _w, out = self.run_checker(mutate)
         self.assertEqual(errors, {"BUNDLE-IDENTICAL"}, out)
         self.assertEqual(rc, 1)

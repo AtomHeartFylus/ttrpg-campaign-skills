@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.4"
+  version: "1.5"
 ---
 
 # Campaign setup
@@ -181,11 +181,17 @@ the vault rule; its one exception is the prep document (P1), recorded in `C.inli
 nobody "fixes" it later. Worked examples: [references/repo-conventions.md](references/repo-conventions.md).
 
 ### 3.4 Verification command and invariant
-Install a link/reference checker in `scripts/`; record in `C.verify` the exact command and its
-invariant — typically **0 broken links**, embedded attachments included. Run it once at setup and
-report the number: a baseline already red is not an invariant, it is decoration. Every skill here
-ends its verify phase with this command; if you cannot install one, write `none — invariant
-unverifiable` rather than naming a command that does not exist.
+This skill bundles a link/reference checker —
+[references/check_links.py](references/check_links.py), stdlib Python 3.9+ — so `C.verify` is no
+longer a project the GM has to build first. **Propose it, do not install it as a side effect**:
+offer to copy the bundled script to `<repo>/scripts/check_links.py` and to record
+`python scripts/check_links.py <repo root>` as the exact `C.verify` command, invariant **0 broken
+wikilinks and relative markdown links** (it does not resolve embedded attachments or ambiguous
+wikilink targets yet — say so). Only once the GM agrees, copy the file, run it once, and report
+the actual number: a baseline already red is not an invariant, it is decoration. If the GM
+declines, or the vault is not a place scripts can live, write `none — invariant unverifiable` — the
+honest fallback, and no longer the first thing tried. Every skill here ends its Verify phase with
+whatever `C.verify` now names.
 
 ### 3.5 Portability — all memory lives in files in the repo
 **Every persistent fact about this campaign must exist as a file inside the repo** (`C.portability`):

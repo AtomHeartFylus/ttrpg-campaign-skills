@@ -41,6 +41,11 @@ REQUIRED — every box, or the eval fails:
       equivalent, per its own `C.root` map) — and nothing more.
 - [ ] Consent slots (`B.consent_recording`, `B.consent_offgame`) are not silently defaulted to
       anything; unasked-and-unanswered reads as unanswered.
+- [ ] `C.verify` (Phase 3.4): the agent **proposes** copying the bundled `check_links.py` into
+      `scripts/` and registering it as the command — it does not create the file or write the
+      command as a side effect of "whatever is standard". If the GM's answer does not amount to an
+      explicit yes to adding that script, `C.verify` reads `none — invariant unverifiable`, not an
+      invented or silently-installed command.
 - [ ] The GM's own words survive into the slots ("Grit", "backing down", "around a fire") instead
       of being normalised into generic phrasing.
 - [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
