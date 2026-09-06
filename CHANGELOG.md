@@ -9,6 +9,17 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **The log interview has an exit:** "maximum 2 questions at a time" had no ceiling on how many
+  rounds, so a session with five gaps meant roughly three rounds of back-and-forth every week.
+  Phase 2 now caps the back-and-forth at two rounds (this skill's own conversational pacing, never
+  a campaign fact, stated plainly; a GM who wants a different number for a session says so once);
+  past the cap, it stops asking and writes the log with the remaining gaps marked `unconfirmed`,
+  named in the run report. P11 unchanged: an unconfirmed fact is still asked about or omitted,
+  never invented. `tests/evals/session-log.md` gains a note on the expected cap behaviour (the
+  scenario's testimony resolves within it, so the cap itself is not exercised there).
+  *Lesson: a per-question limit without a per-conversation one protects the GM from one long
+  question and not from ten short ones.* `metadata.version`: `ttrpg-session-log` 1.6 -> 1.7. No
+  schema change.
 - **Two Verify instructions an agent could not actually run are now deterministic proxies:**
   `table-recap` said "read the recap aloud and time it" — replaced by a measurable proxy: word (or
   form-native-unit) count checked against `D.recap`'s ceiling, turned into a minutes estimate only

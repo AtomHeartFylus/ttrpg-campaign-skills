@@ -25,7 +25,10 @@ REQUIRED — every box, or the eval fails:
       Nothing prepped vanishes silently. (P8, Phase 2.2)
 - [ ] Asks **at most 2 targeted questions at a time**, only about genuinely missing facts (e.g.
       end-of-night Wick values, whether marks were earned) — and asks nothing whose slot or answer
-      is already on the record. (Phase 2)
+      is already on the record. (Phase 2) This scenario's testimony resolves within the two-round
+      cap, so the cap itself is not exercised here — if it ever is hit on a messier session, the
+      correct behaviour is to stop, write the log with the remaining gaps marked `unconfirmed`,
+      and name them in the run report, never to keep asking or to invent a value.
 - [ ] **Invents no fact.** Anything not in the testimony and not answered is omitted or asked, not
       reconstructed. (P11)
 - [ ] Exit state: **one row per character** (`A.resource_shape`: per-character), Sorrel not
