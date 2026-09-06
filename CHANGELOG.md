@@ -9,6 +9,18 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **The package states its position on a publisher's copyright.** `SECURITY.md` gains "Copyright
+  of imported material": `ttrpg-session-prep` inlines a published module's text directly into the
+  prep (Phase 1.2), and neither `SECURITY.md` nor `docs/PRIVACY.md` had ever said whose text that
+  still is. The position, in one paragraph and no legal advice: the campaign repo is private
+  working material, the publisher's text enters it as a citation for table use, never for
+  redistribution, and `C.player_access` must never expose it to a player who has not bought the
+  source. Phase 1.2 gains a matching one-line pointer. *Lesson: P15 already treated module text as
+  untrusted-for-instructions; nothing had ever addressed the separate question of whose text it
+  still is once it is inlined — a red-team pass caught the gap the main review missed because
+  neither is a slot or a check, only a sentence nobody had written yet.* `metadata.version`:
+  `ttrpg-session-prep` 1.9 -> 1.10. Wording only, no schema change: `check_contract.py` alone
+  covers it (AUTHORING §7).
 - **README: prerequisites, repo scope, and the missing skill in the cycle diagram.** §Install
   now opens with what you need before anything else — `git`, a shell, Python 3.9+ stdlib-only
   — and what each is for. §"Adopting them for your campaign" states plainly that one campaign is

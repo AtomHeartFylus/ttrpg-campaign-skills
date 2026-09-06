@@ -50,6 +50,18 @@ No network access, no telemetry, no uploads, no package installs, no writes outs
 folder and the skills directory you name. If a fork adds any of those, it is not this package's
 threat model any more, and its README should say so.
 
+## Copyright of imported material
+
+`ttrpg-session-prep` inlines a published module's descriptions, read-aloud text and random tables
+directly into the prep (Phase 1.2) rather than citing them by reference — on purpose, so the prep
+stays a single self-sufficient document at the table. That text is still the publisher's, and this
+package takes no position beyond the obvious one: **a campaign repo is private working material,
+and a publisher's text enters it as a citation for use at your own table, never for
+redistribution.** `C.player_access` governs what players may read of the repo and must not expose
+inlined module text to players who have not bought the source it came from. This is not legal
+advice, only where the package stands; if your table publishes or redistributes its repo, that is
+a question for you and the publisher's own licence, not for this package.
+
 ## Privacy
 
 The material these skills write about the real people at your table has its own document:
