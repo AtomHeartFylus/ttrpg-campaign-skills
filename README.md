@@ -204,11 +204,13 @@ knowing the system — and they are already served by real tools. This package w
 persists and gets forgotten*, not on the mathematics of a ruleset.
 
 **Known gaps, honestly.** The package is an extraction from one long campaign, so its holes are
-that table's comforts: there is no item/economy ledger (a promised magic item that never arrives is
-the same defect `ttrpg-continuity-audit` hunts in narrative threads, and it has nothing to check
-against), no scheduling and attendance logistics (the most common cause of campaign death), nothing
-player-facing except the recap, and nothing that lands a finale or archives a finished campaign.
-These wait for a second campaign to earn them rather than being invented here.
+that table's comforts: there is no item/economy ledger — currency, inventory and prices are out of
+scope — but a promised magic item, reward, favour or payment that never arrives **is** covered: it
+is a thread like any other, tracked by the same four fields and hunted by the same
+`ttrpg-continuity-audit` check that finds a narrative thread gone quiet. No scheduling and
+attendance logistics (the most common cause of campaign death), nothing player-facing except the
+recap, and nothing that lands a finale or archives a finished campaign. These wait for a second
+campaign to earn them rather than being invented here.
 
 ---
 

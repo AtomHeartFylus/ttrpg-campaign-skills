@@ -9,6 +9,17 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **A promised material thing is a thread, not a gap:** the open-thread tracker
+  (`ttrpg-campaign-arc/references/arc-elements.md`) and check C
+  (`ttrpg-continuity-audit/references/checks.md`) now say explicitly that a promised object,
+  reward, favour or payment is a thread like any other — seeded-in, owner, what would pay it off,
+  status — hunted by the same check that finds a narrative thread gone quiet. No item or economy
+  ledger is introduced: currency, inventory and price stay out of scope, exactly as before.
+  README's "Known gaps" now says what is covered (the promise, as a thread) against what still
+  is not (a running total or a price list). *Lesson: "no item ledger" read as a bigger gap than it
+  is — the promise half of it was already the tracker's job, it just never said so, so a GM read
+  the disclaimer and looked for a ledger this package was never going to build.* `metadata.version`:
+  `ttrpg-campaign-arc` 1.5 -> 1.6, `ttrpg-continuity-audit` 1.8 -> 1.9. No schema change.
 - **The log interview has an exit:** "maximum 2 questions at a time" had no ceiling on how many
   rounds, so a session with five gaps meant roughly three rounds of back-and-forth every week.
   Phase 2 now caps the back-and-forth at two rounds (this skill's own conversational pacing, never

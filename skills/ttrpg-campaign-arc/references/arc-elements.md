@@ -52,6 +52,13 @@ mandatory:
 - **Status** — *alive* / *paid (link the log)* / *lost*. **"Lost" is a legitimate, deliberate
   status**: declaring a seed dead is planning; letting it rot unlisted is drift.
 
+**A promised material thing is a thread, not a ledger entry.** A promised object, reward, favour or
+payment that the table has not yet received uses the same four fields as any other thread — seeded
+in, owner, what would pay it off, status — with "what would pay it off" naming the concrete
+hand-off scene. This package keeps no item or economy ledger (no running currency total, inventory
+or price list); the promise itself is the only part of that gap this tracker covers, and it covers
+it the same way it covers a narrative thread — one row, cited to a log.
+
 At every arc pass, decide each *alive* thread: schedule it into a backbone row, or declare it lost.
 `ttrpg-continuity-audit` finds and reports dangling threads; **the decision is made here.**
 

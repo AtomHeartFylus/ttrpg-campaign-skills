@@ -49,6 +49,12 @@ Cross the arc note's thread tracker with the logs in the window. Report:
   and names no first cut, so skipped content without a recovery is by design, not a finding. The
   rest of check C still runs.
 
+A promised object, reward, favour or payment is a thread like any other and is hunted exactly as
+one: an unpaid material promise absent from the tracker, or alive with no appearance in the window,
+files under the same two bullets above. There is no separate ledger to cross-check it against —
+this package tracks no currency, inventory or price — so the only question check C asks of it is
+the one it asks of any thread: is it seeded, owned, payable and current.
+
 Each gets a **recommendation: revive** (with the concrete scene that would pay it off) **or declare
 lost** (with what the table would notice). **The decision is not made here** — it belongs to
 `ttrpg-campaign-arc`; this skill hands it a decision-ready list.

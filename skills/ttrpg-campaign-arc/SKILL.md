@@ -4,7 +4,7 @@ description: "Produce and maintain the arc note that plans the campaign above th
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.5"
+  version: "1.6"
 ---
 
 # Campaign arc
