@@ -36,8 +36,10 @@ SHOULD — quality signals, note misses:
 - [ ] Individual moments commemorated at the scale they had (the drowned-sister answer: quiet,
       not epic).
 - [ ] Shows rather than explains (the regret rendered as gesture, not psychology).
-- [ ] Declares the length proxy (word count ÷ declared pace, or fallback ~130 wpm named as such)
-      checked against the ceiling — not a literal read-aloud timing claim. (Phase 4)
+- [ ] Declares the word (or unit) count checked against the ceiling — not a literal read-aloud
+      timing claim, and no invented reading pace: only a table-recorded pace turns the count into
+      a minutes estimate, otherwise the raw count is reported and the table's pace is asked once.
+      (Phase 4)
 
 ---
 

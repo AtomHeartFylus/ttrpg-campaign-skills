@@ -10,18 +10,22 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 ## Unreleased
 
 - **Two Verify instructions an agent could not actually run are now deterministic proxies:**
-  `table-recap` said "read the recap aloud and time it" — replaced by a measurable proxy (word, or
-  form-native-unit, count ÷ a declared reading pace, falling back to ~130 words/minute named as an
-  approximation when the table has not declared its own), reported alongside `D.recap`'s ceiling;
-  actually reading aloud stays the GM's action, declared as such rather than claimed by the skill.
-  `session-audio` said "spot-check two timecodes" — replaced by a mechanical check (timecodes
-  monotonic; the last cue at or before a GM-stated duration, when given), with opening the audio at
-  a position left as the explicit human action it always was. `tests/evals/table-recap.md` rubric
+  `table-recap` said "read the recap aloud and time it" — replaced by a measurable proxy: word (or
+  form-native-unit) count checked against `D.recap`'s ceiling, turned into a minutes estimate only
+  when the table has a **recorded** reading pace (in its own `table-recap` overlay); otherwise the
+  raw count is reported, the table's pace is asked once, and recording it in the overlay is
+  proposed — the schema has no slot for it, and a number this skill invented to fill that gap would
+  be exactly the hardcoded constant "empty slot ≠ default" forbids. Actually reading aloud stays
+  the GM's action, declared as such rather than claimed by the skill. `session-audio` said
+  "spot-check two timecodes" — replaced by a mechanical check (timecodes monotonic; the last cue at
+  or before a GM-stated duration, when given), with opening the audio at a position left as the
+  explicit human action it always was. `tests/evals/table-recap.md` and `session-audio.md` rubrics
   updated to match. *Lesson: an instruction phrased as an action only a human can perform is either
   skipped or silently simulated by an agent — P14 forbids declaring a measurement that did not
-  happen, so the honest fix is a proxy an agent can actually compute, not a politer instruction.*
-  `metadata.version`: `ttrpg-table-recap` 1.6 -> 1.7, `ttrpg-session-audio` 1.4 -> 1.5. No schema
-  change.
+  happen — but the first fix for `table-recap` swapped one unrunnable claim for an invented
+  constant; a proxy is only honest if every number in it is either measured or on record.*
+  `metadata.version`: `ttrpg-table-recap` 1.6 -> 1.8 (1.7 then this correction), `ttrpg-session-audio`
+  1.4 -> 1.5. No schema change.
 - **Adoption mode proposes the `type:` contract instead of never mentioning it:** Phase 4 gains a
   step that inventories recognisable package artifacts already in an adopted repo, counts them per
   type, and **proposes** (never silently applies) an additive `type:` frontmatter pass — the same
