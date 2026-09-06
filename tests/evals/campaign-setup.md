@@ -1,9 +1,14 @@
 # Eval — ttrpg-campaign-setup
 
+Two scenarios: the standard bootstrap on an empty folder (Scenario A) and the conversational "draft
+in chat" bootstrap sub-mode (Scenario B) added by W21b.
+
+---
+
+### Scenario A — bootstrap on empty folder
+
 The only eval that runs on an **empty folder**, not on the fixture. It needs a scripted GM: the
 grader answers the interview from the script below, and refuses to elaborate beyond it.
-
-## Scenario
 
 Setup: an empty temp folder as working directory.
 
@@ -23,7 +28,7 @@ GM script — answer only what is asked, with only this:
   session zero"**
 - For anything else: "no preference — whatever is standard"
 
-## Rubric
+### Rubric
 
 REQUIRED — every box, or the eval fails:
 
@@ -68,59 +73,104 @@ SHOULD — quality signals, note misses:
 
 ---
 
+## Scenario B — bootstrap draft in chat (W21b)
+
+Setup: an empty temp folder as working directory. `E.deliverable` is set to `draft in chat`.
+
+Prompt (verbatim):
+
+> I'm starting a new campaign called "The Weir Circuit" but I don't want to write any files yet. Let's do the interview.
+
+### Rubric
+
+REQUIRED — every box, or the eval fails:
+
+- [ ] **Opening declaration is present** — starts with "Running without a full profile — Bootstrap draft mode." (W21b)
+- [ ] **Scope list is present** — lists the slots it intends to ask on the fly so the GM sees them up front. (W21b)
+- [ ] Offers both paces explicitly (full vs. quick start) before diving into questions.
+- [ ] **No files are written** to the working directory — the draft profile is delivered as a chat reply only. (W21b)
+- [ ] **Consent is requested** — explicitly offers to record the confirmed answers into the profile only with consent, and does not write without it. (W21b)
+- [ ] **Closes with the run report (P14)**: includes which slots were asked on the fly, which are `deferred: <when>`, and which are empty (`none`). (W21b)
+
+---
+
 ## Machine-checked boxes
 
-`tests/run_eval.py` prepares the work copy and ticks the boxes below; the rubric above still needs
-a reader.
+`tests/run_eval.py` prepares the work copy and ticks the boxes below; everything in the rubrics
+above still needs a reader. Scenario B is chat-only in the fixture (no file is written), so its
+mechanical checks are limited to absence-of-repo-writes.
 
 <!-- eval-spec
 {
   "skill": "ttrpg-campaign-setup",
   "fixture": "fixture-empty",
-  "setup": [],
-  "artifact": {
-    "type": "campaign-profile"
-  },
-  "mechanical": [
-    {
-      "id": "profile-created",
-      "kind": "file-exists",
-      "glob": "**/campaign-profile.md",
-      "cite": "Phase 2"
+  "scenarios": {
+    "A": {
+      "prompt_index": 0,
+      "setup": [],
+      "artifact": {
+        "type": "campaign-profile"
+      },
+      "mechanical": [
+        {
+          "id": "profile-created",
+          "kind": "file-exists",
+          "glob": "**/campaign-profile.md",
+          "cite": "Phase 2"
+        },
+        {
+          "id": "type-key",
+          "kind": "frontmatter",
+          "key": "type",
+          "equals": "campaign-profile",
+          "cite": "Phase 2",
+          "why": "how every other skill finds this file, whatever it is named"
+        },
+        {
+          "id": "session-zero-deferrals",
+          "kind": "regex",
+          "pattern": "(?i)deferred:\\s*session zero",
+          "min": 3,
+          "cite": "four-state rule",
+          "why": "B.distance, B.safety, B.absence at minimum - never none, never a guess"
+        },
+        {
+          "id": "recap-answered-none",
+          "kind": "regex",
+          "pattern": "`D\\.recap`\\*\\*[^\\n]*\\bnone\\b",
+          "min": 1,
+          "i": true,
+          "cite": "D.recap",
+          "why": "asked and answered empty is not the same as never asked"
+        },
+        {
+          "id": "no-todo-placeholders",
+          "kind": "regex",
+          "pattern": "\\[TODO:",
+          "min": 0,
+          "max": 0,
+          "cite": "Phase 2"
+        }
+      ]
     },
-    {
-      "id": "type-key",
-      "kind": "frontmatter",
-      "key": "type",
-      "equals": "campaign-profile",
-      "cite": "Phase 2",
-      "why": "how every other skill finds this file, whatever it is named"
-    },
-    {
-      "id": "session-zero-deferrals",
-      "kind": "regex",
-      "pattern": "(?i)deferred:\\s*session zero",
-      "min": 3,
-      "cite": "four-state rule",
-      "why": "B.distance, B.safety, B.absence at minimum - never none, never a guess"
-    },
-    {
-      "id": "recap-answered-none",
-      "kind": "regex",
-      "pattern": "`D\\.recap`\\*\\*[^\\n]*\\bnone\\b",
-      "min": 1,
-      "i": true,
-      "cite": "D.recap",
-      "why": "asked and answered empty is not the same as never asked"
-    },
-    {
-      "id": "no-todo-placeholders",
-      "kind": "regex",
-      "pattern": "\\[TODO:",
-      "min": 0,
-      "max": 0,
-      "cite": "Phase 2"
+    "B": {
+      "prompt_index": 1,
+      "setup": [],
+      "artifact": {
+        "type": "campaign-profile"
+      },
+      "mechanical": [
+        {
+          "id": "no-file-written",
+          "kind": "file-exists",
+          "glob": "**/campaign-profile.md",
+          "min": 0,
+          "max": 0,
+          "cite": "W21b",
+          "why": "draft in chat sub-mode must not write files to the repo"
+        }
+      ]
     }
-  ]
+  }
 }
 -->

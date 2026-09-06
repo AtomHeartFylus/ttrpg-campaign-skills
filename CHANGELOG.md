@@ -9,6 +9,15 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **W21b — first-run bootstrap without a full profile.** Added conversational
+  "draft in chat" sub-mode when `E.deliverable` is set to `draft in chat` (or no repo path is
+  writable yet), producing the filled profile as a chat artifact. It opens with an explicit
+  no-profile declaration listing the slots to be asked, closes with a run report detailing asked/deferred
+  slots, and explicitly offers to record confirmed answers into the profile only with consent.
+  *Lesson: forcing a file write on a fresh user who is still exploring or lacks a configured repo
+  stalls the onboarding — giving them an in-chat draft option makes the initial walk interactive and low-friction.*
+  `metadata.version`: `ttrpg-campaign-setup` 1.15 -> 1.16. No migration: no slot changed.
+
 - **The eval harness stops claiming more than it measured (W20c).** `tests/run_eval.py`'s
   recorded JSON renamed its top-level `passed` key to `mechanical_passed` and added `judged: null`
   — a record is no longer one boolean away from reading as a verdict nobody gave, matching what
