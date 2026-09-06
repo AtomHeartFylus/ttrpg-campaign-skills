@@ -1,0 +1,21 @@
+{
+  "eval": "campaign-setup-B",
+  "model": "unknown",
+  "when": "20260906-161444",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-campaign-setup-B-p3nxvvs6",
+  "changed": [
+    "draft-reply.txt"
+  ],
+  "artifacts": [],
+  "mechanical": [
+    {
+      "id": "no-file-written",
+      "cite": "W21b",
+      "ok": true,
+      "detail": "0 file(s) matching **/campaign-profile.md",
+      "why": "draft in chat sub-mode must not write files to the repo"
+    }
+  ],
+  "mechanical_passed": true,
+  "judged": null
+}

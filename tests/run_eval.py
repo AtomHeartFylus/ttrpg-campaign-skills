@@ -250,7 +250,11 @@ def run_check(chk, text, dest, state, changed, artifacts):
             n, chk["pattern"], lo, "" if hi is None else ", max %d" % hi)
     if kind == "file-exists":
         hits = glob.glob(os.path.join(dest, chk["glob"]), recursive=True)
-        ok = bool(hits) if chk.get("expect", True) else not hits
+        lo, hi = chk.get("min", 1), chk.get("max")
+        if hi is not None:
+            ok = len(hits) >= lo and len(hits) <= hi
+        else:
+            ok = len(hits) >= lo if chk.get("expect", True) else not hits
         return ok, "%d file(s) matching %s" % (len(hits), chk["glob"])
     if kind == "no-new-files":
         # For a scenario whose correct behaviour is producing nothing at all.
