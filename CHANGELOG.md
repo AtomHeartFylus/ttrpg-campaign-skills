@@ -49,6 +49,15 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   *Lesson: a script that reads the schema instead of a hand-written diff was sitting unused because
   nothing pointed an agent at it — the fix that mattered was a sentence, not a feature.*
   `metadata.version`: `ttrpg-campaign-setup` 1.6 -> 1.7. No migration: no slot changed.
+- **The quick start is offered, not inferred:** Phase 2 previously triggered on the GM asking for
+  the fast version "or visibly has one evening in them" — a mood judgement two agents would read
+  differently on the same GM. It now opens by stating both paces explicitly (full walk vs. quick
+  start) with their real slot/`(core)` counts, read live from the bundled schema rather than
+  written into the skill, and lets the GM choose. `tests/evals/campaign-setup.md` gains a REQUIRED
+  box: its scripted GM never asks for either pace, so the offer has to come unprompted.
+  *Lesson: a subjective trigger ("visibly rushed") is not a smaller failure mode than a missing
+  one — it just fails silently and differently per agent.* `metadata.version`:
+  `ttrpg-campaign-setup` 1.8 -> 1.9. No schema change.
 - **The fixture's answer key now lists every broken link `check_links.py` finds:** seeded defect
   #4 (`tests/evals/continuity-audit.md`) covered only `[[Eel-Market Buyer]]`; running the new
   checker against `tests/fixture-campaign/` also finds a Session 6 prep note and a Bell-Wight stat

@@ -30,6 +30,10 @@ REQUIRED — every box, or the eval fails:
 - [ ] Searches for an existing profile before interviewing (empty folder → proceeds to create).
 - [ ] Walks the **bundled schema** and produces a `campaign-profile.md` with `type:
       campaign-profile`, sections A–E, slots cited by name.
+- [ ] Before asking anything, offers both paces explicitly — full walk vs. quick start — with the
+      real slot/`(core)` counts read from the bundled schema (not a number written into the
+      skill), and lets the GM choose rather than inferring it from tone. This scenario's GM never
+      asks for either, so the offer must come from the agent unprompted.
 - [ ] Session-zero answers are recorded as **`deferred: session zero`** (`B.distance`, `B.safety`,
       `B.absence` at minimum) — never guessed, never written as `none`, never left as raw
       placeholders after being asked.

@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.8"
+  version: "1.9"
 ---
 
 # Campaign setup
@@ -58,6 +58,13 @@ now: the portability rule (Phase 3.5) is unenforceable without it.
 
 ## Phase 2 — The interview: walk the bundled schema
 
+**Open by offering both walks, explicitly — before asking a single question.** Read the bundled
+schema now and count its slots and how many carry `*(core)*`, so what you say is the real count
+from the file, never a number written into this skill (which goes stale the day a slot is added).
+Tell the GM there are two paces — a **full walk** (every slot, in schema order) and a **quick
+start** (only the `(core)` slots plus their dependents) — with those two counts, and let the GM
+choose. Do not infer the choice from how busy or rushed the GM sounds: ask.
+
 **The procedure, literally:**
 
 1. Read `references/campaign-profile.md` top to bottom, then walk its sections in the order it
@@ -69,8 +76,8 @@ now: the portability rule (Phase 3.5) is unenforceable without it.
 3. At the end, **diff your filled profile against the schema**: a slot in the schema and absent
    from your output was skipped. Go back and ask it.
 
-**Two walks — full or quick start.** The full walk above is the default. When the GM asks for the
-fast version or visibly has one evening in them: walk only the slots the schema marks **`(core)`**
+**Two walks — full or quick start.** The full walk above is the default. When the GM chooses the
+quick start (offered up front, see above): walk only the slots the schema marks **`(core)`**
 — plus the dependents a core answer implies (`A.resource` with a value drags its whole resource
 family; `D.recap` with a form drags its ceiling) — write `deferred: session zero` on the five that
 table owns exactly as below, and **leave every other slot as its untouched placeholder**; never
