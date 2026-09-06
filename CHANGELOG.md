@@ -49,6 +49,16 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   *Lesson: a script that reads the schema instead of a hand-written diff was sitting unused because
   nothing pointed an agent at it — the fix that mattered was a sentence, not a feature.*
   `metadata.version`: `ttrpg-campaign-setup` 1.6 -> 1.7. No migration: no slot changed.
+- **The fixture's answer key now lists every broken link `check_links.py` finds:** seeded defect
+  #4 (`tests/evals/continuity-audit.md`) covered only `[[Eel-Market Buyer]]`; running the new
+  checker against `tests/fixture-campaign/` also finds a Session 6 prep note and a Bell-Wight stat
+  block that were never in this trimmed fixture, and an answer key silent on two of the three
+  broken links it now surfaces would mislead the continuity-audit eval's grader. Defect #4 widened
+  to all three (the eval-spec's mechanical boxes do not reference it, so nothing machine-graded
+  changes); `tests/check_fixture.py`'s guard extended to match. *Lesson: shipping a real checker
+  changes what "the fixture's known defects" means — an answer key is only complete against the
+  tools that exist when it is read, not the ones that existed when it was written.* No skill
+  changed; no `metadata.version` bump applies.
 - **The overlay template reaches an install:** `templates/overlay-SKILL.md` never travelled to an
   installed copy (installation copies `skills/` alone); it is now also bundled at
   `skills/ttrpg-campaign-setup/references/overlay-SKILL.md` (`sync_bundles.py` /

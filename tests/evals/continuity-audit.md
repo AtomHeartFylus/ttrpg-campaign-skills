@@ -18,7 +18,7 @@ Prompt (verbatim):
 | 1 | Stale hub | `Hub.md` "Last session played: Session 6" | Session 7 log exists; hub was never updated |
 | 2 | Desynced duplicate values | `Hub.md` roster vs `Dossiers/*` | hub says 5 marks each / Tobit Wick 4; dossiers say 6 marks (present three) / Tobit Wick 3 — dossiers are the source of truth (P10) |
 | 3 | Static roster table exists at all | `Hub.md` | forbidden by P10 regardless of values; propose removal or a generated view |
-| 4 | Broken link | `Hub.md` → `[[Eel-Market Buyer]]` | no such note exists |
+| 4 | Broken links (3) | `Hub.md` → `[[Eel-Market Buyer]]`; `Session 6 — Log.md`'s `prep:` → `[[Session 6 — The Long Reach]]`; `Session 7 — The Drowned Toll.md` → `[[Bell-Wight — stats]]` (twice) | none of the three target notes exist — `scripts/check_links.py .` finds exactly these |
 | 5 | Thread ledger not updated after S7 | `Threads.md` | "the false bell" still *open* though log 7 pays it; "the fen's debt-ledgers" never opened despite log 7's pending item |
 | 6 | Hub retypes thread statuses | `Hub.md` "Open threads" vs `Threads.md` | duplicates the ledger (P10) and already disagrees with it ("eel-catcher's promise — paid (Session 6)" vs ledger's Session 7) |
 | 7 | Duplicated trigger in prep (P2) | `Sessions/Session 7 — The Drowned Toll.md` | "lying to Ulde costs 1 Wick" sits in BOTH the global callout and Scene 1's box |

@@ -125,11 +125,13 @@ class LinkCheckerCase(unittest.TestCase):
 
 class FixtureCampaignCase(unittest.TestCase):
     """Runs the shipped checker against the real fixture. Never mutated: the fixture is dirty
-    on purpose (tests/README.md), and check_links.py is stricter than anything that read this
-    vault before it - it surfaces two dangling references beyond the seeded [[Eel-Market
-    Buyer]] link (tests/evals/continuity-audit.md #4): a Session 6 prep note and a Bell-Wight
-    stat block, neither of which this trimmed, two-session fixture ever included. Both are
-    genuine (not a false positive of this checker) and are left exactly as they are."""
+    on purpose (tests/README.md). check_links.py is stricter than anything that read this vault
+    before it, and surfaced two dangling references beyond the originally-seeded [[Eel-Market
+    Buyer]] link when it first ran here: a Session 6 prep note and a Bell-Wight stat block,
+    neither of which this trimmed, two-session fixture ever included. Both were genuine (not a
+    false positive) and are now folded into seeded defect #4 alongside it
+    (tests/evals/continuity-audit.md, tests/check_fixture.py) rather than left as unaccounted-for
+    noise the continuity-audit eval's answer key did not mention."""
 
     def test_fixture_reports_the_known_broken_links_and_nothing_else(self):
         code, out, err = run(FIXTURE)

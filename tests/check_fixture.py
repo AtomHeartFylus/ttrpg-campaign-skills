@@ -70,9 +70,14 @@ DEFECTS = [
     (3, "the static roster table exists at all - forbidden by P10 whatever it says",
      lambda: "## Roster" in hub() and "| Character | Player | Marks | Wick |" in hub()),
 
-    (4, "broken link: the hub points at an entity note that does not exist",
+    (4, "broken links (3): the hub's entity link, Session 6's prep link, and the prep's stat-block "
+     "link all point at notes that do not exist",
      lambda: "[[Eel-Market Buyer]]" in hub()
-     and not os.path.isfile(os.path.join(FIX, "Entities", "Eel-Market Buyer.md"))),
+     and not os.path.isfile(os.path.join(FIX, "Entities", "Eel-Market Buyer.md"))
+     and "[[Session 6 \u2014 The Long Reach]]" in log6()
+     and not os.path.isfile(os.path.join(FIX, "Sessions", "Session 6 \u2014 The Long Reach.md"))
+     and "[[Bell-Wight \u2014 stats]]" in prep7()
+     and not os.path.isfile(os.path.join(FIX, "Entities", "Bell-Wight \u2014 stats.md"))),
 
     (5, "thread ledger not updated after Session 7",
      lambda: bool(re.search(r"\|\s*The false bell\s*\|\s*open\s*\|", threads()))
