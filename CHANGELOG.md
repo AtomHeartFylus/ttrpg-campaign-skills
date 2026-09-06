@@ -7,6 +7,32 @@ Skill versions live in each skill's `metadata.version`, the package's own number
 entries here are grouped by change, newest first. A schema change always carries a **Migration**
 note. What each part of a version means, and how a release is cut: [`docs/RELEASING.md`](docs/RELEASING.md).
 
+## 2.1.0 — a consent gate an Italian table can pass
+
+- **The two consent gates now declare the form of their answer: the token `yes`/`no` first, then
+  what the table said, in the table's own language.** `validate_profile.py` has always gated the
+  capture pipeline on `^(yes|y)` — English, and only English — while the package ships `B.language`
+  and claims to work for a table that does not play in English. The schema said "an explicit
+  `yes`" and never said the word had to be *that* word, and `references/interview.md` told the
+  interviewer to "write exactly what you were told": at an Italian table those two instructions
+  produce `**sì.** Il consenso è stato dato esplicitamente al tavolo da tutti i presenti` — a real,
+  explicit, per-person consent that the validator then rejects as missing. Fixed by declaring the
+  form in `templates/campaign-profile.md` (`B.consent_recording`, `B.consent_offgame`), teaching
+  the interview to write the token before the verbatim sentence, and rewriting both `CROSS-SLOT`
+  messages to say that a consented table is looking at a *form* fix and not at a consent question.
+  The validator's behaviour is unchanged — what changes is that the rule it enforces is now
+  written where the GM reads it. *Lesson: a consent gate that produces a false negative is worse
+  than one that produces none, because the workaround — editing a consent slot until the tool goes
+  quiet — is exactly the habit the gate exists to prevent. The package generated that state itself:
+  its own interview instruction, followed exactly, wrote a profile its own validator failed.*
+  `metadata.version`: `ttrpg-campaign-setup` 1.17 -> 1.18.
+  **Migration:** a filled profile whose `B.consent_recording` or `B.consent_offgame` answers in a
+  language other than English must put the literal token first — `**yes** — <the sentence you
+  already have>` — keeping the existing sentence untouched. **Only the person who holds the
+  consent may make this edit**: it records an answer the table gave, and no skill and no agent may
+  supply the token on the profile's behalf. A profile that answers `no`, or has not asked yet,
+  changes nothing.
+
 ## 2.0.0 — behaviour measured, not just form
 
 - **The absent-player catch-up now has its own artifact type, and the recap entrypoint keeps only

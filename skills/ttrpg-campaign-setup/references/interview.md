@@ -110,8 +110,11 @@ that qualification is what the hook-harvesting skills need.
 > "Is the table recorded, and has everyone at it — including anyone who drops in — actually said
 > yes? I need the answer as words someone said, not as an inference."
 
-Then write exactly what you were told. If the answer is "I've always recorded and nobody minded",
-that is `no` until they are asked. Do not fill the capture-path slots, and say plainly that the
+Then write the token first and exactly what you were told after it — `**yes** — <their sentence>`,
+or `**no** — <what is missing>`. The token is the same word whatever language the table speaks
+(the schema's `B.consent_recording` line says why); the sentence stays in theirs, verbatim, because
+it is the half that says *who* agreed and to *what*. If the answer is "I've always recorded and
+nobody minded", that is `no` until they are asked. Do not fill the capture-path slots, and say plainly that the
 audio pipeline stays off until the slot says yes. There is no version of this where guessing is
 the cheap option.
 
@@ -123,7 +126,8 @@ first:
 > and any of them can have any entry deleted later without giving a reason."
 
 A `yes` to recording is not a `yes` to this. Silence, "probably fine" and last session's answer are
-all `no`. Write what you were told, verbatim if it was qualified.
+all `no`. Write it in the same form as the slot above — token, then what you were told, verbatim if
+it was qualified.
 
 **`D.shape`.** Ask, then state the consequences before moving on — one-shot switches whole skills
 off, sandbox reshapes what the arc note holds. A GM who hears this at interview time chooses

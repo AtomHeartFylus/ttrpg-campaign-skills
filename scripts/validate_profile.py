@@ -280,13 +280,18 @@ def _cross_slot(rep, slots, states, at):
     if st("C.capture_paths") == "value" and st("B.consent_recording") == "value" \
             and not re.match(r"^(yes|y\b)", _val(slots, "B.consent_recording").strip(), re.I):
         rep.err("CROSS-SLOT", at("C.capture_paths"),
-                "capture paths are declared but `B.consent_recording` does not start with an "
-                "explicit `yes` - no skill may start a capture pipeline on this profile")
+                "capture paths are declared but `B.consent_recording` does not start with the "
+                "token `yes` - no skill may start a capture pipeline on this profile. If the "
+                "table did consent, this is a form fix, not a consent question: the schema asks "
+                "for the token first and the sentence in the table's own language after it "
+                "(`**yes** - <what they said>`). If it did not, the slot is already correct")
     if re.search(r"off[- ]game", _val(slots, "C.capture_paths"), re.I) \
             and not re.match(r"^(yes|y\b)", _val(slots, "B.consent_offgame").strip(), re.I):
         rep.err("CROSS-SLOT", at("C.capture_paths"),
-                "an off-game note path is declared without an explicit `yes` in "
-                "`B.consent_offgame` - agreeing to be recorded is not agreeing to be indexed")
+                "an off-game note path is declared without the token `yes` in "
+                "`B.consent_offgame` - agreeing to be recorded is not agreeing to be indexed. "
+                "Same form as the slot above: token first, then the sentence in the table's "
+                "own language")
 
     # If players can read the repo, GM-facing material needs a declared home.
     access = _val(slots, "C.player_access")

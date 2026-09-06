@@ -84,11 +84,16 @@ schema: 2
   `B.consent_offgame`, a `none` that nobody at the table pronounced reads as *unanswered*, not as a
   decision. Silence never switches a safety tool off
 - **`B.consent_recording`** — **is the table recorded, and who has explicitly agreed?** A skill may
-  not start or continue a capture pipeline without an explicit `yes` here. Empty or `no` → stop and
-  ask; never infer consent from the existence of an audio file.
+  not start or continue a capture pipeline without an explicit `yes` here. **Form of the two consent
+  gates: the literal token `yes` or `no` first, then what the table actually said, in the table's
+  own language** — `**yes** — sì, dato al tavolo da tutti i presenti`. The token is read by a
+  machine and does **not** follow `B.language`; the sentence after it is what a human reads, and it
+  is the sentence that carries the qualifications. Writing only the sentence leaves the gate
+  unreadable to the tooling; writing only the token throws away who agreed to what. Empty or `no`
+  → stop and ask; never infer consent from the existence of an audio file.
 - **`B.consent_offgame`** — separate and narrower: **may the out-of-character talk of the evening be
   curated into a durable, themed, timecoded note?** Agreeing to be recorded is not agreeing to be
-  indexed. Explicit `yes`, per person. Empty or `no` → transcripts and session-log material are
+  indexed. Explicit `yes`, per person, in the same token-then-sentence form. Empty or `no` → transcripts and session-log material are
   produced as normal and the off-game note simply is not written. Never inferred from
   `B.consent_recording`. Whoever is indexed may have any entry removed without discussion, which is
   why entries are short pointers with timecodes and never reproductions.

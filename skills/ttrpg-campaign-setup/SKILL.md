@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.17"
+  version: "1.18"
 ---
 
 # Campaign setup
@@ -140,7 +140,9 @@ met. Guessing is the one thing this slot never tolerates. Exact wording:
 
 **`B.consent_recording` — an explicit `yes`, or no capture pipeline exists.** Ask who agreed, in
 words, and whether that covers everyone including guests. Never infer consent from a file, a folder
-or "I always record". Anything short of explicit yes → write `no`, leave `C.capture_paths` empty,
+or "I always record". Write the gate as the schema asks — the token `yes`/`no` first, then their
+sentence in their own language — so the answer is legible to a reader *and* to the tooling.
+Anything short of explicit yes → write `no`, leave `C.capture_paths` empty,
 audio skill stays off. An assumption here is a harm, not a bug. Exact wording:
 [references/interview.md](references/interview.md).
 

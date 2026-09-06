@@ -26,6 +26,14 @@ A schema change is major because a fork's filled `campaign-profile.md` is downst
 fork has to migrate, and **every schema change carries a `Migration:` note in `CHANGELOG.md`**
 (enforced by `SCHEMA-MIGRATION`).
 
+**Editing `templates/campaign-profile.md` is not by itself a schema change.** `SCHEMA-MIGRATION`
+fires on the *file*, and a check that fires is easy to mistake for a verdict on the number. The
+question that decides the bump is the one the table above asks: **does a profile that was valid
+before this commit stop being valid after it?** If no slot was added, renamed or retyped and no
+validator behaviour changed — stating in the schema a rule that was already enforced, for instance
+— nothing downstream breaks, and that is a minor or a patch with a `Migration:` note attached. The
+note is about what a reader must *do*, not about how big the number is: a minor may carry one.
+
 ## Cutting a release
 
 1. `python scripts/check_contract.py --strict` — clean, warnings included.
