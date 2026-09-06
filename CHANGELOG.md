@@ -134,6 +134,11 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **The bundle count stopped being hardcoded, again:** `AGENTS.md:20` still said "the ten bundled
+  copies" after two more pairs had been added since W6 fixed the same pattern for "sixteen
+  checks" — caught by the same review. Both `AGENTS.md` and `sync_bundles.py`'s own docstring now
+  point to the script's own output instead of naming a count. No metadata.version bump applies
+  (neither file is a skill).
 - **Reading pace belongs to `D.recap`, not an overlay:** W5b's fix proposed recording an
   unrecorded table pace in a `table-recap` overlay; independent review caught that this contradicts
   the overlay's own role in the package (irreducible procedure or aesthetic that cannot be a slot

@@ -4,7 +4,8 @@
     python3 scripts/sync_bundles.py            # write the copies, report what changed
     python3 scripts/sync_bundles.py --check    # exit 1 if anything is out of date, write nothing
 
-Twelve files in this package are byte-identical copies of four canonical ones:
+Several files in this package are byte-identical copies of a handful of canonical ones (run
+with no arguments to print the exact count and pairs - a number here would only go stale):
 
     docs/PRINCIPLES.md            -> skills/*/references/PRINCIPLES.md      (one per skill)
     templates/campaign-profile.md -> skills/ttrpg-campaign-setup/references/campaign-profile.md

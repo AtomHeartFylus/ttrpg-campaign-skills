@@ -17,7 +17,8 @@ Stdlib Python 3.9+ and nothing else; no dependency to install, on any of them.
   count). Exit 0 or 1.
 - Check a campaign's own files: `python scripts/validate_profile.py <profile-or-campaign-root>`
   and `python scripts/validate_overlay.py <overlay-or-root>` — the other half of the contract.
-- Rewrite the ten bundled copies from their canonical sources: `python scripts/sync_bundles.py`
+- Rewrite the bundled copies from their canonical sources (`sync_bundles.py` itself lists the
+  pairs): `python scripts/sync_bundles.py`
   (`--check` reports drift without writing).
 - Install the pre-commit gate once per clone: `sh scripts/install-hooks.sh`.
 - Tests: `python -m unittest discover -s tests/checker` (negative fixture per check and per rule),
