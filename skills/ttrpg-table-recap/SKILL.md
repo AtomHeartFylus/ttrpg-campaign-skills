@@ -4,7 +4,7 @@ description: "Write the in-fiction recap that is read aloud to open the next ses
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.8"
+  version: "1.9"
 ---
 
 # Table recap
@@ -134,16 +134,19 @@ Suggested shape of the telling — adapt, do not pad to fill it:
 **Length ceiling: `D.recap` declares it.** Measurable proxy, since an agent cannot literally read
 aloud and time itself: count the recap's words — or, if `D.recap` gives a form-native unit instead
 of minutes (a fixed number of strophes, one page), count that instead — and compare to the
-ceiling. **Do not invent a reading pace to turn a word count into minutes.** The schema has no slot
-for one, and a number this skill states on its own authority to fill that gap is a hardcoded
-constant with a friendlier name, exactly what "empty slot ≠ default" forbids. If the table has not
-declared its own pace (its `table-recap` overlay, if one exists), report the raw word count next to
-the ceiling and let the GM judge fit by ear; ask, once, what the table's actual reading pace is, and
-propose recording it in that overlay — the irreducibly campaign-specific convention it is — so later
-recaps read it instead of asking again. Once a pace is on record, divide the word count by it and
-report both numbers. The ceiling itself is a slot, not a constant: a thirty-second cold open and a
-sung chronicle are both legitimate, and the profile is where the table says which. Past the
-declared ceiling attention is gone and the opening you wanted is spent.
+ceiling. **Do not invent a reading pace to turn a word count into minutes.** A number this skill
+states on its own authority to fill that gap is a hardcoded constant with a friendlier name, exactly
+what "empty slot ≠ default" forbids — but the schema does not need a new slot for this: `D.recap`
+already declares "form, who reads it, **and the reading-time ceiling**", and a pace is free text on
+that same answer ("ceiling three minutes, read at a brisk clip" is still `D.recap`'s value, not a
+new fact). If `D.recap`'s text carries no pace, report the raw word count next to the ceiling and
+let the GM judge fit by ear; ask, once, what the table's actual reading pace is, and propose adding
+it to `D.recap`'s own text — the slot this skill already reads, not a new one, and not an overlay
+(an overlay is irreducible procedure or aesthetic that cannot be a slot value; a pace plainly can).
+Once a pace is on record, divide the word count by it and report both numbers. The ceiling itself is
+a slot, not a constant: a thirty-second cold open and a sung chronicle are both legitimate, and the
+profile is where the table says which. Past the declared ceiling attention is gone and the opening
+you wanted is spent.
 **Actually reading the recap aloud, end to end, is the GM's action, not this skill's** — declare in
 the report whether it happened; never claim it as something this phase did.
 
@@ -241,7 +244,7 @@ the prosody itself lives in the overlay:
 End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). Never inside the recap, which is read aloud and is only fiction (P12). `D.recap`'s ceiling is a declared default — if you used it, say so and offer to
 record the table's real value; report the word/unit count, whether a recorded pace was used to
 turn it into an estimate or only the raw count was checked, whether you asked for the table's pace
-and proposed recording it in the overlay, whether the GM's own read-aloud pass happened, the
+and proposed adding it to `D.recap`'s text, whether the GM's own read-aloud pass happened, the
 language chosen, and any command run with its real output.
 
 ## What NOT to do

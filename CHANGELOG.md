@@ -134,6 +134,15 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **Reading pace belongs to `D.recap`, not an overlay:** W5b's fix proposed recording an
+  unrecorded table pace in a `table-recap` overlay; independent review caught that this contradicts
+  the overlay's own role in the package (irreducible procedure or aesthetic that cannot be a slot
+  value — a pace plainly can) and "everything variable is a slot". `D.recap` already declares
+  "form, who reads it, and the reading-time ceiling"; the pace is free text on that same answer,
+  so the skill now proposes adding it there — the slot it already reads, no new slot, no schema
+  change. *Lesson: the overlay looked like the right home because it is where campaign-specific
+  facts without a slot go — but this fact already had a slot, and reaching for the overlay first
+  was reaching past the simpler answer.* `metadata.version`: `ttrpg-table-recap` 1.8 -> 1.9.
 - **`check_links.py` fixed after independent review** (a real defect list, reproduced before
   acting on it, not opinion): the shipped script itself named "Obsidian" in its docstring and
   `SKIP_DIRS`, invisible to `NO-SYSTEM-NAMES`/`MECHANICS-LEAK`/`ENCODING` only because `shipped()`
