@@ -132,7 +132,12 @@ you. Protocol in [`tests/README.md`](tests/README.md).
 
 ## Checking your own campaign, not just the package
 
-The package validates itself, and it validates the two files *you* write:
+The package validates itself, and it validates the two files *you* write. **Both scripts live in
+the clone, not in an install:** the installer copies `skills/` alone (`ttrpg-campaign-setup`
+bundles what it can — the schema, the overlay template, `check_links.py` — but not these two), so
+running them means having `ttrpg-campaign-skills` checked out somewhere, not just its skills
+installed. `ttrpg-campaign-setup` names them as commands to run **when a clone is reachable**, and
+falls back to a manual check when it is not.
 
 ```sh
 python scripts/validate_profile.py ~/my-campaign        # or the profile's path

@@ -9,6 +9,14 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **The existing validators are no longer invisible:** `ttrpg-campaign-setup` Phase 5 now runs
+  `python scripts/validate_profile.py <profile>` when a clone of this repo is reachable (falling
+  back to the manual slot-id diff otherwise), instead of only ever describing the manual diff;
+  Phase 3.6 does the same with `validate_overlay.py` once an overlay exists. README's "Checking
+  your own campaign" section says outright that both scripts live in the clone, not in an install.
+  *Lesson: a script that reads the schema instead of a hand-written diff was sitting unused because
+  nothing pointed an agent at it — the fix that mattered was a sentence, not a feature.*
+  `metadata.version`: `ttrpg-campaign-setup` 1.6 -> 1.7. No migration: no slot changed.
 - **The overlay template reaches an install:** `templates/overlay-SKILL.md` never travelled to an
   installed copy (installation copies `skills/` alone); it is now also bundled at
   `skills/ttrpg-campaign-setup/references/overlay-SKILL.md` (`sync_bundles.py` /

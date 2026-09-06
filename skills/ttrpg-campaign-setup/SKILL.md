@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.6"
+  version: "1.7"
 ---
 
 # Campaign setup
@@ -206,7 +206,9 @@ Something irreducibly specific to this campaign and not a profile slot — house
 table's recurring patterns, a casting rule for figures in this setting — belongs in a **campaign
 overlay skill**, never in a base skill here. This folder bundles the template:
 [references/overlay-SKILL.md](references/overlay-SKILL.md); point the GM at it when the need comes
-up. Writing the overlay is the GM's job (or a later session's), not this skill's.
+up. Writing the overlay is the GM's job (or a later session's), not this skill's. When a clone is
+reachable, `python scripts/validate_overlay.py <overlay path>` checks delegation, restatement and
+length once the overlay exists; without one, the template's own size check is the only guard.
 
 ## Phase 4 — Adoption mode (the repo already has material)
 
@@ -233,12 +235,14 @@ The existing repo is **the authority on its own conventions**. Describe it; do n
 
 ## Phase 5 — Verify
 
-- **Slot coverage, mechanically:** diff the slot ids in `references/campaign-profile.md` against
-  those in the profile you wrote. Every schema slot holds a value, an explicit `none`, or a
-  `deferred: <when>` — or, after a declared quick start only, an untouched placeholder outside the
-  core set, each named in the closing report; a slot missing from your output is a slot you never
-  asked. **A slot session
-  zero owns is `deferred: session zero`, never `none`** — see the four states above.
+- **Slot coverage, mechanically:** when a clone of `ttrpg-campaign-skills` is reachable, run
+  `python scripts/validate_profile.py <profile path>` and report its findings — it reads the
+  schema itself, so an invariant this skill does not know about is still enforced. Otherwise, diff
+  the slot ids in `references/campaign-profile.md` against the profile you wrote by hand. Either
+  way, every schema slot holds a value, an explicit `none`, or a `deferred: <when>` — or, after a
+  declared quick start only, an untouched placeholder outside the core set, named in the closing
+  report; a slot missing from your output is a slot you never asked. **A slot session zero owns is
+  `deferred: session zero`, never `none`** — see the four states above.
 - Each `none` was *asked*, not assumed. `B.consent_recording` is `yes` only if someone said yes,
   and `C.capture_paths` is filled only then. `E.overrides` is explicit — `none` is a valid and
   common answer, blank is not. `C.gm_private` is filled whenever `C.player_access` lets players
