@@ -62,6 +62,14 @@ inlined module text to players who have not bought the source it came from. This
 advice, only where the package stands; if your table publishes or redistributes its repo, that is
 a question for you and the publisher's own licence, not for this package.
 
+## Substrate assumption
+
+The package's threat model assumes a **local folder** an agent can list, read and write, with
+stable file paths. It does not depend on version-control tooling: no skill calls `git`, checks a
+commit, or fails because a folder is unversioned. Version control is strongly recommended — it is
+the only reliable recovery path from a bad write — but it is a campaign decision, not a security
+requirement of this package.
+
 ## Privacy
 
 The material these skills write about the real people at your table has its own document:

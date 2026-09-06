@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.14"
+  version: "1.15"
 ---
 
 # Campaign setup
@@ -53,8 +53,10 @@ question or the first write.
 3. **The GM's own words** — a pitch, a chat log, a hand-written page. Mine answers from it *and
    then confirm them*: an inferred slot value is a guess until the GM says yes.
 
-If the repo is not under version control, or has no sync path to the GM's other machines, flag it
-now: the portability rule (Phase 3.5) is unenforceable without it.
+If the repo is not under version control, or has no sync path to the GM's other machines, flag
+it now and recommend addressing it: version control is the only reliable recovery path from a bad
+write and the only basis for enforcing the portability rule (Phase 3.5), but it is a strong
+recommendation, not a hard requirement.
 
 ## Phase 2 — The interview: walk the bundled schema
 

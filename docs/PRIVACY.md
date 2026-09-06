@@ -57,18 +57,18 @@ checked, which inputs were missing, which commands it ran and what they actually
 how "the off-game note was not written because `B.consent_offgame` says no" becomes visible
 instead of being a silence you have to notice.
 
-**Nothing leaves the repo.** No skill uploads, publishes, syncs or posts. Everything is a file in
-a folder you control; `C.portability` records how that folder reaches your other machines. Raw
-audio lives in a version-control-ignored folder by construction.
+**Nothing leaves the folder.** No skill uploads, publishes, syncs or posts. Everything is a file
+in a folder you control; `C.portability` records how that folder reaches your other machines. Raw
+audio lives in a dedicated sub-folder excluded from sync and version history, by design.
 
 ## What the package does *not* protect you from
 
 - **The model you point at it.** These are instructions for an agent, and the agent runs on
   someone's infrastructure. A dossier read by a hosted model has been sent to that provider.
   Choose the model for the material: the off-game note and the dossiers are the sensitive ones.
-- **Your git history.** Deleting an entry on request removes it from the working tree, not from
-  the commits before it. If you version the campaign, say so at session zero, and prefer keeping
-  the sensitive notes out of the repo over rewriting history later.
+- **Your version history.** If you version the campaign folder (strongly recommended), deleting
+  an entry removes it from the working tree but not from commits before it. Say so at session zero,
+  and prefer keeping sensitive notes out of version history over rewriting it later.
 - **Cross-table inference.** A hook harvested for one campaign is still a fact about a person when
   the campaign ends. `B.retention` is where the table decides what happens then.
 - **Remote play.** `ttrpg-session-audio` assumes one room and one microphone. Played over a call,

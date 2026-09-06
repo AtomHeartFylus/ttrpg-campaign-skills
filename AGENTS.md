@@ -178,6 +178,12 @@ Decisions already taken. Reopen them deliberately, do not re-litigate them by ac
   balancing, rules lookup, character sheets and VTT integration are deliberate non-goals, and the
   known gaps (item/economy ledger, scheduling, player-facing handouts, endgame and archival) wait
   for a second campaign to earn them.
+- **The substrate is a capability contract, not a tool contract (W22).** These skills require a
+  local folder an agent can list, read and write, with stable file paths. Version control is
+  strongly recommended — it is the only reliable recovery path from a bad write and the only basis
+  for enforcing `C.portability` — but it is not a hard requirement. A GM working from a plain,
+  unversioned folder can use every skill; they accept that a bad write becomes permanent. The hard
+  boundary is files-in-a-folder: a hosted wiki or shared document gives no ground to stand on.
 
 ## Authoring
 

@@ -196,13 +196,16 @@ command out of a file, so it is as privileged as a shell script.
 ## What this package assumes, and what it leaves alone
 
 **The substrate.** These skills assume your campaign memory is a tree of **markdown notes in a
-versioned folder** that an agent can read and write. They do **not** assume which tool displays
-them: no skill names an editor, and everything tool-shaped is a profile slot instead — link syntax
-and its escaping (`C.links`), which values are properties (`C.frontmatter`), forbidden characters in
-filenames (`C.naming`), the verification command and its invariant (`C.verify`). A skill can do
-nothing with the name of an app; it can do everything with those four answers. If your campaign
-lives in a hosted wiki or a shared document instead of in files, this package has no ground to
-stand on — that is a boundary, not an oversight.
+local folder** that an agent can list, read and write, with stable file paths. They do **not**
+assume which tool displays them: no skill names an editor, and everything tool-shaped is a profile
+slot instead — link syntax and its escaping (`C.links`), which values are properties
+(`C.frontmatter`), forbidden characters in filenames (`C.naming`), the verification command and its
+invariant (`C.verify`). A skill can do nothing with the name of an app; it can do everything with
+those four answers. **Version control is strongly recommended** — it is the only reliable recovery
+path from a bad write and the only basis for enforcing `C.portability` — but the skills require
+only the three operations above; a GM running from a plain, unversioned folder accepts the
+tradeoff and loses nothing else. If your campaign lives in a hosted wiki or a shared document
+instead of in files, this package has no ground to stand on — that is a boundary, not an oversight.
 
 **One thing tool-shaped is only half a slot.** The skeletons show callouts, checkboxes and quotes in
 one dialect. `C.blocks` says how your note system writes them, and a skill keeps the *roles* while
