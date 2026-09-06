@@ -1,0 +1,50 @@
+{
+  "eval": "table-recap",
+  "model": "claude-sonnet-5",
+  "when": "20260906-133651",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-table-recap-thhgeq5a",
+  "changed": [
+    "Sessions/Session 8 \u2014 Recap.md"
+  ],
+  "artifacts": [
+    "Sessions/Session 8 \u2014 Recap.md"
+  ],
+  "mechanical": [
+    {
+      "id": "type-key",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "found: type == 'session-recap'",
+      "why": ""
+    },
+    {
+      "id": "no-player-names",
+      "cite": "P12",
+      "ok": true,
+      "detail": "0 match(es) of /(?<![A-Za-z])(Ada|Bruno|Cleo|Dara)(?![A-Za-z])/ (min 0, max 0)",
+      "why": "a recap is in-fiction: player names are table talk"
+    },
+    {
+      "id": "no-mechanics",
+      "cite": "P12",
+      "ok": true,
+      "detail": "0 match(es) of /(?i)\\b(wick|marks?|threshold)\\b/ (min 0, max 0)",
+      "why": ""
+    },
+    {
+      "id": "no-eel-market",
+      "cite": "P11",
+      "ok": true,
+      "detail": "0 match(es) of /(?i)eel-market/ (min 0, max 0)",
+      "why": "the cut scene did not happen; it may not be recapped"
+    },
+    {
+      "id": "role-epithets",
+      "cite": "D.identity",
+      "ok": true,
+      "detail": "5 match(es) of /(?i)warden|debt-scribe|bell-diver/ (min 2)",
+      "why": ""
+    }
+  ],
+  "passed": true
+}

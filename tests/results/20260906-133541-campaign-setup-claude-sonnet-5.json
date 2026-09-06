@@ -1,0 +1,52 @@
+{
+  "eval": "campaign-setup",
+  "model": "claude-sonnet-5",
+  "when": "20260906-133541",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-campaign-setup-fv8s63s4",
+  "changed": [
+    "Hub.md",
+    "Threads.md",
+    "campaign-profile.md"
+  ],
+  "artifacts": [
+    "campaign-profile.md"
+  ],
+  "mechanical": [
+    {
+      "id": "profile-created",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "1 file(s) matching **/campaign-profile.md",
+      "why": ""
+    },
+    {
+      "id": "type-key",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "found: type == 'campaign-profile'",
+      "why": "how every other skill finds this file, whatever it is named"
+    },
+    {
+      "id": "session-zero-deferrals",
+      "cite": "four-state rule",
+      "ok": true,
+      "detail": "4 match(es) of /(?i)deferred:\\s*session zero/ (min 3)",
+      "why": "B.distance, B.safety, B.absence at minimum - never none, never a guess"
+    },
+    {
+      "id": "recap-answered-none",
+      "cite": "D.recap",
+      "ok": true,
+      "detail": "1 match(es) of /`D\\.recap`\\*\\*[^\\n]*\\bnone\\b/ (min 1)",
+      "why": "asked and answered empty is not the same as never asked"
+    },
+    {
+      "id": "no-todo-placeholders",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "0 match(es) of /\\[TODO:/ (min 0, max 0)",
+      "why": ""
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,57 @@
+{
+  "eval": "session-prep-A",
+  "model": "claude-sonnet-5",
+  "when": "20260906-132256",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-session-prep-A-cgrfwvbh",
+  "changed": [
+    "Sessions/Session 8 \u2014 What Rises With the Water.md"
+  ],
+  "artifacts": [
+    "Sessions/Session 8 \u2014 What Rises With the Water.md"
+  ],
+  "mechanical": [
+    {
+      "id": "type-key",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "found: type == 'session-prep'",
+      "why": "how the log and the audit find this artifact later"
+    },
+    {
+      "id": "spotlight-marks",
+      "cite": "P7",
+      "ok": true,
+      "detail": "2 match(es) of /Spotlight\\s*(?:\u2192|->)\\s*\\S/ (min 2)",
+      "why": "per-scene focus is marked in the scene's trigger box"
+    },
+    {
+      "id": "no-spotlight-table",
+      "cite": "P7",
+      "ok": true,
+      "detail": "0 match(es) of /(?m)^#{2,4}.*spotlight/ (min 0, max 0)",
+      "why": "a summary spotlight section is forbidden"
+    },
+    {
+      "id": "derail-lines",
+      "cite": "P9",
+      "ok": true,
+      "detail": "4 match(es) of /If they derail:/ (min 3)",
+      "why": "every scene carries the pressure that persists off-script"
+    },
+    {
+      "id": "content-margin",
+      "cite": "P8",
+      "ok": true,
+      "detail": "3 match(es) of /(?i)optional|content margin/ (min 1)",
+      "why": ""
+    },
+    {
+      "id": "protagonists-are-maren-and-sorrel",
+      "cite": "P7",
+      "ok": true,
+      "detail": "1 match(es) of /(?s)Maren.*Sorrel|Sorrel.*Maren/ (min 1)",
+      "why": "Tobit and Iole carried S7; the diaries are the only input to the rotation"
+    }
+  ],
+  "passed": true
+}

@@ -9,6 +9,23 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **Six evals actually run, `tests/run_eval.py` gains a check kind the harness needed to grade one
+  of them.** `session-prep` (A), `session-log`, `campaign-arc` (A), `continuity-audit`,
+  `campaign-setup` and `table-recap` were each run end to end by an agent following the current
+  `SKILL.md` (not simulated), graded and recorded under `tests/results/`. Grading `session-log`
+  surfaced a real harness bug: its `dossiers-updated` mechanical box could never pass, because
+  `grade()` scopes the text every `regex` check reads to the `type:`-matched artifact alone, and a
+  dossier is `type: dossier`, never `type: session-log` — the box was checking a file it could not
+  see. New check kind `regex-changed` (scans every changed `.md` file, not just the artifact) fixes
+  it without touching every other eval's `regex` boxes, several of which rely on the narrower scope
+  on purpose (a `max: 0` box that must not accidentally match a sibling file). Two more findings
+  were fixed in the artifacts themselves during the run, not the skill or the harness: a P2
+  duplicate value between a prep's global box and a scene box, and a missed dangling seed in an
+  audit report — both execution slips, not defects in what the skills say to do.
+  *Lesson: a mechanical box is itself code, and this one had never been run for real, so its own
+  scoping bug was invisible until an actual grading pass hit it — the same reason `tests/checker`
+  demands a fixture per check.* No `metadata.version` bump: `tests/run_eval.py` and one eval's
+  `eval-spec` are harness, not a skill.
 - **The package states its position on a publisher's copyright.** `SECURITY.md` gains "Copyright
   of imported material": `ttrpg-session-prep` inlines a published module's text directly into the
   prep (Phase 1.2), and neither `SECURITY.md` nor `docs/PRIVACY.md` had ever said whose text that

@@ -140,11 +140,11 @@ calls actually runs the eval.
     },
     {
       "id": "dossiers-updated",
-      "kind": "regex",
+      "kind": "regex-changed",
       "pattern": "(?m)^marks:\\s*6",
       "min": 1,
       "cite": "Phase 4",
-      "why": "the three present dossiers carry the new values"
+      "why": "the three present dossiers carry the new values - checked across every changed file, since a dossier is `type: dossier`, not the log's own `type: session-log`"
     },
     {
       "id": "sorrel-not-advanced",

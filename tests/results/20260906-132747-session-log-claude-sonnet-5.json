@@ -1,0 +1,48 @@
+{
+  "eval": "session-log",
+  "model": "claude-sonnet-5",
+  "when": "20260906-132747",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-session-log-t_p70oos",
+  "changed": [
+    "Dossiers/Ada \u2014 Maren.md",
+    "Dossiers/Bruno \u2014 Tobit.md",
+    "Dossiers/Cleo \u2014 Iole.md",
+    "Hub.md",
+    "Sessions/Session 7 \u2014 Log.md",
+    "Threads.md"
+  ],
+  "artifacts": [
+    "Sessions/Session 7 \u2014 Log.md"
+  ],
+  "mechanical": [
+    {
+      "id": "type-key",
+      "cite": "Phase 3",
+      "ok": true,
+      "detail": "found: type == 'session-log'",
+      "why": ""
+    },
+    {
+      "id": "saved-under-sessions",
+      "cite": "C.root",
+      "ok": true,
+      "detail": "2 file(s) matching Sessions/*7*.md",
+      "why": ""
+    },
+    {
+      "id": "dossiers-updated",
+      "cite": "Phase 4",
+      "ok": true,
+      "detail": "3 match(es) of /(?m)^marks:\\s*6/ across all changed files (min 1)",
+      "why": "the three present dossiers carry the new values - checked across every changed file, since a dossier is `type: dossier`, not the log's own `type: session-log`"
+    },
+    {
+      "id": "sorrel-not-advanced",
+      "cite": "B.absence",
+      "ok": true,
+      "detail": "4 match(es) of /(?i)sorrel/ (min 1)",
+      "why": "the absent player is accounted for, not silently dropped"
+    }
+  ],
+  "passed": true
+}

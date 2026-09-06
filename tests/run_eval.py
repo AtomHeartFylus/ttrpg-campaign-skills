@@ -238,6 +238,16 @@ def run_check(chk, text, dest, state, changed, artifacts):
         ok = n >= lo and (hi is None or n <= hi)
         return ok, "%d match(es) of /%s/ (min %s%s)" % (
             n, chk["pattern"], lo, "" if hi is None else ", max %d" % hi)
+    if kind == "regex-changed":
+        # Like "regex", but against EVERY changed .md file, not just the type-matched artifact -
+        # for a fact that must show up in a file of a DIFFERENT type (a dossier, the hub, the
+        # thread ledger) than the one `artifact.type` narrows `text` to.
+        wide = "\n\n".join(read(os.path.join(dest, rel)) for rel in changed if rel.endswith(".md"))
+        n = len(re.findall(chk["pattern"], wide, re.M | (re.I if chk.get("i") else 0)))
+        lo, hi = chk.get("min", 1), chk.get("max")
+        ok = n >= lo and (hi is None or n <= hi)
+        return ok, "%d match(es) of /%s/ across all changed files (min %s%s)" % (
+            n, chk["pattern"], lo, "" if hi is None else ", max %d" % hi)
     if kind == "file-exists":
         hits = glob.glob(os.path.join(dest, chk["glob"]), recursive=True)
         ok = bool(hits) if chk.get("expect", True) else not hits

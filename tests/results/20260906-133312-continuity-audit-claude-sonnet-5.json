@@ -1,0 +1,36 @@
+{
+  "eval": "continuity-audit",
+  "model": "claude-sonnet-5",
+  "when": "20260906-133312",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-continuity-audit-pnorb0co",
+  "changed": [
+    "Continuity Audit \u2014 Session 7.md"
+  ],
+  "artifacts": [
+    "Continuity Audit \u2014 Session 7.md"
+  ],
+  "mechanical": [
+    {
+      "id": "applies-nothing",
+      "cite": "Phase 4",
+      "ok": true,
+      "detail": "nothing pre-existing modified",
+      "why": "an audit proposes; it does not edit the campaign"
+    },
+    {
+      "id": "names-the-stale-hub",
+      "cite": "defect 1",
+      "ok": true,
+      "detail": "18 match(es) of /(?i)hub/ (min 1)",
+      "why": ""
+    },
+    {
+      "id": "names-the-ledger-drift",
+      "cite": "defect 5",
+      "ok": true,
+      "detail": "14 match(es) of /(?i)(false bell|thread ledger|Threads\\.md)/ (min 1)",
+      "why": ""
+    }
+  ],
+  "passed": true
+}

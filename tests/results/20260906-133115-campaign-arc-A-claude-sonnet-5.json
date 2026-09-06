@@ -1,0 +1,43 @@
+{
+  "eval": "campaign-arc-A",
+  "model": "claude-sonnet-5",
+  "when": "20260906-133115",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-campaign-arc-A-zd1z57d4",
+  "changed": [
+    "Arc.md"
+  ],
+  "artifacts": [
+    "Arc.md"
+  ],
+  "mechanical": [
+    {
+      "id": "type-key",
+      "cite": "Phase 0",
+      "ok": true,
+      "detail": "found: type == 'campaign-arc'",
+      "why": ""
+    },
+    {
+      "id": "session-budget",
+      "cite": "Phase 3",
+      "ok": true,
+      "detail": "4 match(es) of /14|seven left|7 left/ (min 1)",
+      "why": "B.cadence x B.horizon stated out loud"
+    },
+    {
+      "id": "both-declared-endings",
+      "cite": "D.endgame",
+      "ok": true,
+      "detail": "1 match(es) of /(?is)(flood.*debt-ledger|debt-ledger.*flood)/ (min 1)",
+      "why": ""
+    },
+    {
+      "id": "no-scenes",
+      "cite": "skill preamble",
+      "ok": true,
+      "detail": "0 match(es) of /(?i)read-aloud|trigger box/ (min 0, max 0)",
+      "why": "an arc note that writes scenes has become the prep skill"
+    }
+  ],
+  "passed": true
+}
