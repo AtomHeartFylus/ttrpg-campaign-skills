@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.7"
+  version: "1.8"
 ---
 
 # Campaign setup
@@ -213,25 +213,12 @@ length once the overlay exists; without one, the template's own size check is th
 ## Phase 4 — Adoption mode (the repo already has material)
 
 The existing repo is **the authority on its own conventions**. Describe it; do not improve it.
-
-1. **Inventory before opinions.** File tree with counts per folder; frequency of frontmatter keys
-   and tags; a sample of link forms; naming patterns. `rg -o` gives all four in a minute — never
-   read a large vault note by note.
-2. **The majority pattern is the convention.** Whatever most notes do goes into the §C slots, in
-   the repo's own vocabulary, even where you would have chosen otherwise. Minority forms are
-   *gaps*, not errors to fix.
-3. **Fill by observation, then confirm; ask the rest.** `C.root`, `C.granularity`, `C.links`,
-   `C.frontmatter`, `C.naming`, `D.backbone` and `D.official_material` are readable from the
-   material, then confirmed. Everything in §A beyond `A.ruleset`, all of `B.*`, `D.tone`,
-   `D.endgame` and all of §E is asked, never inferred from vibes — the gating slots even when
-   the repo shouts the answer. Then walk the schema (Phase 2) for the rest: adoption is not an
-   excuse to skip the walk.
-4. **Report the gaps, do not close them.** One ranked list: inconsistent tag or naming forms with
-   counts, duplicate notes for one entity, state duplicated outside its source of truth, broken
-   links, folders with no declared purpose. Each with a one-line proposed fix and its cost. Stop.
-5. **Never rename, move, merge or reorganise an existing note without asking** — record that in
-   `E.never_without_asking` so every later skill inherits it. Adoption that silently reshapes a
-   working vault is the fastest way to lose a GM's trust and their muscle memory.
+Full procedure, needed only in this mode: [references/adoption.md](references/adoption.md) —
+inventory before opinions; the majority pattern is the convention; fill-by-observation-then-confirm
+for the §C/§D slots it can answer, ask the rest; **propose** (never silently apply) an additive
+`type:` frontmatter pass over existing artifacts, and say what stays unfindable without it; report
+gaps without closing them; never rename, move, merge or reorganise an existing note without asking
+(`E.never_without_asking`).
 
 ## Phase 5 — Verify
 

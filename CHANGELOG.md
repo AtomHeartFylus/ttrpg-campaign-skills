@@ -9,6 +9,21 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **Adoption mode proposes the `type:` contract instead of never mentioning it:** Phase 4 gains a
+  step that inventories recognisable package artifacts already in an adopted repo, counts them per
+  type, and **proposes** (never silently applies) an additive `type:` frontmatter pass — the same
+  fixed key every other skill locates artifacts by, never by filename. Declining is recorded as a
+  known gap; the GM is told plainly that prep/recap/audit will not find these artifacts without it.
+  Also states that the rotation check counts from the next *recorded* session, not history it never
+  read. Phase 4's full procedure moved to a new `references/adoption.md` (needed one way only, in
+  this mode) to stay under `ENTRYPOINT-BUDGET`; the entrypoint keeps a condensed pointer.
+  *Lesson: an adopted repo satisfied every §C convention question and still stayed invisible to
+  every other skill, because none of them find anything except by `type:` — describing a
+  convention and applying its one load-bearing key are not the same step.*
+  **Known gap, not closed here:** `tests/evals/campaign-setup.md` has only a bootstrap scenario;
+  adding a machine-checked box for this needs a new adoption-mode scenario and fixture, which is
+  more than this fix's scope — left for a follow-up rather than force a box nothing exercises.
+  `metadata.version`: `ttrpg-campaign-setup` 1.7 -> 1.8. No migration: no slot changed.
 - **The existing validators are no longer invisible:** `ttrpg-campaign-setup` Phase 5 now runs
   `python scripts/validate_profile.py <profile>` when a clone of this repo is reachable (falling
   back to the manual slot-id diff otherwise), instead of only ever describing the manual diff;
