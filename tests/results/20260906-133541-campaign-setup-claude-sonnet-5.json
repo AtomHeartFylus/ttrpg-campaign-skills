@@ -48,5 +48,6 @@
       "why": ""
     }
   ],
-  "passed": true
+  "mechanical_passed": true,
+  "judged": "see tests/results/verdicts-W20.md, section \"campaign-setup\""
 }

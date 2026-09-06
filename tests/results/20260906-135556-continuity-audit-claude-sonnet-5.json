@@ -1,7 +1,7 @@
 {
   "eval": "continuity-audit",
   "model": "claude-sonnet-5",
-  "when": "20260906-133312",
+  "when": "20260906-135556",
   "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-continuity-audit-pnorb0co",
   "changed": [
     "Continuity Audit \u2014 Session 7.md"
@@ -21,8 +21,8 @@
       "id": "names-the-stale-hub",
       "cite": "defect 1",
       "ok": true,
-      "detail": "18 match(es) of /(?i)hub/ (min 1)",
-      "why": ""
+      "detail": "7 match(es) of /(?is)(hub[^\\n]{0,120}(stale|session 7)|(stale|session 7)[^\\n]{0,120}hub)/ (min 1)",
+      "why": "the hub is named together with the actual staleness (Session 6 vs 7), not just mentioned in passing"
     },
     {
       "id": "names-the-ledger-drift",
@@ -32,5 +32,6 @@
       "why": ""
     }
   ],
-  "passed": true
+  "mechanical_passed": true,
+  "judged": "see tests/results/verdicts-W20.md, section \"continuity-audit\""
 }

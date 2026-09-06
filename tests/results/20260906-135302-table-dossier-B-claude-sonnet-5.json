@@ -1,0 +1,38 @@
+{
+  "eval": "table-dossier-B",
+  "model": "claude-sonnet-5",
+  "when": "20260906-135302",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-table-dossier-B-1x8qm87z",
+  "changed": [
+    "Dossiers/Enzo.md",
+    "campaign-profile.md"
+  ],
+  "artifacts": [
+    "Dossiers/Enzo.md"
+  ],
+  "mechanical": [
+    {
+      "id": "dossier-created",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "1 file(s) matching Dossiers/*Enzo*.md",
+      "why": ""
+    },
+    {
+      "id": "type-key",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "found: type == 'dossier'",
+      "why": ""
+    },
+    {
+      "id": "no-invented-hooks-for-others",
+      "cite": "P11",
+      "ok": true,
+      "detail": "nothing pre-existing modified",
+      "why": "onboarding one player rewrites nobody else's dossier - campaign-profile.md is allowed because W17b requires B.size to be written back there"
+    }
+  ],
+  "mechanical_passed": true,
+  "judged": "see tests/results/verdicts-W20.md, section \"table-dossier-B\""
+}

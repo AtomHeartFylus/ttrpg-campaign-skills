@@ -1,13 +1,13 @@
 {
   "eval": "table-recap",
-  "model": "claude-sonnet-5",
-  "when": "20260906-133651",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-table-recap-thhgeq5a",
+  "model": "claude-opus-5",
+  "when": "20260906-140428",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-table-recap-hrwictke",
   "changed": [
-    "Sessions/Session 8 \u2014 Recap.md"
+    "Sessions/Session 7 \u2014 Recap.md"
   ],
   "artifacts": [
-    "Sessions/Session 8 \u2014 Recap.md"
+    "Sessions/Session 7 \u2014 Recap.md"
   ],
   "mechanical": [
     {
@@ -42,10 +42,10 @@
       "id": "role-epithets",
       "cite": "D.identity",
       "ok": true,
-      "detail": "5 match(es) of /(?i)warden|debt-scribe|bell-diver/ (min 2)",
+      "detail": "6 match(es) of /(?i)warden|debt-scribe|bell-diver/ (min 2)",
       "why": ""
     }
   ],
   "mechanical_passed": true,
-  "judged": "see tests/results/verdicts-W20.md, section \"table-recap\""
+  "judged": "see tests/results/verdicts-W20.md, section \"table-recap (second run, claude-opus-5)\""
 }

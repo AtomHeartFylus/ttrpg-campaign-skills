@@ -1,0 +1,44 @@
+{
+  "eval": "session-prep-B",
+  "model": "claude-sonnet-5",
+  "when": "20260906-134136",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-session-prep-B-c7tvtggi",
+  "changed": [
+    "Sessions/Session 8 \u2014 What Rises With the Water.md"
+  ],
+  "artifacts": [
+    "Sessions/Session 8 \u2014 What Rises With the Water.md"
+  ],
+  "mechanical": [
+    {
+      "id": "type-key",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "found: type == 'session-prep'",
+      "why": ""
+    },
+    {
+      "id": "spotlight-marks",
+      "cite": "P7",
+      "ok": true,
+      "detail": "2 match(es) of /Spotlight\\s*(?:\u2192|->)\\s*\\S/ (min 2)",
+      "why": "the irreducible core keeps per-scene spotlight marks"
+    },
+    {
+      "id": "derail-lines-kept",
+      "cite": "references/reduced-prep.md",
+      "ok": true,
+      "detail": "2 match(es) of /If they derail:/ (min 1)",
+      "why": "the irreducible core keeps this line even when the fuller red-team pass is deferred"
+    },
+    {
+      "id": "no-content-margin",
+      "cite": "references/reduced-prep.md",
+      "ok": true,
+      "detail": "0 match(es) of /(?i)\\(optional\\)/ (min 0, max 0)",
+      "why": "content margin is one of the four deferred elements"
+    }
+  ],
+  "mechanical_passed": true,
+  "judged": "see tests/results/verdicts-W20.md, section \"session-prep-B\""
+}

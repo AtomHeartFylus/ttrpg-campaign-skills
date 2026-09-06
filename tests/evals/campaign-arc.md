@@ -46,12 +46,15 @@ REQUIRED:
       `ttrpg-session-prep`. (Skill preamble)
 - [ ] Nothing planned on the stale hub without flagging it: the hub says Session 6, the logs say 7,
       and the log wins (P11).
-- [ ] **Cold start, trivial case:** no previous arc pass exists and there are only 7 logs, well
-      under any reasonable read-back window — all 7 are read, no window is invented, and the run
-      report names no "unverified backlog" (there is none to name). *The windowed branch itself —
-      asking the GM how far back to read once the count is not realistically readable in full — has
-      no fixture large enough to exercise it; this scenario only proves the skill does not invent a
-      window where none was needed.*
+- [ ] **Cold start, always asked:** no previous arc pass exists, so the agent asks the GM how far
+      back to read even though 7 logs is a short history — it does not decide on its own authority
+      that the count is short enough to skip the question. In a single-shot run with no further
+      reply available, the correct honest move is to ask in the reply/run report, note that no
+      answer came back this turn, and proceed on the reasonable assumption of reading all 7 while
+      saying plainly that is what happened — never to silently read everything and never mention a
+      window at all. All 7 are read either way; the run report names no "unverified backlog" (there
+      is none to name). **Not covered mechanically** — no box in the `eval-spec` below checks the
+      asking itself; a reader confirms it from the reply.
 - [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
       honoured, inputs unavailable, language chosen, commands run with their real output — in the
       reply, never inside the artifact.

@@ -4,7 +4,7 @@ description: "Produce and maintain the arc note that plans the campaign above th
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.7"
+  version: "1.9"
 ---
 
 # Campaign arc
@@ -94,11 +94,12 @@ turn remembered seeds into a tracker.
 2. **Every session log since the last arc pass.** Extract, per session: seeds planted, hooks left
    unpaid, promises made at the table, who was actually protagonist, where the register drifted,
    and which planned content was skipped.
-   **Cold start — no previous arc pass exists.** A short history needs no special handling: read
-   all of it. Once the log count is large enough that reading all of it is not realistic, do not
-   pick a window on your own authority — **ask the GM, when this comes up, how far back to read**;
-   a read-back window is their patience and their memory, not this skill's arithmetic. Populate the
-   thread tracker and the deviation ledger from the hub plus that window alone. Every earlier log
+   **Cold start — no previous arc pass exists.** The cold start itself is the trigger, not a guess
+   at what is "realistic" to read: **ask the GM how far back to read**, every time this skill runs
+   with no previous pass on record — the GM may answer "all of it", which is a legitimate answer
+   for a short history, but this skill does not decide that on its own authority by estimating a
+   log count. A read-back window is their patience and their memory, not this skill's arithmetic.
+   Populate the thread tracker and the deviation ledger from the hub plus that window alone. Every earlier log
    you did not read is named in the run report as **unverified backlog** — not silently dropped,
    and not treated as though it never happened.
 3. **The backbone source** (`D.backbone`): the module/chapter list, or the list of fronts.
@@ -229,3 +230,7 @@ its formula is reading stale input until it does; otherwise say there is none th
 - Do not invent a backbone, a tone shift or a resource curve the profile does not support.
 - Do not pick a cold-start read-back window on your own authority, and do not silently drop the
   logs a window left unread — name them as unverified backlog.
+- Do not skip asking on a cold start because the history looks short enough to read in full —
+  "short enough" is this skill's own estimate of what is realistic, exactly the kind of judgement
+  P8 already forbids it from making about content margin. Ask; a short history just gets "all of
+  it" as the answer.

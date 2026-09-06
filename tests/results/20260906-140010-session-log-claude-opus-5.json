@@ -1,8 +1,8 @@
 {
   "eval": "session-log",
-  "model": "claude-sonnet-5",
-  "when": "20260906-132747",
-  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-session-log-t_p70oos",
+  "model": "claude-opus-5",
+  "when": "20260906-140010",
+  "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-session-log-8_ukkcfz",
   "changed": [
     "Dossiers/Ada \u2014 Maren.md",
     "Dossiers/Bruno \u2014 Tobit.md",
@@ -40,10 +40,10 @@
       "id": "sorrel-not-advanced",
       "cite": "B.absence",
       "ok": true,
-      "detail": "4 match(es) of /(?i)sorrel/ (min 1)",
+      "detail": "9 match(es) of /(?i)sorrel/ (min 1)",
       "why": "the absent player is accounted for, not silently dropped"
     }
   ],
   "mechanical_passed": true,
-  "judged": "see tests/results/verdicts-W20.md, section \"session-log\""
+  "judged": "see tests/results/verdicts-W20.md, section \"session-log (second run, claude-opus-5)\""
 }

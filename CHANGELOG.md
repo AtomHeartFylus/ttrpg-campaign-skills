@@ -9,6 +9,83 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **The eval harness stops claiming more than it measured (W20c).** `tests/run_eval.py`'s
+  recorded JSON renamed its top-level `passed` key to `mechanical_passed` and added `judged: null`
+  — a record is no longer one boolean away from reading as a verdict nobody gave, matching what
+  `tests/results/README.md` already said in prose. Three mechanical checks that could not fail were
+  tightened: `session-prep`'s `content-margin` (passed on the bare word "optional" anywhere, split
+  into `has-optional-scene-tag` + `names-first-cut`) and `protagonists-are-...` (passed on both
+  names appearing anywhere, split into per-name `spotlight-is-maren`/`spotlight-is-sorrel`);
+  `continuity-audit`'s `names-the-stale-hub` (matched on the bare word "hub", 18 times in a report
+  that only describes check B; now requires proximity to "stale" or "Session 7"). Two behaviours
+  added this lotto (`campaign-arc`'s cold-start ask, `continuity-audit`'s check H) have no
+  mechanical box at all; their rubric boxes now say **"not covered mechanically"** explicitly
+  rather than leaving a reader to assume a green run exercised them.
+  *Lesson: a check that cannot go red is not a check, and a `passed` field that only ever reflects
+  a machine's half of the grading is the same false-precision the package refuses everywhere else
+  — W20's own six green runs could not see either problem because they never needed check H's
+  coverage or a report that gamed `content-margin`.* No `metadata.version` bump: harness and eval
+  files, not skills.
+- **Human verdicts for the W20 runs, closing what W20 itself left open.** Commit `5ab47bf`
+  recorded six mechanical gradings with a one-line commit message; per `tests/results/README.md`
+  the human half — including the P14 run-report box, which no file check can see — was never done.
+  `tests/results/verdicts-W20.md` now carries, for all eight recorded runs (the original six, plus
+  `session-prep` scenario B and `table-dossier` scenario B, run to close W9/W9b/W9c and W17's newly
+  REQUIRED boxes that the first pass never exercised): the run report each skill's P14 asked for,
+  written for the first time rather than only reasoned about internally, and a pass/partial verdict
+  with a one-line reason for every REQUIRED and SHOULD box. Two genuine partials surfaced and are
+  named rather than smoothed over: `session-log`'s round-cap mechanic was resolved by inference
+  instead of literally asking two questions first (no live GM was available in a solo run), and
+  `campaign-arc`'s note path was picked and flagged rather than asked before writing (closed for
+  future runs by W13b/W14b's own fixes below). `session-log` and `table-recap` — the two evals
+  where model variance costs the most (invention; the P12 sweep) — were additionally re-run with a
+  different model (`claude-opus-5` via a genuine sub-agent dispatch, not this session re-answering
+  its own prompt) and recorded the same way; both passed, one surfaced and self-corrected an
+  invented fact before finalising, the other wove in a canon quote and avoided a P12 word collision
+  the first run had tripped on.
+- **W14b — continuity-audit check H described a field the package does not produce.**
+  `references/checks.md` claimed dossier **Hooks** entries were dated like Playstyle notes; only
+  Playstyle notes carry a date (`ttrpg-table-dossier`'s own text). Check H now reports undated
+  material as **not measurable**, a different, always-distinct outcome from "nothing overdue" (a
+  measurement that actually ran and found nothing) — Hooks entries are always not-measurable, not
+  occasionally so. Also removed: the clause letting a subject's own removal request be "applied
+  directly" as an exception to "nothing is applied until approved" — that duplicated a rule already
+  owned by `ttrpg-session-audio` (off-game note, speaker map) and `ttrpg-table-dossier` (the
+  dossier) and made the audit a writer inside an artefact it does not own. Check H now lists the
+  material and cites the owning skill's rule, the same shape W15 already used for a name hand-off.
+  *Lesson: "nothing overdue" and "nothing measurable" look identical in a short report and are
+  opposite claims on a check that touches real people's data — collapsing them is exactly the kind
+  of invariant P14 forbids stating without having measured it.* `metadata.version`:
+  `ttrpg-continuity-audit` 1.11 -> 1.12. No schema change.
+- **W13b — the arc's cold-start clause judged what was "realistic" instead of always asking.**
+  `campaign-arc/SKILL.md` Phase 1.2 read "once the log count is large enough that reading all of it
+  is not realistic" — the same mood-based trigger W7 had just removed elsewhere ("or visibly has
+  one evening in them"). The trigger is now the cold start itself: no previous arc pass exists ⇒
+  always ask how far back to read, and a short history simply gets "all of it" as the answer
+  instead of the skill deciding that for itself. `tests/evals/campaign-arc.md`'s cold-start box
+  updated to require the ask even against the fixture's short 7-log history, and marked **not
+  covered mechanically**. *Lesson: replacing one hardcoded number with a a skill's own judgement
+  call about what counts as "too many" is the same failure with an extra step — the fix W13
+  shipped for the number left the judgement behind.* `metadata.version`: `ttrpg-campaign-arc`
+  1.8 -> 1.9. No schema change.
+- **W19b — the copyright pointer in session-prep overclaimed what it could enforce.**
+  `session-prep/SKILL.md` said `C.player_access` "must never expose it to a player", dropping
+  `SECURITY.md`'s own qualifier ("to players who have not bought the source") into an absolute the
+  skill has no way to check. Restored the qualifier in the skill's own text. *Lesson: compressing a
+  cross-reference for space is a wording fix until it quietly turns a qualified position into a
+  promise nothing enforces.* `metadata.version`: `ttrpg-session-prep` 1.11 -> 1.12. No schema
+  change; wording only, checker alone covers it.
+- **W17b — onboarding noticed `B.size` changed and never wrote it down.**
+  `references/session-zero.md`'s new-player section said the rotation now divides by a different
+  number and stopped there — nothing told the skill to write `B.size` back into
+  `campaign-profile.md`, and Verify never checked it, so the count goes stale in silence from that
+  session on. Session zero now writes `B.size` back as part of onboarding (a fact about the table,
+  not a deferred judgement call) and Phase 4's Verify gained a matching bullet.
+  `tests/evals/table-dossier.md` Scenario B's `no-invented-hooks-for-others` check now allows
+  `campaign-profile.md` in its changed-file list for exactly this write, and its rubric box was
+  promoted from "flags" to "writes". *Lesson: "the rotation period changes" is not the same
+  sentence as "and here is where that number now lives" — W17 wrote the first and assumed the
+  second followed from it.* `metadata.version`: `ttrpg-table-dossier` 1.6 -> 1.7. No schema change.
 - **Six evals actually run, `tests/run_eval.py` gains a check kind the harness needed to grade one
   of them.** `session-prep` (A), `session-log`, `campaign-arc` (A), `continuity-audit`,
   `campaign-setup` and `table-recap` were each run end to end by an agent following the current

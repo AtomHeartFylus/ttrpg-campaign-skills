@@ -278,7 +278,8 @@ def record(spec, results, changed, artifacts, work, model):
         json.dump({"eval": spec["name"], "model": model or "unknown", "when": stamp,
                    "work": work, "changed": changed, "artifacts": artifacts,
                    "mechanical": results,
-                   "passed": all(r["ok"] for r in results)}, fh, indent=2)
+                   "mechanical_passed": all(r["ok"] for r in results),
+                   "judged": None}, fh, indent=2)
     print("\n  recorded %s" % os.path.relpath(path, ROOT).replace("\\", "/"))
     return path
 

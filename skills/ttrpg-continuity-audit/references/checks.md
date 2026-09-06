@@ -111,15 +111,29 @@ asked not to invent. Say plainly that retention is unverified and offer to set i
 `ttrpg-session-audio` and `ttrpg-table-dossier` do when they write such material with the slot
 still empty.
 
-When `B.retention` states a rule, walk the GM-facing material it names — dossier **Playstyle** and
-**Hooks** entries (each a dated, per-session observation), the off-game note, the speaker map and
-the transcript, one artifact or entry at a time — and compare its date against the rule. Report
-every entry past the stated retention as a **change-list item**, never delete it yourself: deletion
-is the one action in this skill nobody may take without the GM's approval, exactly like every other
-proposal here. A rule stated as a season or a chapter boundary rather than a fixed day count is
-read against the campaign's own record of when that season or boundary fell — do not convert it to
-a day count on this skill's own authority. Anyone described may also have an entry removed on
-request regardless of the stated rule (`templates/campaign-profile.md`, `B.retention`); a request
-like that is applied directly, the one exception to "nothing is applied until approved," because
-the request itself **is** the approval.
+When `B.retention` states a rule, walk the GM-facing material it names, one artifact or entry at a
+time, and sort it into two outcomes that are **never reported the same way**:
+
+- **Measurable and past due** — the entry carries a date and the rule's clock has run out on it.
+  Report it as a **change-list item**: never delete it yourself, deletion is the one action in this
+  skill nobody may take without the GM's approval, exactly like every other proposal here. A rule
+  stated as a season or a chapter boundary rather than a fixed day count is read against the
+  campaign's own record of when that season or boundary fell — do not convert it to a day count on
+  this skill's own authority.
+- **Not measurable** — the entry carries no date to compare against the rule. Report it as **not
+  measurable**, by name, in its own line of the report — never folded into "nothing overdue,"
+  which claims a measurement that did not happen. This is expected, not a defect, for dossier
+  **Hooks** entries: `ttrpg-table-dossier` dates its **Playstyle** notes but not its Hooks section,
+  so a Hooks entry is *always* not-measurable material, not an occasional gap. Dossier Playstyle
+  notes, the off-game note, the speaker map and the transcript are dated by their owning skill and
+  are measurable whenever `B.retention` states a rule.
+
+**Removal on request is not this check's to grant.** Anyone described may have an entry about them
+removed on request, regardless of the stated retention rule (`templates/campaign-profile.md`,
+`B.retention`) — but that removal belongs to whichever skill owns the artifact (`ttrpg-session-audio`
+for the off-game note and the speaker map, `ttrpg-table-dossier` for the dossier), the same
+one-owner-per-artifact rule check H obeys everywhere else. This check **lists** the material and
+**cites** the rule; it does not carry out the removal itself — doing so here would be this skill
+writing into an artifact it does not own, and the exact kind of applied-without-approval action its
+own output discipline forbids everywhere else in this file.
 

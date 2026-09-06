@@ -39,5 +39,6 @@
       "why": "an arc note that writes scenes has become the prep skill"
     }
   ],
-  "passed": true
+  "mechanical_passed": true,
+  "judged": "see tests/results/verdicts-W20.md, section \"campaign-arc-A\""
 }

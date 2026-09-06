@@ -4,7 +4,7 @@ description: "Run session zero and produce one dossier note per PLAYER — plays
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.5"
+  version: "1.7"
 ---
 
 # Table dossier
@@ -220,6 +220,9 @@ lifecycle, playstyle discipline, and why the diary entry **is** the spotlight le
   hooks and playstyle notes sit in the GM-private location; every hook is in the player's own words.
 - Session-zero decisions were written back into `D.tone`, `B.safety`, `B.absence`, `B.distance` and
   `C.player_access`, not left in chat; the attendance and advancement rules are unambiguous.
+- **`B.size` matches the actual roster** — a player onboarded or departed was written back into
+  `campaign-profile.md` in the same pass, not merely noticed; the rotation formula divides by
+  whatever `B.size` says, so a stale count is a silent wrong answer from that session forward.
 - Spotlight check run from the diaries: nobody past **1.5 × (`B.size` / `B.protagonists`)** without
   a named commitment handed to `ttrpg-campaign-arc`. No constant was substituted for either slot.
 - Links follow `C.links`; run the `C.verify` command — invariant as declared.

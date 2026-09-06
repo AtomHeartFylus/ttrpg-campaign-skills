@@ -76,8 +76,9 @@ REQUIRED:
 - [ ] Produces **one note per player**, `type: dossier`, under `Dossiers/`, with the tracked values
       as properties and nowhere else (P10) — and Wick as a per-character property, which
       `A.resource_shape` permits here.
-- [ ] Flags that **`B.size` is now 5**, so the rotation period changes (5 / 2 = 2.5), and offers to
-      update the slot — rather than silently recomputing against a stale 4.
+- [ ] **Writes `B.size` → 5 into `campaign-profile.md`** as part of onboarding (a fact about the
+      table, not a deferred judgement call — W17b), and states the resulting rotation period
+      (5 / 2 = 2.5) rather than silently recomputing against a stale 4.
 - [ ] Re-states or schedules the **`B.safety`** tools for the new player (the pause-word is a
       table fact he has not been told), and applies `B.retention` (season, then deleted) to the
       GM-facing material it writes about him.
@@ -85,10 +86,14 @@ REQUIRED:
       advance.
 - [ ] **What Enzo reads first:** the fixture's `C.player_access` says players read nothing, so the
       agent says so plainly and briefs him out of band — it does not point him at a recap or any
-      other file the rest of the table cannot read either.
+      other file the rest of the table cannot read either. **Not covered mechanically.**
 - [ ] **Enzo's hook becomes a named line for the next prep or arc pass** (P7), not folded silently
       into the ambient cast — promoted from a SHOULD in the previous revision because
-      `references/session-zero.md`'s onboarding section now requires it explicitly.
+      `references/session-zero.md`'s onboarding section now requires it explicitly. **Not covered
+      mechanically** — the line lives in the run report, which no `eval-spec` box reads.
+- [ ] **`B.size` written into `campaign-profile.md`, not just noticed** (W17b) — mechanically
+      covered: `no-invented-hooks-for-others` now allows `campaign-profile.md` in its changed-file
+      list precisely so this write is visible and expected, not flagged as scope creep.
 
 SHOULD:
 
@@ -101,7 +106,7 @@ SHOULD:
 *A PC's death/retirement and a player leaving (the other two cases `references/session-zero.md`'s
 new "Beyond session zero" section covers) have no scenario here — `fixture-campaign` has no dead
 or departed PC to exercise them against. Noted as an honest gap rather than forced into this
-fixture.*
+fixture, and **not covered mechanically or by rubric** until a fixture earns one.*
 
 ---
 
@@ -188,10 +193,11 @@ a reader.
           "id": "no-invented-hooks-for-others",
           "kind": "untouched",
           "allow_new": [
-            "Dossiers/.*Enzo.*"
+            "Dossiers/.*Enzo.*",
+            "campaign-profile.md"
           ],
           "cite": "P11",
-          "why": "onboarding one player rewrites nobody else's dossier"
+          "why": "onboarding one player rewrites nobody else's dossier - campaign-profile.md is allowed because W17b requires B.size to be written back there"
         }
       ]
     }

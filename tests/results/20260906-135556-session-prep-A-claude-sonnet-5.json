@@ -1,7 +1,7 @@
 {
   "eval": "session-prep-A",
   "model": "claude-sonnet-5",
-  "when": "20260906-132256",
+  "when": "20260906-135556",
   "work": "C:\\Users\\fmila\\AppData\\Local\\Temp\\eval-session-prep-A-cgrfwvbh",
   "changed": [
     "Sessions/Session 8 \u2014 What Rises With the Water.md"
@@ -39,19 +39,34 @@
       "why": "every scene carries the pressure that persists off-script"
     },
     {
-      "id": "content-margin",
+      "id": "has-optional-scene-tag",
       "cite": "P8",
       "ok": true,
-      "detail": "3 match(es) of /(?i)optional|content margin/ (min 1)",
-      "why": ""
+      "detail": "1 match(es) of /\\(optional\\)/ (min 1)",
+      "why": "a scene is actually marked optional, not just the word 'optional' appearing anywhere"
     },
     {
-      "id": "protagonists-are-maren-and-sorrel",
+      "id": "names-first-cut",
+      "cite": "P8",
+      "ok": true,
+      "detail": "1 match(es) of /(?i)first cut/ (min 1)",
+      "why": "the optional scene names itself as the first thing to fall, not merely present"
+    },
+    {
+      "id": "spotlight-is-maren",
       "cite": "P7",
       "ok": true,
-      "detail": "1 match(es) of /(?s)Maren.*Sorrel|Sorrel.*Maren/ (min 1)",
-      "why": "Tobit and Iole carried S7; the diaries are the only input to the rotation"
+      "detail": "1 match(es) of /Spotlight\\s*(?:\u2192|->)\\s*Maren/ (min 1)",
+      "why": "Maren is actually spotlighted in a scene, not merely named somewhere in the document"
+    },
+    {
+      "id": "spotlight-is-sorrel",
+      "cite": "P7",
+      "ok": true,
+      "detail": "1 match(es) of /Spotlight\\s*(?:\u2192|->)\\s*Sorrel/ (min 1)",
+      "why": "Sorrel is actually spotlighted in a scene, not merely named somewhere in the document"
     }
   ],
-  "passed": true
+  "mechanical_passed": true,
+  "judged": "see tests/results/verdicts-W20.md, section \"session-prep-A\""
 }

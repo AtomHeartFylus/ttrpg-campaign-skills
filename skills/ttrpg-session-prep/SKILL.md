@@ -4,7 +4,7 @@ description: "Write the session prep document a GM actually holds during play â€
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.10"
+  version: "1.12"
 ---
 
 # Session prep
@@ -103,7 +103,8 @@ write the answer into the profile, and do not proceed as if it were a series.
    into* the prep, rewritten and fused with your own location notes, not cited by reference. Keep
    an attribution link. Never copy stat blocks. The repo stays private working material and this
    text enters it as a citation for use at your own table, never for redistribution â€” `SECURITY.md`
-   states the package's position; `C.player_access` must never expose it to a player.
+   states the package's position; `C.player_access` must never expose it to a player who has not
+   bought the source it came from.
 3. **The previous session log** (locate it by its `type: session-log` frontmatter when names
    vary). Exit state, loose ends, seeded hooks, missed opportunities.
 4. **The dossiers of the expected players.** Playstyle notes (who charges in, who must be handed a

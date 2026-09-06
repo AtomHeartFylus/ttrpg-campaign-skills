@@ -145,19 +145,36 @@ calls actually runs the eval.
           "why": "every scene carries the pressure that persists off-script"
         },
         {
-          "id": "content-margin",
+          "id": "has-optional-scene-tag",
           "kind": "regex",
-          "pattern": "(?i)optional|content margin",
+          "pattern": "\\(optional\\)",
           "min": 1,
-          "cite": "P8"
+          "cite": "P8",
+          "why": "a scene is actually marked optional, not just the word 'optional' appearing anywhere"
         },
         {
-          "id": "protagonists-are-maren-and-sorrel",
+          "id": "names-first-cut",
           "kind": "regex",
-          "pattern": "(?s)Maren.*Sorrel|Sorrel.*Maren",
+          "pattern": "(?i)first cut",
+          "min": 1,
+          "cite": "P8",
+          "why": "the optional scene names itself as the first thing to fall, not merely present"
+        },
+        {
+          "id": "spotlight-is-maren",
+          "kind": "regex",
+          "pattern": "Spotlight\\s*(?:→|->)\\s*Maren",
           "min": 1,
           "cite": "P7",
-          "why": "Tobit and Iole carried S7; the diaries are the only input to the rotation"
+          "why": "Maren is actually spotlighted in a scene, not merely named somewhere in the document"
+        },
+        {
+          "id": "spotlight-is-sorrel",
+          "kind": "regex",
+          "pattern": "Spotlight\\s*(?:→|->)\\s*Sorrel",
+          "min": 1,
+          "cite": "P7",
+          "why": "Sorrel is actually spotlighted in a scene, not merely named somewhere in the document"
         }
       ]
     },

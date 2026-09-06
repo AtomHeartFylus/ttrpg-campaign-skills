@@ -136,8 +136,14 @@ for a table that already made them.
 - **How the new PC hooks in:** harvest their hooks exactly as *Hook harvest* above (gated on
   `B.distance`, same consent rules if `close` / `self-insert`), write the new dossier, and add **one
   line for the next `ttrpg-session-prep` or `ttrpg-campaign-arc` pass**: this player is now part of
-  the rotation (`B.size` changed) and is owed a scene built on one of their fresh hooks. Do not
-  silently fold them into the ambient cast — an unscheduled newcomer is chorus by default.
+  the rotation and is owed a scene built on one of their fresh hooks. Do not silently fold them into
+  the ambient cast — an unscheduled newcomer is chorus by default.
+- **`B.size` gets written back, not just noticed.** A new player changes the number the rotation
+  formula (`B.size` / `B.protagonists`) actually divides by. Update `B.size` in
+  `campaign-profile.md` itself as part of onboarding — this is a fact about the table, not a
+  judgement call to defer — and say so plainly. A rotation period computed against the old count
+  is quietly wrong from this session forward, and nothing else in the package checks `B.size`
+  against the actual roster.
 - **Consent, re-checked, not re-explained:** if `B.consent_recording` or `B.consent_offgame` are in
   force, `ttrpg-session-audio` already refreshes them for anyone newly present — point there,
   do not restate its gate here.

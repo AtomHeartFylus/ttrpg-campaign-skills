@@ -46,10 +46,12 @@ REQUIRED — every box, or the eval fails:
       fixture's dangling threads (defect 8) give it a non-empty "Threads to decide" table, so the
       line is exercised, not just declared possible.
 - [ ] **Check H (retention)** is attempted, since the fixture's `B.retention` states a rule ("GM
-      notes about players kept for the season, then deleted") — and reports honestly that the
-      dossiers' Playstyle/Hooks entries here carry no per-entry date to test, rather than inventing
-      an age or a past-due finding that is not in the fixture. Not a seeded defect: the correct
-      output is "nothing overdue found" or "undated, cannot verify," never a fabricated one.
+      notes about players kept for the season, then deleted"). The fixture's dossier **Hooks**
+      entries carry no date and are reported **not measurable** (never folded into "nothing
+      overdue," which is a different, unearned claim); dossier **Playstyle** entries are dated
+      and, if none exceeds the rule, that is reported as "nothing overdue" — the two outcomes stay
+      visibly distinct. Not a seeded defect: no fabricated age or past-due finding. **Not covered
+      mechanically** — no box in the `eval-spec` below checks this; a reader confirms it.
 - [ ] If it proposes registering an override in `E.overrides`, it is restricted to **P8, P12 or
       P13 only** (the three principles checks C/G/F actually measure — never P4–P7 or P9, which
       this skill grades no prep against, and never P7, which `ttrpg-table-dossier` owns), phrased
@@ -89,9 +91,10 @@ calls actually runs the eval.
     {
       "id": "names-the-stale-hub",
       "kind": "regex",
-      "pattern": "(?i)hub",
+      "pattern": "(?is)(hub[^\\n]{0,120}(stale|session 7)|(stale|session 7)[^\\n]{0,120}hub)",
       "min": 1,
-      "cite": "defect 1"
+      "cite": "defect 1",
+      "why": "the hub is named together with the actual staleness (Session 6 vs 7), not just mentioned in passing"
     },
     {
       "id": "names-the-ledger-drift",
