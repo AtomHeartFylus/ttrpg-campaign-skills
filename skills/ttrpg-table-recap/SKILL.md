@@ -4,7 +4,7 @@ description: "Write the in-fiction recap that is read aloud to open the next ses
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.9"
+  version: "2.0"
 ---
 
 # Table recap
@@ -60,6 +60,8 @@ already answered.
 | `B.language` | language of player-facing text | write in the language of the notes around it — the session log first — say which you chose, and offer to record it |
 | `B.size` | how many were present shapes the telling | take the roster from the log |
 | `C.root`, `C.naming`, `C.frontmatter`, `C.links`, `C.verify` | path, file name, frontmatter, link syntax, verification command | write where told |
+| `B.absence` | in-fiction convention for absent characters — how their fate is handled in the world | **Phase 5 does not run** and reports it in the run report; Phases 1–4 continue unaffected |
+| `C.player_access` | what players may read of the repo — shapes where Phase 5's output can be saved | **Phase 5 does not run** and reports it in the run report; Phases 1–4 continue unaffected |
 | `C.blocks` | how this vault writes the quote block the recap is delivered in | keep the role, use a plain blockquote |
 | `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
 | `E.deliverable`, `E.review` | saved note or draft in chat; how blunt to be about a weak recap | save the note in the repo and be plainly honest |
@@ -69,7 +71,7 @@ the output which override you honoured. Two overridable defaults reach this skil
 
 | Override | What stops being required here |
 |---|---|
-| `P12 — off` | the fiction-only rule. Mechanics, meta and "previously, at our table" are admitted; the *journey* framing above becomes optional, and the piece may address the room. Do not smuggle it back as a style note |
+| `P12 — off` | the fiction-only rule. Mechanics, meta and "previously, at our table" are admitted; the *journey* framing above becomes optional, and the piece may address the room. Applies to both the main recap (Phase 2) and the absent-player note (Phase 5). Do not smuggle it back as a style note |
 | `P13 — off` | the admission test on anything the recap introduces; it may name a figure or place that has not earned a note |
 
 P1, P2, P3, P10, P11, P14 and P15 are **not** overridable: the recap still contains only what the fiction can
@@ -239,13 +241,32 @@ the prosody itself lives in the overlay:
 - Links follow `C.links` syntax; run the `C.verify` command — invariant as declared
   (typically **0 broken links**).
 
+## Phase 5 — Absent-player catch-up (W23) — run only on explicit request
+
+This phase runs **only when the GM explicitly asks** for a catch-up note for an absent player
+(e.g. "write the catch-up for Dara", "what did Sorrel miss?"). It does **not** run automatically.
+
+**Gate check — before writing anything:**
+
+1. **`B.absence`** — if empty or `deferred: <when>`, stop: report in the run report that Phase 5
+   cannot run until the in-fiction convention for absent players is declared, and offer to record it.
+2. **`C.player_access`** — if empty or `deferred: <when>`, stop: report that Phase 5 cannot run
+   until the player-access policy is declared, and offer to record it.
+
+If both slots carry a concrete value (any value, including a restrictive one), the gate clears.
+Read [references/absent-player-recap.md](references/absent-player-recap.md) for the full structure
+and delivery rules (what to cover, where to save, how P12 applies).
+
 ## Close with the run report (P14)
 
 End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). Never inside the recap, which is read aloud and is only fiction (P12). `D.recap`'s ceiling is a declared default — if you used it, say so and offer to
 record the table's real value; report the word/unit count, whether a recorded pace was used to
 turn it into an estimate or only the raw count was checked, whether you asked for the table's pace
 and proposed adding it to `D.recap`'s text, whether the GM's own read-aloud pass happened, the
-language chosen, and any command run with its real output.
+language chosen, and any command run with its real output. **If Phase 5 was requested:** report
+whether it ran or was blocked, and if blocked, which slot (`B.absence` or `C.player_access`) was
+empty or deferred; if it ran, report where the note was saved (or that it was chat-only and
+why).
 
 ## What NOT to do
 
@@ -263,3 +284,7 @@ language chosen, and any command run with its real output.
   do not treat the fallback as the rule when the slot has a value.
 - Do not invent an epithet for a table whose `D.identity` says it uses plain names.
 - Do not write an opening recap for a one-shot; if asked for anything, write an ending.
+- Do not run Phase 5 automatically — it runs only on explicit request, and only after both
+  `B.absence` and `C.player_access` are verified as non-empty and non-deferred.
+- Do not save a Phase 5 note to the repo when `C.player_access` says players read nothing;
+  deliver in chat and report it.
