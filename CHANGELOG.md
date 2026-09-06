@@ -134,6 +134,17 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **New check: `FIND-PROFILE-IDENTICAL`.** The "Find it before declaring it missing" protocol
+  block was duplicated verbatim in eight entrypoints with nothing mechanical policing it — exactly
+  the drift risk `BUNDLE-IDENTICAL` already guards for the schema and the principles. The block
+  itself was already identical everywhere (checked before writing the check); deliberately **not**
+  moved to `references/` (`PHASE0-PROTOCOL` reads the `find-profile` declaration against the text
+  in the entrypoint itself, and `AUTHORING` keeps Phase 0 branches inline on purpose) — policed by
+  a mechanical comparison instead. Caught its own regex bug before shipping it: matching to the
+  next blank line (instead of the block's own "... already answered." close) would have folded two
+  entrypoints' unrelated trailing sentences into the verdict as false drift. Registered in
+  `docs/AUTHORING.md`'s checker table (§7); the check count itself needs no update anywhere — W6
+  already pointed every mention at `--list`. Three new tests in `tests/checker/test_checker.py`.
 - **Two minor precision fixes in `ttrpg-campaign-setup`, caught in the same review:** the closing
   report's "what stalls" cross-read (W11) is the only place this skill reads another skill's own
   *text* rather than a campaign artifact — it now says plainly when those files are not reachable

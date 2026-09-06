@@ -426,6 +426,27 @@ class TestBudget(CheckerCase):
         self.assertIn("budget", out)
 
 
+class TestFindProfileIdentical(CheckerCase):
+    def test_drifted_block_fires(self):
+        self.assert_fires(
+            replace(PREP, "re-interviews a GM who", "re-interviews a poor GM who"),
+            "FIND-PROFILE-IDENTICAL")
+
+    def test_untouched_repo_is_clean(self):
+        rc, errors, _w, _out = self.run_checker()
+        self.assertNotIn("FIND-PROFILE-IDENTICAL", errors)
+        self.assertEqual(rc, 0)
+
+    def test_trailing_skill_specific_sentence_is_not_flagged(self):
+        # AUDIO and PREP each continue the same paragraph with a skill-specific sentence right
+        # after "already answered." - the check must end its comparison there, not fold that
+        # unrelated text into the verdict.
+        rc, errors, _w, out = self.run_checker(
+            append(PREP, "\n(a harmless trailing addition elsewhere in this file)\n"))
+        self.assertNotIn("FIND-PROFILE-IDENTICAL", errors, out)
+        self.assertEqual(rc, 0)
+
+
 class TestCli(CheckerCase):
     def test_only_runs_one_check(self):
         rc, errors, _w, out = self.run_checker(

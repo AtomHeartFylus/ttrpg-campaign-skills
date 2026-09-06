@@ -230,6 +230,7 @@ What the checker enforces mechanically, so you do not have to remember it:
 | `ARTIFACT-CONTRACT` | a skeleton shows a frontmatter placeholder without the fixed `type:` key, or two skills claim the same type value |
 | `PHASE0-PROTOCOL` | Phase 0 has no `<!-- phase0: ... -->` marker, declares an element it does not implement, or omits one the skill's role requires |
 | `ENTRYPOINT-BUDGET` | an entrypoint is over the context budget in estimated tokens — warning |
+| `FIND-PROFILE-IDENTICAL` | the "Find it before declaring it missing" block differs, even by whitespace, across the entrypoints that carry it |
 
 `python scripts/check_contract.py --list` prints that table from the checker's own registry — use
 it rather than trusting this copy, which is documentation and can lag by a commit.

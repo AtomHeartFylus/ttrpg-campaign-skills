@@ -109,6 +109,10 @@ CHECKS = [
     Check("ENTRYPOINT-BUDGET", "warn",
           "an entrypoint is over the context budget (%d estimated tokens) - what costs a reader "
           "is tokens, not lines; push one-way-only detail into references/" % 5000),
+    Check("FIND-PROFILE-IDENTICAL", "error",
+          "the 'Find it before declaring it missing' protocol block differs, even by whitespace, "
+          "across the entrypoints that carry it - eight hand-written copies drift apart unless "
+          "something mechanical polices them"),
 ]
 CHECK_CODES = [c.code for c in CHECKS]
 
@@ -810,6 +814,42 @@ def check_entrypoint_budget(repo, rep):
                      % (tokens, TOKEN_BUDGET))
 
 
+# ---------- 18: the find-profile protocol is one block, not eight ---------
+
+# Deliberately NOT moved to references/ (that would need PHASE0-PROTOCOL to read a link instead
+# of the text, and AUTHORING keeps the phase0 branches - find-profile among them - inline on
+# purpose): this check polices the copy mechanically instead, exactly like BUNDLE-IDENTICAL
+# polices a file sync_bundles.py could not reach.
+# Ends at the block's own natural close ("... already answered."), not at the next blank line:
+# two entrypoints continue the same paragraph with a skill-specific sentence straight after,
+# and a blank-line boundary would fold that unrelated drift into this check's verdict.
+FIND_PROFILE_BLOCK = re.compile(
+    r"\*\*Find it before declaring it missing\.\*\*.*?already answered\.", re.S)
+
+
+def check_find_profile_identical(repo, rep):
+    groups = defaultdict(list)
+    for d, p in repo.skill_entrypoints():
+        m = FIND_PROFILE_BLOCK.search(repo.read(p))
+        if not m:
+            continue  # this entrypoint declares search-protocol instead (ttrpg-campaign-setup)
+        norm = " ".join(m.group(0).split())
+        groups[norm].append(d)
+    if len(groups) <= 1:
+        return
+    majority = max(groups, key=lambda k: len(groups[k]))
+    total = sum(len(v) for v in groups.values())
+    for norm, skills in groups.items():
+        if norm == majority:
+            continue
+        for d in skills:
+            rep.err("FIND-PROFILE-IDENTICAL", "skills/%s/SKILL.md" % d,
+                    "the find-profile protocol block differs from the majority text (%d of %d "
+                    "entrypoints agree) - the copies must stay identical modulo whitespace; align "
+                    "this one, or fix the majority if this one is actually the correct text"
+                    % (len(groups[majority]), total))
+
+
 # The order below is the order findings are produced in; the report sorts anyway.
 PASSES = [
     check_citations,
@@ -825,6 +865,7 @@ PASSES = [
     check_artifact_contract,
     check_phase0_protocol,
     check_entrypoint_budget,
+    check_find_profile_identical,
 ]
 
 
