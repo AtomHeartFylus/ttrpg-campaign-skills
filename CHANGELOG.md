@@ -60,6 +60,19 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   *Lesson: a script that reads the schema instead of a hand-written diff was sitting unused because
   nothing pointed an agent at it — the fix that mattered was a sentence, not a feature.*
   `metadata.version`: `ttrpg-campaign-setup` 1.6 -> 1.7. No migration: no slot changed.
+- **Reduced prep, invoked by the GM, not a smaller default:** `session-prep` Phase 3 gains a
+  pointer to new `references/reduced-prep.md`: when the GM explicitly asks for a shorter prep this
+  session (never on this skill's own initiative, never on an empty slot), it produces the
+  irreducible core — trigger box, opening read-aloud, dramatic compass, `If they derail:` line per
+  scene, spotlight per `B.protagonists` — and **declares by name** what it deferred: content
+  margin, a written white-space scene, the recurring guide's beat, the full red-team prediction
+  pass. Per-run, not a default: `E.overrides` does not change, and no number here is this skill's
+  own invention. `tests/evals/session-prep.md` gains Scenario B (explicitly requested reduced
+  prep) with a REQUIRED box that the deferrals are named, not just made; eval-spec restructured to
+  the multi-scenario form already used by `campaign-arc`.
+  *Lesson: the only escape from an all-or-nothing required-elements list was switching a principle
+  off forever; a GM with forty minutes tonight needed a smaller ask for tonight, not a permanent
+  one.* `metadata.version`: `ttrpg-session-prep` 1.6 -> 1.7. No schema change.
 - **`E.overrides` explained, and reopenable:** `ttrpg-campaign-setup/references/interview.md` §E
   gains a one-line gloss per strong default (P4, P5, P6, P7, P8, P9, P12, P13) — what stays true on,
   what changes off — so a GM who has never seen the package applied is choosing, not shrugging,
