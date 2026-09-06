@@ -134,6 +134,13 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **Two minor precision fixes in `ttrpg-campaign-setup`, caught in the same review:** the closing
+  report's "what stalls" cross-read (W11) is the only place this skill reads another skill's own
+  *text* rather than a campaign artifact — it now says plainly when those files are not reachable
+  instead of silently guessing the consequence. The quick-start slot count (W7) now counts **slot
+  bullets** carrying `*(core)*`, not raw occurrences of the string — the preamble uses the same
+  string once too, which would have overcounted by one. `metadata.version`: `ttrpg-campaign-setup`
+  1.12 -> 1.13. No schema change.
 - **The `unconfirmed` marker gets a form, a language and a way to close:** independent review
   caught that W8's round-cap marker was a new artifact element with none of the three: (a) it was
   the literal English word, contradicting this same skill's own "do not write English headings
