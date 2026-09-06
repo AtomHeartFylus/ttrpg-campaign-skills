@@ -58,6 +58,9 @@ SHOULD — quality signals, note misses:
 - [ ] New hooks (the guild expulsion) written back to Bruno's dossier as on-the-record material
       (`B.distance` is `fictional`, so no extra gate applies — but the phrasing stays the
       player's own).
+- [ ] Hands `ttrpg-entity-note` the eel-catcher (`Eel-Market Buyer`, already a known dead link in
+      this fixture) as a name recurring in this session's testimony with no entity note — without
+      creating that note itself. (Phase 4)
 
 ---
 

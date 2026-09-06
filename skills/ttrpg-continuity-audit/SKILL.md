@@ -4,7 +4,7 @@ description: "Produce a health-check report on a campaign repo plus a proposed c
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.7"
+  version: "1.8"
 ---
 
 # Continuity audit
@@ -114,7 +114,7 @@ auditing. Each finding carries **evidence**: file, line, and the conflicting con
 | **D** — prep hygiene (P1, P2) | a trigger in both reminder levels, a value written twice, cross-references standing in for description, deviation drift | report deviation drift when the campaign is fully homebrew and has no ledger |
 | **E** — link integrity (`C.verify`) | the command's real output and its invariant | claim an invariant you did not run |
 | **F** — retroactive admission test (P13) | entities added in the window with no third answer | retire an entity the players have already met — demote it |
-| **G** — convention and leakage drift | naming, folder map, tag variants, orphans, and **secrets in notes `C.player_access` says players may read** | rank cosmetic drift above a leak; leakage cannot be undone |
+| **G** — convention and leakage drift | naming, folder map, tag variants, orphans, a recurring name never promoted to an entity note, and **secrets in notes `C.player_access` says players may read** | rank cosmetic drift above a leak; leakage cannot be undone |
 
 **Reopening a switched-on default.** `E.overrides` is filled once, at setup, by a GM who had never
 seen the package applied (`ttrpg-campaign-setup` reads the eight strong defaults out loud, but a

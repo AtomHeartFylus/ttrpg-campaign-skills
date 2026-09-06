@@ -134,6 +134,22 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **The improvised NPC becomes a note, one owner:** `session-log` Phase 4 gains a step — from the
+  interview and *What actually happened*, list every new NPC/place/faction name with no entity
+  note yet, hand the list to `ttrpg-entity-note` in the run report, **never create the note here**
+  (one owner per artifact). `continuity-audit` check G gains the inverse-orphan case (a name
+  recurring in the logs with no entity note ever made for it) so a missed hand-off is still
+  caught. `tests/evals/session-log.md` gains a SHOULD box (this fixture's own eel-catcher, already
+  a known dead link, is the natural case to catch).
+  Also, same commit: `session-log`'s Phase 0 table was pushed to 4949/5000 by this addition (51
+  margin) — migrated the non-gating "if empty" column to new `references/slot-degradation.md`,
+  keeping only the four slots that actually gate this skill's behaviour (`D.shape`,
+  `A.resource_shape`, the `B.distance`/`B.retention`/`C.gm_private` write-back gate,
+  `E.overrides`) inline. Down to ~4496 (504 margin). *Lesson: a table that lists seventeen slots at
+  the same visual weight hides the four an agent actually has to notice — this is also most of
+  what Regista's upcoming "mark the true gates" pass would have done for this skill.*
+  `metadata.version`: `ttrpg-session-log` 1.8 -> 1.9, `ttrpg-continuity-audit` 1.7 -> 1.8. No
+  schema change.
 - **`ttrpg-campaign-setup` budget migration, done ahead of need:** at 4924/5000 (76-token margin,
   the tightest of the nine and getting tighter every commit that touched this file across the
   workorder), §3.5 (portability) and §3.1 (folder skeleton) trimmed to pointers —

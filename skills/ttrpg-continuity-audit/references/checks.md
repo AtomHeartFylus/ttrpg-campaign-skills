@@ -89,10 +89,12 @@ reached the table). An entity the players have already met is never retired — 
 
 ### G — Convention and leakage drift (`C.player_access`, `C.naming`, `C.root`)
 Naming rules and forbidden characters; notes filed outside the folder map; frontmatter tag families
-that have sprouted variants (`x/y` alongside `x-y`); orphan notes reachable from nothing; and
-**secrets sitting in notes `C.player_access` says players may read**, instead of in the
-`C.gm_private` location. Leakage is the highest severity in this group: it cannot be undone after
-the fact. **No override drops this check:** `P12 — off` admits mechanics and meta into player-facing
-text, not secrets into notes players may read, and naming and folder rules come from `C.naming` and
-`C.root`, which are slots, not defaults.
+that have sprouted variants (`x/y` alongside `x-y`); orphan notes reachable from nothing; a name
+that **recurs** across the session logs in the window with no entity note ever created for it —
+the inverse of an orphan: a note that should exist and does not, the promotion `ttrpg-session-log`
+Phase 4 asks for but nobody finished; and **secrets sitting in notes `C.player_access` says players
+may read**, instead of in the `C.gm_private` location. Leakage is the highest severity in this
+group: it cannot be undone after the fact. **No override drops this check:** `P12 — off` admits
+mechanics and meta into player-facing text, not secrets into notes players may read, and naming and
+folder rules come from `C.naming` and `C.root`, which are slots, not defaults.
 
