@@ -9,6 +9,18 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **The arc note has a cold start:** `ttrpg-campaign-arc` Phase 1.2 gains a clause for the case
+  with no previous arc pass: a short history is read whole, same as always; once the log count is
+  not realistically readable in full, the skill **asks the GM** how far back to read rather than
+  picking a window on its own authority, populates the thread tracker and deviation ledger from
+  the hub plus that window, and names every earlier, unread log as **unverified backlog** in the
+  run report — never silently dropped. `tests/evals/campaign-arc.md` gains a box proving the
+  trivial case (7 logs, no window needed) invents nothing; the windowed branch itself has no
+  fixture large enough to exercise, noted as such rather than claimed.
+  *Lesson: "every session log since the last arc pass" had an unstated ceiling — a campaign with
+  no arc note and eighty logs behind it would have made the agent choose a number on its own, which
+  is exactly the hardcoded-constant failure the rest of the package refuses everywhere else.*
+  `metadata.version`: `ttrpg-campaign-arc` 1.6 -> 1.7. No schema change.
 - **A promised material thing is a thread, not a gap:** the open-thread tracker
   (`ttrpg-campaign-arc/references/arc-elements.md`) and check C
   (`ttrpg-continuity-audit/references/checks.md`) now say explicitly that a promised object,

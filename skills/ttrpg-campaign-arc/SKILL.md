@@ -4,7 +4,7 @@ description: "Produce and maintain the arc note that plans the campaign above th
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.6"
+  version: "1.7"
 ---
 
 # Campaign arc
@@ -94,6 +94,13 @@ turn remembered seeds into a tracker.
 2. **Every session log since the last arc pass.** Extract, per session: seeds planted, hooks left
    unpaid, promises made at the table, who was actually protagonist, where the register drifted,
    and which planned content was skipped.
+   **Cold start — no previous arc pass exists.** A short history needs no special handling: read
+   all of it. Once the log count is large enough that reading all of it is not realistic, do not
+   pick a window on your own authority — **ask the GM, when this comes up, how far back to read**;
+   a read-back window is their patience and their memory, not this skill's arithmetic. Populate the
+   thread tracker and the deviation ledger from the hub plus that window alone. Every earlier log
+   you did not read is named in the run report as **unverified backlog** — not silently dropped,
+   and not treated as though it never happened.
 3. **The backbone source** (`D.backbone`): the module/chapter list, or the list of fronts.
    What each unit *contains* versus what it must *deliver here*.
 4. **The player dossiers**: hooks and exposed nerves that have never been touched; **who is owed a
@@ -199,7 +206,9 @@ rewrite: update the tables in place, append to the ledger, and produce a short d
 
 End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). Not inside the arc note. State the session budget's inputs, every input that was missing (a hub, a ledger,
 an arc note that does not exist yet), the overrides honoured, and any command run with its real
-output. `E.audit_cadence`'s declared default belongs to `ttrpg-continuity-audit`, not here. Close
+output. `E.audit_cadence`'s declared default belongs to `ttrpg-continuity-audit`, not here. On a
+cold start that read a window rather than the full history (Phase 1.2), name the window and list
+the earlier logs as **unverified backlog** — this is not optional once a window was used. Close
 with **next suggested step**, one line: if a session log read in Phase 1.2 has no matching Diary
 entry yet in the player dossiers, name `ttrpg-table-dossier`'s rotation check as the next step —
 its formula is reading stale input until it does; otherwise say there is none this run.
@@ -218,3 +227,5 @@ its formula is reading stale input until it does; otherwise say there is none th
 - Do not run this skill for a one-shot, and do not soften the refusal into a one-row arc note.
 - Do not leave the ending for the ending.
 - Do not invent a backbone, a tone shift or a resource curve the profile does not support.
+- Do not pick a cold-start read-back window on your own authority, and do not silently drop the
+  logs a window left unread — name them as unverified backlog.
