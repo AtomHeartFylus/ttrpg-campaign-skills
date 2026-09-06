@@ -4,7 +4,7 @@ description: "Produce a health-check report on a campaign repo plus a proposed c
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.12"
+  version: "1.13"
 ---
 
 # Continuity audit
@@ -53,19 +53,13 @@ already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
-| `D.shape` | **the gate above** — whether this skill runs at all | **ask once**; never assume `series` |
-| `E.audit_cadence` | **how often this audit runs** — the only slot that answers it. Not the spotlight rotation check, which follows `B.protagonists` | use the **`default:` the slot itself declares**, **say in the report you used it**, and offer to record the table's real cadence |
-| `B.cadence` | **session** cadence — used only to convert "about a month of play" into a number of sessions in check C. **Not the audit cadence** | ask how often they play; do not substitute `E.audit_cadence` |
-| `A.resource` | which values are tracked and therefore duplicable | skip the resource checks |
-| `D.backbone`, `D.deviation_policy` | the deviation ledger prep must stay consistent with | skip the deviation-drift check — a fully homebrew campaign has no ledger and its absence is not a finding |
-| `B.absence` | absent-player rule → expected state divergence, not a bug | flag attendance divergences as questions, not findings |
-| `C.player_access`, `C.gm_private` | what players may read, and where GM-only material must live | assume no note is player-readable |
-| `C.state_locations`, `C.hub`, `C.root`, `C.naming`, `C.links`, `C.arc_note`, `C.thread_ledger` | single-source-of-truth locations, folder map, naming, link syntax, where the ledgers live | audit only what the user names; report the rest as unverifiable |
-| `C.verify` | the link-integrity command and its invariant | report link integrity as **unverified**; never claim an invariant you did not run |
-| `B.retention` | **check H** — how long GM-facing material about real people (dossier **Playstyle** entries, off-game notes, speaker maps, transcripts — all dated by their owning skill; dossier **Hooks** entries carry no date and are always reported not-measurable) is kept | check H does not run; report retention as **unverified** and offer to set the rule |
-| `E.retroactivity` | **whether past material may be corrected, and where corrections are recorded** | assume retroactivity is **not** granted; propose only the typo class |
-| `E.review`, `E.never_without_asking` | review bluntness, and what may not be touched without asking | be plain; propose, never apply |
+| `D.shape` **(gate)** | **the gate above** — whether this skill runs at all | **ask once**; never assume `series` |
+| `B.cadence` **(gate)** | **session** cadence — used only to convert "about a month of play" into a number of sessions in check C. **Not the audit cadence** | ask how often they play; do not substitute `E.audit_cadence` |
+| `B.retention` **(gate)** | **check H** — how long GM-facing material about real people (dossier **Playstyle** entries, off-game notes, speaker maps, transcripts — all dated by their owning skill; dossier **Hooks** entries carry no date and are always reported not-measurable) is kept | check H does not run; report retention as **unverified** and offer to set the rule |
+| `C.verify` **(gate)** | the link-integrity command and its invariant | report link integrity as **unverified**; never claim an invariant you did not run |
 | `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
+
+Non-gating slots (graceful degradation when empty): see [references/slot-degradation.md](references/slot-degradation.md).
 
 If the search finds no profile, run `ttrpg-campaign-setup` first — an audit without declared
 invariants is an opinion.

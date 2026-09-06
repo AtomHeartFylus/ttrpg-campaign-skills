@@ -4,7 +4,7 @@ description: "Write the session prep document a GM actually holds during play �
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.12"
+  version: "1.13"
 ---
 
 # Session prep
@@ -45,24 +45,13 @@ Slots used here:
 
 | Slot | Used for | If empty |
 |---|---|---|
-| `A.ruleset`, `A.adjudicated`, `A.houserules` | which mechanics to inline in a scene | inline nothing mechanical; keep scenes fiction-first |
-| `A.fiction` | what this table **never rolls for** — those beats are staged as pure fiction, with no check and no difficulty value in the scene | mechanise nothing you were not asked to; when in doubt, leave the beat to the fiction |
-| `A.resource` (+ `A.resource_loss` / `A.resource_gain`, `A.resource_scale`) | the spend/regain triggers section, and the units a cost is written in | drop that section entirely — do not invent a resource |
-| `D.tone` | register of read-aloud text; the recurring thematic pressure | ask once, then proceed |
-| `D.canon_source` | quote blocks and their delivery mode | no quote blocks |
-| `D.guide` | the one prepared beat per session | no beat section |
-| `D.shape` | **one-shot / series / open sandbox** — see the branch below; it governs Phase 1 | ask once; never assume `series` |
-| `D.backbone`, `D.official_material` | which official module/chapter this session leans on | treat as fully homebrew |
-| `B.size`, `B.protagonists` | spotlight rotation (P7) | ask table size; it drives P7 |
-| `B.length` | content margin (P8) | prep the main path only, no optional scenes |
-| `B.absence` | the in-fiction convention for absent players | ask once, then record it in the profile |
-| `B.distance` | **whether a scene may be aimed at a player's exposed nerve** — see the branch in Phase 3 | **ask before aiming any scene at a hook**; do not assume the fictional case |
-| `B.safety` | which tools are live tonight, and who may invoke them | ask once before any heavy scene; do not run one without an answer |
-| `B.frame` | the cultural frame any real, public or historical figure must sit inside — it applies to a figure **staged directly here**, not only to one with a note | cast no real or public figure; ask once. `ttrpg-entity-note` owns the rule, this skill obeys it |
-| `C.root`, `C.links`, `C.frontmatter`, `C.verify` | where the note goes, link syntax, frontmatter, verification command | write the file where told, skip link verification |
-| `C.blocks` | how this vault writes the callouts and checkboxes the skeleton shows | keep the roles, render them as plain headings and blockquotes |
-| `C.inline_exception` | which material may be inlined here beyond the P1 default | apply the P1 default: inline everything but stat blocks |
+| `D.shape` **(gate)** | **one-shot / series / open sandbox** — see the branch below; it governs Phase 1 | ask once; never assume `series` |
+| `B.distance` **(gate)** | **whether a scene may be aimed at a player's exposed nerve** — see the branch in Phase 3 | **ask before aiming any scene at a hook**; do not assume the fictional case |
+| `B.safety` **(gate)** | which tools are live tonight, and who may invoke them | ask once before any heavy scene; do not run one without an answer |
+| `B.size`, `B.protagonists` **(gate)** | spotlight rotation (P7) | ask table size; it drives P7 |
 | `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
+
+Non-gating slots (graceful degradation when empty): see [references/slot-degradation.md](references/slot-degradation.md).
 
 If the profile is missing, run `ttrpg-campaign-setup` first — do not guess conventions.
 

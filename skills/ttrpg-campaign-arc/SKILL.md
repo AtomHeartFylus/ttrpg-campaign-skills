@@ -4,7 +4,7 @@ description: "Produce and maintain the arc note that plans the campaign above th
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.9"
+  version: "1.10"
 ---
 
 # Campaign arc
@@ -53,19 +53,13 @@ already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
-| `D.shape` | **the gate above** — whether this skill runs at all | **ask once**; never assume `series` |
-| `A.ruleset` | the advancement checkpoints the backbone must respect, in that system's own measure | plan in fiction only, no progression row |
-| `A.resource` | the arc-level curve: where it must be lowest, where it can be regained | drop the curve column entirely |
-| `D.tone` | where the register must shift, and which breaks are admitted | ask once; do not invent tone shifts |
-| `D.canon_source` | which part of the corpus each chapter leans on | drop the canon column and the deviation ledger |
-| `D.guide` | the guide's arc across the campaign and where it resolves | drop that row |
-| `D.backbone`, `D.unit`, `D.deviation_policy` | the backbone itself: modules/chapters vs homebrew vs fronts; how deviations are recorded | ask once — without it there is no backbone to map |
-| `D.endgame` | the declared endings and the conditions selecting between them | ask once; seeds cannot wait for the last chapter |
-| `B.cadence`, `B.horizon` | cadence × horizon = the session budget | ask cadence; it is load-bearing here |
-| `B.size`, `B.protagonists` | passed through to `ttrpg-table-dossier`'s rotation check — **not recomputed here** | that skill asks; do not substitute a number |
-| `C.arc_note`, `C.thread_ledger`, `C.hub`, `C.links`, `C.verify` | where the arc note and ledger live, link syntax, verification command | ask where the note goes |
-| `E.review`, `E.never_without_asking` | how blunt the review is; what may not be changed without asking | propose, do not restructure |
+| `D.shape` **(gate)** | **the gate above** — whether this skill runs at all | **ask once**; never assume `series` |
+| `D.backbone`, `D.unit`, `D.deviation_policy` **(gate)** | the backbone itself: modules/chapters vs homebrew vs fronts; how deviations are recorded | ask once — without it there is no backbone to map |
+| `D.endgame` **(gate)** | the declared endings and the conditions selecting between them | ask once; seeds cannot wait for the last chapter |
+| `B.cadence`, `B.horizon` **(gate)** | cadence × horizon = the session budget | ask cadence; it is load-bearing here |
 | `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
+
+Non-gating slots (graceful degradation when empty): see [references/slot-degradation.md](references/slot-degradation.md).
 
 If the search finds no profile, run `ttrpg-campaign-setup` first — do not guess a backbone.
 

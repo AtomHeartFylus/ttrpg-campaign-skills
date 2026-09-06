@@ -4,7 +4,7 @@ description: "Create or update the single note for one campaign entity — an NP
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.6"
+  version: "1.7"
 ---
 
 # Entity note
@@ -36,19 +36,13 @@ already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
-| `B.distance` | **the ethics gate** — whether this entity may be built on a player's exposed nerve at all | **ask which of the three this table is before touching a hook**; never assume `fictional` |
-| `B.frame` | **the cultural frame a figure must sit inside to land with this table**, and which real or public figures are admissible | do not guess a frame and cast no real or public figure; ask once |
-| `B.hooks_staging`, `B.safety` | parallels vs literal appearances; the tools to refresh before a nerve-touching entity reaches the table | stage as parallels; ask once before building one |
-| `A.ruleset` | whether this entity needs a stat/mechanics note, and in what form | write fiction only; note that mechanics are undefined |
-| `D.tone` | the register of the description and the question the entity must pose | ask once, then proceed |
-| `D.canon_source` | entities the canon already fixes: place them where the source places them | treat every entity as original |
-| `D.guide` | whether this entity touches the guide's arc (a line for the guide to have about it) | drop that line |
-| `D.backbone`, `D.official_material`, `D.deviation_policy` | published material → attribution link + record the deviation | treat as homebrew |
-| `D.shape` | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
-| `B.language` | the language the note is written in | write in the language of the notes around it, say which you chose, and offer to record it |
-| `C.player_access`, `C.gm_private` | what players may read; where GM-only material lives | keep every secret in a clearly GM-only section |
-| `C.root`, `C.granularity`, `C.naming`, `C.links`, `C.frontmatter`, `C.verify` | folder, file naming, link syntax, tag families, verification command | ask where the note goes; do not invent a folder |
-| `E.deliverable`, `E.never_without_asking`, `E.retroactivity`, `E.overrides` | deliverable; renaming rules; retroactivity; which strong defaults this table switched off — see the branch below | save in the repo; never rename an existing note; all defaults in force |
+| `B.distance` **(gate)** | **the ethics gate** — whether this entity may be built on a player's exposed nerve at all | **ask which of the three this table is before touching a hook**; never assume `fictional` |
+| `B.frame` **(gate)** | **the cultural frame a figure must sit inside to land with this table**, and which real or public figures are admissible | do not guess a frame and cast no real or public figure; ask once |
+| `D.shape` **(gate)** | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
+| `C.root`, `C.granularity`, `C.naming`, `C.links`, `C.frontmatter`, `C.verify` **(gate)** | folder, file naming, link syntax, tag families, verification command | ask where the note goes; do not invent a folder |
+| `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
+
+Non-gating slots (graceful degradation when empty): see [references/slot-degradation.md](references/slot-degradation.md).
 
 If the search finds no profile, run `ttrpg-campaign-setup` first — do not guess conventions.
 

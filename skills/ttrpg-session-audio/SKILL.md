@@ -4,7 +4,7 @@ description: "Turn a recorded session into usable material: a versioned transcri
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.5"
+  version: "1.6"
 ---
 
 # Session audio
@@ -35,16 +35,13 @@ Only if the search comes back empty, run `ttrpg-campaign-setup` first — do not
 
 | Slot | Used for | If empty |
 |---|---|---|
-| `B.consent_recording` | **gate 1** — is the table recorded, and who has explicitly agreed | **stop and ask**; never proceed on an assumption |
-| `B.consent_offgame` | **gate 2** — may the out-of-character talk become a durable curated note | **no off-game note.** Everything else runs normally |
-| `C.capture_paths` | where audio, transcripts and the off-game note live, and their naming — **read this, do not derive a layout** | propose the contract in Phase 1, ask, then write the accepted answer back into `C.capture_paths` |
-| `C.player_access`, `C.gm_private` | what players may read of the repo; **where the off-game note is allowed to live** | treat transcripts and the off-game note as GM-only |
-| `B.distance` | **the gate on Phase 5**: an off-game note records what people said as themselves, and a hook born off game is harvested from a real person. Under `close` / `self-insert` keep only what was said on the record and route it as `C.gm_private` requires | empty or `deferred` → curate nothing about a player without asking first; the two consent gates still decide whether the phase runs at all |
-| `B.retention` | how long transcripts and off-game entries are kept, and who can trigger a deletion | say plainly that this material is being kept indefinitely, and offer to set the rule — do not quietly assume forever |
-| `B.language` | the language the transcription runs in | infer it from the notes around the repo, say which you chose and offer to record it here; ask only when there is nothing to infer from |
-| `C.naming`, `C.links`, `C.frontmatter`, `C.verify` | file naming, link syntax, frontmatter, verification command | follow the repo's existing convention; skip link verification |
-| `E.never_without_asking`, `E.overrides` | whether external/cloud tools may be used; whether files may be created without asking | ask before uploading anything and before creating folders |
-| `D.shape` | one-shot / series / open sandbox — see the branch below | proceed; this skill is the least shape-sensitive in the package |
+| `B.consent_recording` **(gate)** | **gate 1** — is the table recorded, and who has explicitly agreed | **stop and ask**; never proceed on an assumption |
+| `B.consent_offgame` **(gate)** | **gate 2** — may the out-of-character talk become a durable curated note | **no off-game note.** Everything else runs normally |
+| `C.capture_paths` **(gate)** | where audio, transcripts and the off-game note live, and their naming — **read this, do not derive a layout** | propose the contract in Phase 1, ask, then write the accepted answer back into `C.capture_paths` |
+| `B.distance` **(gate)** | **the gate on Phase 5**: an off-game note records what people said as themselves, and a hook born off game is harvested from a real person. Under `close` / `self-insert` keep only what was said on the record and route it as `C.gm_private` requires | empty or `deferred` → curate nothing about a player without asking first; the two consent gates still decide whether the phase runs at all |
+| `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
+
+Non-gating slots (graceful degradation when empty): see [references/slot-degradation.md](references/slot-degradation.md).
 
 ### The consent gates — two slots, read first, never merged
 

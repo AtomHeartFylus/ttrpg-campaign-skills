@@ -4,7 +4,7 @@ description: "Write the in-fiction recap that is read aloud to open the next ses
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "2.0"
+  version: "2.1"
 ---
 
 # Table recap
@@ -51,20 +51,13 @@ already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
-| `D.recap` | **the form** of the recap (in-fiction prose / a verse form / none), who reads it, and the **reading-time ceiling** | if it says **none**, stop: report that this campaign declares no opening recap and offer to record the choice in `D.recap`. Never pick a form yourself. For the ceiling alone, see the branch below |
-| `D.identity` | **what the text calls each protagonist** — real name, role or epithet | apply the per-character value from that player's dossier; if that is empty too, ask once and write the answer to both |
-| `D.tone` | register, admitted breaks, the recurring thematic pressure | ask once for the register, then proceed |
-| `D.canon_source` | quotes woven into the recap, and their status in-world | no quotes |
-| `D.guide` | a figure who keeps their own name and voice | treat every NPC by the name the fiction gives them |
-| `D.shape` | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
-| `B.language` | language of player-facing text | write in the language of the notes around it — the session log first — say which you chose, and offer to record it |
-| `B.size` | how many were present shapes the telling | take the roster from the log |
-| `C.root`, `C.naming`, `C.frontmatter`, `C.links`, `C.verify` | path, file name, frontmatter, link syntax, verification command | write where told |
-| `B.absence` | in-fiction convention for absent characters — how their fate is handled in the world | **Phase 5 does not run** and reports it in the run report; Phases 1–4 continue unaffected |
-| `C.player_access` | what players may read of the repo — shapes where Phase 5's output can be saved | **Phase 5 does not run** and reports it in the run report; Phases 1–4 continue unaffected |
-| `C.blocks` | how this vault writes the quote block the recap is delivered in | keep the role, use a plain blockquote |
+| `D.recap` **(gate)** | **the form** of the recap (in-fiction prose / a verse form / none), who reads it, and the **reading-time ceiling** | if it says **none**, stop: report that this campaign declares no opening recap and offer to record the choice in `D.recap`. Never pick a form yourself. For the ceiling alone, see the branch below |
+| `D.identity` **(gate)** | **what the text calls each protagonist** — real name, role or epithet | apply the per-character value from that player's dossier; if that is empty too, ask once and write the answer to both |
+| `D.shape` **(gate)** | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
+| `B.absence`, `C.player_access` **(gate)** | in-fiction convention for absent characters; what players may read — together gate Phase 5 | **Phase 5 does not run** and reports it in the run report; Phases 1–4 continue unaffected |
 | `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
-| `E.deliverable`, `E.review` | saved note or draft in chat; how blunt to be about a weak recap | save the note in the repo and be plainly honest |
+
+Non-gating slots (graceful degradation when empty): see [references/slot-degradation.md](references/slot-degradation.md).
 
 **`E.overrides` branch — mandatory.** Read the slot before writing a line, obey it, and say once in
 the output which override you honoured. Two overridable defaults reach this skill:

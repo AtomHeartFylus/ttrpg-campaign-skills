@@ -4,7 +4,7 @@ description: "Run session zero and produce one dossier note per PLAYER — plays
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.7"
+  version: "1.8"
 ---
 
 # Table dossier
@@ -45,20 +45,13 @@ already answered.
 
 | Slot | Used for | If empty |
 |---|---|---|
-| `B.distance` | **the ethics gate — read it before harvesting anything.** How far the characters sit from the players themselves | **ask which of the three this table is before the hook harvest**; never assume `fictional` |
-| `B.size`, `B.protagonists` | **the rotation formula `B.size / B.protagonists`** — this skill owns it | ask both; they are load-bearing and no constant may be substituted |
-| `A.ruleset`, `A.resource`, `A.resource_shape`, `A.resource_asymmetry` | which character-side values are properties — **`A.resource_shape` decides whether the resource is per-player at all** | track only what the GM names; no resource property |
-| `D.tone` | the tone contract and the hard lines / lines & veils to agree on | make it the first session-zero item, then write the answer back |
-| `D.shape` | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
-| `B.cadence`, `B.absence` | the budget window; the absent-player convention and whether absentees advance | decide both here and write them back |
-| `B.safety` | which tools, who may invoke them, what happens, **refresh cadence** | decide it here and write it back — `deferred: session zero` and empty read the same, and a `none` inherited from the interview is treated as unanswered, not as a decision; under `close` / `self-insert` it is mandatory, not optional |
-| `B.hooks_count`, `B.hooks_staging` | how many nerves per player, and how they are staged | use the `default:` the slot itself declares (2–3), say you did, and offer to record the real number; staging defaults to parallels |
-| `D.identity` | the rule for what a recap calls this protagonist — this note is where the **per-character** value lives, for `ttrpg-table-recap` to read | leave the field out; the recap asks once and writes the answer back here |
-| `B.retention` | how long playstyle notes and harvested hooks about a real person are kept, and who can have an entry removed | say plainly that these notes are kept indefinitely, and offer to set the rule — under `B.distance` = `self-insert` / `close`, ask before writing rather than after |
-| `C.player_access`, `C.gm_private`, `C.root`, `C.frontmatter`, `C.links`, `C.verify` | where playstyle notes and hook records may live; dossier folder, properties, link syntax, verification | assume players read nothing and keep playstyle GM-side; run `ttrpg-campaign-setup` — do not invent a layout |
-| `C.blocks` | how this vault writes the callouts the skeleton shows | keep the roles, render them as plain headings and blockquotes |
-| `E.review`, `E.never_without_asking` | bluntness; what not to do without asking | write honestly, save in the repo, ask before renaming |
+| `B.distance` **(gate)** | **the ethics gate — read it before harvesting anything.** How far the characters sit from the players themselves | **ask which of the three this table is before the hook harvest**; never assume `fictional` |
+| `B.size`, `B.protagonists` **(gate)** | **the rotation formula `B.size / B.protagonists`** — this skill owns it | ask both; they are load-bearing and no constant may be substituted |
+| `B.safety` **(gate)** | which tools, who may invoke them, what happens, **refresh cadence** | decide it here and write it back — `deferred: session zero` and empty read the same, and a `none` inherited from the interview is treated as unanswered, not as a decision; under `close` / `self-insert` it is mandatory, not optional |
+| `D.shape` **(gate)** | one-shot / series / open sandbox — see the branch below | ask once; do not assume `series` |
 | `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
+
+Non-gating slots (graceful degradation when empty): see [references/slot-degradation.md](references/slot-degradation.md).
 
 **`E.overrides` branch — mandatory.** Three overridable defaults reach this skill; drop what the
 profile switched off and say once that you did.
