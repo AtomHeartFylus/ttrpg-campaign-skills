@@ -36,7 +36,8 @@ SHOULD — quality signals, note misses:
 - [ ] Individual moments commemorated at the scale they had (the drowned-sister answer: quiet,
       not epic).
 - [ ] Shows rather than explains (the regret rendered as gesture, not psychology).
-- [ ] Declares it timed the reading against the ceiling. (Phase 4)
+- [ ] Declares the length proxy (word count ÷ declared pace, or fallback ~130 wpm named as such)
+      checked against the ceiling — not a literal read-aloud timing claim. (Phase 4)
 
 ---
 

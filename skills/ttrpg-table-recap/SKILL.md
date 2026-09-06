@@ -4,7 +4,7 @@ description: "Write the in-fiction recap that is read aloud to open the next ses
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.6"
+  version: "1.7"
 ---
 
 # Table recap
@@ -131,11 +131,17 @@ Suggested shape of the telling — adapt, do not pad to fill it:
 | A death, a transformation, an arrival | its own passage |
 | Closing: the passage onward, sealed by a final image | short |
 
-**Length ceiling: `D.recap` declares it. Read the recap aloud and time it against that value.**
-The ceiling is a slot, not a constant: a thirty-second cold open and a sung chronicle are both
-legitimate, and the profile is where the table says which. Past the declared ceiling attention is
-gone and the opening you wanted is spent. Some forms are measured in a form-native unit instead of
-minutes (a fixed number of strophes, one page); if `D.recap` gives one, time against that.
+**Length ceiling: `D.recap` declares it.** Measurable proxy, since an agent cannot literally read
+aloud and time itself: count the recap's words, divide by a reading pace, and compare to the
+ceiling — report both the word count and the resulting estimate. Absent a table-specific pace, use
+**~130 words/minute** (an average dramatic read-aloud pace) and say plainly this is an
+approximation, not a measured fact about this table, offering to record the table's real pace.
+Some forms are measured in a form-native unit instead of minutes (a fixed number of strophes, one
+page); if `D.recap` gives one, count that instead of words. The ceiling is a slot, not a constant: a
+thirty-second cold open and a sung chronicle are both legitimate, and the profile is where the
+table says which. Past the declared ceiling attention is gone and the opening you wanted is spent.
+**Actually reading the recap aloud, end to end, is the GM's action, not this skill's** — declare in
+the report whether it happened; never claim it as something this phase did.
 
 **If `D.recap` states no ceiling**, use the **`default:` the slot itself declares** (three to five
 minutes) — the number belongs to the profile, not to this skill — **say in the output that you used
@@ -205,15 +211,18 @@ the prosody itself lives in the overlay:
 
 ## Phase 4 — Verify
 
-- Read the whole text aloud, end to end, timed. Anything that trips the tongue is rewritten.
+- Compute the length proxy (word or form-native-unit count ÷ declared pace) against `D.recap`'s
+  ceiling and report both numbers; note if the fallback pace was used. **Reading the whole text
+  aloud, end to end, to catch what trips the tongue is the GM's action** — declare it happened, or
+  that it is still pending, rather than claiming this phase did it.
 - **P12 sweep — while `E.overrides` leaves P12 in force:** no mechanics, no rewards, no system
   vocabulary, no session number in the body, no
   address to the table, no anticipation of the next session, nothing from a scene that was not
   played, and nobody referred to as a person in the room rather than a figure in the story.
 - Every protagonist present is named per `D.identity`, and by the *same* identity as in earlier
   recaps; new values have been written back to the dossiers.
-- The text is in `B.language`; the reading-aloud timing was checked against `D.recap`'s ceiling,
-  or the fallback was used **and declared**.
+- The text is in `B.language`; the length proxy was checked against `D.recap`'s ceiling, or the
+  fallback pace was used **and declared**.
 - `D.shape` honoured: nothing was written to open a session that a one-shot does not have.
 - Every beat in the text can be traced to the session log; nothing invented, nothing promoted from
   a scene that never happened.
@@ -225,8 +234,9 @@ the prosody itself lives in the overlay:
 ## Close with the run report (P14)
 
 End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). Never inside the recap, which is read aloud and is only fiction (P12). `D.recap`'s ceiling is a declared default — if you used it, say so and offer to
-record the table's real value; report the timing you actually measured, the language chosen, and
-any command run with its real output.
+record the table's real value; report the word/unit count and pace used for the length proxy,
+whether the GM's own read-aloud pass happened, the language chosen, and any command run with its
+real output.
 
 ## What NOT to do
 

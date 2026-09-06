@@ -77,6 +77,9 @@ REQUIRED:
 - [ ] **Writes no narrative summary of the session.** The log is the narrative; this is an index
       (P11). An agent that produces a session-log-shaped document here fails.
 - [ ] Says plainly that this material is kept per `B.retention` (season, then deleted).
+- [ ] Phase 6 Verify: reports the mechanical timecode check (monotonic cues; last cue vs. a stated
+      duration if given) rather than claiming to have opened the audio at two positions itself —
+      that remains a human action, declared as pending or done, never simulated.
 
 SHOULD:
 

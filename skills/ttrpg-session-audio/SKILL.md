@@ -4,7 +4,7 @@ description: "Turn a recorded session into usable material: a versioned transcri
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.4"
+  version: "1.5"
 ---
 
 # Session audio
@@ -197,8 +197,11 @@ The load-bearing summary, so it is not mistaken for surveillance:
 
 ## Phase 6 — Verify and commit
 
-- The transcript pair exists, both files share the base name of the audio, and the timecoded one
-  actually opens at the right positions (spot-check two timecodes).
+- The transcript pair exists, both files share the base name of the audio. Mechanical check on the
+  timecoded file: every cue's timecode is later than the one before it (monotonic); if the GM
+  states the recording's duration, the last cue's timecode also falls at or before it. Report the
+  cue count and both results. **Opening the audio at a timecode to confirm it lands correctly is a
+  human action** — the GM's, declared as such when it happens, never claimed as done by this phase.
 - `B.consent_recording` was read and passed **before** anything ran; `B.consent_offgame` was read
   independently, and Phase 5 ran only on an explicit yes. Both answers live in the profile.
 - The ignore rules hold: run the repo's status check and confirm **no audio and no intermediate
