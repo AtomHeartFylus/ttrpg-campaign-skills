@@ -42,6 +42,9 @@ REQUIRED — every box, or the eval fails:
 - [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
       honoured, inputs unavailable, language chosen, commands run with their real output — in the
       reply, never inside the artifact.
+- [ ] Run report ends with a **next suggested step** line naming `ttrpg-campaign-arc` — this
+      fixture's dangling threads (defect 8) give it a non-empty "Threads to decide" table, so the
+      line is exercised, not just declared possible.
 
 SHOULD — quality signals, note misses:
 

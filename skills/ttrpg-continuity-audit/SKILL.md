@@ -4,7 +4,7 @@ description: "Produce a health-check report on a campaign repo plus a proposed c
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.4"
+  version: "1.5"
 ---
 
 # Continuity audit
@@ -210,7 +210,9 @@ do not want the same number, which is why it is a slot. It is neither `B.cadence
 End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). The report's own "Checks not run" section is not a substitute: one is about the campaign, the other
 about this run. `E.audit_cadence` is a declared default — if you used it, say so. Every check you
 could not run is named with the reason, and every command is shown before it runs and reported
-with its real output. **Never write an invariant you did not measure.**
+with its real output. **Never write an invariant you did not measure.** Close with **next
+suggested step**, one line: if the "Threads to decide" table has any rows, name `ttrpg-campaign-arc`
+as the next step for them; otherwise say there is none this run — no new phase, just the line.
 
 ## What NOT to do
 

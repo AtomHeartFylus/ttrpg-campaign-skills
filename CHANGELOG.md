@@ -60,6 +60,19 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   *Lesson: a script that reads the schema instead of a hand-written diff was sitting unused because
   nothing pointed an agent at it — the fix that mattered was a sentence, not a feature.*
   `metadata.version`: `ttrpg-campaign-setup` 1.6 -> 1.7. No migration: no slot changed.
+- **Closing reports say what happens next, instead of only what happened:** `ttrpg-campaign-setup`'s
+  report now states, for every slot written `deferred: session zero`, what stalls if session zero
+  is skipped — read live from `session-prep`/`table-dossier`/`table-recap`'s own Phase 0 tables
+  (never a second copy of their wording, which would drift). `ttrpg-continuity-audit` and
+  `ttrpg-campaign-arc` each close with a one-line **next suggested step**: audit → arc when its
+  "Threads to decide" table has rows; arc → `table-dossier`'s rotation check when a session log it
+  just read has no matching Diary entry yet. No new phase in either skill — one line in the run
+  report each. `tests/evals/campaign-setup.md`, `continuity-audit.md` and `campaign-arc.md` gain
+  matching REQUIRED boxes. *Lesson: three maintenance runs (rotation check, arc pass, continuity
+  audit) already read each other's output; only the chain from audit to arc was ever said out
+  loud — the report is where a GM learns there is a next step at all, not a fourth skill.*
+  `metadata.version`: `ttrpg-campaign-setup` 1.9 -> 1.10, `ttrpg-continuity-audit` 1.4 -> 1.5,
+  `ttrpg-campaign-arc` 1.4 -> 1.5. No schema change.
 - **The quick start is offered, not inferred:** Phase 2 previously triggered on the GM asking for
   the fast version "or visibly has one evening in them" — a mood judgement two agents would read
   differently on the same GM. It now opens by stating both paces explicitly (full walk vs. quick

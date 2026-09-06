@@ -4,7 +4,7 @@ description: "Produce and maintain the arc note that plans the campaign above th
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.4"
+  version: "1.5"
 ---
 
 # Campaign arc
@@ -199,7 +199,10 @@ rewrite: update the tables in place, append to the ledger, and produce a short d
 
 End the **reply** with it — skeleton in [references/PRINCIPLES.md](references/PRINCIPLES.md). Not inside the arc note. State the session budget's inputs, every input that was missing (a hub, a ledger,
 an arc note that does not exist yet), the overrides honoured, and any command run with its real
-output. `E.audit_cadence`'s declared default belongs to `ttrpg-continuity-audit`, not here.
+output. `E.audit_cadence`'s declared default belongs to `ttrpg-continuity-audit`, not here. Close
+with **next suggested step**, one line: if a session log read in Phase 1.2 has no matching Diary
+entry yet in the player dossiers, name `ttrpg-table-dossier`'s rotation check as the next step —
+its formula is reading stale input until it does; otherwise say there is none this run.
 
 ## What NOT to do
 

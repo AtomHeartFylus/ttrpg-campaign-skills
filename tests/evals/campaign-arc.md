@@ -49,6 +49,9 @@ REQUIRED:
 - [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
       honoured, inputs unavailable, language chosen, commands run with their real output — in the
       reply, never inside the artifact.
+- [ ] Run report ends with a **next suggested step** line: every session log read here (6 and 7)
+      already has a matching Diary entry in all three present dossiers, so the correct line says
+      there is none this run — inventing a `ttrpg-table-dossier` suggestion anyway is a fail.
 
 SHOULD:
 

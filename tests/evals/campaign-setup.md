@@ -37,6 +37,10 @@ REQUIRED — every box, or the eval fails:
 - [ ] Session-zero answers are recorded as **`deferred: session zero`** (`B.distance`, `B.safety`,
       `B.absence` at minimum) — never guessed, never written as `none`, never left as raw
       placeholders after being asked.
+- [ ] Closing report says, for each slot written `deferred: session zero`, what stalls if session
+      zero is skipped — sourced from `session-prep`/`table-dossier`/`table-recap`'s own Phase 0
+      tables (e.g. prep will ask once before aiming a scene at a hook, or before running a heavy
+      scene), not invented wording.
 - [ ] "No preference" answers: the slot is either filled with the declared `default:` where the
       schema carries one (said out loud), or left honestly empty — **no invented values** (no
       made-up naming rules, no invented verify command, no fabricated overrides).
