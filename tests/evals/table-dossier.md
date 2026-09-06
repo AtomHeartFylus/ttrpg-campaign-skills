@@ -83,13 +83,25 @@ REQUIRED:
       GM-facing material it writes about him.
 - [ ] Playstyle section is empty-with-a-plan or observed-and-dated — never adjectives invented in
       advance.
+- [ ] **What Enzo reads first:** the fixture's `C.player_access` says players read nothing, so the
+      agent says so plainly and briefs him out of band — it does not point him at a recap or any
+      other file the rest of the table cannot read either.
+- [ ] **Enzo's hook becomes a named line for the next prep or arc pass** (P7), not folded silently
+      into the ambient cast — promoted from a SHOULD in the previous revision because
+      `references/session-zero.md`'s onboarding section now requires it explicitly.
 
 SHOULD:
 
 - [ ] Places the new dossier's Diary section ready for the log cycle to append, rather than
       inventing attendance.
-- [ ] Points out that Enzo's arrival is `ttrpg-campaign-arc`'s problem for the forward commitment.
 - [ ] Asks where he sits relative to the existing spotlight debt (Dara), instead of deciding it.
+- [ ] Notes that `B.consent_recording` / `B.consent_offgame` are both `no` in this fixture, so no
+      consent refresh applies to Enzo here — without inventing a recording session to refresh.
+
+*A PC's death/retirement and a player leaving (the other two cases `references/session-zero.md`'s
+new "Beyond session zero" section covers) have no scenario here — `fixture-campaign` has no dead
+or departed PC to exercise them against. Noted as an honest gap rather than forced into this
+fixture.*
 
 ---
 

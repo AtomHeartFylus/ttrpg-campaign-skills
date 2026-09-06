@@ -4,7 +4,7 @@ description: "Run session zero and produce one dossier note per PLAYER — plays
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.4"
+  version: "1.5"
 ---
 
 # Table dossier
@@ -26,8 +26,10 @@ in the package.**
 
 **Supporting references** — read the one you need:
 - [references/session-zero.md](references/session-zero.md) — the seven decisions of a session zero,
-  the distance conversation, and how each ends as a written profile slot. Only when a campaign is
-  starting, a player is joining, or an unsettled question is reopened.
+  the distance conversation, how each ends as a written profile slot, and what happens **beyond**
+  session zero: a new player joining mid-campaign, a PC's death or retirement, a player leaving.
+  Only when a campaign is starting, a player is joining, a PC's fate changes, or an unsettled
+  question is reopened.
 - [references/playstyle-and-rotation.md](references/playstyle-and-rotation.md) — craft notes,
   the rotation check and attendance, in full.
 
@@ -122,7 +124,9 @@ type: dossier          <!-- fixed package key, identical in every campaign: how 
 > (one line: the player and their character(s); state lives in the properties above)
 
 ## Character
-(who they are in the fiction, what A.ruleset tracks, links to the entity notes — no state here)
+(who they are in the fiction, what A.ruleset tracks, links to the entity notes — no state here.
+ On death or retirement: close this section with the date and the log where it happened, and open
+ a new ## Character section below it for whatever they play next — references/session-zero.md)
 
 ## Hooks / exposed nerves
 (harvested, not hoped for — gated on B.distance, see below)
@@ -219,6 +223,14 @@ lifecycle, playstyle discipline, and why the diary entry **is** the spotlight le
 - Spotlight check run from the diaries: nobody past **1.5 × (`B.size` / `B.protagonists`)** without
   a named commitment handed to `ttrpg-campaign-arc`. No constant was substituted for either slot.
 - Links follow `C.links`; run the `C.verify` command — invariant as declared.
+- A dead or retired PC closed its `## Character` section with a date and a log link; it did not
+  close the dossier, and the Diary/playstyle/hooks continued under the new PC.
+- A player who left has a **closed** dossier, dated, never deleted; its GM-facing material still
+  answers to `B.retention` like any other, and it dropped out of the rotation ledger only from its
+  closing session forward.
+- A player joining mid-campaign was shown only what `C.player_access` already permits everyone
+  else, and their hook became a named line for the next prep or arc pass — not folded into the
+  ambient cast unscheduled.
 
 ## Close with the run report (P14)
 
@@ -243,3 +255,8 @@ instead, and every command run with its real output.
   as optional when `B.distance` is `close` or `self-insert`.
 - Do not harvest a hook, or write a GM-facing note about a person, while `B.distance` is empty.
   Ask first; do not assume the fictional case.
+- Do not close a dossier because its PC died — the dossier is the player's; only the `## Character`
+  section closes, and a new one opens beside it.
+- Do not hand a newcomer a GM-facing file, or more of the repo than `C.player_access` already
+  permits everyone else, and do not fold a new PC into the cast without a named line for the next
+  prep or arc pass.

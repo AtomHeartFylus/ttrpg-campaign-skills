@@ -120,3 +120,41 @@ hook is `B.frame`, read by `ttrpg-entity-note`.
 Before the table disperses, every one of the seven decisions exists as text in the repo. A decision
 that stayed in conversation was not made: three sessions later two people remember it differently,
 and the one who is wrong is usually the GM.
+
+## Beyond session zero: a new player, a dead PC, a player who leaves
+
+Three events short of a full session zero, each with its own note discipline.
+
+### A new player joins mid-campaign
+This is a **partial** session zero, on the new person alone — do not reopen the settled decisions
+for a table that already made them.
+
+- **What they read first** is whatever `C.player_access` already permits everyone else: the recap
+  (`ttrpg-table-recap`) and the player-facing reference, never the GM-facing dossiers, hub or prep.
+  If `C.player_access` says players read nothing, say so plainly and brief them out of band — do
+  not hand them a file the rest of the table cannot read either.
+- **How the new PC hooks in:** harvest their hooks exactly as *Hook harvest* above (gated on
+  `B.distance`, same consent rules if `close` / `self-insert`), write the new dossier, and add **one
+  line for the next `ttrpg-session-prep` or `ttrpg-campaign-arc` pass**: this player is now part of
+  the rotation (`B.size` changed) and is owed a scene built on one of their fresh hooks. Do not
+  silently fold them into the ambient cast — an unscheduled newcomer is chorus by default.
+- **Consent, re-checked, not re-explained:** if `B.consent_recording` or `B.consent_offgame` are in
+  force, `ttrpg-session-audio` already refreshes them for anyone newly present — point there,
+  do not restate its gate here.
+
+### A PC dies or retires
+**The dossier stays open: it belongs to the player, never the character** (the note's own opening
+rule). Close only the `## Character` section that ends: append the date and the session log where
+it happened, so the record of *why* survives in one place. Open a **new** `## Character` section
+for whatever they play next, immediately below the closed one — same dossier, same Diary, same
+playstyle notes, because all three are about the player, not the departed PC. A death is not a
+reason to touch `B.distance`, `B.safety` or the rotation ledger; none of the three cares which body
+the player is currently occupying.
+
+### A player leaves the table
+Close the dossier itself: date it, and say in one line why (if the table wants that recorded at
+all — it is theirs to decline). It is not deleted on departure. What happens to its GM-facing
+material afterward — the playstyle notes and harvested hooks about a person no longer at the table
+— is exactly what `B.retention` already governs for everyone; `ttrpg-continuity-audit` checks a
+closed dossier against that rule the same as an open one. A closed dossier drops out of the
+rotation ledger from its closing session forward — it does not distort `B.size` retroactively.

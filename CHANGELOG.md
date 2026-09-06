@@ -9,6 +9,23 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **Three player-lifecycle events the dossier skill never named:** `references/session-zero.md`
+  gains "Beyond session zero" — a new player joining mid-campaign (a partial session zero: what
+  they read is capped at what `C.player_access` already permits everyone, their hook becomes a
+  named line for the next prep or arc pass instead of silent ambient cast, consent refresh is a
+  pointer to `ttrpg-session-audio`, never restated); a PC's death or retirement (the dossier stays
+  — it is the player's — only the `## Character` section closes, dated and logged, and a new one
+  opens beside it); a player leaving (the dossier closes, dated, never deleted, and its GM-facing
+  material still answers to `B.retention`). `SKILL.md`'s skeleton, Verify and What NOT to do gain
+  matching lines. `tests/evals/table-dossier.md` Scenario B promotes the forward-commitment line
+  and the player-access cap from SHOULD to REQUIRED, and adds a box for the consent-refresh
+  non-case (`B.consent_recording`/`B.consent_offgame` both `no` in the fixture); death and
+  departure have no fixture PC to exercise them against, noted as a gap rather than forced.
+  *Lesson: onboarding was already tested (Scenario B) but under-specified — nothing said what a
+  newcomer may read or that their hook must reach the next prep, so a run could brief them fully
+  from GM-only notes and still pass; death and departure were not named at all, and a dossier
+  closed on a character's death would have erased a player's whole rotation history with them.*
+  `metadata.version`: `ttrpg-table-dossier` 1.4 -> 1.5. No schema change.
 - **Retention is now verified, not just declared:** `ttrpg-continuity-audit` gains check H —
   it walks the GM-facing material about real people that `B.retention` already governs (dossier
   Playstyle/Hooks entries, off-game notes, speaker maps, transcripts) and reports anything past the
