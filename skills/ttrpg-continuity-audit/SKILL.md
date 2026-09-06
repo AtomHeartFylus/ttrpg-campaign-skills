@@ -4,7 +4,7 @@ description: "Produce a health-check report on a campaign repo plus a proposed c
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.5"
+  version: "1.6"
 ---
 
 # Continuity audit
@@ -115,6 +115,15 @@ auditing. Each finding carries **evidence**: file, line, and the conflicting con
 | **E** — link integrity (`C.verify`) | the command's real output and its invariant | claim an invariant you did not run |
 | **F** — retroactive admission test (P13) | entities added in the window with no third answer | retire an entity the players have already met — demote it |
 | **G** — convention and leakage drift | naming, folder map, tag variants, orphans, and **secrets in notes `C.player_access` says players may read** | rank cosmetic drift above a leak; leakage cannot be undone |
+
+**Reopening a switched-on default.** `E.overrides` is filled once, at setup, by a GM who had never
+seen the package applied (`ttrpg-campaign-setup` reads the eight strong defaults out loud, but a
+first answer is still a guess). If this run's findings show the same non-compliance with one of
+P4–P9, P12 or P13 that your **last two archived audit reports** also showed — readable only if
+past reports were saved somewhere in the repo; if none are findable, say the check is **not
+verifiable** rather than skip it silently — add one line to the change list **proposing** that
+principle be registered in `E.overrides`. Propose only: this skill fills nothing into the profile
+without the GM's agreement, the same rule as every other change here.
 
 ## Phase 3 — The retcon protocol
 

@@ -55,7 +55,29 @@ costs one line and prevents a profile that quietly describes a campaign nobody i
   them.
 - **§E (agreements and overrides).** GMs rarely volunteer these; offer the shape of an answer. The
   overrides slot in particular: read the strong defaults out and ask which ones this table does not
-  want. `none` is common and legitimate — blank is not, because blank reads as "never asked".
+  want. `none` is common and legitimate — blank is not, because blank reads as "never asked". A GM
+  who has never seen the package applied has nothing to judge these against yet, so read out what
+  each one costs on and off — one line each, so "none" is a choice and not a shrug:
+  - `P4` (NPC intentions) — **on:** any NPC whose will is not obvious gets a stated want, proportional
+    to their weight. **off:** NPCs may stay pure obstacles or scenery.
+  - `P5` (scene question + non-combat exit) — **on:** every scene states its dramatic question and a
+    way out that is not combat. **off:** scenes may run with neither stated — closer to pure
+    tactical play.
+  - `P6` (white space) — **on:** prep plans 1–2 explicit no-mechanics conversation scenes per
+    session. **off:** no dedicated non-mechanical scene is required.
+  - `P7` (spotlight rotation) — **on:** `B.protagonists` sets who is in focus each session, rotating
+    so nobody stays chorus forever. **off:** e.g. every player is a protagonist every session by
+    design — no rotation is tracked.
+  - `P8` (content margin) — **on:** prep carries 1–2 optional scenes beyond the main path. **off:**
+    the main path only, no margin content required.
+  - `P9` (red-team) — **on:** prep predicts 3–5 likely derailing choices, each with a response
+    pressure. **off:** no derailment-prediction section required.
+  - `P12` (fiction-only player-facing text) — **on:** the recap and other player-facing text stay
+    strictly in-fiction — no mechanics, no meta, no fourth wall. **off:** the table wants a
+    behind-the-scenes register in what players read.
+  - `P13` (admission test) — **on:** a new NPC, place, faction or object answers why-here /
+    why-now / what-changes before entering play. **off:** elements may enter without that test —
+    faster improv, more consistency risk.
 
 ## The asymmetry question
 

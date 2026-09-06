@@ -60,6 +60,19 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   *Lesson: a script that reads the schema instead of a hand-written diff was sitting unused because
   nothing pointed an agent at it — the fix that mattered was a sentence, not a feature.*
   `metadata.version`: `ttrpg-campaign-setup` 1.6 -> 1.7. No migration: no slot changed.
+- **`E.overrides` explained, and reopenable:** `ttrpg-campaign-setup/references/interview.md` §E
+  gains a one-line gloss per strong default (P4, P5, P6, P7, P8, P9, P12, P13) — what stays true on,
+  what changes off — so a GM who has never seen the package applied is choosing, not shrugging,
+  when the answer comes back `none`. `ttrpg-continuity-audit` Phase 3 gains "reopening a
+  switched-on default": if the same non-compliance with one of those eight recurs across this run
+  and the last two **archived** audit reports, it proposes (never writes) registering the override;
+  with no archived reports to compare, it says the check is **not verifiable** rather than skip it
+  silently or fabricate a pattern from one run. `tests/evals/continuity-audit.md` gains a REQUIRED
+  box for the not-verifiable path, which is what this fixture (no archived reports) actually
+  exercises. *Lesson: `E.overrides` was mapped in every skill but never explained anywhere a GM
+  reads it cold, and a default nobody re-examines after the first guess is a default frozen at the
+  interview's least-informed moment.* `metadata.version`: `ttrpg-campaign-setup` 1.10 -> 1.11,
+  `ttrpg-continuity-audit` 1.5 -> 1.6. No schema change.
 - **Closing reports say what happens next, instead of only what happened:** `ttrpg-campaign-setup`'s
   report now states, for every slot written `deferred: session zero`, what stalls if session zero
   is skipped — read live from `session-prep`/`table-dossier`/`table-recap`'s own Phase 0 tables

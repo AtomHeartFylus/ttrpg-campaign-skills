@@ -45,6 +45,9 @@ REQUIRED — every box, or the eval fails:
 - [ ] Run report ends with a **next suggested step** line naming `ttrpg-campaign-arc` — this
       fixture's dangling threads (defect 8) give it a non-empty "Threads to decide" table, so the
       line is exercised, not just declared possible.
+- [ ] Does not propose registering an override in `E.overrides` from this single run: no archived
+      prior audit reports exist in this fixture, so "reopening a switched-on default" correctly
+      says **not verifiable** rather than fabricate a three-run pattern from one data point.
 
 SHOULD — quality signals, note misses:
 
