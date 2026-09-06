@@ -9,7 +9,11 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
-*(nothing yet)*
+- **Stale check count fixed:** `AGENTS.md`, `README.md` and `CONTRIBUTING.md` said "sixteen
+  checks"; the registry has grown since (`check_contract.py --list` is the source of truth) and
+  the three docs now point to `--list` instead of a hardcoded number. *Lesson: a count copied into
+  prose is a constant with a friendlier name — it goes stale the next time a check is added, same
+  as any other hardcoded default this package warns against.* No migration: documentation only.
 
 ## 1.2.0 — an assistant that can be checked
 

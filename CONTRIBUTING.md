@@ -21,7 +21,7 @@ require a tool installed somewhere else on the machine.
 
 | Command | What it proves |
 |---|---|
-| `python scripts/check_contract.py --strict` | the package is well-formed (16 checks) |
+| `python scripts/check_contract.py --strict` | the package is well-formed (`--list` prints the current checks) |
 | `python -m unittest discover -s tests/checker` | each check and rule still fires on its own negative fixture |
 | `python scripts/validate_profile.py tests/fixture-campaign/campaign-profile.md` | the example campaign satisfies the schema it demonstrates |
 | `python scripts/validate_overlay.py tests/fixture-overlay --strict` | the example overlay satisfies the overlay rules |

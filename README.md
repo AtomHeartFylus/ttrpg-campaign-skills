@@ -223,9 +223,9 @@ without arguing — rather than fighting the skills note by note.
 
 ## Contributing, and the rules this repo runs on
 
-`python scripts/check_contract.py` validates the package (sixteen checks, stdlib only, no
-dependencies); `tests/checker/` keeps a negative fixture per check, so a check that stops matching
-fails instead of going quiet; CI runs both on Linux, macOS and Windows.
+`python scripts/check_contract.py` validates the package (stdlib only, no dependencies; `--list`
+prints the current registry of checks); `tests/checker/` keeps a negative fixture per check, so a
+check that stops matching fails instead of going quiet; CI runs both on Linux, macOS and Windows.
 [`CONTRIBUTING.md`](CONTRIBUTING.md) is how a change gets in,
 [`docs/AUTHORING.md`](docs/AUTHORING.md) is how a skill is written, [`AGENTS.md`](AGENTS.md) is
 the list of decisions already taken, and [`docs/RELEASING.md`](docs/RELEASING.md) says what makes

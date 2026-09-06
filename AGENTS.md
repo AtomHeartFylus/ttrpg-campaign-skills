@@ -13,7 +13,8 @@ and it is why this repo has a contract checker where a looser collection would n
 Stdlib Python 3.9+ and nothing else; no dependency to install, on any of them.
 
 - Check the package: `python scripts/check_contract.py` (`--strict` to fail on warnings, as CI
-  does; `--only CODE`, `--format json`, `--list`). Sixteen checks, exit 0 or 1.
+  does; `--only CODE`, `--format json`, `--list` — the checker's own registry has the current
+  count). Exit 0 or 1.
 - Check a campaign's own files: `python scripts/validate_profile.py <profile-or-campaign-root>`
   and `python scripts/validate_overlay.py <overlay-or-root>` — the other half of the contract.
 - Rewrite the ten bundled copies from their canonical sources: `python scripts/sync_bundles.py`
