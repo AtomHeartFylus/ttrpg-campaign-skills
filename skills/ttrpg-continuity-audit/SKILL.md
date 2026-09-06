@@ -4,7 +4,7 @@ description: "Produce a health-check report on a campaign repo plus a proposed c
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.9"
+  version: "1.10"
 ---
 
 # Continuity audit
@@ -62,6 +62,7 @@ already answered.
 | `C.player_access`, `C.gm_private` | what players may read, and where GM-only material must live | assume no note is player-readable |
 | `C.state_locations`, `C.hub`, `C.root`, `C.naming`, `C.links`, `C.arc_note`, `C.thread_ledger` | single-source-of-truth locations, folder map, naming, link syntax, where the ledgers live | audit only what the user names; report the rest as unverifiable |
 | `C.verify` | the link-integrity command and its invariant | report link integrity as **unverified**; never claim an invariant you did not run |
+| `B.retention` | **check H** — how long GM-facing material about real people (dossier playstyle/hook entries, off-game notes, speaker maps, transcripts) is kept | check H does not run; report retention as **unverified** and offer to set the rule |
 | `E.retroactivity` | **whether past material may be corrected, and where corrections are recorded** | assume retroactivity is **not** granted; propose only the typo class |
 | `E.review`, `E.never_without_asking` | review bluntness, and what may not be touched without asking | be plain; propose, never apply |
 | `E.overrides` | which strong defaults this table switched off — see the branch below | all defaults in force |
@@ -96,6 +97,8 @@ same rule that finds a renamed profile.
 4. **The last two or three prep documents** — for P1/P2 hygiene.
 5. **The indexes and hubs** — where static tables breed.
 6. **The entity notes created since the last audit** — the retroactive admission test.
+7. **The dated entries in the player dossiers, and any off-game notes, speaker maps or
+   transcripts in the window** — for check H, and only when `B.retention` states a rule.
 
 Record the audit window: *from session N to session M*. Everything below is scoped to it, except
 the invariant checks, which are repo-wide.
@@ -115,6 +118,7 @@ auditing. Each finding carries **evidence**: file, line, and the conflicting con
 | **E** — link integrity (`C.verify`) | the command's real output and its invariant | claim an invariant you did not run |
 | **F** — retroactive admission test (P13) | entities added in the window with no third answer | retire an entity the players have already met — demote it |
 | **G** — convention and leakage drift | naming, folder map, tag variants, orphans, a recurring name never promoted to an entity note, and **secrets in notes `C.player_access` says players may read** | rank cosmetic drift above a leak; leakage cannot be undone |
+| **H** — retention (`B.retention`) | dossier playstyle/hook entries, off-game notes, speaker maps and transcripts past the stated retention | delete anything yourself; run when `B.retention` is empty or `deferred` |
 
 **Reopening a switched-on default.** `E.overrides` is filled once, at setup, by a GM who had never
 seen the package applied (`ttrpg-campaign-setup` reads the eight strong defaults out loud, but a
@@ -204,6 +208,10 @@ afterwards**, reporting its output. An audit that ends without re-verification p
   where `E.retroactivity` declares** — or the location was asked for, not invented.
 - The report names the cadence slot it ran on, and says when it used the slot's declared `default:`.
 - Every check dropped for an override says which override dropped it; checks A and B ran regardless.
+- Check H proposed no deletion of its own: every past-due entry is a change-list row, and only an
+  explicit removal request from the person described was applied directly.
+- Check H is reported as **unverified**, not skipped in silence, when `B.retention` is empty or
+  `deferred`.
 - The change list is a proposal; the applied subset, if any, is exactly what was approved, and the
   verification command was re-run after applying.
 
@@ -245,3 +253,5 @@ as the next step for them; otherwise say there is none this run — no new phase
 - Do not report the violation of a default `E.overrides` declares off, or drop a check silently.
 - Do not retcon material already read aloud without flagging it — and never without a record.
 - Do not report cosmetic convention drift above a leaked secret or a contradicted deviation.
+- Do not delete anything past its stated retention yourself, and do not run check H, or invent an
+  age limit, when `B.retention` is empty or `deferred` — report it unverified instead.

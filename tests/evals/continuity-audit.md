@@ -45,6 +45,11 @@ REQUIRED — every box, or the eval fails:
 - [ ] Run report ends with a **next suggested step** line naming `ttrpg-campaign-arc` — this
       fixture's dangling threads (defect 8) give it a non-empty "Threads to decide" table, so the
       line is exercised, not just declared possible.
+- [ ] **Check H (retention)** is attempted, since the fixture's `B.retention` states a rule ("GM
+      notes about players kept for the season, then deleted") — and reports honestly that the
+      dossiers' Playstyle/Hooks entries here carry no per-entry date to test, rather than inventing
+      an age or a past-due finding that is not in the fixture. Not a seeded defect: the correct
+      output is "nothing overdue found" or "undated, cannot verify," never a fabricated one.
 - [ ] If it proposes registering an override in `E.overrides`, it is restricted to **P8, P12 or
       P13 only** (the three principles checks C/G/F actually measure — never P4–P7 or P9, which
       this skill grades no prep against, and never P7, which `ttrpg-table-dossier` owns), phrased

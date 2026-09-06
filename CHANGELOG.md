@@ -9,6 +9,19 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **Retention is now verified, not just declared:** `ttrpg-continuity-audit` gains check H —
+  it walks the GM-facing material about real people that `B.retention` already governs (dossier
+  Playstyle/Hooks entries, off-game notes, speaker maps, transcripts) and reports anything past the
+  stated rule as a change-list item, same as every other finding: never deleted by the skill
+  itself, except an explicit removal request from the person described, which is applied directly
+  because the request **is** the approval. Off when `B.retention` is empty or `deferred` — reported
+  as unverified, never guessed at. `tests/evals/continuity-audit.md` gains a box: the fixture's
+  retention rule is stated but its dossier entries carry no per-entry date, so the correct call is
+  "nothing overdue / cannot verify," not an invented finding.
+  *Lesson: `B.retention` had readers that promised to keep the rule (`ttrpg-session-audio`,
+  `ttrpg-table-dossier`) and nothing that ever checked whether they had — a promise with no audit
+  is the same gap W16 just closed for a material promise, one layer up.* `metadata.version`:
+  `ttrpg-continuity-audit` 1.9 -> 1.10. No schema change.
 - **The arc note has a cold start:** `ttrpg-campaign-arc` Phase 1.2 gains a clause for the case
   with no previous arc pass: a short history is read whole, same as always; once the log count is
   not realistically readable in full, the skill **asks the GM** how far back to read rather than

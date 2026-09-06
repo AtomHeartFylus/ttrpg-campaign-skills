@@ -104,3 +104,22 @@ group: it cannot be undone after the fact. **No override drops this check:** `P1
 mechanics and meta into player-facing text, not secrets into notes players may read, and naming and
 folder rules come from `C.naming` and `C.root`, which are slots, not defaults.
 
+### H — Retention (`B.retention`)
+**Does not run when `B.retention` is empty or `deferred`** — there is no rule to check an artifact
+against, and reporting an age with nothing to measure it by is inventing the rule this skill was
+asked not to invent. Say plainly that retention is unverified and offer to set it, exactly as
+`ttrpg-session-audio` and `ttrpg-table-dossier` do when they write such material with the slot
+still empty.
+
+When `B.retention` states a rule, walk the GM-facing material it names — dossier **Playstyle** and
+**Hooks** entries (each a dated, per-session observation), the off-game note, the speaker map and
+the transcript, one artifact or entry at a time — and compare its date against the rule. Report
+every entry past the stated retention as a **change-list item**, never delete it yourself: deletion
+is the one action in this skill nobody may take without the GM's approval, exactly like every other
+proposal here. A rule stated as a season or a chapter boundary rather than a fixed day count is
+read against the campaign's own record of when that season or boundary fell — do not convert it to
+a day count on this skill's own authority. Anyone described may also have an entry removed on
+request regardless of the stated rule (`templates/campaign-profile.md`, `B.retention`); a request
+like that is applied directly, the one exception to "nothing is applied until approved," because
+the request itself **is** the approval.
+
