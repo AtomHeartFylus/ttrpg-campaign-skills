@@ -134,6 +134,20 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **Reduced prep cuts breadth, never completeness — a real bug fixed:** `references/reduced-prep.md`
+  put the opening read-aloud in the irreducible core for "the first scene" only, which (a)
+  violates P1 (a non-overridable requirement: a scene with no read-aloud is unusable at the table,
+  the exact failure mode `PRINCIPLES.md` names) for every scene after the first, and (b)
+  contradicted the eval rubric this same workorder wrote for it ("for every scene that made the
+  cut"). Fixed by restating the governing rule explicitly: a reduced prep has fewer scenes, all of
+  them complete — cut breadth, never completeness. Also added: a consent clause up front (the
+  `B.distance` branch, the `close`/`self-insert` off-ramp, the `B.safety` refresh and `B.frame`
+  hold in full, concretely, not just "the gates still apply"), and a closing "anything not named
+  in either list is kept in full" so P4's NPC intentions, a combat scene's exit condition,
+  `A.resource` triggers and `D.canon_source` quotes are not left in an undeclared grey zone.
+  *Lesson: writing a rubric correctly and the reference file incorrectly, in the same commit, is
+  the review gap a checker cannot see — nothing here cites a slot wrong or breaks a link; it just
+  contradicts itself two files apart.* `metadata.version`: `ttrpg-session-prep` 1.8 -> 1.9.
 - **`E.overrides` reopening, restricted to what the audit actually measures, and de-fabricated:**
   independent review caught two real problems in W10's "reopening a switched-on default": (1) it
   named P4–P9, P12 and P13 as eligible, but this skill's own `E.overrides` table explicitly grades
