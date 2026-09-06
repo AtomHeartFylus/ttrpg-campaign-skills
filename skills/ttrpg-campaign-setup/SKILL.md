@@ -4,7 +4,7 @@ description: "Bootstrap a campaign repository and produce its filled campaign-pr
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.13"
+  version: "1.14"
 ---
 
 # Campaign setup
@@ -153,15 +153,12 @@ GM learns which sections of the other skills just went quiet.
 ## Phase 3 — What the answers imply
 
 ### 3.1 Folder skeleton
-One note per entity, **small and linked**, never monolithic documents; folder names in the language
-`B.language` declares for the repo; **create only what the answers justify** — items only if
-`A.ruleset` makes them significant, an official/reworked split only if `D.backbone` declares a
-published source, a `C.gm_private` folder whenever `C.player_access` lets players read anything.
-Annotated skeleton: [references/repo-conventions.md](references/repo-conventions.md).
-
-Write the resulting map into `C.root` as a folder → content table, saying **where each kind of new
-note goes**. An agent that cannot answer "where does this note belong?" from the profile invents a
-folder, and the second folder for the same thing is how a vault dies.
+**Create only what the answers justify** — small, linked, per-entity notes, never monoliths, in
+`B.language`. Annotated skeleton and its per-folder conditions (items, official/reworked,
+gm-private): [references/repo-conventions.md](references/repo-conventions.md). Write the resulting
+map into `C.root` as a folder → content table: an agent that cannot answer "where does this note
+belong?" from the profile invents a folder, and the second folder for the same thing is how a
+vault dies.
 
 ### 3.2 The state hub, and the party note if the resource needs one (P10)
 
@@ -200,12 +197,8 @@ honest fallback, and no longer the first thing tried. Every skill here ends its 
 whatever `C.verify` now names.
 
 ### 3.5 Portability — all memory lives in files in the repo
-**Every persistent fact about this campaign must exist as a file inside the repo** (`C.portability`):
-profile, conventions, hub, dossiers, the §E agreements, and the canonical copy of any
-campaign-specific skill or overlay — kept in-repo and *installed* from there, fixing the canonical
-copy, never the installed one. Never store campaign memory in an assistant memory, a harness
-setting, a local config or one chat's context. *Test:* a fresh agent, on another machine, with a
-different model, given only a clone and no conversation history, can prepare the next session.
+**Every persistent fact about this campaign must exist as a file inside the repo** (`C.portability`).
+Checklist and the fresh-agent test: [references/repo-conventions.md](references/repo-conventions.md).
 
 ### 3.6 Overlay skills, when the profile cannot hold something
 Something irreducibly specific to this campaign and not a profile slot — house aesthetics, this

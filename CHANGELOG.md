@@ -134,6 +134,16 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   overlay, and `README.md` names the template that only a clone had — a promise made by one file
   and kept by another only some of the time.* `metadata.version`: `ttrpg-campaign-setup` 1.5 ->
   1.6. No migration: no slot changed.
+- **`ttrpg-campaign-setup` budget migration, done ahead of need:** at 4924/5000 (76-token margin,
+  the tightest of the nine and getting tighter every commit that touched this file across the
+  workorder), §3.5 (portability) and §3.1 (folder skeleton) trimmed to pointers —
+  `references/repo-conventions.md` already carried the same checklist and the same per-folder
+  conditions (items/official-reworked/gm-private), so nothing new was written there, only the
+  entrypoint's near-duplicate removed. `E.overrides`/`D.shape` branches and the Phase 0 protocol
+  untouched, `SLOT-RESOLVES`/`PHASE0-PROTOCOL` stayed green throughout. Down to ~4770 (230 margin).
+  *Lesson: migrate before the next paragraph lands, not after it breaks the build — a budget this
+  tight is a standing liability, not a one-time warning to clear.* `metadata.version`:
+  `ttrpg-campaign-setup` 1.13 -> 1.14. No schema change.
 - **New check: `FIND-PROFILE-IDENTICAL`.** The "Find it before declaring it missing" protocol
   block was duplicated verbatim in eight entrypoints with nothing mechanical policing it — exactly
   the drift risk `BUNDLE-IDENTICAL` already guards for the schema and the principles. The block
