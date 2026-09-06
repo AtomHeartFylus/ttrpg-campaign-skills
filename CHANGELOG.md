@@ -60,6 +60,13 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
   *Lesson: a script that reads the schema instead of a hand-written diff was sitting unused because
   nothing pointed an agent at it — the fix that mattered was a sentence, not a feature.*
   `metadata.version`: `ttrpg-campaign-setup` 1.6 -> 1.7. No migration: no slot changed.
+- **Reduced prep does not touch the Phase 0 gates:** independent review caught that W9's text never
+  said so explicitly — `references/reduced-prep.md` and the entrypoint pointer now state plainly
+  that `B.distance`, `B.safety` and `D.shape` ask or stop exactly as in a full prep; a reduced prep
+  that eroded them by budget pressure would be the same consent/refusal failure the package treats
+  as unassailable everywhere else (`04-detrattore.md` §13), not a smaller version of this skill.
+  `tests/evals/session-prep.md` Scenario B gains a matching box. `metadata.version`:
+  `ttrpg-session-prep` 1.7 -> 1.8. No schema change.
 - **Reduced prep, invoked by the GM, not a smaller default:** `session-prep` Phase 3 gains a
   pointer to new `references/reduced-prep.md`: when the GM explicitly asks for a shorter prep this
   session (never on this skill's own initiative, never on an empty slot), it produces the

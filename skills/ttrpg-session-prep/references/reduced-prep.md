@@ -9,6 +9,12 @@ setup or later, this is one session's time budget.
 
 ## The irreducible core
 
+**The Phase 0 gates are not part of what this shortens.** `B.distance`, `B.safety` and `D.shape`
+ask or stop exactly as they do in a full prep — same stop-and-ask shape, same conditions, nobody
+asked less. A reduced prep with an eroded safety gate is not a smaller version of this skill; it is
+the consent-and-refusal failure the package treats as unassailable everywhere else, wearing a
+budget excuse.
+
 Produce only:
 
 - the **trigger box**, opening every scene, before the read-aloud;

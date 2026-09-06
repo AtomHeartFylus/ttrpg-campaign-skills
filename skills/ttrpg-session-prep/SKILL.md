@@ -4,7 +4,7 @@ description: "Write the session prep document a GM actually holds during play �
 license: MIT
 metadata:
   author: ttrpg-campaign-skills
-  version: "1.7"
+  version: "1.8"
 ---
 
 # Session prep
@@ -156,7 +156,7 @@ column> / Expected outcome)
 The whole document is written to be **scanned**, not read: scene text lives in labelled blocks,
 and the connective tissue between them stays clipped.
 
-**Reduced prep, only when asked, never on empty grounds:**
+**Reduced prep, only when asked, never on empty grounds, never touching the Phase 0 gates:**
 [references/reduced-prep.md](references/reduced-prep.md) — per-run, not a default.
 
 ## Phase 3 — Required elements (each scene, unless noted)

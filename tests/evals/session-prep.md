@@ -68,6 +68,9 @@ REQUIRED — every box, or the eval fails:
 - [ ] Treats the request as a **per-run accommodation**, not a default: nothing is written to
       `E.overrides`, and no slot is treated as if it licensed a shorter prep on its own.
       (`references/reduced-prep.md`)
+- [ ] **The Phase 0 gates are untouched**: `B.distance`/`B.safety` are honoured exactly as in
+      Scenario A (this fixture's profile answers them, so nothing new is asked here, but nothing
+      is skipped or assumed either) — reduced prep is not read as licence to relax them.
 - [ ] **Irreducible core kept, for every scene that made the cut:** trigger box, inlined
       read-aloud, dramatic compass with a non-combat exit, an `If they derail:` line, and
       per-scene `Spotlight → <PC>:` marks for Maren and Sorrel (same rotation answer as Scenario A
