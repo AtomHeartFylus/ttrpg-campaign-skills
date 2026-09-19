@@ -7,6 +7,12 @@ Skill versions live in each skill's `metadata.version`, the package's own number
 entries here are grouped by change, newest first. A schema change always carries a **Migration**
 note. What each part of a version means, and how a release is cut: [`docs/RELEASING.md`](docs/RELEASING.md).
 
+## Unreleased
+
+- **Overlay diagnostics survive validation across filesystem drives.** `validate_overlay.py` keeps
+  relative paths when `os.path.relpath` can compute them and falls back to an absolute,
+  slash-normalized path when the drives differ. *Lesson: CI's checkout and temporary directories
+  need not share a Windows drive.* No schema change.
 ## 2.1.0 — a consent gate an Italian table can pass
 
 - **The two consent gates now declare the form of their answer: the token `yes`/`no` first, then

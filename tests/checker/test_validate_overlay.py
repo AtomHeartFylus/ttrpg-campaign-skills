@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
@@ -137,6 +138,45 @@ class TestOverlay(OverlayCase):
     def test_restating_a_profile_fact(self):
         self.assert_fires(add("\n## House rules\n\nWe play weekly, on the same evening.\n"),
                           "OVERLAY-PROFILE-FACT", level="WARN")
+
+
+class TestOverlayDiagnosticPaths(unittest.TestCase):
+    def test_relative_path_is_preserved_and_cross_drive_falls_back_to_absolute(self):
+        sys.path.insert(0, os.path.join(ROOT, "scripts"))
+        import validate_overlay
+
+        tmp = tempfile.mkdtemp(prefix="ttrpg-overlay-path-")
+        self.addCleanup(shutil.rmtree, tmp, True)
+        folder = os.path.join(tmp, FOLDER)
+        os.makedirs(folder)
+        path = os.path.join(folder, "SKILL.md")
+        with open(os.path.join(OVERLAY_DIR, "SKILL.md"), encoding="utf-8") as fh:
+            text = fh.read() + "\nRead `B.ballads` before writing read-aloud text.\n"
+        with open(path, "w", encoding="utf-8", newline="") as fh:
+            fh.write(text)
+
+        slots, principles = validate_overlay.load_contracts(
+            os.path.join(ROOT, "templates", "campaign-profile.md"),
+            os.path.join(ROOT, "docs", "PRINCIPLES.md"))
+        not_overridable = validate_overlay.load_not_overridable(
+            os.path.join(ROOT, "docs", "PRINCIPLES.md"))
+        relative_path = os.path.relpath(path)
+
+        relative_report = validate_overlay.Report()
+        validate_overlay.validate_one(relative_path, slots, principles, relative_report,
+                                      base_skills=("ttrpg-session-prep",),
+                                      not_overridable=not_overridable)
+        self.assertTrue(relative_report.errors[0].where.startswith(
+            relative_path.replace("\\", "/") + ":"))
+
+        fallback_report = validate_overlay.Report()
+        with mock.patch.object(validate_overlay.os.path, "relpath",
+                               side_effect=ValueError("different drives")):
+            validate_overlay.validate_one(path, slots, principles, fallback_report,
+                                          base_skills=("ttrpg-session-prep",),
+                                          not_overridable=not_overridable)
+        self.assertTrue(fallback_report.errors[0].where.startswith(
+            os.path.abspath(path).replace("\\", "/") + ":"))
 
 
 class TestNotOverridableParsing(unittest.TestCase):

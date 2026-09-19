@@ -134,7 +134,11 @@ def find_overlays(path):
 def validate_one(path, slots, principles, rep, base_skills=(), not_overridable=()):
     src = _read(path)
     folder = os.path.basename(os.path.dirname(os.path.abspath(path)))
-    where = os.path.relpath(path).replace("\\", "/")
+    try:
+        where = os.path.relpath(path)
+    except ValueError:
+        where = os.path.abspath(path)
+    where = where.replace("\\", "/")
     lines = src.splitlines()
 
     m = re.match(r"^---\r?\n(.*?)\r?\n---", src, re.S)
