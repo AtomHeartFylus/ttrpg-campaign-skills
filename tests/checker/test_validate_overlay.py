@@ -141,7 +141,7 @@ class TestOverlay(OverlayCase):
 
 
 class TestOverlayDiagnosticPaths(unittest.TestCase):
-    def test_relative_path_is_preserved_and_cross_drive_falls_back_to_absolute(self):
+    def test_diagnostic_path_forms_are_independent_of_drive_layout(self):
         sys.path.insert(0, os.path.join(ROOT, "scripts"))
         import validate_overlay
 
@@ -149,7 +149,7 @@ class TestOverlayDiagnosticPaths(unittest.TestCase):
         self.addCleanup(shutil.rmtree, tmp, True)
         folder = os.path.join(tmp, FOLDER)
         os.makedirs(folder)
-        path = os.path.join(folder, "SKILL.md")
+        path = os.path.abspath(os.path.join(folder, "SKILL.md"))
         with open(os.path.join(OVERLAY_DIR, "SKILL.md"), encoding="utf-8") as fh:
             text = fh.read() + "\nRead `B.ballads` before writing read-aloud text.\n"
         with open(path, "w", encoding="utf-8", newline="") as fh:
@@ -160,23 +160,34 @@ class TestOverlayDiagnosticPaths(unittest.TestCase):
             os.path.join(ROOT, "docs", "PRINCIPLES.md"))
         not_overridable = validate_overlay.load_not_overridable(
             os.path.join(ROOT, "docs", "PRINCIPLES.md"))
-        relative_path = os.path.relpath(path)
 
+        # Keep the normal-form oracle independent of the process cwd and the temp directory's
+        # volume: this controlled value is what a successful relpath call returns.
+        normal_where = "controlled/overlay/SKILL.md"
         relative_report = validate_overlay.Report()
-        validate_overlay.validate_one(relative_path, slots, principles, relative_report,
-                                      base_skills=("ttrpg-session-prep",),
-                                      not_overridable=not_overridable)
-        self.assertTrue(relative_report.errors[0].where.startswith(
-            relative_path.replace("\\", "/") + ":"))
+        with mock.patch.object(validate_overlay.os.path, "relpath",
+                               return_value=normal_where) as relpath:
+            validate_overlay.validate_one(path, slots, principles, relative_report,
+                                          base_skills=("ttrpg-session-prep",),
+                                          not_overridable=not_overridable)
+        relpath.assert_called_once_with(path)
+        self.assertEqual([finding.check for finding in relative_report.errors],
+                         ["OVERLAY-SLOT"])
+        self.assertTrue(relative_report.errors[0].where.startswith(normal_where + ":"))
 
+        # The fallback is forced independently; it must report the absolute input path, without
+        # first asking the test process to compute a relative path of its own.
         fallback_report = validate_overlay.Report()
         with mock.patch.object(validate_overlay.os.path, "relpath",
-                               side_effect=ValueError("different drives")):
+                               side_effect=ValueError("different drives")) as relpath:
             validate_overlay.validate_one(path, slots, principles, fallback_report,
                                           base_skills=("ttrpg-session-prep",),
                                           not_overridable=not_overridable)
+        relpath.assert_called_once_with(path)
+        self.assertEqual([finding.check for finding in fallback_report.errors],
+                         ["OVERLAY-SLOT"])
         self.assertTrue(fallback_report.errors[0].where.startswith(
-            os.path.abspath(path).replace("\\", "/") + ":"))
+            path.replace("\\", "/") + ":"))
 
 
 class TestNotOverridableParsing(unittest.TestCase):
