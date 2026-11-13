@@ -9,6 +9,11 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **Keep the Python 3.9 CI contract on Ubuntu 24.04.** The other contract and installer
+  runners remain unchanged. *Lesson: a floating runner can move beyond the OS versions for which
+  an older supported Python has setup-python binaries, failing before tests start.* No action is
+  required for existing campaigns.
+
 - **Optional visuals at scene points of use, no second script.** New `ttrpg-session-visuals`
   1.2 enriches an existing prep with atmospheric image/video links, briefs and cues directly in
   the relevant scenes. The prep alone owns show/change/stop conditions (P2); standalone selection
