@@ -27,7 +27,7 @@ Two pieces:
 - **`check_fixture.py`** — asserts the eight seeded defects are **still seeded** and that the
   answer key lists exactly them. Run it after anything that touches `fixture-campaign/`.
 - **`smoke_install.py`** — installs into a throwaway directory and asserts what a user receives:
-  nine folders each with its own `references/PRINCIPLES.md`, the schema inside the setup skill,
+  all skill folders each with their own `references/PRINCIPLES.md`, the schema inside the setup skill,
   no `docs/` or `tests/` travelling, `--dry-run` writing nothing, `--uninstall` removing exactly
   what was installed, and a re-install replacing a folder wholesale.
 - **`results/`** — recorded eval runs (`--record`), so "before trusting a new model" produces
@@ -76,7 +76,7 @@ in step.
 
 | Eval | Fixture-backed | Notes |
 |---|---|---|
-| `evals/session-prep.md` | yes | prep Session 8 from the dirty state |
+| `evals/session-prep.md` | yes | prep Session 8; reduced prep; recurring opt-in visuals hand-off |
 | `evals/session-log.md` | yes | log Session 7 from testimony (setup deletes the shipped log) |
 | `evals/table-recap.md` | yes | recap to open Session 8 |
 | `evals/entity-note.md` | yes | promote the eel-market buyer |
@@ -85,8 +85,13 @@ in step.
 | `evals/table-dossier.md` | yes | A: rotation check (setup extends the diaries) · B: onboarding a player |
 | `evals/campaign-arc.md` | yes | A: plan the season · B: the one-shot gate must refuse |
 | `evals/session-audio.md` | yes (+ `fixture-audio/`) | A: gate 1 refuses · B: consented run from machine output · C: declared not runnable |
+| `evals/session-visuals.md` | yes | inline scene visuals; opt-out, missing tools, standalone briefs and profile discovery |
 
-All nine skills are covered. **The one declared hole** is `ttrpg-session-audio` Phase 2 end to end
+All ten skills have rubrics. The inline-visuals pilot and prep hand-off have recorded local,
+brief-only runs in `tests/results/20261113-session-visuals.md`; these are not evidence of
+improvement over a matched baseline or validation across tables/models. Media generation and
+projection on real hardware remain untested without suitable tools and a target display. **The audio end-to-end hole** is
+`ttrpg-session-audio` Phase 2 end to end
 — running a real diarizing tool on a real recording — which needs a consented audio sample this
 package will not invent; see Scenario C of that eval for how to run it if you have one.
 

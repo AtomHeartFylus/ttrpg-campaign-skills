@@ -24,7 +24,11 @@ Skills **reference these by name** instead of restating them, so a lesson is fix
 
 The document the GM holds during play must contain *everything* needed to run the session
 — descriptions, read-aloud text, quotes, the tables and rules used *that night* — inlined.
-The only admitted exception is **stat blocks**, which stay linked.
+The only required-content exception is **stat blocks**, which stay linked. An explicitly opted-in
+session may also link **optional images or videos at their scene's point of use**: atmospheric
+stills or loops, never a substitute for inlined descriptions, clues, read-aloud text or mechanics.
+A failed screen leaves a complete playable prep. The prep alone owns the media cues (show, change,
+stop), each written once beside its scene's media link or brief, never in a second script (P2).
 
 *Why:* under pressure, with a full table talking, jumping between files is not an option.
 *Failure mode:* "see the module for the description" — at the table it becomes improvised filler.

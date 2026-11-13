@@ -9,6 +9,22 @@ note. What each part of a version means, and how a release is cut: [`docs/RELEAS
 
 ## Unreleased
 
+- **Optional visuals at scene points of use, no second script.** New `ttrpg-session-visuals`
+  1.2 enriches an existing prep with atmospheric image/video links, briefs and cues directly in
+  the relevant scenes. The prep alone owns show/change/stop conditions (P2); standalone selection
+  or briefing requests may stay in the reply. Explicit per-run requests or a recurring §E prose
+  agreement opt in; installation alone does not. `session-prep` 1.13 -> 1.14 hands off only after
+  its complete textual draft. P1 permits optional media links without moving any required
+  description, clue or mechanic out of the prep. Brief-only, file inspection and actual playback
+  are distinguished; no provider, cloud account or media dependency is assumed. The live cue
+  stays compact: provenance/status can be condensed or shared once inside the same prep when
+  identical and explicitly scoped, rather than imposing eight administrative rows on every scene.
+  *Lesson: a GM needs the visuals where they are used, not in a second divergent script; a failed
+  screen must not make the session unplayable.* New examples/evals cover opt-in and inline
+  enrichment; live projection remains untested. No new slots, artifact types or schema change.
+  Existing profiles remain valid. Add `Session visuals: enabled — use ttrpg-session-visuals after
+  session prep` under §E only for campaigns choosing recurring use; otherwise no action is required.
+
 - **Overlay diagnostics survive validation across filesystem drives.** `validate_overlay.py` keeps
   relative paths when `os.path.relpath` can compute them and falls back to an absolute,
   slash-normalized path when the drives differ. *Lesson: CI's checkout and temporary directories

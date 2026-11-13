@@ -1,0 +1,45 @@
+{
+  "eval": "session-visuals-A",
+  "model": "openai-codex/gpt-6.1-terra",
+  "when": "20261113-094526",
+  "work": "visuals-A",
+  "changed": [
+    "Sessions/Session 7 \u2014 The Drowned Toll.md"
+  ],
+  "artifacts": [
+    "Sessions/Session 7 \u2014 The Drowned Toll.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Sessions/Session 7 \u2014 The Drowned Toll.md",
+      "status": "changed",
+      "saved_as": "20261113-094526-session-visuals-A-openai-codex-gpt-6.1-terra-files/Sessions/Session 7 \u2014 The Drowned Toll.md"
+    }
+  ],
+  "mechanical": [
+    {
+      "id": "type-key",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "found: type == 'session-prep'",
+      "why": ""
+    },
+    {
+      "id": "other-files-untouched",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "nothing pre-existing modified",
+      "why": ""
+    },
+    {
+      "id": "nothing-created",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "nothing created",
+      "why": ""
+    }
+  ],
+  "mechanical_passed": true,
+  "judged": null
+}

@@ -47,8 +47,12 @@ on a chapter. -->
 
 > [!info] How to use this note
 > Complete and self-sufficient (P1): every description, all read-aloud text and the night's
-> mechanics are inlined. The only link to open during play: [[Bell-Wight — stats]].
+> mechanics are inlined. Required external reference during play: [[Bell-Wight — stats]].
 > Fully homebrew chapter; no deviations to record.
+
+<!-- VARIANT — opt-in visuals: images/videos and their cues appear at the relevant scene's
+point of use, never as a separate script or a cue list here. Without opt-in this example stays
+text-only; a failed screen cannot remove any description or clue (P1, P2). -->
 
 ## At a glance
 
@@ -87,6 +91,12 @@ would carry a written off-ramp, and the safety refresh would be scheduled before
 > walkway a squat figure turns a coin over his knuckles without looking at it. The water on the
 > upstream side sits a hand higher than it should, and it is quiet — quieter than moving water
 > has any right to be.
+
+<!-- VARIANT — opt-in scene-local visual block after the read-aloud:
+> [!info] Visuals — gate (optional, GM only)
+> Brief only: seven sluice-blades green to the waterline, no figures or hidden markings.
+> Show at the gate description; blank on departure or a pause. No asset produced/inspected,
+> rights unknown, playback untested; fallback blank. The cues occur only here, not globally. -->
 
 <!-- P3: senses only. WHY the water is rising (the false bell calls it) is in the GM note of
 Scene 3, seeded through clues — never announced in read-aloud. -->
