@@ -7,7 +7,7 @@
 
 Installs into a throwaway directory and asserts the promises the README makes:
 
-  * nine skill folders, each with a SKILL.md and its own `references/PRINCIPLES.md`,
+  * all source skill folders, each with a SKILL.md and its own `references/PRINCIPLES.md`,
     byte-identical to `docs/PRINCIPLES.md` (a skill folder is copied ALONE, so a bundle
     that only exists in the repo is a dangling link on the installed copy);
   * the setup skill carries the schema it interviews from;

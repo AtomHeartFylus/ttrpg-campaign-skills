@@ -64,6 +64,7 @@ EVAL_BY_SKILL = {
     "ttrpg-session-audio": "tests/evals/session-audio.md",
     "ttrpg-session-log": "tests/evals/session-log.md",
     "ttrpg-session-prep": "tests/evals/session-prep.md",
+    "ttrpg-session-visuals": "tests/evals/session-visuals.md",
     "ttrpg-table-dossier": "tests/evals/table-dossier.md",
     "ttrpg-table-recap": "tests/evals/table-recap.md",
 }

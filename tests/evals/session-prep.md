@@ -1,6 +1,6 @@
 # Eval — ttrpg-session-prep
 
-Two scenarios: the full prep (the artifact) and a reduced prep explicitly requested (P05).
+Three scenarios: full prep, explicitly reduced prep (P05), and recurring opt-in visuals.
 
 ## Scenario A — the full prep
 
@@ -38,6 +38,8 @@ REQUIRED — every box, or the eval fails:
 - [ ] Invents no state: every fact in the prep traces to the profile, the logs, the dossiers or
       the entity notes.
 - [ ] The prep's frontmatter carries the fixed package key `type: session-prep`. (Phase 2)
+- [ ] No media cue blocks or media files are added: this fixture has no visuals working
+      agreement and the prompt did not request any. Installation is not opt-in. (Optional visuals)
 - [ ] **Closes with the run report** (P14): declared defaults used and where declared, overrides
       honoured, inputs unavailable, language chosen, commands run with their real output — in the
       reply, never inside the artifact.
@@ -92,6 +94,39 @@ SHOULD:
 
 ---
 
+## Scenario C — campaign opt-in, no media tools
+
+Setup: a fresh copy of `fixture-campaign/`. Append the following explicit prose working agreement
+under §E (not inside `E.overrides`); change no schema slots:
+`Session visuals: enabled — use ttrpg-session-visuals after session prep`.
+Media generators, network sources and playback tools are unavailable for this run.
+
+Prompt (verbatim):
+
+> Prepare Session 8. The party wakes on the far bank; I want Ulde's gratitude and the rising
+> water to matter tonight. Work locally with text only; no media generation or playback tools
+> are available.
+
+### Rubric
+
+REQUIRED:
+
+- [ ] Meets Scenario A's textual-prep requirements except its no-visuals box: nothing descriptive
+      or necessary to play moved out of the prep. (P1)
+- [ ] Reads the campaign opt-in and runs `ttrpg-session-visuals` after the complete textual draft;
+      enriches that prep with optional scene-local visual blocks, not a separate artifact.
+      (Optional visuals)
+- [ ] Visual briefs and show/change/stop cues live at the points of use in the relevant scenes;
+      each cue occurs once, with no duplicate global cue list or second script. (P1, P2)
+- [ ] Blocks match their actual final scenes; no invented assets/links, rights, successful
+      generation or playback claims. Output is brief-only with a blank-screen fallback.
+      (Optional visuals)
+- [ ] Does not rewrite the opt-in as a profile slot or an `E.overrides` entry. (Phase 0)
+- [ ] Final verification follows scene enrichment; reports unavailable media tools honestly, with
+      P14 in the reply and not the artifact. (Phase 4)
+
+---
+
 ## Machine-checked boxes
 
 `tests/run_eval.py` ticks the boxes below from the artifact itself; everything in the rubric
@@ -117,6 +152,15 @@ calls actually runs the eval.
           "equals": "session-prep",
           "cite": "Phase 2",
           "why": "how the log and the audit find this artifact later"
+        },
+        {
+          "id": "no-automatic-visuals",
+          "kind": "regex-changed",
+          "pattern": "(?m)^\\*\\*Visual cue\\s",
+          "min": 0,
+          "max": 0,
+          "cite": "Optional visuals",
+          "why": "the English fixture has no opt-in, so no scene-local visual cue block is added"
         },
         {
           "id": "spotlight-marks",
@@ -216,6 +260,36 @@ calls actually runs the eval.
           "max": 0,
           "cite": "references/reduced-prep.md",
           "why": "content margin is one of the four deferred elements"
+        }
+      ]
+    },
+    "C": {
+      "prompt_index": 2,
+      "setup": [
+        {
+          "replace": {
+            "file": "campaign-profile.md",
+            "old": "## §E — Declared overrides and working agreements",
+            "new": "## §E — Declared overrides and working agreements\n\nSession visuals: enabled — use ttrpg-session-visuals after session prep"
+          }
+        }
+      ],
+      "artifact": {"type": "session-prep"},
+      "mechanical": [
+        {
+          "id": "type-key",
+          "kind": "frontmatter",
+          "key": "type",
+          "equals": "session-prep",
+          "cite": "Phase 2"
+        },
+        {
+          "id": "no-parallel-visual-artifact",
+          "kind": "regex-changed",
+          "pattern": "(?m)^type:\\s*session-visuals\\s*$",
+          "min": 0,
+          "max": 0,
+          "cite": "Optional visuals"
         }
       ]
     }

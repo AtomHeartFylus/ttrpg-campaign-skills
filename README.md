@@ -39,6 +39,7 @@ and [`docs/AUTHORING.md`](docs/AUTHORING.md) if you want to write or modify a sk
 | `ttrpg-campaign-setup` | starting a campaign repo/vault, or filling the campaign profile | v1 |
 | `ttrpg-table-dossier` | session zero, player dossiers, safety tools, spotlight budget, attendance rules | v1 |
 | `ttrpg-session-prep` | writing the prep document you will actually hold during play | v1 |
+| `ttrpg-session-visuals` | optional atmospheric images/videos and cues inside the existing prep's scenes | new, pilot |
 | `ttrpg-session-log` | recording what really happened after a session | v1 |
 | `ttrpg-table-recap` | writing the in-fiction recap read aloud to open the next session | v1 |
 | `ttrpg-session-audio` | turning a recorded session into transcript, log material and off-game notes | v1 |
@@ -131,6 +132,25 @@ an overlay belongs to exactly one of them.
    ships as `ttrpg-campaign-setup/references/overlay-SKILL.md`, so an install-only copy has it
    too). Overlays should be short; if an overlay grows past a page, the base skill is probably
    missing a slot.
+
+### Optional session visuals
+
+Request `ttrpg-session-visuals` for one session, or add this explicit working agreement under
+**§E** of your campaign profile for recurring use:
+
+> Session visuals: enabled — use ttrpg-session-visuals after session prep
+
+This is prose, not a new slot or a principle override. Without opt-in, prep stays text-only.
+Disable/remove the agreement to stop automatic runs; installing the skill does not enable it.
+The complete textual prep is written first, then enriched with image/video links and cues directly
+in the scenes where used, so the GM opens them at the point of use. The prep alone owns the cues;
+no second script or new artifact type is created. Keep the operational cue/link/fallback compact;
+asset provenance and status may be condensed or shared once in the same prep when identical and
+clearly scoped, never as a second cue schedule. A standalone request can return selections or
+briefs in the reply instead. The screen is decoration, never the only source of a clue or a rule.
+No media generator, cloud service or playback application is required: brief-only output is honest
+prep work, not an assertion that images or videos were produced or tested. Campaign-specific
+visual aesthetics belong in a thin overlay; existing paths, access rules and tone stay in their slots.
 
 The installer copies `skills/` only: `docs/`, `templates/` and `tests/` stay in the clone, which is
 where you read the principles, start an overlay from, and run the evals.

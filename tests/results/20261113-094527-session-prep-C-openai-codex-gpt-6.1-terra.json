@@ -1,0 +1,38 @@
+{
+  "eval": "session-prep-C",
+  "model": "openai-codex/gpt-6.1-terra",
+  "when": "20261113-094527",
+  "work": "prep-C",
+  "changed": [
+    "Sessions/Session 8 \u2014 A Bank Worth Keeping.md"
+  ],
+  "artifacts": [
+    "Sessions/Session 8 \u2014 A Bank Worth Keeping.md"
+  ],
+  "deleted": [],
+  "content": [
+    {
+      "rel": "Sessions/Session 8 \u2014 A Bank Worth Keeping.md",
+      "status": "changed",
+      "saved_as": "20261113-094527-session-prep-C-openai-codex-gpt-6.1-terra-files/Sessions/Session 8 \u2014 A Bank Worth Keeping.md"
+    }
+  ],
+  "mechanical": [
+    {
+      "id": "type-key",
+      "cite": "Phase 2",
+      "ok": true,
+      "detail": "found: type == 'session-prep'",
+      "why": ""
+    },
+    {
+      "id": "no-parallel-visual-artifact",
+      "cite": "Optional visuals",
+      "ok": true,
+      "detail": "0 match(es) of /(?m)^type:\\s*session-visuals\\s*$/ across all changed files (min 0, max 0)",
+      "why": ""
+    }
+  ],
+  "mechanical_passed": true,
+  "judged": null
+}

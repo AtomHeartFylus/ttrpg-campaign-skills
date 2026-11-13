@@ -4,7 +4,7 @@ Operational file for whoever works on this repo, human or agent. Read it before 
 update it when a decision here stops being true.
 
 This repo is a **system-agnostic package of agent skills for running a tabletop RPG campaign**. It
-is not a knowledge collection of independent notes: the nine skills share one data note
+is not a knowledge collection of independent notes: the ten skills share one data note
 (`templates/campaign-profile.md`) and can contradict each other. That coupling is the whole design,
 and it is why this repo has a contract checker where a looser collection would not need one.
 
@@ -65,7 +65,7 @@ Stdlib Python 3.9+ and nothing else; no dependency to install, on any of them.
 
 ## Project structure
 
-- `skills/` — nine skill folders. Entrypoint `SKILL.md`, plus `references/` for depth.
+- `skills/` — ten skill folders. Entrypoint `SKILL.md`, plus `references/` for depth.
 - `templates/` — `campaign-profile.md` (the schema every skill reads) and `overlay-SKILL.md`.
 - `docs/` — `PRINCIPLES.md` (P1…P13, cited by tag) and `AUTHORING.md` (how to write a skill here).
 - `scripts/` — `check_contract.py` (the package), `validate_profile.py` / `validate_overlay.py`
@@ -175,6 +175,13 @@ Decisions already taken. Reopen them deliberately, do not re-litigate them by ac
   skill's `metadata.version` is that skill, bumped whenever it changes so an installed folder can
   be compared without git. A **schema change is a major release** — a fork's filled profile is
   downstream of it — and always carries a `Migration:` note. See `docs/RELEASING.md`.
+- **Session visuals are opt-in, not a new core step.** `ttrpg-session-visuals` enriches an
+  existing prep with optional image/video links and cues at scene points of use (P1/P2). The
+  prep owns every cue; there is no second script or new artifact type. A standalone request
+  may return selection/briefs in the reply. Recurring use is an explicit §E prose working
+  agreement, not a new profile slot or `E.overrides` entry. No agreement and no per-run request
+  means no run. Media tooling and actual playback are optional, separately evidenced
+  capabilities. The new skill is a pilot for a live campaign request, not yet proven across tables.
 - **The package is an extraction from real play.** Nothing enters because it sounds useful: encounter
   balancing, rules lookup, character sheets and VTT integration are deliberate non-goals, and the
   known gaps (item/economy ledger, scheduling, player-facing handouts, endgame and archival) wait
